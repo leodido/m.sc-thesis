@@ -1,0 +1,130 @@
+%*********************************************************************************
+% impostazioni-tesi.tex
+% file che contiene le impostazioni della tesi
+%*********************************************************************************
+
+%*********************************************************************************
+% Comandi personali
+%*******************************************************
+\newcommand{\myName}{Leonardo Di Donato}% autore
+\newcommand{\myTitle}{Continuos Time Bayesian Networks Classifier}% titolo
+\newcommand{\myDegree}{Tesi di laurea magistrale}% tipo di tesi
+\newcommand{\myUni}{Università degli Studi di Milano--Bicocca}% università
+\newcommand{\myFaculty}{Facoltà di Scienze Matematiche, Fisiche e Naturali}% facoltà
+\newcommand{\myDepartment}{Dipartimento di Informatica, Sistemistica e Comunicazione}% dipartimento
+\newcommand{\myProf}{Prof.~F.~Antonio Stella}% relatore
+\newcommand{\myOtherProf}{Dott.~Daniele Codecasa}% correlatore
+\newcommand{\myLocation}{Milano}% dove
+\newcommand{\myTime}{Marzo 2013}% quando
+
+%*********************************************************************************
+% Impostazioni di amsmath, amssymb, amsthm
+%*********************************************************************************
+% comandi per gli insiemi numerici (serve il pacchetto amssymb)
+\newcommand{\numberset}{\mathbb} 
+\newcommand{\N}{\numberset{N}} 
+\newcommand{\R}{\numberset{R}} 
+
+% un ambiente per i sistemi
+\newenvironment{sistema}%
+  {\left\lbrace\begin{array}{@{}l@{}}}%
+  {\end{array}\right.}
+
+% definizioni (serve il pacchetto amsthm)
+\theoremstyle{definition} 
+\newtheorem{definizione}{Definizione}
+
+% teoremi, leggi e decreti (serve il pacchetto amsthm)
+\theoremstyle{plain} 
+\newtheorem{teorema}{Teorema}
+\newtheorem{legge}{Legge}
+\newtheorem{decreto}[legge]{Decreto}
+\newtheorem{murphy}{Murphy}[section]
+
+% comandi per le lettere greche
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\theta}{\vartheta}
+\renewcommand{\rho}{\varrho}
+\renewcommand{\phi}{\varphi}
+
+%*********************************************************************************
+% Impostazioni di biblatex
+%*********************************************************************************
+\defbibheading{bibliography}{%
+\cleardoublepage
+\manualmark
+\phantomsection 
+\addcontentsline{toc}{chapter}{\tocEntry{\bibname}}
+\chapter*{\bibname\markboth{\spacedlowsmallcaps{\bibname}}
+{\spacedlowsmallcaps{\bibname}}}}
+
+%*********************************************************************************
+% Impostazioni di listings
+%*********************************************************************************
+\lstset{language=[LaTeX]Tex,%C++,
+    keywordstyle=\color{RoyalBlue},%\bfseries,
+    basicstyle=\small\ttfamily,
+    %identifierstyle=\color{NavyBlue},
+    commentstyle=\color{Green}\ttfamily,
+    stringstyle=\rmfamily,
+    numbers=none,%left,%
+    numberstyle=\scriptsize,%\tiny
+    stepnumber=5,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frameround=ftff,
+    frame=single
+}
+
+%*********************************************************************************
+% Impostazioni di hyperref
+%*********************************************************************************
+\hypersetup{%
+    hyperfootnotes=false,pdfpagelabels,
+    %draft,	% = elimina tutti i link (utile per stampe in bianco e nero)
+    colorlinks=true, linktocpage=true, pdfstartpage=1, pdfstartview=FitV,%
+    % decommenta la riga seguente per avere link in nero (per esempio per la stampa in bianco e nero)
+    %colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=1, pdfstartview=FitV,% 
+    breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
+    plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+    hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
+    urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen, %pagecolor=RoyalBlue,%
+    %urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
+    pdftitle={\myTitle},%
+    pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},%
+    pdfsubject={},%
+    pdfkeywords={},%
+    pdfcreator={pdfLaTeX},%
+    pdfproducer={LaTeX with hyperref and classicthesis}%
+}
+
+%*********************************************************************************
+% Impostazioni di graphicx
+%*********************************************************************************
+\graphicspath{{immagini/}} % cartella dove sono riposte le immagini
+
+%*********************************************************************************
+% Margini ottimizzati per l'A4
+%*********************************************************************************
+\areaset[current]{336pt}{750pt}
+\setlength{\marginparwidth}{7em}
+\setlength{\marginparsep}{2em}%
+
+%*********************************************************************************
+% Acronimi
+%*********************************************************************************
+%\PassOptionsToPackage{printonlyused,smaller}{acronym}
+%  \usepackage{acronym} % nice macros for handling all acronyms in the thesis
+%\renewcommand*{\acsfont}[1]{\textssc{#1}} % for MinionPro
+%\renewcommand{\bflabel}[1]{{#1}\hfill} % fix the list of acronyms
+
+%*********************************************************************************
+% Altro
+%*********************************************************************************
+
+% ...
+\newcommand{\omissis}{[\dots\negthinspace]}
+
+% eccezioni all'algoritmo di sillabazione
+\hyphenation{Fortran ma-cro-istru-zio-ne nitro-idrossil-amminico}

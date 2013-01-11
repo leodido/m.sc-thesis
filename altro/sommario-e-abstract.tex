@@ -1,0 +1,34 @@
+% !TEX encoding = UTF-8
+% !TEX TS-program = pdflatex
+% !TEX root = ../tesi.tex
+% !TEX spellcheck = it-IT
+
+%*******************************************************
+% Sommario+Abstract
+%*******************************************************
+\cleardoublepage
+\phantomsection
+\pdfbookmark{Sommario}{Sommario}
+\begingroup
+\let\clearpage\relax
+\let\cleardoublepage\relax
+\let\cleardoublepage\relax
+
+\chapter*{Sommario}
+
+\lipsum[1]
+
+\vfill
+
+\selectlanguage{english}
+\pdfbookmark{Abstract}{Abstract}
+\chapter*{Abstract}
+
+\lipsum[2]
+
+\selectlanguage{italian}
+
+\endgroup			
+
+\vfill
+

@@ -1,0 +1,1281 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"byte",
+				"byteorderchar"
+			],
+			[
+				"isTime",
+				"isTimeStepIndexFile"
+			],
+			[
+				"gamma",
+				"gamma_scale"
+			],
+			[
+				"class",
+				"classes_q"
+			],
+			[
+				"time",
+				"time_by_class"
+			],
+			[
+				"lean",
+				"learner_file"
+			],
+			[
+				"lea",
+				"learner_file"
+			],
+			[
+				"matrix",
+				"matrix_list"
+			],
+			[
+				"add_da",
+				"add_datatable_1"
+			],
+			[
+				"add_ma",
+				"add_matrices_3"
+			],
+			[
+				"add_m",
+				"add_matrices_3"
+			],
+			[
+				"prev",
+				"prev_time"
+			],
+			[
+				"curr",
+				"current_state_q"
+			],
+			[
+				"stat",
+				"state_theta"
+			],
+			[
+				"next",
+				"next_state"
+			],
+			[
+				"current",
+				"current_state"
+			],
+			[
+				"nex",
+				"next_j_segment"
+			],
+			[
+				"over",
+				"overall"
+			],
+			[
+				"correc",
+				"correctly_classified"
+			],
+			[
+				"overa",
+				"overall_acc"
+			],
+			[
+				"confu",
+				"confusion_m"
+			],
+			[
+				"tr",
+				"true_class"
+			],
+			[
+				"infere",
+				"inference_res"
+			],
+			[
+				"predi",
+				"prediction_file"
+			],
+			[
+				"predic",
+				"prediceted_label"
+			],
+			[
+				"pred",
+				"prediction_file"
+			],
+			[
+				"inferen",
+				"inference_perc"
+			],
+			[
+				"pp",
+				"pprint_matrix"
+			],
+			[
+				"pprint_m",
+				"pprint_matrix_ls"
+			],
+			[
+				"infe",
+				"inference_perc"
+			],
+			[
+				"ss",
+				"sstats"
+			],
+			[
+				"uniq",
+				"unique_cols"
+			],
+			[
+				"M2",
+				"M2"
+			],
+			[
+				"colname",
+				"colnames1"
+			],
+			[
+				"colna",
+				"colnames"
+			],
+			[
+				"suffi",
+				"sufficient_statistics"
+			],
+			[
+				"decompose",
+				"decomposed_ls"
+			],
+			[
+				"return",
+				"return_value"
+			],
+			[
+				"len",
+				"length"
+			],
+			[
+				"dup_l",
+				"dup_l2r"
+			],
+			[
+				"traj_node",
+				"traj_node_ls"
+			],
+			[
+				"node_tr",
+				"node_trans"
+			],
+			[
+				"pev",
+				"prev_state"
+			],
+			[
+				"val",
+				"values"
+			],
+			[
+				"tra",
+				"traj_node_trans_ls"
+			],
+			[
+				"leng",
+				"lengths"
+			],
+			[
+				"traj_node_ls",
+				"traj_node_trans_ls"
+			],
+			[
+				"traj",
+				"traj_node_trans_ls"
+			],
+			[
+				"th",
+				"theta_x"
+			],
+			[
+				"qxy",
+				"qxy_matr"
+			],
+			[
+				"prev_st",
+				"prev_state_str"
+			],
+			[
+				"the",
+				"theta_ls"
+			],
+			[
+				"suff",
+				"sufficient"
+			],
+			[
+				"sufficient",
+				"sufficient_statistics"
+			],
+			[
+				"hea",
+				"header_tmpl"
+			],
+			[
+				"base_w",
+				"base_w_vect"
+			],
+			[
+				"thet",
+				"theta_param"
+			],
+			[
+				"sing",
+				"single_theta"
+			],
+			[
+				"m_ma",
+				"m_matrix_list"
+			],
+			[
+				"row",
+				"rownames"
+			],
+			[
+				"ith_",
+				"ith_intensity_matrix"
+			],
+			[
+				"it",
+				"ith_intensity_matrix"
+			],
+			[
+				"change",
+				"change_point"
+			],
+			[
+				"seq",
+				"seq_along"
+			],
+			[
+				"fil",
+				"file_to_import_2"
+			],
+			[
+				"fir",
+				"first_var_column"
+			],
+			[
+				"mat",
+				"matrix_dims"
+			],
+			[
+				"ma",
+				"matrix_dims"
+			],
+			[
+				"class_col",
+				"class_column"
+			],
+			[
+				"agg",
+				"aggregate"
+			],
+			[
+				"extra",
+				"extract_class"
+			],
+			[
+				"matrx",
+				"matrix_list"
+			],
+			[
+				"comput",
+				"compute_prior"
+			],
+			[
+				"compute",
+				"compute_sufficient_statistics_1"
+			],
+			[
+				"onl",
+				"only_first"
+			],
+			[
+				"FIRST",
+				"first_var_col"
+			],
+			[
+				"lngth",
+				"lengths"
+			],
+			[
+				"folder",
+				"folder_path"
+			],
+			[
+				"n_",
+				"n_cols"
+			],
+			[
+				"header",
+				"header_list"
+			],
+			[
+				"te",
+				"template_list"
+			],
+			[
+				"nu",
+				"num_cols"
+			],
+			[
+				"Chic",
+				"ChickWeight"
+			],
+			[
+				"chic",
+				"chick_m"
+			],
+			[
+				"ro",
+				"row3"
+			],
+			[
+				"li",
+				"list"
+			],
+			[
+				"get",
+				"get_header_list"
+			],
+			[
+				"dir",
+				"dir_path"
+			],
+			[
+				"file",
+				"files"
+			],
+			[
+				"rdata",
+				"rdata_path"
+			],
+			[
+				"fi",
+				"file_connection"
+			],
+			[
+				"i",
+				"ife	Ifelse"
+			],
+			[
+				"best",
+				"best_str"
+			],
+			[
+				"root",
+				"root_type"
+			],
+			[
+				"const",
+				"const_value"
+			],
+			[
+				"rea",
+				"remaining_capacities"
+			],
+			[
+				"eac",
+				"eac-	each_cons(..) { |group| .. }"
+			],
+			[
+				"dis",
+				"distance_hash"
+			],
+			[
+				"stores",
+				"stores_list"
+			],
+			[
+				"add",
+				"add_fictitious_store"
+			],
+			[
+				"max",
+				"max_capacity"
+			],
+			[
+				"va",
+				"values"
+			],
+			[
+				"chos",
+				"chosen_stores"
+			],
+			[
+				"dist",
+				"distances_map"
+			],
+			[
+				"each",
+				"each_with_index"
+			],
+			[
+				"upda",
+				"update_pheromones"
+			],
+			[
+				"movi",
+				"moving_likelihood"
+			],
+			[
+				"cap",
+				"capacity"
+			],
+			[
+				"moving",
+				"moving_likelihood"
+			],
+			[
+				"no",
+				"no_store_has_suff_cap"
+			],
+			[
+				"req",
+				"requests"
+			],
+			[
+				"roulett",
+				"roulette_wheel_choice"
+			],
+			[
+				"chosen",
+				"chosen_store_index"
+			],
+			[
+				"rou",
+				"roulette_wheel_choice"
+			],
+			[
+				"clients",
+				"clients"
+			],
+			[
+				"sto",
+				"stores"
+			],
+			[
+				"client",
+				"clienti"
+			],
+			[
+				"cli",
+				"clients"
+			],
+			[
+				"fin",
+				"find_solution"
+			],
+			[
+				"ant",
+				"ant_search"
+			],
+			[
+				"pre",
+				"pheromones_hash"
+			],
+			[
+				"phero",
+				"pheromones_hash"
+			],
+			[
+				"pher",
+				"pheromones_hash"
+			],
+			[
+				"att",
+				"attractiveness_hash"
+			],
+			[
+				"pop",
+				"populate_hash_from_csv"
+			],
+			[
+				"dista",
+				"distances"
+			],
+			[
+				"store",
+				"stores_file"
+			],
+			[
+				"distances",
+				"distances_file"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "tesi.tex",
+			"settings":
+			{
+				"buffer_size": 7087,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "impostazioni-tesi.tex",
+			"settings":
+			{
+				"buffer_size": 5567,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+			[
+				"package c",
+				"Package Control: Install Package"
+			],
+			[
+				"snippet",
+				"Snippet: New Class"
+			],
+			[
+				"class",
+				"Snippet: New Class"
+			],
+			[
+				"func	",
+				"Snippet: Function"
+			],
+			[
+				"snippet	",
+				"Snippet: __magic__"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"git: add",
+				"Git: Add..."
+			],
+			[
+				"git: ",
+				"Git: Log All"
+			],
+			[
+				"git: stat",
+				"Git: Status"
+			],
+			[
+				"git: pu",
+				"Git: Push Current Branch"
+			],
+			[
+				"git:cu",
+				"Git: Custom Command"
+			],
+			[
+				"git: sta",
+				"Git: Status"
+			],
+			[
+				"git: push",
+				"Git: Push"
+			],
+			[
+				"git: pus",
+				"Git: Push Current Branch"
+			],
+			[
+				"pa ls",
+				"Package Control: List Packages"
+			],
+			[
+				"git push",
+				"Git: Push Current Branch"
+			],
+			[
+				"git: st",
+				"Git: Show Tags"
+			],
+			[
+				"git: comm",
+				"Git: Commit history"
+			],
+			[
+				"git: co",
+				"Git: Commit"
+			],
+			[
+				"git:",
+				"Git: Add..."
+			],
+			[
+				"git ",
+				"Git: Status"
+			],
+			[
+				"todo",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"git comma",
+				"Git: Custom Command"
+			],
+			[
+				"git",
+				"Git: Status"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"status",
+				"Git: Status"
+			],
+			[
+				"git s",
+				"Git: Status"
+			],
+			[
+				"to",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"ifel	",
+				"Snippet: Ifelse"
+			],
+			[
+				"snippe",
+				"Snippet: Add Tick Marks"
+			],
+			[
+				"pc",
+				"Package Control: Install Package"
+			],
+			[
+				"length",
+				"Snippet: Length"
+			],
+			[
+				"peek",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"tdo",
+				"Show TODOs: Open files only"
+			],
+			[
+				"stac",
+				"Stackoverflow: Search from Input"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pcl",
+				"Package Control: List Packages"
+			],
+			[
+				"pcin",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"pc in",
+				"Package Control: Install Package"
+			],
+			[
+				"align",
+				"Preferences: Alignment Key Bindings – Default"
+			],
+			[
+				"ali",
+				"Set Syntax: Literate Haskell"
+			],
+			[
+				"abo",
+				"About"
+			],
+			[
+				"ssr",
+				"Set Syntax: R"
+			],
+			[
+				"ab",
+				"Set Syntax: Batch File"
+			],
+			[
+				"ss",
+				"Set Syntax: R"
+			],
+			[
+				"csv",
+				"CSV: Sort Current Column (Descending)"
+			],
+			[
+				"",
+				"CSV: Sort Current Column (Descending)"
+			],
+			[
+				"r",
+				"Set Syntax: R"
+			],
+			[
+				"build",
+				"Build: Build"
+			],
+			[
+				"pacage control",
+				"Package Control: Install Package"
+			],
+			[
+				"package ",
+				"Package Control: List Packages"
+			],
+			[
+				"package control: I",
+				"Package Control: Install Package"
+			],
+			[
+				"package contro",
+				"Package Control: List Packages"
+			],
+			[
+				"package control: insta",
+				"Package Control: Install Package"
+			],
+			[
+				"package control",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: List Packages"
+			],
+			[
+				"package",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"Package control",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"Package Control:",
+				"Package Control: List Packages"
+			],
+			[
+				"package control:",
+				"Package Control: Disable Package"
+			],
+			[
+				"R",
+				"Set Syntax: R"
+			],
+			[
+				"attr",
+				"Snippet: attr_writer .."
+			],
+			[
+				"each",
+				"Snippet: each_with_index { |e, i| .. }"
+			],
+			[
+				"comme",
+				"Toggle Comment"
+			],
+			[
+				"comm",
+				"Toggle Comment"
+			],
+			[
+				"forea",
+				"Snippet: File.foreach (\"..\") { |line| .. }"
+			]
+		],
+		"width": 435.0
+	},
+	"console":
+	{
+		"height": 739.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.sublime-project~",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/capitoli/2.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/capitoli/3.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/capitoli/4.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/capitoli/5.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/altro/introduzione.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/capitoli/1.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/tesi.tex",
+		"/home/leodido/Scrivania/thesis/thesis/impostazioni-tesi.tex",
+		"/home/leodido/Scrivania/thesis/Tesi moderna/Tesi.tex",
+		"/home/leodido/Scrivania/thesis/thesis/altro/introduzione.tex",
+		"/home/leodido/Scrivania/thesis/thesis/tesi.tex",
+		"/home/leodido/Scrivania/thesis/thesis/altro/indici.tex",
+		"/home/leodido/Scrivania/thesis/Tesi moderna/MaterialeInizialeFinale/Indici.tex",
+		"/home/leodido/Scrivania/thesis/Tesi moderna/impostazioni-tesi.tex",
+		"/home/leodido/Scrivania/thesis/thesis/bibliografia.bib",
+		"/home/leodido/Scrivania/thesis/thesis/tesi.blg",
+		"/home/leodido/Scrivania/thesis/thesis/tesi.bbl",
+		"/home/leodido/Scrivania/thesis/thesis/altro/ringraziamenti.tex",
+		"/home/leodido/Scrivania/thesis/thesis/tesi-frn.tex",
+		"/home/leodido/Scrivania/thesis/thesis/altro/frontespizio.tex",
+		"/home/leodido/Scrivania/thesis/tesi/tesi.tex",
+		"/home/leodido/Scrivania/thesis/tesi/classicthesis.sty",
+		"/home/leodido/Scrivania/thesis/tesi/impostazioni-tesi.tex",
+		"/home/leodido/Scrivania/thesis/tesi/capitoli/lorem.tex",
+		"/home/leodido/Scrivania/thesis/tesi/capitoli/ipsum.tex",
+		"/home/leodido/Scrivania/thesis/tesi/capitoli/dolor.tex",
+		"/home/leodido/Scrivania/thesis/tesi/altro/sommario-e-abstract.tex",
+		"/home/leodido/Scrivania/thesis/tesi/altro/ringraziamenti.tex",
+		"/home/leodido/Scrivania/thesis/tesi/altro/introduzione.tex",
+		"/home/leodido/Scrivania/thesis/tesi/altro/indici.tex",
+		"/home/leodido/Scrivania/thesis/tesi/altro/frontespizio.tex",
+		"/home/leodido/Scrivania/thesis/tesi/altro/dichiarazione.tex",
+		"/home/leodido/Scrivania/thesis/tesi/altro/dedica.tex",
+		"/home/leodido/Scrivania/thesis/tesi/altro/colophon.tex",
+		"/home/leodido/Scrivania/thesis/tesi/altro/bibliografia.tex",
+		"/home/leodido/Scrivania/thesis/tesi/classicthesis-config.tex",
+		"/home/leodido/Scrivania/thesis/tesi/Tesi.tex",
+		"/home/leodido/Scrivania/thesis/tesi/Bibliografia.bib",
+		"/home/leodido/Scrivania/thesis/tesi/MaterialeInizialeFinale/Frontespizio.tex",
+		"/home/leodido/.config/sublime-text-2/Packages/LaTeXTools/Default (Linux).sublime-keymap",
+		"/home/leodido/.config/sublime-text-2/Packages/LaTeXTools/LaTeXTools Preferences.sublime-settings",
+		"/home/leodido/.config/sublime-text-2/Packages/User/LaTeXTools Preferences.sublime-settings",
+		"/home/leodido/.config/sublime-text-2/Packages/LaTeXTools/README.markdown",
+		"/home/leodido/Workspace/Python/tsis.sublime-project",
+		"/home/leodido/Workspace/Python/TSIS/tsx_reader.py",
+		"/home/leodido/Workspace/Python/TSIS/tsi_reader.py",
+		"/home/leodido/Workspace/Python/TSIS/tix_reader.py",
+		"/home/leodido/.config/sublime-text-2/Packages/User/Python3.sublime-build",
+		"/home/leodido/Workspace/Python/TSIS/time_step_file_reader.py",
+		"/home/leodido/.config/sublime-text-2/Packages/SideBarEnhancements/messages/11.13.2012.1305.0.txt",
+		"/home/leodido/Scaricati/esercizio.html",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/prove2.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/quattro.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/process/stats.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/import/iimport.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/process/cims.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/process/ccims.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/cinque.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/uno1.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/uno.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/tre.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/due22.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/due2.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/due.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/cinque5.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/cinque55.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/process/pparams.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/process/sstats.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/process/params.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data4/EURUSD-100.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/matrices.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/import/import_new.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/transitions.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/import/import.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/vectors.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/lists.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/prove3.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/stats.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/prove.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/test_b.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/todo-fixme-note-etc.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/import/functions.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data2/SamplingModel_8-100.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/uno.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/cinque.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/sampling-due.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data2/SamplingModel_8-1.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel10.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel11.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel12.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel14.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel13.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel15.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel1987.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel1989.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel2.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/process/cims_old.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel4.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel3.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel2000.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel1998.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel1999.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel_8-2.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel_8-1999.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel_8-1.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel_8-1998.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/configs.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/infer/inferencer.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/classify/classifier.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/test.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/benchmarking.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data/unouno.csv",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/test2.r",
+		"/home/leodido/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/leodido/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+		"/home/leodido/.config/sublime-text-2/Packages/SideBarEnhancements/Default (Linux).sublime-keymap",
+		"/home/leodido/.config/sublime-text-2/Packages/User/R.sublime-settings",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/objects.r",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/io.r",
+		"/home/leodido/ubuntu-12.04-postinstall.py",
+		"/home/leodido/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/home/leodido/.config/sublime-text-2/Packages/Git/Git.sublime-settings",
+		"/home/leodido/.config/sublime-text-2/Packages/Git/git.py",
+		"/home/leodido/.config/sublime-text-2/Packages/Git/Default.sublime-commands",
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/infer/inferencer_dup.r",
+		"/home/leodido/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/leodido/Scaricati/Set Brightness Script/install"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"iwona",
+			"iowa",
+			"cap:dolor",
+			"classic",
+			"\\listtablename",
+			"quoting",
+			"quotinh",
+			"babel",
+			"logo",
+			"sigillo",
+			"babel",
+			"ArsClassica",
+			"Tesi",
+			"MaterialeInizialeFinale",
+			"ClassicThesis",
+			"classicthesis",
+			"abc",
+			"endian",
+			"_endian",
+			"index",
+			"signal_index",
+			"file_pointer",
+			"vehicle_index",
+			"file_index",
+			"isTimeStepFile",
+			"\"",
+			"check",
+			"source",
+			"file",
+			"tii",
+			"i",
+			"Processor",
+			"pre_x",
+			"pre.x",
+			"klass",
+			"k",
+			"i",
+			"cl",
+			"curr_ss",
+			"sd",
+			"md",
+			"v1",
+			"mm",
+			"curr_time",
+			"m",
+			"X",
+			"]]\n",
+			"b",
+			"output_dir",
+			"inp_dit",
+			"input_dir",
+			"dir_path",
+			"x",
+			"q",
+			",\\s\\d,\\d=",
+			"\\}\\.",
+			"X\\d,\\d=\\{\\d,\\d=",
+			"1",
+			"2,1,1,2,1,2,1",
+			"cols_possibilities",
+			"cols_num",
+			"n",
+			"n_poss",
+			"N",
+			"M1",
+			"([0-9]{2,}),A",
+			"([0-9]{2,}),B",
+			"([0-9]{2,}),2",
+			"([0-9]{2,}),1",
+			"[0-9]+\\,1",
+			"trans_value",
+			"a",
+			"q_current_next",
+			"current_state_q",
+			"#####'))",
+			"next_j_segment",
+			"j_segment",
+			"class_nodes",
+			"xTab",
+			"*",
+			"\"",
+			"trues",
+			"preds",
+			"clss",
+			"xTab",
+			"pred",
+			"predAct",
+			"pred_class",
+			"> ",
+			"presm",
+			"eresm",
+			"resm",
+			"klass",
+			"cont",
+			"M",
+			"MR2",
+			"MR1",
+			"intersect(C1, C2)",
+			"colname",
+			"foo",
+			"ss[[cl]]$t",
+			"sd$t",
+			"sd",
+			"sd$t",
+			"M",
+			"ctrl\\+b",
+			"keydistractions",
+			"\\+f\\d",
+			"+f[[:digit:]]",
+			"shift+d",
+			"class_theta",
+			"node_qi",
+			"class_qi",
+			"qi",
+			"cim_of_class",
+			"k_name",
+			"class",
+			"cls",
+			"5",
+			"class_nodes",
+			"count",
+			"row",
+			"z",
+			"file_names",
+			"objects",
+			"obj_list",
+			", 3, 3, ",
+			", 3, "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"tesi",
+			", ",
+			",",
+			")",
+			"c(",
+			"n_poss",
+			"n_possibilities",
+			"$1,111",
+			"$1,222",
+			"$1,B",
+			"$1,A",
+			"m",
+			"*",
+			"get_",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "tesi.tex",
+					"settings":
+					{
+						"buffer_size": 7087,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								648,
+								648
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "impostazioni-tesi.tex",
+					"settings":
+					{
+						"buffer_size": 5567,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5077,
+								5077
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 430.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 593.0
+	},
+	"output.git":
+	{
+		"height": 126.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/home/leodido/Workspace/aco/lab vittorio maniezzo/ant.rb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 207.0,
+	"status_bar_visible": true
+}

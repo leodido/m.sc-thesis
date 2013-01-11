@@ -1,0 +1,145 @@
+%****************************************************************%
+%                                                                %
+% Modello di tesi di laurea o di dottorato di Lorenzo Pantieri © %
+%                                                                %
+%         versione: 28 agosto 2012                               %
+%                                                                %
+%****************************************************************%
+
+% I seguenti commenti speciali impostano:
+% 1. utf8 come codifica di input,
+% 2. PDFLaTeX come motore di composizione;
+% 3. tesi.tex come documento principale;
+% 4. il controllo ortografico italiano per l'editor.
+
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+% !TEX root = tesi.tex
+% !TEX spellcheck = it-IT
+
+\documentclass[
+              11pt,%                        % corpo del font principale
+              a4paper,%                     % carta A4
+%             twoside,openright,%           % fronte-retro
+              oneside,openany,%             % solo fronte
+              titlepage,%                   % frontespizio
+              headinclude,,footinclude,%    % testatina e piede di pagina
+              BCOR5mm,%                     % rilegatura di 5 mm
+              numbers=noenddot,%            % niente punto dopo il numero delle sezioni
+              cleardoublepage=empty,%       % pagine vuote senza testatina e piede di pagina
+              tablecaptionabove,%           % didascalie in cima alle tabelle
+              ]{scrreprt}                   % classe report di KOMA-Script;
+               
+\usepackage[T1]{fontenc}                    % codifica dei font:
+                                            % NOTA BENE: richiede una distribuzione *completa* di LaTeX (per esempio TeXLive o MiKTeX *complete*)
+
+\usepackage{textcomp}                       % fix warning with missing font shapes
+\usepackage{scrhack}                        % fix warnings when using KOMA with listings package          
+\usepackage{xspace}                         % to get the spacing after macros right 
+
+\usepackage[utf8]{inputenc}                 % codifica di input; anche [latin1] va bene
+                                            % NOTA BENE! va accordata con le preferenze dell'editor
+
+\usepackage[english,italian]{babel}         % per scrivere in italiano e in inglese;
+                                            % l'ultima lingua (l'italiano) risulta predefinita
+
+\usepackage[suftesi]{frontespizio}          % frontespizo
+                                            % per includerlo nel documento bisogna:
+                                            % 1. compilare una prima volta tesi.tex;
+                                            % 2. compilare a parte tesi-frn.tex, generato dalla compilazione precedente;
+                                            % 3. compilare ancora tesi.tex che cercherà il file tesi-frn.pdf
+
+\usepackage{indentfirst}                    % rientra il primo capoverso di ogni sezione
+
+\usepackage{graphicx}                       % immagini
+
+\usepackage{listings}                       % codici
+
+\usepackage[font=small]{quoting}            % citazioni
+
+\usepackage{amsmath,amssymb,amsthm}         % matematica
+
+\usepackage[italian]{varioref}              % riferimenti completi della pagina
+
+\usepackage{mparhack,fixltx2e,relsize}      % finezze tipografiche
+
+\usepackage{tabularx}                       % tabelle di larghezza prefissata
+%  \setlength{\extrarowheight}{3pt} % increase table row height
+%\newcommand{\tableheadline}[1]{\multicolumn{1}{c}{\spacedlowsmallcaps{#1}}}
+%\newcommand{\myfloatalign}{\centering} % to be used with each float for alignment
+%\usepackage{caption}
+%\captionsetup{format=hang,font=small}
+
+\usepackage[babel,italian=guillemets]{csquotes}
+                                            % rende automatiche alcune scelte stilistiche dipendenti dalla lingua:
+                                            % quando viene usato il comando \mkbibquote si otterranno le virgolette orizzontali invece che quelle verticali  % rimuove un warning
+\usepackage[style=philosophy-modern,hyperref,backref,square,natbib,backend=bibtex]{biblatex}
+                                            % eccellente pacchetto per la bibliografia;
+                                            % produce uno stile di citazione autore-anno ("philosophy-modern"); 
+                                            % lo stile "numeric-comp" produce riferimenti numerici
+                                          
+\bibliography{bibliografia}                 % database di biblatex 
+                                          
+\usepackage{subfig}                         % sottofigure, sottotabelle
+
+\usepackage{lipsum}                         % testo fittizio
+
+\usepackage{eurosym}                        % simbolo dell'euro
+
+% ********************************************************************
+% Available options for classicthesis.sty:
+% drafting
+% parts nochapters linedheaders
+% eulerchapternumbers beramono eulermath pdfspacing minionprospacing
+% tocaligned dottedtoc manychapters
+% listings floatperchapter subfig
+% ********************************************************************
+\usepackage[eulerchapternumbers,%           % numeri dei capitoli nel font Euler
+            subfig,%                        % se si usa il pacchetto subfig
+            beramono,%                      % Bera Mono come font a spaziatura fissa
+            eulermath,%                     % AMS Euler come font per la matematica
+            pdfspacing,%                    % migliora il riempimento di riga
+            listings,%                      % codici
+%           parts,%                         % da decommentare in un documento diviso in parti
+            dottedtoc,%                      % allinea a destra i numeri di pagina nell'indice
+            ]{classicthesis}                % stile classicthesis
+
+
+
+\usepackage{arsclassica}                    % modifica alcuni aspetti di classicthesis
+
+\usepackage{bookmark}                       % segnalibri
+
+\input{impostazioni-tesi}                   % file con le impostazioni personali
+
+\begin{document}
+\pagestyle{scrheadings} 
+\pagenumbering{roman}                       
+%******************************************************************
+% Altro
+%******************************************************************
+\input{altro/frontespizio}
+\input{altro/colophon}
+\input{altro/dedica}
+\input{altro/indici}
+\input{altro/sommario-e-abstract}
+\input{altro/ringraziamenti}
+\input{altro/introduzione}
+\cleardoublepage
+%******************************************************************
+% Capitoli
+%******************************************************************
+\pagenumbering{arabic}
+\input{capitoli/1}
+\input{capitoli/2}
+\input{capitoli/3}
+\input{capitoli/4}
+\input{capitoli/5}
+\appendix
+\input{capitoli/dolor}
+% *****************************************************************
+% Altro
+%******************************************************************
+\input{altro/bibliografia}
+\input{altro/dichiarazione}
+\end{document}
