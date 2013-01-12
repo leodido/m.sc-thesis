@@ -33,3 +33,5 @@
 *.sublime-project~
 *.run.xml
 *-blx.bib
+*-frn.tex
+*-frn.pdf
