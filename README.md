@@ -8,9 +8,19 @@ Based on a customization of the `ClassicThesis` style, obtained through the `Ars
 
 == How to compile ==
 
-* Install Sublime Text 2
-* Install LaTeXTools package
-* Be sure that you include `tesi.sublime-project` file, which set `tesi.tex` file as the root file for the project
+=== Prerequisites ====
+
+The following files are
+
+* Texlive (or similar) complete distribution
+* ArsClassica package installed
+* Sublime Text 2
+* Sublime Text 2 LaTeXTools package installed
+
+=== Steps ===
+
 * Use the LaTeX build tool provided to compile `tesi.tex`
-* Open `tesi-frn.tex` and compile it to generate the frontispiece related `tesi-frn.pdf`
-* Compile again `tesi.tex`
+* Open `tesi-frn.tex` and compile it to generate the frontispiece related `tesi-frn.pdf` file
+* Compile again `tesi.tex` to insert the frontispiece and get completed the project
+
+Note: `tesi.sublime-project` file set `tesi.tex` file as the root file for the project.
