@@ -528,10 +528,18 @@
 			}
 		},
 		{
-			"file": "impostazioni-tesi.tex",
+			"file": "capitoli/2.tex",
 			"settings":
 			{
-				"buffer_size": 5567,
+				"buffer_size": 376,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "capitoli/ipsum.tex",
+			"settings":
+			{
+				"buffer_size": 3703,
 				"line_ending": "Unix"
 			}
 		}
@@ -836,6 +844,7 @@
 	},
 	"file_history":
 	[
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/impostazioni-tesi.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.sublime-project~",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/capitoli/2.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/capitoli/3.tex",
@@ -962,8 +971,7 @@
 		"/home/leodido/.config/sublime-text-2/Packages/Git/git.py",
 		"/home/leodido/.config/sublime-text-2/Packages/Git/Default.sublime-commands",
 		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/infer/inferencer_dup.r",
-		"/home/leodido/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
-		"/home/leodido/Scaricati/Set Brightness Script/install"
+		"/home/leodido/.config/sublime-text-2/Packages/User/Preferences.sublime-settings"
 	],
 	"find":
 	{
@@ -1142,7 +1150,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1168,35 +1176,59 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1197.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "impostazioni-tesi.tex",
+					"file": "capitoli/2.tex",
 					"settings":
 					{
-						"buffer_size": 5567,
+						"buffer_size": 376,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5077,
-								5077
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 430.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "capitoli/ipsum.tex",
+					"settings":
+					{
+						"buffer_size": 3703,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
