@@ -1,4 +1,4 @@
-= Thesis =
+# Thesis
 
 This repo contains my M.Sc. thesis.
 
