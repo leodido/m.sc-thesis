@@ -7,28 +7,31 @@
 \chapter{CTBN}
 \label{cap:ctbn}
 %************************************************
-
 In questo capitolo si introducono i concetti fondamentali delle \ctbn{}, un framework utile a modellare i processi stocastici relativi a uno spazio degli stati che evolve nel tempo.
-Tuttavia, prima di affrontare tale argomento si ritiene indispensabile presentare i suoi fondamenti matematici: le reti Bayesiane e i processi di Markov, trattati entrambi nella \autoref{sec:fondamenti}.
+Tuttavia, prima di affrontare tale argomento si ritiene indispensabile presentare i suoi fondamenti matematici: le \bn{} e i \mprocess{}, trattati entrambi nella \autoref{sec:fondamenti}.
 
 %************************************************
 \section{Fondamenti}
 \label{sec:fondamenti}
-
-Come accennato, le \ctbn{} sono un modello che sviluppa e integra idee prese in prestito da altre teorie.
+Come accennato, le \ctbn{} sviluppano e integrano concetti e idee provenienti da altre teorie afferenti l'area statistica e del machine learning. Al fine di conferire alla discussione sulle \ctbn{} un quadro iniziale completo ed esauriente, si presentano quindi gli aspetti di maggior rilievo di tali argomenti.
 \begin{description}
-\item[Reti Bayesiane] \hfill \\
-Le \ctbn{} utilizzano una rappresentazione strutturata dello spazio degli stati propria della teoria delle \bns{}, ereditandone perciò gli aspetti chiave (\ie{} indipendenza condizionale) nonché l'insieme delle tecniche algoritmiche efficienti per l'apprendimento e l'inferenza.
-\item[Processi di Markov] \hfill \\
-Le \ctbn{} descrivono la dinamica evolutiva delle variabili casuali da cui sono costituite tramite dei processi di Markov omogenei.
+\item[\bn{}] \hfill \\
+Le \ctbn{} utilizzano una rappresentazione strutturata dello spazio degli stati propria della teoria delle \bn{}. Ne ereditano perciò gli aspetti chiave (\ie{} indipendenza condizionale) nonché l'insieme delle tecniche algoritmiche efficienti per l'apprendimento e l'inferenza.
+\item[\mprocess{}] \hfill \\
+Le \ctbn{} descrivono la dinamica evolutiva delle variabili casuali da cui sono costituite tramite un \omprocess{} globale, costituito da un insieme di \cmprocess{}.
 \end{description} 
 
-\subsection{Reti Bayesiane}
+\subsection{\bn{}}
 \label{sec:bns}
+Una \bn{} è un modello grafico probabilistico costituito da un grafo orientato aciclico (DAG). I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi rappresentano le dipendenze condizionali fra esse. Una \bn{} rappresenta la distribuzione della probabilità congiunta del suo insieme di variabili casuali. Per tale motivo questo modello statistico è comunemente utilizzato per modellare le relazioni probabilistiche fra eventi.
+
+
+
+Bayesian networks are used for modelling knowledge in computational biology and bioinformatics (gene regulatory networks, protein structure, gene expression analysis,[15] learning epistasis from GWAS data sets [16]) medicine,[17] biomonitoring,[18] document classification, information retrieval,[19] semantic search,[20] image processing, data fusion, decision support systems,[21] engineering, gaming and law.[22][23][24]
 
 \subsubsection{Rappresentazione}
 
-\begin{definizione}[Rete Bayesiana]
+\begin{definizione}[\bn{}]
 \end{definizione} 
 
 \begin{definizione}[Indipendenza]
@@ -41,19 +44,19 @@ Le \ctbn{} descrivono la dinamica evolutiva delle variabili casuali da cui sono 
 
 \subsubsection{Inferenza}
 
-\subsection{Processi di Markov}
+\subsection{\mprocess{}}
 \label{sec:mps}
 
 \begin{definizione}[Assunzione di Markov]
 \end{definizione} 
 
-\begin{definizione}[Processo di Markov omogeneo]
+\begin{definizione}[\upcase\omprocess{}]
 \end{definizione} 
 
 \begin{definizione}[Matrice di intensità]
 \end{definizione} 
 
-\begin{definizione}[Processo di Markov condizionale]
+\begin{definizione}[\upcase\cmprocess{}]
 \end{definizione} 
 
 \begin{definizione}[Matrice di intensità condizionata]
@@ -61,10 +64,38 @@ Le \ctbn{} descrivono la dinamica evolutiva delle variabili casuali da cui sono 
 
 %************************************************
 \section{Rappresentazione}
+\label{sec:rappresentazione}
 
-%************************************************
-\section{Inferenza}
+Una \ctbn{} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Si assume perciò che tali dinamiche evolutive siano governate e dipendano dal valore che gli stati dei nodi padre assumono \cite{Stella2012}.
+Una \ctbn{} è composta principalmente da due componenti:
+\begin{itemize}
+    \item una distribuzione di probabilità iniziale
+    \item le dinamiche che regolano l'evoluzione nel tempo continuo della distribuzione di probabilità
+\end{itemize}
+Più formalmente si definisce:
+\begin{definizione}[\upcase\ctbn{}]
+Dato un insieme $\set{X}$ di variabili casuali $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$ dove ogni $\setel{X_n}$ ha uno spazio degli stati finito $val(\setel{X_N})=\{ \vectel{x_1}, \dotsc, \vectel{x_J} \}$, una \ctbn{} $\conceptsym{N}$ su $\set{X}$ consiste di:
+\begin{itemize}
+    \item una distribuzione di probabilità iniziale $\prior{\set{X}}$ specificata come una \bn{} $\conceptsym{B}$ su $\set{X}$
+    \item un modello di transizione continuo, specificato da
+    \begin{itemize}
+        \item un grafo $\conceptsym{G}$, orientato e non necessariamente aciclico, composto dai nodi $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$, ognuno dei quali possiede un insieme di genitori (possibilmente vuoto) denotato da $pa(\setel{X_n})$
+        \item una matrice di intensità condizionale $\cim{\setel{X_n}}$ per ogni nodo $\setel{X_n} \in \set{X}$
+    \end{itemize}
+\end{itemize}
+\end{definizione}
+\begin{nota}
+Si noti che, diversamente dalle \bn{}, nelle \ctbn{} gli archi fra i nodi rappresentano le relazioni temporali fra essi. Tali relazioni codificano le dinamiche evolutive dei nodi, ognuna delle quali è espressa condizionatamente alla dinamica evolutiva degli stati dei suoi nodi genitori. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \ctbn{} dai dati. 
+\end{nota}
 
 %************************************************
 \section{Apprendimento}
+\label{sec:apprendimento}
 
+%************************************************
+\section{Inferenza}
+\label{sec:inferenza}
+
+
+% TODO: apprendimento strutturale?
+% TODO: inserire immagini esemplificative delle ctbn

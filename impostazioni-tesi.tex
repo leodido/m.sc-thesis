@@ -25,6 +25,17 @@
 \newcommand{\N}{\numberset{N}} 
 \newcommand{\R}{\numberset{R}} 
 
+% comandi per gli insiemi
+\newcommand{\set}[1]{\mathbf{#1}}
+\newcommand{\setel}[1]{\mathnormal{#1}}  % o \mathrm o \mathit
+
+%comandi per i vettori
+\newcommand{\vect}[1]{\set{#1}}
+\newcommand{\vectel}[1]{\mathrm{#1}}
+
+% comandi per i simboli matematici che denotano schemi, categorie, concetti
+\newcommand{\conceptsym}[1]{\mathcal{#1}}
+
 % un ambiente per i sistemi
 \newenvironment{sistema}%
   {\left\lbrace\begin{array}{@{}l@{}}}%
@@ -32,20 +43,32 @@
 
 % definizioni (serve il pacchetto amsthm)
 \theoremstyle{definition} 
-\newtheorem{definizione}{Definizione}
+\newtheorem{definizione}{Definizione}[section]
+\newtheorem{osservazione}{Osservazione}[section]
 
-% teoremi, leggi e decreti (serve il pacchetto amsthm)
+% note
+\theoremstyle{remark}
+\newtheorem{nota}{Nota}[section]
+
+% teoremi (serve il pacchetto amsthm)
 \theoremstyle{plain} 
 \newtheorem{teorema}{Teorema}
+\newtheorem{cor}[teorema]{Corollario} 
+\newtheorem{lem}[teorema]{Lemma}
+\newtheorem{prop}[teorema]{Proposizione}
+\newtheorem{oss}[teorema]{Osservazione}
+
+% leggi (serve il pacchetto amsthm)
 \newtheorem{legge}{Legge}
 \newtheorem{decreto}[legge]{Decreto}
-\newtheorem{murphy}{Murphy}[section]
+
 
 % comandi per le lettere greche
 \renewcommand{\epsilon}{\varepsilon}
 \renewcommand{\theta}{\vartheta}
 \renewcommand{\rho}{\varrho}
 \renewcommand{\phi}{\varphi}
+
 
 %*********************************************************************************
 % Impostazioni di biblatex
@@ -120,9 +143,17 @@
 %\renewcommand{\bflabel}[1]{{#1}\hfill} % fix the list of acronyms
 
 %*********************************************************************************
+% Utility
+%*********************************************************************************
+% make first letter uppercase
+\makeatletter
+\def\upcase{\expandafter\makeupcase}
+\def\makeupcase#1{\uppercase{#1}}
+\makeatother
+
+%*********************************************************************************
 % Altro
 %*********************************************************************************
-
 % ...
 \newcommand{\omissis}{\dots\negthinspace}
 
@@ -135,7 +166,18 @@
 % parole comuni
 \newcommand{\ctbn}{continuos time Bayesian network}
 \newcommand{\ctbnc}{continuos time Bayesian network classifier}
-\newcommand{\bns}{reti Bayesiane}
+\newcommand{\bn}{Bayesian Network}
+\newcommand{\mprocess}{Markov process}
+\newcommand{\omprocess}{homogeneus Markov process}
+\newcommand{\cmprocess}{conditional Markov process}
 
-% eccezioni all'algoritmo di sillabazione
+% elementi matematici comuni
+\newcommand{\cim}[1]{\set{Q}^{pa(#1)}_{#1}}
+\newcommand{\prior}[1]{\set{P}^0_{#1}}
+
+%*********************************************************************************
+% Eccezioni all'algoritmo di sillabazione
+%*********************************************************************************
 \hyphenation{Fortran ma-cro-istru-zio-ne nitro-idrossil-amminico}
+
+
