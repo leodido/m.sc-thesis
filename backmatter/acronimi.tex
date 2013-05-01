@@ -1,0 +1,21 @@
+% !TEX encoding = UTF-8
+% !TEX TS-program = pdflatex
+% !TEX root = ../tesi.tex
+% !TEX spellcheck = it-IT
+
+%*******************************************************
+% Acronimi
+%*******************************************************
+\cleardoublepage
+\manualmark
+\phantomsection 
+\addcontentsline{toc}{chapter}{\tocEntry{\acroname}}
+\chapter*{\acroname\markboth{\spacedlowsmallcaps{\acroname}}{\spacedlowsmallcaps{\acroname}}}
+\begin{acronym}[CTBNC] % insert in the square brackets the longest acronym word
+    \acro{BN}[BN]{\bn}
+    \acro{CIM}[CIM]{\cim}
+    \acro{CTBN}[CTBN]{\ctbn}
+    \acro{CTBNC}[CTBNC]{\ctbnc}
+    \acro{DAG}[DAG]{\ul{Directed acyclic graph}{grafo aciclico diretto}}
+    \acro{IM}[IM]{\im}
+\end{acronym}
