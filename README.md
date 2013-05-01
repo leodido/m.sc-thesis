@@ -23,4 +23,4 @@ The following files are
 * Open `tesi-frn.tex` and compile it to generate the frontispiece related `tesi-frn.pdf` file
 * Compile again `tesi.tex` to insert the frontispiece and get completed the project
 
-Note: `tesi.sublime-project` file set `tesi.tex` file as the root file for the project.
+Note: `tesi.sublime-project` file set `tesi.tex` file as the `tex` root file for the project.
