@@ -69,10 +69,7 @@
 \newtheorem{decreto}[legge]{Decreto}
 
 % comandi per le lettere greche
-\renewcommand{\epsilon}{\varepsilon}
-\renewcommand{\theta}{\vartheta}
-\renewcommand{\rho}{\varrho}
-\renewcommand{\phi}{\varphi}
+% ...
 
 %*********************************************************************************
 % Impostazioni di acronym
@@ -81,9 +78,8 @@
 % \renewcommand*{\acsfont}[1]{\textssc{#1}}                 % for MinionPro
 \renewcommand*{\acsfont}[1]{\textsmaller{#1}}               % customize font for long version acronyms [works only if footnote not activate]
 \renewcommand*{\acffont}[1]{#1}                             % idem, but for short version of acronyms
-\renewcommand{\bflabel}[1]{{#1}\hfill}                      % fix the list of acronyms
-\usepackage{etoolbox}                                       % macro that tweeks acronym package to rendere lowercase or not
-\makeatletter
+\renewcommand{\bflabel}[1]{{#1}\hfill}                      % fix the list of acronyms                                
+\makeatletter                                               % macro that tweeks acronym package to rendere lowercase or not
 \newif\if@in@acrolist
 \AtBeginEnvironment{acronym}{\@in@acrolisttrue}
 \newrobustcmd{\ul}[2]{\if@in@acrolist#1\else#2\fi}          % \ul{C}{c}iao defines an uppercase and lowercase variant of the same acronym
