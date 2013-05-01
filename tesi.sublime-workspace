@@ -523,15 +523,7 @@
 			"file": "capitoli/2.tex",
 			"settings":
 			{
-				"buffer_size": 2274,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tesi.tex",
-			"settings":
-			{
-				"buffer_size": 7105,
+				"buffer_size": 6639,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,15 +531,31 @@
 			"file": "impostazioni-tesi.tex",
 			"settings":
 			{
-				"buffer_size": 5870,
+				"buffer_size": 6934,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "capitoli/ipsum.tex",
+			"file": "tesi.tex",
 			"settings":
 			{
-				"buffer_size": 3703,
+				"buffer_size": 7771,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "classicthesis.sty",
+			"settings":
+			{
+				"buffer_size": 31764,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "altro/indici.tex",
+			"settings":
+			{
+				"buffer_size": 1509,
 				"line_ending": "Unix"
 			}
 		}
@@ -555,9 +563,21 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 148.0,
+		"height": 194.0,
 		"selected_items":
 		[
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"git s",
+				"Git: Status"
+			],
 			[
 				"pa in",
 				"Package Control: Install Package"
@@ -679,19 +699,7 @@
 				"Git: Status"
 			],
 			[
-				"git com",
-				"Git: Commit"
-			],
-			[
-				"git add",
-				"Git: Add..."
-			],
-			[
 				"status",
-				"Git: Status"
-			],
-			[
-				"git s",
 				"Git: Status"
 			],
 			[
@@ -872,9 +880,14 @@
 	},
 	"file_history":
 	[
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/classicthesis.sty",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/bibliografia.bib",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/My Collection.bib",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/ipsum.tex",
+		"/home/leodido/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
 		"/home/leodido/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
 		"/home/leodido/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
-		"/home/leodido/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
 		"/home/leodido/.config/sublime-text-2/Packages/LaTeXTools/Default (Linux).sublime-keymap",
 		"/home/leodido/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/3.tex",
@@ -882,11 +895,9 @@
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/4.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/5.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/6.tex",
-		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/altro/introduzione.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/1.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/altro/colophon.tex",
-		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/ipsum.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/dolor.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/2.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi-frn.tex",
@@ -996,10 +1007,7 @@
 		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel_8-2.csv",
 		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel_8-1999.csv",
 		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel_8-1.csv",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel_8-1998.csv",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/configs.r",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/infer/inferencer.r",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/classify/classifier.r"
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel_8-1998.csv"
 	],
 	"find":
 	{
@@ -1007,7 +1015,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 95.0,
 		"where_history":
 		[
 			""
@@ -1018,6 +1026,26 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"font",
+			"minion",
+			"\\chap",
+			"\\chapter",
+			"\\chap",
+			"\\listof",
+			"\\list",
+			"\\listoftables",
+			"osservazione",
+			"oss",
+			"thm",
+			"h",
+			"biblio",
+			"setelem",
+			"$",
+			"upcase",
+			"uppercase",
+			"\\cmp",
+			"\\omp",
+			"\\mp",
 			"preliminari",
 			"Capitalize",
 			"Rappresentazione",
@@ -1125,27 +1153,7 @@
 			"sd$t",
 			"sd",
 			"sd$t",
-			"M",
-			"ctrl\\+b",
-			"keydistractions",
-			"\\+f\\d",
-			"+f[[:digit:]]",
-			"shift+d",
-			"class_theta",
-			"node_qi",
-			"class_qi",
-			"qi",
-			"cim_of_class",
-			"k_name",
-			"class",
-			"cls",
-			"5",
-			"class_nodes",
-			"count",
-			"row",
-			"z",
-			"file_names",
-			"objects"
+			"M"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1186,15 +1194,15 @@
 					"file": "capitoli/2.tex",
 					"settings":
 					{
-						"buffer_size": 2274,
+						"buffer_size": 6639,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								778,
-								778
+								1288,
+								1288
 							]
 						],
 						"settings":
@@ -1297,134 +1305,18 @@
 				},
 				{
 					"buffer": 1,
-					"file": "tesi.tex",
-					"settings":
-					{
-						"buffer_size": 7105,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7105,
-								7105
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": false,
-							"sublimelinter_mark_style": "outline",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2090.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "impostazioni-tesi.tex",
 					"settings":
 					{
-						"buffer_size": 5870,
+						"buffer_size": 6934,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1184,
-								1184
+								5600,
+								5600
 							]
 						],
 						"settings":
@@ -1522,25 +1414,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 399.0,
+						"translation.y": 2094.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "capitoli/ipsum.tex",
+					"buffer": 2,
+					"file": "tesi.tex",
 					"settings":
 					{
-						"buffer_size": 3703,
+						"buffer_size": 7771,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								5564,
+								5564
 							]
 						],
 						"settings":
@@ -1633,10 +1525,244 @@
 								"Ruby on Rails": "ruby"
 							},
 							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1710.0,
+						"translation.y": 1404.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "classicthesis.sty",
+					"settings":
+					{
+						"buffer_size": 31764,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24446,
+								24446
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/LaTeX/TeX.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 9564.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "altro/indici.tex",
+					"settings":
+					{
+						"buffer_size": 1509,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1205,
+								1205
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 337.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1677,7 +1803,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 593.0
+		"height": 360.0
 	},
 	"output.git":
 	{
@@ -1715,7 +1841,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 207.0,
 	"status_bar_visible": true
 }

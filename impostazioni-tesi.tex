@@ -1,4 +1,8 @@
-%*********************************************************************************
+% !TEX encoding = UTF-8
+% !TEX TS-program = pdflatex
+% !TEX root = tesi.tex
+% !TEX spellcheck = it-IT
+
 % impostazioni-tesi.tex
 % file che contiene le impostazioni della tesi
 %*********************************************************************************
@@ -15,7 +19,9 @@
 \newcommand{\myProf}{Prof.~F.~Antonio~Stella}% relatore
 \newcommand{\myOtherProf}{Dott.~Daniele~Codecasa}% correlatore
 \newcommand{\myLocation}{Milano}% dove
-\newcommand{\myTime}{Marzo 2013}% quando
+\newcommand{\myTime}{Luglio 2013}% quando
+\newcommand{\mySubject}{Continuos time Bayesian Networks}
+\newcommand{\myKeywords}{Continuos time Bayesian Network, CTBN, Continuos time Bayesian Newtork Classifier, CTBNC}
 
 %*********************************************************************************
 % Impostazioni di amsmath, amssymb, amsthm
@@ -29,7 +35,7 @@
 \newcommand{\set}[1]{\mathbf{#1}}
 \newcommand{\setel}[1]{\mathnormal{#1}}  % o \mathrm o \mathit
 
-%comandi per i vettori
+% comandi per i vettori
 \newcommand{\vect}[1]{\set{#1}}
 \newcommand{\vectel}[1]{\mathrm{#1}}
 
@@ -62,13 +68,27 @@
 \newtheorem{legge}{Legge}
 \newtheorem{decreto}[legge]{Decreto}
 
-
 % comandi per le lettere greche
 \renewcommand{\epsilon}{\varepsilon}
 \renewcommand{\theta}{\vartheta}
 \renewcommand{\rho}{\varrho}
 \renewcommand{\phi}{\varphi}
 
+%*********************************************************************************
+% Impostazioni di acronym
+%*********************************************************************************
+\newcommand{\acroname}{Acronimi}
+% \renewcommand*{\acsfont}[1]{\textssc{#1}}                 % for MinionPro
+\renewcommand*{\acsfont}[1]{\textsmaller{#1}}               % customize font for long version acronyms [works only if footnote not activate]
+\renewcommand*{\acffont}[1]{#1}                             % idem, but for short version of acronyms
+\renewcommand{\bflabel}[1]{{#1}\hfill}                      % fix the list of acronyms
+\usepackage{etoolbox}                                       % macro that tweeks acronym package to rendere lowercase or not
+\makeatletter
+\newif\if@in@acrolist
+\AtBeginEnvironment{acronym}{\@in@acrolisttrue}
+\newrobustcmd{\ul}[2]{\if@in@acrolist#1\else#2\fi}          % \ul{C}{c}iao defines an uppercase and lowercase variant of the same acronym
+\newcommand{\ACF}[1]{{\@in@acrolisttrue\acf{#1}}}           % \ACF{<acronym>} force the defined capitalized variants of acronym letters/words
+\makeatother
 
 %*********************************************************************************
 % Impostazioni di biblatex
@@ -104,11 +124,11 @@
 % Impostazioni di hyperref
 %*********************************************************************************
 \hypersetup{%
-    hyperfootnotes=false,pdfpagelabels,
+    % hyperfootnotes=false,pdfpagelabels,
     %draft,	% = elimina tutti i link (utile per stampe in bianco e nero)
     colorlinks=true, linktocpage=true, pdfstartpage=1, pdfstartview=FitV,%
     % decommenta la riga seguente per avere link in nero (per esempio per la stampa in bianco e nero)
-    %colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=1, pdfstartview=FitV,% 
+    % colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=1, pdfstartview=FitV,% 
     breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
     plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
     hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
@@ -116,10 +136,10 @@
     %urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
     pdftitle={\myTitle},%
     pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},%
-    pdfsubject={Continuos time Bayesian network classifiers},%
-    pdfkeywords={},%
+    pdfsubject={\mySubject},%
+    pdfkeywords={\myKeywords},%
     pdfcreator={pdfLaTeX},%
-    pdfproducer={LaTeX with hyperref and classicthesis}%
+    pdfproducer={LaTeX with hyperref, classicthesis and arsclassica}%
 }
 
 %*********************************************************************************
@@ -133,14 +153,6 @@
 \areaset[current]{336pt}{750pt}
 \setlength{\marginparwidth}{7em}
 \setlength{\marginparsep}{2em}%
-
-%*********************************************************************************
-% Acronimi
-%*********************************************************************************
-%\PassOptionsToPackage{printonlyused,smaller}{acronym}
-%  \usepackage{acronym} % nice macros for handling all acronyms in the thesis
-%\renewcommand*{\acsfont}[1]{\textssc{#1}} % for MinionPro
-%\renewcommand{\bflabel}[1]{{#1}\hfill} % fix the list of acronyms
 
 %*********************************************************************************
 % Utility
@@ -164,16 +176,18 @@
 \newcommand{\Eg}{E.\,g.} 
 
 % parole comuni
-\newcommand{\ctbn}{continuos time Bayesian network}
-\newcommand{\ctbnc}{continuos time Bayesian network classifier}
 \newcommand{\bn}{Bayesian Network}
+\newcommand{\ctbn}{Continuos time \bn{}}
+\newcommand{\ctbnc}{Continuos time \bn{} Classifier}
+\newcommand{\im}{Intensity Matrix}
+\newcommand{\cim}{Conditional \im{}}
 \newcommand{\mprocess}{Markov process}
 \newcommand{\omprocess}{homogeneus Markov process}
 \newcommand{\cmprocess}{conditional Markov process}
 
 % elementi matematici comuni
-\newcommand{\cim}[1]{\set{Q}^{pa(#1)}_{#1}}
-\newcommand{\prior}[1]{\set{P}^0_{#1}}
+\newcommand{\cimsign}[1]{\set{Q}^{pa(#1)}_{#1}}
+\newcommand{\priorsign}[1]{\set{P}^0_{#1}}
 
 %*********************************************************************************
 % Eccezioni all'algoritmo di sillabazione
