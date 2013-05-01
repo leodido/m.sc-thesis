@@ -1,8 +1,21 @@
-# Thesis
+# CTBN
 
-This repo contains my M.Sc. thesis.
+This repository contains the `tex` source of my M.Sc. thesis on Continuos time Bayesian Networks (CTBNs).
 
-## Layout
+## Topics
+
+> Theory
+>> Continuos time Bayesian Networks
+>> Continuos time Bayesian Network Classifiers
+>> Continuos time Bayesian Network structure learning
+> Development
+>> Analysis of the relative `R` packages developed
+>> Analysis and description of the `.dll` extension developed to generate traffic dataset from [TSIS](http://mctrans.ce.ufl.edu/featured/tsis/)
+> Case Studies
+>> Tutorials about the main `R` package
+>> Experimentations and performance analysis
+
+## Tex
 
 Based on a customization of the `ClassicThesis` style, obtained through the `ArsClassica` package and other customizations made by me.
 
