@@ -23,20 +23,22 @@ Le \acl{CTBN} descrivono la dinamica evolutiva delle variabili casuali da cui so
 \end{description} 
 
 \subsection{\bn{}}
-\label{sec:bns}
+\label{sec:bn}
 Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}.\footnote{Un grafo aciclico diretto (anche detto grafo orientato aciclico o digrafo aciclico) è un tipo di grafo che non presenta cicli diretti: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.} I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi rappresentano le dipendenze (e le indipendenze) condizionali fra esse. 
-Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità condizionale di ognuna di essa \eqref{eq:bnchainrule}.
+Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità condizionale di ognuna di essa \eqref{eq:bn-chain-rule}.
 Le \acs{BN} sono quindi modelli grafico probabilistici con cui è possibile modellare in modo probabilistico le relazioni causali dirette fra eventi. Perciò esse risultano molto utili nella rappresentazione e analisi di modelli del mondo reale che coinvolgono incertezza. Sono infatti usate in svariate applicazioni di supporto alle decisioni, bioinformatica, biologia computazionale, data mining, information retrieval e classificazione.
 
 \subsubsection{Rappresentazione}
-Di seguito si dà la definizione formale di \acl{BN} e si introducono i loro aspetti basilari.
+Di seguito si dà la definizione formale delle \acl{BN} e si introducono i loro aspetti basilari.
 
 \begin{definizione}[\acl{BN}]
+\label{defn:bn}
 Una \acl{BN} $\conceptsym{B}$ è una coppia $\conceptsym{B}=(\conceptsym{G},\theta_{\conceptsym{G}})$ costituita da:
 \begin{itemize}
     \item $\conceptsym{G}=(\set{V}(\conceptsym{G}),\set{A}(\conceptsym{G}))$, un \acl{DAG} dove:
     \begin{itemize}
         \item $\set{V}(\conceptsym{G})=\{\setel{V_1}, \dotsc, \setel{V_n}\}$ è l'insieme dei nodi, ognuno dei quali è associato con una \acf{CPD}\footnote{Nel caso di variabili causali discrete, le \acs{CPD} sono rappresentabili come delle tabelle che contengono i valori di probabilità di un nodo in funzione di tutte le possibili configurazioni dei nodi genitori (cioè l'insieme dei nodi da cui parte un arco che punta al nodo di interesse).}
+        \label{defn:bn-markov-assumption}
         \item ogni nodo è condizionalmente indipendente (\ref{defn:ic}) dai suoi non--discendenti dati i suoi nodi genitori
         \item $\set{A}(\conceptsym{G})\subseteq\set{V}(\conceptsym{G})\times\set{V}(\conceptsym{G})$ è l'insieme degli archi fra i nodi $\set{V}(\conceptsym{G})$
     \end{itemize}
@@ -46,7 +48,7 @@ Una \acl{BN} $\conceptsym{B}$ è una coppia $\conceptsym{B}=(\conceptsym{G},\the
 
 La \acs{CPD} di ogni variabile casuale $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$ esprime i suoi valori di probabilità in funzione dei valori assunti da $pa(\setel{X_i})$, notazione con cui denotiamo l'\emph{insieme dei nodi genitori} per ogni nodo o variabile casuale.
 
-Mentre un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta una dipendenza condizionale fra le corrispettive variabili casuali, i nodi non connessi, invece, rappresentano variabili casuali indipendenti dagli altri nodi (per quanto riguarda il concetto di \emph{indipendenza condizionale} si rimanda invece a \ref{defn:ic}).
+Mentre un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta una dipendenza condizionale fra le corrispettive variabili casuali, i nodi non connessi, invece, rappresentano variabili casuali condizionalmente indipendenti dagli altri nodi (per quanto riguarda il concetto di \emph{indipendenza condizionale} si rimanda invece a \ref{defn:ic}).
 
 Prima di procedere con la discussione si introduce la Chain Rule, regola molto utile nel caso delle \acs{BN}.
 
@@ -60,52 +62,95 @@ Perciò, dato un insieme di variabili casuali $\setel{A_1},\dotsc,\setel{A_n}$ �
 \]
 Ripetendo tale processo per ogni termine finale si ottiene:
 \begin{equation}
-\label{eq:chainrule}
+\label{eq:chain-rule}
 \set{P}(\bigcap_{k=1}^{n}\setel{A_k})=\prod_{k=1}^{n}\set{P}(\setel{A_k}|\bigcap_{j=1}^{k-1}\setel{A_j})
 \end{equation}
 
-Applicando la \eqref{eq:chainrule} alle \acl{BN} diciamo che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
+Applicando la \eqref{eq:chain-rule} alle \acl{BN} diciamo che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
 \begin{equation}
-\label{eq:bnchainrule}
+\label{eq:bn-chain-rule}
 \set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}|pa(\setel{X_i}))
 \end{equation}
-L'equazione \eqref{eq:bnchainrule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico.
+L'equazione \eqref{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi. Si noti inoltre, che le \acl{BN} richiedono che la loro componente $\conceptsym{G}$ non contenga cicli (si veda \acs{DAG} in \ref{defn:bn}) affinché possano rispettare tale proprietà.
 
+Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi immediati ascendenti (i.e. nodi genitori), è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito introduciamo tale concetto formalmente.
 \begin{definizione}[Indipendenza condizionale]\label{defn:ic}
-di qui collegarsi, mettendo link, alla proprietà/assunzione di Markov
-\end{definizione} 
+Un evento $\setel{A}$ è \emph{condizionalmente indipendente} da un evento $\setel{B}$, data l'evidenza su un evento $\setel{C}$, qualora la conoscenza di $\setel{B}$ non apporta alcuna variazione alla probabilità di $\setel{A}$ rispetto a quella conseguente alla conoscenza di $\setel{C}$.
+Formalmente, ciò significa che:
+\[
+\set{P}(\setel{A},\setel{B}|\setel{C})=\set{P}(\setel{A}|\setel{B},\setel{C})\cdot\set{P}(\setel{B}|\setel{C})=\set{P}(\setel{A}|\setel{C})\cdot\set{P}(\setel{B}|\setel{C})
+\]
+Da cui segue che:
+\[
+\setel{A}\perp\setel{B}|\setel{C}\iff\set{P}(\setel{A}|\setel{B},\setel{C})=\set{P}(\setel{A}|\setel{C})
+\]
+\end{definizione}
+In termini non formali, supponendo di essere nel caso della definizione, cioè di avere una variabile casuale $\setel{A}$ \emph{condizionalmente indipendente} da $\setel{B}$ dato $\setel{C}$, ciò significa che è possibile ignorare $\setel{B}$ poiché essa non ha alcun riflesso sulla distribuzione condizionale di $\setel{A}$.
 
-local markov property?
-bayes rule?
+Si noti che il concetto appena espresso gioca quindi un ruolo importante per i modelli probabilistici, quali sono le \acl{BN}: semplifica la struttura del modello e i calcoli richiesti per l'inferenza e l'apprendimento del modello. Le \acl{BN} ereditano questi benefici dell'indipendenza condizionale come conseguenza della loro definizione (si veda \ref{defn:bn-markov-assumption}): la distribuzione condizionale di ogni variabile casuale $\setel{X_i}$ dipende solo ed esclusivamente dal valore dei suoi genitori $pa(\setel{X_i})$ mentre ignora completamente le variabili casuali associate a nodi non--discendenti di $\setel{X_i}$. In breve:
 
-\subsubsection{Apprendimento}
+$\forall$ $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$:
+\[
+\set{P}(\setel{X_i}|\setel{E},pa(\setel{X_i}))=\set{P}(\setel{X_i}|pa(\setel{X_i}))\;\forall\:\setel{E}\in nd(\setel{X_i})
+\]
+dove $nd(\setel{X_i})$ è l'insieme dei nodi non--discendenti (ed $\setel{E}$ è una variabile casuale o un insieme di variabili casuali ad essi associati).
+In base a ciò si dice quindi che le \acl{BN} rispettano l'\emph{assunzione locale di Markov}.
 
-regola del prodotto -> th di bayes
+\subsubsection{Apprendimento}\acresetall
+In questa sezione si descrivono brevemente, e solo a scopo introduttivo, i processi di apprendimento e inferenza sulle \acl{BN}.
+
+Il problema dell'apprendimento per le \acl{BN} si divide principalmente in due casi:
+\begin{itemize}
+    \item apprendere le \acs{CPD}, nota la struttura 
+    \item apprendere sia le \acs{CPD}, sia la struttura.
+\end{itemize}
+In entrambi i casi è di grande aiuto la rappresentazione efficiente delle \acl{BN} che, tramite la \emph{fattorizzazione} della distribuzione di probabilità congiunta, permette di rappresentarla in modo compatto \eqref{eq:bn-chain-rule} riducendo notevolmente il numero di parametri da calcolare.
+
+---
+% finish: http://en.wikipedia.org/wiki/Bayesian_network
+Sulle \acl{BN} i seguenti processi: ...
+
+Generative model (not just discriminative): allows 
+arbitrary queries to be answered, e.g
+
+th di bayes
 significato th di bayes: apprendimento dall'esperienza
 
-\subsubsection{Inferenza}
+For example, if the parents are  Boolean variables then the probability function could be represented by a table of  entries, one entry for each of the  possible combinations of its parents being true or false
+
+---
+
+
 
 \subsection{\mprocess{}}
 \label{sec:mps}
 
-\begin{definizione}[Assunzione di Markov]
-\end{definizione} 
+\begin{definizione}[Proprietà di Markov]
+\label{defn:markov-assumption}
+% http://it.wikipedia.org/wiki/Propriet%C3%A0_di_Markov
+
+Si descrive un modello per cui si assume sussista la proprietà di Markov come un modello che rispetta l'assunzione di Markov.
+\end{definizione}
 
 \begin{definizione}[\upcase\omprocess{}]
+\label{defn:homogeneus-markov-provess}
 \end{definizione} 
 
 \begin{definizione}[Matrice di intensità]
+\label{defn:im}
 \end{definizione} 
 
 \begin{definizione}[\upcase\cmprocess{}]
+\label{defn:conditional-markov-provess}
 \end{definizione} 
 
 \begin{definizione}[Matrice di intensità condizionata]
+\label{defn:cim}
 \end{definizione} 
 
 %************************************************
 \section{Rappresentazione}
-\label{sec:rappresentazione}
+\label{sec:ctbn-rappresentazione}
 
 Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Si assume perciò che tali dinamiche evolutive siano governate e dipendano dal valore che gli stati dei nodi padre assumono \cite{Stella2012}.
 Una \acs{CTBN} è composta principalmente da due componenti:
@@ -131,11 +176,11 @@ Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi 
 
 %************************************************
 \section{Apprendimento}
-\label{sec:apprendimento}
+\label{sec:ctbn-apprendimento}
 
 %************************************************
 \section{Inferenza}
-\label{sec:inferenza}
+\label{sec:ctbn-inferenza}
 
 
 % TODO: apprendimento strutturale?
