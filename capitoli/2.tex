@@ -96,34 +96,31 @@ $\forall$ $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$:
 dove $nd(\setel{X_i})$ è l'insieme dei nodi non--discendenti (ed $\setel{E}$ è una variabile casuale o un insieme di variabili casuali ad essi associati).
 In base a ciò si dice quindi che le \acl{BN} rispettano l'\emph{assunzione locale di Markov}.
 
-\subsubsection{Apprendimento}\acresetall
+\subsubsection{Apprendimento e Inferenza}\acresetall
 In questa sezione si descrivono brevemente, e solo a scopo introduttivo, i processi di apprendimento e inferenza sulle \acl{BN}.
 
 Il problema dell'apprendimento per le \acl{BN} si divide principalmente in due casi:
 \begin{itemize}
     \item apprendere le \acs{CPD}, nota la struttura 
-    \item apprendere sia le \acs{CPD}, sia la struttura.
+    \item apprendere sia le \acs{CPD}, sia la struttura (incognita).
 \end{itemize}
 In entrambi i casi è di grande aiuto la rappresentazione efficiente delle \acl{BN} che, tramite la \emph{fattorizzazione} della distribuzione di probabilità congiunta, permette di rappresentarla in modo compatto \eqref{eq:bn-chain-rule} riducendo notevolmente il numero di parametri da calcolare.
 
----
-% finish: http://en.wikipedia.org/wiki/Bayesian_network
-Sulle \acl{BN} i seguenti processi: ...
+Come detto, per specificare completamente una \acl{BN} è necessario rappresentare completamente la distribuzione di probabilità congiunta delle sue variabili tramite la \acl{CPD} di ognuna di esse. In generale, tali distribuzioni condizionali possono avere una qualsiasi forma anche se, al fine di semplificare i calcoli, è comune utilizzare distribuzioni discrete o Gaussiane per modellarle. \`E frequente la situazione in cui queste distribuzioni condizionali includono parametri sconosciuti che è necessario stimare dai dati. In tali casi solitamente si procede tramite l'algoritmo di \acf{EM}, il quale alterna il calcolo dei valori attesi delle variabili casuali non osservate condizionalmente ai dati osservati con la massimizzazione della likelihood. Tale approccio generalmente converge ai valori di massima probabilità a posteriori per i parametri. Esistono comunque una varietà di altri approcci possibili (\eg{} trattare i parametri come variabili casuali sconosciute addizionali) per l'\emph{apprendimento dei parametri} che tuttavia non sono argomento di questo lavoro di tesi.
 
-Generative model (not just discriminative): allows 
-arbitrary queries to be answered, e.g
+Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo clique tree proprogation. Questi metodi, come gli altri presenti in letterature, sono esponenziali rispetto al tree-width del grafo. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'importance sampling e la simulazione \acf{MCMC}.
 
-th di bayes
-significato th di bayes: apprendimento dall'esperienza
-
-For example, if the parents are  Boolean variables then the probability function could be represented by a table of  entries, one entry for each of the  possible combinations of its parents being true or false
-
----
-
-
+Quando si dispone del grafo sottostante una \acs{BN}, aldilà dell'osservabilità o meno delle sue variabili casuali, è possibile quindi usare tale \acs{BN} per effettuare inferenza. Nel caso in cui invece non si disponga della struttura di una \acs{BN} si presenta innanzitutto il problema dell'\emph{apprendimento strutturale}. Per apprendere automaticamente il grafo di una \acl{BN} sono stati sviluppati principalmente due famiglie di algoritmi:
+\begin{itemize}
+    \item algoritmi basati sulla ricerca dello scheletro del grafo dal quale, tramite le indipendenze condizionali osservate, si deducono successivamente le direzioni degli archi
+    \item algoritmi che utilizzano tecniche di ricerca ottimizzata.
+\end{itemize}
+Gli algoritmi facenti parte della seconda famiglia utilizzando una strategia di ricerca (\eg{} Hill Climbing, Best First Search, Simulated Annealing) e una funzione di scoring. Solitamente la funzione di scoring utilizza la probabilità a posteriori della struttura in esame, dato l'insieme dei dati di apprendimento (\ie{} training set). Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono super esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili.
 
 \subsection{\mprocess{}}
 \label{sec:mps}
+
+Sempre al fine di preparare la discussione delle \acl{CTBN} si presentano di seguito concetti relativi ai Markov process.
 
 \begin{definizione}[Proprietà di Markov]
 \label{defn:markov-assumption}
