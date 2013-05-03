@@ -58,18 +58,18 @@ Dato un insieme di variabili casuali e una distribuzione di probabilità congiun
 
 Perciò, dato un insieme di variabili casuali $\setel{A_1},\dotsc,\setel{A_n}$ è possibile calcolare il valore di tale membro della distribuzione di probabilità congiunta applicando la definizione di probabilità condizionale:
 \[
-\set{P}(\setel{A_1},\dotsc,\setel{A_n})=\set{P}(\setel{A_n}|\setel{A_{n-1}},\dotsc,\setel{A_1})\cdot\set{P}(\setel{A_{n-1}},\dotsc,\setel{A_1})
+\set{P}(\setel{A_1},\dotsc,\setel{A_n})=\set{P}(\setel{A_n}\,|\,\setel{A_{n-1}},\dotsc,\setel{A_1})\cdot\set{P}(\setel{A_{n-1}},\dotsc,\setel{A_1})
 \]
 Ripetendo tale processo per ogni termine finale si ottiene:
 \begin{equation}
 \label{eq:chain-rule}
-\set{P}(\bigcap_{k=1}^{n}\setel{A_k})=\prod_{k=1}^{n}\set{P}(\setel{A_k}|\bigcap_{j=1}^{k-1}\setel{A_j})
+\set{P}(\bigcap_{k=1}^{n}\setel{A_k})=\prod_{k=1}^{n}\set{P}(\setel{A_k}\,|\,\bigcap_{j=1}^{k-1}\setel{A_j})
 \end{equation}
 
 Applicando la \eqref{eq:chain-rule} alle \acl{BN} diciamo che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
 \begin{equation}
 \label{eq:bn-chain-rule}
-\set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}|pa(\setel{X_i}))
+\set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}\,|\,pa(\setel{X_i}))
 \end{equation}
 L'equazione \eqref{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi. Si noti inoltre, che le \acl{BN} richiedono che la loro componente $\conceptsym{G}$ non contenga cicli (si veda \acs{DAG} in \ref{defn:bn}) affinché possano rispettare tale proprietà.
 
@@ -78,11 +78,11 @@ Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi immediat
 Un evento $\setel{A}$ è \emph{condizionalmente indipendente} da un evento $\setel{B}$, data l'evidenza su un evento $\setel{C}$, qualora la conoscenza di $\setel{B}$ non apporta alcuna variazione alla probabilità di $\setel{A}$ rispetto a quella conseguente alla conoscenza di $\setel{C}$.
 Formalmente, ciò significa che:
 \[
-\set{P}(\setel{A},\setel{B}|\setel{C})=\set{P}(\setel{A}|\setel{B},\setel{C})\cdot\set{P}(\setel{B}|\setel{C})=\set{P}(\setel{A}|\setel{C})\cdot\set{P}(\setel{B}|\setel{C})
+\set{P}(\setel{A},\setel{B}\,|\,\setel{C})=\set{P}(\setel{A}\,|\,\setel{B},\setel{C})\cdot\set{P}(\setel{B}\,|\,\setel{C})=\set{P}(\setel{A}\,|\,\setel{C})\cdot\set{P}(\setel{B}\,|\,\setel{C})
 \]
 Da cui segue che:
 \[
-\setel{A}\perp\setel{B}|\setel{C}\iff\set{P}(\setel{A}|\setel{B},\setel{C})=\set{P}(\setel{A}|\setel{C})
+\setel{A}\perp\setel{B}\,|\,\setel{C}\iff\set{P}(\setel{A}\,|\,\setel{B},\setel{C})=\set{P}(\setel{A}\,|\,\setel{C})
 \]
 \end{definizione}
 In termini non formali, supponendo di essere nel caso della definizione, cioè di avere una variabile casuale $\setel{A}$ \emph{condizionalmente indipendente} da $\setel{B}$ dato $\setel{C}$, ciò significa che è possibile ignorare $\setel{B}$ poiché essa non ha alcun riflesso sulla distribuzione condizionale di $\setel{A}$.
@@ -91,7 +91,7 @@ Si noti che il concetto appena espresso gioca quindi un ruolo importante per i m
 
 $\forall$ $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$:
 \[
-\set{P}(\setel{X_i}|\setel{E},pa(\setel{X_i}))=\set{P}(\setel{X_i}|pa(\setel{X_i}))\;\forall\:\setel{E}\in nd(\setel{X_i})
+\set{P}(\setel{X_i}\,|\,\setel{E},pa(\setel{X_i}))=\set{P}(\setel{X_i}\,|\,pa(\setel{X_i}))\;\forall\:\setel{E}\in nd(\setel{X_i})
 \]
 dove $nd(\setel{X_i})$ è l'insieme dei nodi non--discendenti (ed $\setel{E}$ è una variabile casuale o un insieme di variabili casuali ad essi associati).
 In base a ciò si dice quindi che le \acl{BN} rispettano l'\emph{assunzione locale di Markov}.
@@ -128,7 +128,7 @@ Un processo stocastico gode della proprietà di Markov se la \acl{CPD} degli sta
 
 Formalmente, se $\setel{X}(t),\:t > 0$ è un processo stocastico, secondo la proprietà di Markov $\forall\:h > 0$ vale la seguente equazione:
 \begin{equation}
-\set{P}(\setel{X}(t + h)|\,\setel{X}(s)=x(s),\,s\leq t)=\set{P}(\setel{X}(t + h)|\,\setel{X}(t)=x(t))
+\set{P}(\setel{X}(t + h)\,|\,\setel{X}(s)=x(s),\,s\leq t)=\set{P}(\setel{X}(t + h)\,|\,\setel{X}(t)=x(t))
 \end{equation}
 
 Il termine \emph{assunzione di Markov} è usato per descrivere i modelli che godono di tale proprietà.
@@ -142,14 +142,14 @@ Si definisce come Markov process un processo stocastico che gode della propriet�
 \label{defn:homogeneus-markov-provess}
 Un processo di Markov è detto \emph{omogeneo} qualora esso $\forall\:t,\,h > 0$ non dipende dal tempo $t$, ovvero:
 \begin{equation}
-\set{P}(\setel{X}(t + h)|\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)|\,\setel{X}(0)=x(0))
+\set{P}(\setel{X}(t + h)\,|\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)\,|\,\setel{X}(0)=x(0))
 \end{equation}
 Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definitbile in termini di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ su $val(\setel{X})$
-    \item una matrice delle intensità $\imsign{\setel{X}}$.
+    \item una matrice di intensità $\imsign{\setel{X}}$.
 \end{itemize}
-\end{definizione} 
+\end{definizione}
 
 \begin{definizione}[Matrice di intensità]
 \label{defn:im}
@@ -162,6 +162,8 @@ Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazion
 \begin{definizione}[Matrice di intensità condizionata]
 \label{defn:cim}
 \end{definizione} 
+
+% TODO: sezione 2.3 da Nodelman2007 ?
 
 %************************************************
 \section{Rappresentazione}
@@ -189,14 +191,44 @@ Dato un insieme $\set{X}$ di variabili casuali $\setel{X_1}, \setel{X_2}, \dotsc
 Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le relazioni temporali fra essi. Tali relazioni codificano le dinamiche evolutive dei nodi, ognuna delle quali è espressa condizionatamente alla dinamica evolutiva degli stati dei suoi nodi genitori. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati. 
 \end{nota}
 
+\begin{definizione}[$J$--time--segment]
+...
+\end{definizione}
+
+\begin{definizione}[$J$--evidence--stream]
+...
+\end{definizione}
+
 %************************************************
 \section{Apprendimento}
 \label{sec:ctbn-apprendimento}
+...
+
+\subsection{Sufficient Statistics}
+...
+
+\subsection{Stima dei parametri}
+...
+
+% TODO: sezione 5.1 da Nodelman2007 ?
+
+\section{Apprendimento-strutturale}
+\label{sec:ctbn-apprendimento-strutturale}
+...
+riferimenti a \cite{Nodelman2002} e \cite{Nodelman2007}
+
+% TODO: specificare che si tratta l'apprendimento solo da dati completi
 
 %************************************************
 \section{Inferenza}
 \label{sec:ctbn-inferenza}
+...
 
+% TODO: sezione 8 da Nodelman2007 ?
 
-% TODO: apprendimento strutturale?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TODO: inserire riferimento/i per la sezione apprendimento e inferenza delle BN (Pearl, Heckermann 1995, Yedidia2000 per generalized belief propagation)
+% TODO: inserire riferimento/i per la sezione sui Markov process
 % TODO: inserire immagini esemplificative delle ctbn
+% TODO: controllare da 2.2 di Nodelman2007 la sezione sulle BN
