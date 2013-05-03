@@ -53,7 +53,7 @@ Mentre un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rapp
 Prima di procedere con la discussione si introduce la Chain Rule, regola molto utile nel caso delle \acs{BN}.
 
 \begin{teorema}[Chain Rule]
-Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità condizionale delle variabili casuali \cite{Russel2003}.
+Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità condizionale delle variabili casuali~\cite{Russel2003}.
 \end{teorema}
 
 Perciò, dato un insieme di variabili casuali $\setel{A_1},\dotsc,\setel{A_n}$ è possibile calcolare il valore di tale membro della distribuzione di probabilità congiunta applicando la definizione di probabilità condizionale:
@@ -120,7 +120,7 @@ Gli algoritmi facenti parte della seconda famiglia utilizzando una strategia di 
 \subsection{\mprocess{}}
 \label{sec:mps}
 
-Sempre al fine di preparare la discussione delle \acl{CTBN} si prosiegue presentando alcuni concetti propedeutici relativi ai Markov process, una categoria di processi stocastici \emph{memoryless} (con assenza di memoria).
+Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presentando alcuni concetti propedeutici relativi ai Markov process, una categoria di processi stocastici \emph{memoryless} (con assenza di memoria).
 
 \begin{definizione}[Proprietà di Markov]
 \label{defn:markov-assumption}
@@ -140,24 +140,46 @@ Si definisce come Markov process un processo stocastico che gode della propriet�
 
 \begin{definizione}[\upcase\omprocess{}]
 \label{defn:homogeneus-markov-provess}
-Un processo di Markov è detto \emph{omogeneo} qualora esso $\forall\:t,\,h > 0$ non dipende dal tempo $t$, ovvero:
+Un processo di Markov è detto \emph{omogeneo} qualora esso $\forall\:t,\,h > 0$ non dipenda dal tempo $t$, ovvero:
 \begin{equation}
 \set{P}(\setel{X}(t + h)\,|\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)\,|\,\setel{X}(0)=x(0))
 \end{equation}
-Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definitbile in termini di:
+Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definibile in termini di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ su $val(\setel{X})$
     \item una matrice di intensità $\imsign{\setel{X}}$.
 \end{itemize}
 \end{definizione}
 
-\begin{definizione}[Matrice di intensità]
-\label{defn:im}
-\end{definizione} 
-
 \begin{definizione}[\upcase\cmprocess{}]
 \label{defn:conditional-markov-provess}
+\end{definizione}
+
+\subsection{\acl{CTMP}}
+\label{sec:ctmp}
+Avendo brevemente introdotto i concetti basilari relativi ai processi di Markov si fornisce in questa sezione uno sguardo su una loro estensione, i processi di Markov a tempo continuo (e stati finiti).
+
+Con il termine \acf{CTMP} si intende indicare una variabile casuale indicizzata dal tempo. Questo concetto, come si illustrerà a breve, è parte fondamentale e imprescindibile delle \acl{CTBN}.
+\acresetall
+\begin{definizione}[Variabile di processo]
+Dato un insieme di variabili casuali $\set{X}$ indicizzate dal tempo $t\in[\,0,\,\infty)$ è conveniente definire questo insieme come una singola \emph{Process Variable} $\set{X}(t)$.
+\end{definizione}
+
+\begin{definizione}[Matrice di intensità]
+\label{defn:im}
+Una matrice di intensità rappresenta un \emph{modello di transizione Markoviano}:
+% \[
+% \imsign{\setel{X}} = \begin{bmatrix}
+%        \frac{5}{6} & \frac{1}{6} & 0           \\[0.3em]
+%        \frac{5}{6} & 0           & \frac{1}{6} \\[0.3em]
+%        0           & \frac{5}{6} & \frac{1}{6}
+%      \end{bmatrix}
+% \]
+
+
 \end{definizione} 
+
+
 
 \begin{definizione}[Matrice di intensità condizionata]
 \label{defn:cim}
@@ -169,7 +191,7 @@ Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazion
 \section{Rappresentazione}
 \label{sec:ctbn-rappresentazione}
 
-Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Si assume perciò che tali dinamiche evolutive siano governate e dipendano dal valore che gli stati dei nodi padre assumono \cite{Stella2012}.
+Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendano dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}.
 Una \acs{CTBN} è composta principalmente da due componenti:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale
@@ -177,7 +199,7 @@ Una \acs{CTBN} è composta principalmente da due componenti:
 \end{itemize}
 Più formalmente si definisce:
 \begin{definizione}[\acl{CTBN}]
-Dato un insieme $\set{X}$ di variabili casuali $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$ dove ogni $\setel{X_n}$ ha uno spazio degli stati finito $val(\setel{X_N})=\{ \vectel{x_1}, \dotsc, \vectel{x_J} \}$, una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
+Data una Process Variable $\set{X}$, cioè un insieme di variabili casuali $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$ dove ogni $\setel{X_n}$ ha uno spazio degli stati finito $val(\setel{X_n})=\{ \vectel{x_1}, \dotsc, \vectel{x_J} \}$, una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ specificata come una \bn{} $\conceptsym{B}$ su $\set{X}$
     \item un modello di transizione continuo, specificato da:
@@ -191,13 +213,20 @@ Dato un insieme $\set{X}$ di variabili casuali $\setel{X_1}, \setel{X_2}, \dotsc
 Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le relazioni temporali fra essi. Tali relazioni codificano le dinamiche evolutive dei nodi, ognuna delle quali è espressa condizionatamente alla dinamica evolutiva degli stati dei suoi nodi genitori. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati. 
 \end{nota}
 
-\begin{definizione}[$J$--time--segment]
-...
+\begin{definizione}[$J$-time-segment]
+Partizionamento di un intervallo temporale $[\,0,\,T)$ in $J$ intervalli chiusi a sinistra:
+\[
+[\,0,\,t_1)\:;\:[\,t_1,\,t_2)\:;\:\dotsc\:;\:[\,t_{J-1},\,T)
+\]
 \end{definizione}
 
-\begin{definizione}[$J$--evidence--stream]
-...
+\begin{definizione}[$J$-evidence-stream]
+Per ogni sottoinsieme delle variabili casuali $\setel{X_n}$ (con $n=1,\dotsc,N$), il $J$-evidence-stream è l'insieme delle insieme delle istanziazioni comuni $\setel{X}=x$ associate ad ogni $J$-time-segment. \`E denotato con $(\setel{X^1}=x^1,\,\setel{X^2}=x^2,\,\dotsc,\,\setel{X^J}=x^J)$, o più concisamente $(x^1,\,x^2,\,\dotsc,\,x^J)$.
 \end{definizione}
+
+\begin{osservazione}
+Un $J$-evidence-stream $(x^1,\,x^2,\,\dotsc,\,x^J)$ è detto essere \emph{<<fully observed>>} (completamente osservato) se lo stato di tutte le variabili $\setel{X_n}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un $J$-evidence-stream è detto \emph{<<partially observed>>} (parzialmente osservato)~\cite{Stella2012}.
+\end{osservazione}
 
 %************************************************
 \section{Apprendimento}
@@ -215,7 +244,7 @@ Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi 
 \section{Apprendimento-strutturale}
 \label{sec:ctbn-apprendimento-strutturale}
 ...
-riferimenti a \cite{Nodelman2002} e \cite{Nodelman2007}
+riferimenti a~\cite{Nodelman2002} e~\cite{Nodelman2007}
 
 % TODO: specificare che si tratta l'apprendimento solo da dati completi
 
