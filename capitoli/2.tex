@@ -120,17 +120,35 @@ Gli algoritmi facenti parte della seconda famiglia utilizzando una strategia di 
 \subsection{\mprocess{}}
 \label{sec:mps}
 
-Sempre al fine di preparare la discussione delle \acl{CTBN} si presentano di seguito concetti relativi ai Markov process.
+Sempre al fine di preparare la discussione delle \acl{CTBN} si prosiegue presentando alcuni concetti propedeutici relativi ai Markov process, una categoria di processi stocastici \emph{memoryless} (con assenza di memoria).
 
 \begin{definizione}[Proprietà di Markov]
 \label{defn:markov-assumption}
-% http://it.wikipedia.org/wiki/Propriet%C3%A0_di_Markov
+Un processo stocastico gode della proprietà di Markov se la \acl{CPD} degli stati futuri delle sue variabili casuali dipende unicamente dal loro stato attuale, data la sequenza di stati passati. Ciò indica che lo stato futuro di una variabile casuale è condizionalmente indipendente (si veda \ref{defn:ic}) dalla sequenza dei suoi stati passati, dato il suo stato presente.
 
-Si descrive un modello per cui si assume sussista la proprietà di Markov come un modello che rispetta l'assunzione di Markov.
+Formalmente, se $\setel{X}(t),\:t > 0$ è un processo stocastico, secondo la proprietà di Markov $\forall\:h > 0$ vale la seguente equazione:
+\begin{equation}
+\set{P}(\setel{X}(t + h)|\,\setel{X}(s)=x(s),\,s\leq t)=\set{P}(\setel{X}(t + h)|\,\setel{X}(t)=x(t))
+\end{equation}
+
+Il termine \emph{assunzione di Markov} è usato per descrivere i modelli che godono di tale proprietà.
+\end{definizione}
+
+\begin{definizione}[Markov Process]
+Si definisce come Markov process un processo stocastico che gode della proprietà di Markov.
 \end{definizione}
 
 \begin{definizione}[\upcase\omprocess{}]
 \label{defn:homogeneus-markov-provess}
+Un processo di Markov è detto \emph{omogeneo} qualora esso $\forall\:t,\,h > 0$ non dipende dal tempo $t$, ovvero:
+\begin{equation}
+\set{P}(\setel{X}(t + h)|\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)|\,\setel{X}(0)=x(0))
+\end{equation}
+Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definitbile in termini di:
+\begin{itemize}
+    \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ su $val(\setel{X})$
+    \item una matrice delle intensità $\imsign{\setel{X}}$.
+\end{itemize}
 \end{definizione} 
 
 \begin{definizione}[Matrice di intensità]
