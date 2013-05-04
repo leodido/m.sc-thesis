@@ -124,66 +124,115 @@ Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presenta
 
 \begin{definizione}[Proprietà di Markov]
 \label{defn:markov-assumption}
-Un processo stocastico gode della proprietà di Markov se la \acl{CPD} degli stati futuri delle sue variabili casuali dipende unicamente dal loro stato attuale, data la sequenza di stati passati. Ciò indica che lo stato futuro di una variabile casuale è condizionalmente indipendente (si veda \ref{defn:ic}) dalla sequenza dei suoi stati passati, dato il suo stato presente.
+Secondo la proprietà di Markov gli stati futuri di un processo stocastico sono indipendenti dagli stati passati, avendo evidenza sullo stato presente di tale processo.
 
-Formalmente, se $\setel{X}(t),\:t > 0$ è un processo stocastico, secondo la proprietà di Markov $\forall\:h > 0$ vale la seguente equazione:
+Formalmente, se $\setel{X}(t),\:t > 0$ è un processo stocastico che gode di tale proprietà, allora $\forall\:h > 0$ vale la seguente equazione:
 \begin{equation}
 \set{P}(\setel{X}(t + h)\,|\,\setel{X}(s)=x(s),\,s\leq t)=\set{P}(\setel{X}(t + h)\,|\,\setel{X}(t)=x(t))
 \end{equation}
-
-Il termine \emph{assunzione di Markov} è usato per descrivere i modelli che godono di tale proprietà.
+Con la caratterizzazione \emph{assunzione di Markov} si è soliti descrivere i modelli che rispettano tale proprietà.
 \end{definizione}
+
+Di conseguenza possiamo osservare che la \acl{CPD} degli stati futuri di un processo stocastico che gode di tale proprietà dipende solo ed esclusivamente dallo stato attuale del processo, data la conoscenza dei suoi stati passati.
+
+In altri termini ciò indica che lo stato futuro di una variabile casuale è \emph{condizionalmente indipendente} (si veda \ref{defn:ic}) dalla sequenza dei suoi stati passati, avendo evidenza sul suo stato presente.
+
+Dalla proprietà di Markov deriva la definizione di Markov Process.
 
 \begin{definizione}[Markov Process]
 Si definisce come Markov process un processo stocastico che gode della proprietà di Markov.
 \end{definizione}
 
-\begin{definizione}[\upcase\omprocess{}]
+Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi dandone le definizioni.
+
+\begin{definizione}[\omprocess{} Process]
 \label{defn:homogeneus-markov-provess}
 Un processo di Markov è detto \emph{omogeneo} qualora esso $\forall\:t,\,h > 0$ non dipenda dal tempo $t$, ovvero:
 \begin{equation}
 \set{P}(\setel{X}(t + h)\,|\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)\,|\,\setel{X}(0)=x(0))
 \end{equation}
-Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definibile in termini di:
+\end{definizione}
+Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})=\{ \vectel{x_1}, \dotsc, \vectel{x_J} \}$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definibile in termini di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ su $val(\setel{X})$
     \item una matrice di intensità $\imsign{\setel{X}}$.
 \end{itemize}
+
+\begin{definizione}[Matrice di intensità]
+\label{defn:im}
+Una matrice di intensità, o \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}
+\[
+\imsign{\setel{X}}= \begin{bmatrix}
+                        -q_{x_1}    & q_{x_1x_2}& \cdots & q_{x_1x_k}   \\[0.5em]
+                        q_{x_2x_1}  & -q_{x_2}  & \cdots & q_{x_2x_k}   \\[0.5em]
+                        \vdots      & \vdots    & \ddots & \vdots       \\[0.5em]
+                        q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
+                    \end{bmatrix}
+\]
+il cui scopo è rappresentare e descrivere il comportamento transiente di $\setel{X}$, un processo di Markov omogeneo.
+% TODO: dire qua che induce una distribuzione di probabilità fattorizzata .. ? (vedi slide mie)
 \end{definizione}
 
-\begin{definizione}[\upcase\cmprocess{}]
+Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$. Ciò è possibile solo se:
+\[
+q_{x_i}=\sum_{i \neq j}q_{x_{ij}}\quad\text{con}\quad q_{x_i}\,,\,q_{x_{ij}}>0
+\]
+Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano la \emph{probabilità istantanea} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale\footnote{Elementi della matrice per i cui indici $i$ e $j$ risulta vero che $i \neq j$.}, $x_{ij}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$.
+
+Possiamo quindi calcolare:
+\begin{itemize}
+    \item il \emph{tempo atteso di una transizione uscente} dallo stato $x_i$ \[1/q_{x_i}\]
+    \item la \emph{probabilità di transizione} dallo stato $x_i$ allo stato $x_j$ \[\theta_{ij}=q_{x_{ij}}/q_{x_i}\]
+\end{itemize}
+
+Si osservi come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov.
+
+\begin{definizione}[\cmprocess{} Process]
 \label{defn:conditional-markov-provess}
+Un processo di Markov le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \cmprocess{} Process (o Inhomogeneous Markov Process).
 \end{definizione}
+
+Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un processo di Markov $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $\set{U}$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{\set{U}}$.
+
+Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un Markov Process il cui comportamento dipende dall'istanziazione dei valori di $\setel{U_i}$. 
+
+\begin{definizione}[Matrice di intensità condizionale]
+\label{defn:cim}
+Dato un insieme di processi di Markov $\set{U}$, una matrice di intensità condizionale $\cimsign{\setel{X}}{\set{U}}$ è costituita da un insieme di matrici di intensità $\cimsign{\setel{X}}{\setel{u_i}}$, una per ogni diversa istanziazione $\setel{u_i}$ di $\set{U}$.
+\[
+\cimsign{\setel{X}}{\set{U}}=\big\{\,\cimsign{\setel{X}}{\setel{u_1}}\,,\,\cimsign{\setel{X}}{\setel{u_2}}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{\setel{u_m}}\,\big\}
+\]
+\[
+\cimsign{\setel{X}}{u_i} = \begin{bmatrix}
+                        -q_{x_1}    & q_{x_1x_2}& \cdots & q_{x_1x_k}   \\[0.5em]
+                        q_{x_2x_1}  & -q_{x_2}  & \cdots & q_{x_2x_k}   \\[0.5em]
+                        \vdots      & \vdots    & \ddots & \vdots       \\[0.5em]
+                        q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
+                    \end{bmatrix}
+\]
+\end{definizione} 
+
+%TODO: esempio?
 
 \subsection{\acl{CTMP}}
 \label{sec:ctmp}
 Avendo brevemente introdotto i concetti basilari relativi ai processi di Markov si fornisce in questa sezione uno sguardo su una loro estensione, i processi di Markov a tempo continuo (e stati finiti).
 
-Con il termine \acf{CTMP} si intende indicare una variabile casuale indicizzata dal tempo. Questo concetto, come si illustrerà a breve, è parte fondamentale e imprescindibile delle \acl{CTBN}.
+Con il termine \acf{CTMP} si intende indicare una variabile casuale indicizzata dal tempo. Questo concetto, come sarà evidente ben presto nel prosieguo, è parte fondamentale e imprescindibile delle \acl{CTBN}.
 \acresetall
 \begin{definizione}[Variabile di processo]
 Dato un insieme di variabili casuali $\set{X}$ indicizzate dal tempo $t\in[\,0,\,\infty)$ è conveniente definire questo insieme come una singola \emph{Process Variable} $\set{X}(t)$.
 \end{definizione}
+L'istanziazione di un insieme di valori per $\set{X}(t)$ al variare di $t$ è detta \emph{traiettoria}.
 
-\begin{definizione}[Matrice di intensità]
-\label{defn:im}
-Una matrice di intensità rappresenta un \emph{modello di transizione Markoviano}:
-% \[
-% \imsign{\setel{X}} = \begin{bmatrix}
-%        \frac{5}{6} & \frac{1}{6} & 0           \\[0.3em]
-%        \frac{5}{6} & 0           & \frac{1}{6} \\[0.3em]
-%        0           & \frac{5}{6} & \frac{1}{6}
-%      \end{bmatrix}
-% \]
-
-
-\end{definizione} 
+VP -> markov process omogeneo tempo continuo stati finiti
+singola V -> markov process condizionale (o inomogeneo), tempo continuo stati finiti
 
 
 
-\begin{definizione}[Matrice di intensità condizionata]
-\label{defn:cim}
-\end{definizione} 
+
+
+
 
 % TODO: sezione 2.3 da Nodelman2007 ?
 
@@ -199,13 +248,13 @@ Una \acs{CTBN} è composta principalmente da due componenti:
 \end{itemize}
 Più formalmente si definisce:
 \begin{definizione}[\acl{CTBN}]
-Data una Process Variable $\set{X}$, cioè un insieme di variabili casuali $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$ dove ogni $\setel{X_n}$ ha uno spazio degli stati finito $val(\setel{X_n})=\{ \vectel{x_1}, \dotsc, \vectel{x_J} \}$, una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
+Data una Process Variable $\set{X}$, cioè un insieme di variabili casuali $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$ dove ogni $\setel{X_n}$ ha uno spazio degli stati finito $val(\setel{X_n})=\{\vectel{x_1}, \dotsc, \vectel{x_J}\}$, una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ specificata come una \bn{} $\conceptsym{B}$ su $\set{X}$
     \item un modello di transizione continuo, specificato da:
     \begin{itemize}
         \item un grafo $\conceptsym{G}$, orientato e non necessariamente aciclico, composto dai nodi $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$, ognuno dei quali possiede un insieme di genitori (possibilmente vuoto) denotato da $pa(\setel{X_n})$
-        \item una matrice di intensità condizionale $\cimsign{\setel{X_n}}$ per ogni nodo $\setel{X_n} \in \set{X}$.
+        \item una matrice di intensità condizionale $\cimsign{\setel{X_n}}{pa(\setel{X})}$ per ogni nodo $\setel{X_n} \in \set{X}$.
     \end{itemize}
 \end{itemize}
 \end{definizione}
@@ -227,6 +276,7 @@ Per ogni sottoinsieme delle variabili casuali $\setel{X_n}$ (con $n=1,\dotsc,N$)
 \begin{osservazione}
 Un $J$-evidence-stream $(x^1,\,x^2,\,\dotsc,\,x^J)$ è detto essere \emph{<<fully observed>>} (completamente osservato) se lo stato di tutte le variabili $\setel{X_n}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un $J$-evidence-stream è detto \emph{<<partially observed>>} (parzialmente osservato)~\cite{Stella2012}.
 \end{osservazione}
+% TODO: prima o dopo queste 2 def parlare della point evidence (vedi paper stella private)
 
 %************************************************
 \section{Apprendimento}
