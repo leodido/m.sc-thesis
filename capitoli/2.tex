@@ -128,6 +128,7 @@ Secondo la proprietà di Markov gli stati futuri di un processo stocastico sono 
 
 Formalmente, se $\setel{X}(t),\:t > 0$ è un processo stocastico che gode di tale proprietà, allora $\forall\:h > 0$ vale la seguente equazione:
 \begin{equation}
+\label{eq:markov-assumption}
 \set{P}(\setel{X}(t + h)\,|\,\setel{X}(s)=x(s),\,s\leq t)=\set{P}(\setel{X}(t + h)\,|\,\setel{X}(t)=x(t))
 \end{equation}
 Con la caratterizzazione \emph{assunzione di Markov} si è soliti descrivere i modelli che rispettano tale proprietà.
@@ -146,9 +147,10 @@ Si definisce come Markov process un processo stocastico che gode della propriet�
 Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi dandone le definizioni.
 
 \begin{definizione}[\omprocess{} Process]
-\label{defn:homogeneus-markov-provess}
+\label{defn:homogeneus-markov-process}
 Un processo di Markov è detto \emph{omogeneo} qualora esso $\forall\:t,\,h > 0$ non dipenda dal tempo $t$, ovvero:
 \begin{equation}
+\label{eq:homogeneus-markov-process}
 \set{P}(\setel{X}(t + h)\,|\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)\,|\,\setel{X}(0)=x(0))
 \end{equation}
 \end{definizione}
@@ -177,7 +179,7 @@ Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve somma
 \[
 q_{x_i}=\sum_{i \neq j}q_{x_{ij}}\quad\text{con}\quad q_{x_i}\,,\,q_{x_{ij}}>0
 \]
-Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano la \emph{probabilità istantanea} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale\footnote{Elementi della matrice per i cui indici $i$ e $j$ risulta vero che $i \neq j$.}, $x_{ij}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$.
+Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano la \emph{probabilità istantanea} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale\footnote{Elementi della matrice per i cui indici $i$ e $j$ risulta vero che $i \neq j$.}, $x_{ij}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$. 
 
 Possiamo quindi calcolare:
 \begin{itemize}
@@ -185,62 +187,75 @@ Possiamo quindi calcolare:
     \item la \emph{probabilità di transizione} dallo stato $x_i$ allo stato $x_j$ \[\theta_{ij}=q_{x_{ij}}/q_{x_i}\]
 \end{itemize}
 
-Si osservi come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov.
+Si osservi come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (\eqref[perciò vale l'equazione]{eq:homogeneus-markov-process}).
 
 \begin{definizione}[\cmprocess{} Process]
-\label{defn:conditional-markov-provess}
+\label{defn:conditional-markov-process}
 Un processo di Markov le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \cmprocess{} Process (o Inhomogeneous Markov Process).
-\end{definizione}
 
 Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un processo di Markov $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $\set{U}$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{\set{U}}$.
 
-Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un Markov Process il cui comportamento dipende dall'istanziazione dei valori di $\setel{U_i}$. 
+Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un Markov Process il cui comportamento dipende dalle istanziazioni dei valori di $\set{U}$.
+\end{definizione}
 
+\clearpage % TODO: rimuovere se non sarà più necessario
 \begin{definizione}[Matrice di intensità condizionale]
 \label{defn:cim}
 Dato un insieme di processi di Markov $\set{U}$, una matrice di intensità condizionale $\cimsign{\setel{X}}{\set{U}}$ è costituita da un insieme di matrici di intensità $\cimsign{\setel{X}}{\setel{u_i}}$, una per ogni diversa istanziazione $\setel{u_i}$ di $\set{U}$.
 \[
-\cimsign{\setel{X}}{\set{U}}=\big\{\,\cimsign{\setel{X}}{\setel{u_1}}\,,\,\cimsign{\setel{X}}{\setel{u_2}}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{\setel{u_m}}\,\big\}
+\cimsign{\setel{X}}{\set{U}}=\big\{\,\cimsign{\setel{X}}{\setel{u_1}}\,,\,\cimsign{\setel{X}}{\setel{u_2}}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{\setel{u_n}}\,\big\}
 \]
+dove\\
 \[
-\cimsign{\setel{X}}{u_i} = \begin{bmatrix}
-                        -q_{x_1}    & q_{x_1x_2}& \cdots & q_{x_1x_k}   \\[0.5em]
-                        q_{x_2x_1}  & -q_{x_2}  & \cdots & q_{x_2x_k}   \\[0.5em]
-                        \vdots      & \vdots    & \ddots & \vdots       \\[0.5em]
-                        q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
-                    \end{bmatrix}
+\cimsign{\setel{X}}{u_i}
+    =  \begin{bmatrix}
+        -q_{x_1}^{u_i}   & q_{x_1x_2}^{u_i} & \cdots & q_{x_1x_k}^{u_i}\\[0.5em]
+        q_{x_2x_1}^{u_i} & -q_{x_2}^{u_i}   & \cdots & q_{x_2x_k}^{u_i}\\[0.5em]
+        \vdots           & \vdots           & \ddots & \vdots          \\[0.5em]
+        q_{x_kx_1}^{u_i} & q_{x_kx_2}^{u_i} & \cdots & -q_{x_k}^{u_i}
+    \end{bmatrix}
 \]
 \end{definizione} 
 
 %TODO: esempio?
 
-\subsection{\acl{CTMP}}
-\label{sec:ctmp}
-Avendo brevemente introdotto i concetti basilari relativi ai processi di Markov si fornisce in questa sezione uno sguardo su una loro estensione, i processi di Markov a tempo continuo (e stati finiti).
+%************************************************
+\section{Introduzione}
+\label{sec:introduzione}
+Nelle precedenti sezioni sono stati illustrati i concetti che si pongono a fondamento delle \acl{CTBN}:
+\begin{itemize}
+    \item le \acl{BN} utili a comprendere la rappresentazione strutturata dello spazio degli stati delle \acs{CTBN}, l'utilizzo della nozione di indipendenza condizionale e le conseguenti tecniche di apprendimento e inferenza
+    \item i Markov Process, omogenei e non, al fine di introdurre le modalità di rappresentazione (qualitativa e quantitativa) esplicita delle dinamiche temporali.
+\end{itemize}
 
-Con il termine \acf{CTMP} si intende indicare una variabile casuale indicizzata dal tempo. Questo concetto, come sarà evidente ben presto nel prosieguo, è parte fondamentale e imprescindibile delle \acl{CTBN}.
-\acresetall
-\begin{definizione}[Variabile di processo]
-Dato un insieme di variabili casuali $\set{X}$ indicizzate dal tempo $t\in[\,0,\,\infty)$ è conveniente definire questo insieme come una singola \emph{Process Variable} $\set{X}(t)$.
+ \`E ora possibile quindi presentare le \acl{CTBN} come una collezione di \ac{CTMP} con spazio degli stati discreto~\cite{Nodelman2002}.
+
+\begin{definizione}[\acl{CTMP}]
+Variabile casuale $\setel{X}(t)$, che gode della proprietà di Markov, indicizzata dal tempo $t\in[\,0,\,\infty)$.
 \end{definizione}
-L'istanziazione di un insieme di valori per $\set{X}(t)$ al variare di $t$ è detta \emph{traiettoria}.
 
-VP -> markov process omogeneo tempo continuo stati finiti
-singola V -> markov process condizionale (o inomogeneo), tempo continuo stati finiti
+Dato quindi un insieme di \acl{CTMP} $\set{X}$ è conveniente definire questo insieme come una singola \emph{Process Variable} $\set{X}(t)$.
+Chiameremo invece \emph{traiettoria} l'istanziazione di un insieme di valori per $\set{X}(t)$ al variare di $t$.
+
+% VP -> markov process omogeneo tempo continuo stati finiti
+% singola V -> markov process condizionale (o inomogeneo), tempo continuo stati finiti
+
+% Un Homogeneous Markov Process globale
+% insieme di (inhomogeneous) Conditional Markov Processes
 
 
+% Le CTBN rappresentano esplicitamente il tempo: non è necessario
+% scegliere la granularità temporale a priori (contro DBNs)
 
-
-
-
-
-% TODO: sezione 2.3 da Nodelman2007 ?
+% Le variabili casuali devono rappresentare aspetti distinti del mondo
+% perciò si assume che esse non possano effettuare transizioni nello
+% stesso istante
 
 %************************************************
 \section{Rappresentazione}
 \label{sec:ctbn-rappresentazione}
 
-Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendano dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}.
+Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}.
 Una \acs{CTBN} è composta principalmente da due componenti:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale
@@ -248,7 +263,8 @@ Una \acs{CTBN} è composta principalmente da due componenti:
 \end{itemize}
 Più formalmente si definisce:
 \begin{definizione}[\acl{CTBN}]
-Data una Process Variable $\set{X}$, cioè un insieme di variabili casuali $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$ dove ogni $\setel{X_n}$ ha uno spazio degli stati finito $val(\setel{X_n})=\{\vectel{x_1}, \dotsc, \vectel{x_J}\}$, una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
+\label{defn:ctbn}
+Data una Process Variable $\set{X}$, cioè un insieme di processi di Markov $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$ dove ogni $\setel{X_n}$ ha uno spazio degli stati finito $val(\setel{X_n})=\{\vectel{x_1}, \dotsc, \vectel{x_J}\}$, una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ specificata come una \bn{} $\conceptsym{B}$ su $\set{X}$
     \item un modello di transizione continuo, specificato da:
@@ -258,9 +274,10 @@ Data una Process Variable $\set{X}$, cioè un insieme di variabili casuali $\set
     \end{itemize}
 \end{itemize}
 \end{definizione}
-\begin{nota}
+
 Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le relazioni temporali fra essi. Tali relazioni codificano le dinamiche evolutive dei nodi, ognuna delle quali è espressa condizionatamente alla dinamica evolutiva degli stati dei suoi nodi genitori. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati. 
-\end{nota}
+
+Inoltre, dalla definizione \ref{defn:ctbn} si deduce che una \acs{CTBN} rappresenta un unico \omprocess{} Process, costituito da un insieme di \cmprocess{} Process.
 
 \begin{definizione}[$J$-time-segment]
 Partizionamento di un intervallo temporale $[\,0,\,T)$ in $J$ intervalli chiusi a sinistra:
@@ -291,7 +308,7 @@ Un $J$-evidence-stream $(x^1,\,x^2,\,\dotsc,\,x^J)$ è detto essere \emph{<<full
 
 % TODO: sezione 5.1 da Nodelman2007 ?
 
-\section{Apprendimento-strutturale}
+\section{Apprendimento strutturale}
 \label{sec:ctbn-apprendimento-strutturale}
 ...
 riferimenti a~\cite{Nodelman2002} e~\cite{Nodelman2007}

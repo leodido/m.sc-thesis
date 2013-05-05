@@ -159,6 +159,25 @@
 \def\makeupcase#1{\uppercase{#1}}
 \makeatother
 
+% make first letter lowercase
+\makeatletter
+\def\lwcase{\expandafter\makelwcase}
+\def\makelwcase#1{\lowercase{#1}}
+\makeatother
+
+%*********************************************************************************
+% Equation references
+%*********************************************************************************
+\usepackage{etoolbox}
+\let\originaleqref\eqref
+\renewcommand\eqref[2][]{%
+  \ifstrempty{#1}{%
+    \ref{#2}%
+  }{%
+    #1~\ref{#2}%
+  }%
+}
+
 %*********************************************************************************
 % Altro
 %*********************************************************************************
