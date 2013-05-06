@@ -183,9 +183,10 @@ q_{x_i}=\sum_{i \neq j}q_{x_{ij}}\quad\text{con}\quad q_{x_i}\,,\,q_{x_{ij}}>0
 
 Data quindi una matrice di intensità $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=x_i$ allora il processo di Markov omogeneo (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $x_i$ una quantità di tempo esponenzialmente distribuita rispetto al parametro $q_{x_i}$. Di conseguenza la funzione di densità di probabilità $f$ e la corrispondente funzione di distribuzione $F$ per $\setel{X}(t)$ che rimane uguale a $x_i$ sono date da:
 \begin{equation}
+\label{eq:im-distrib}
 \begin{split}
-f(t)=q_{x_i}\,exp(-q_{x_i}\,t)\,,\quad t>0 \\
-F(t)=1-exp(-q_{x_i}\,t)\,,\quad t\geq0
+f(t) &= q_{x_i}\,exp(-q_{x_i}\,t)\,,\quad t>0 \\
+F(t) &= 1-exp(-q_{x_i}\,t)\,,\quad t\geq0
 \end{split} 
 \end{equation}
 
@@ -202,7 +203,7 @@ Quindi una matrice di intensità induce una distribuzione di probabilità locale
     \item $\theta_{x_{ij}}$, una \emph{distribuzione multinomiale}, che esprime \emph{verso} quale stato avvengono le transizioni.
 \end{itemize}
 
-Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (\eqref[perciò vale l'equazione]{eq:homogeneus-markov-process}).7
+Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (\eqref[vale l'equazione]{eq:homogeneus-markov-process}).
 
 \begin{definizione}[\conm\mprocess]
 \label{defn:conditional-markov-process}
@@ -232,8 +233,8 @@ dove\\
 \end{definizione} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduzione}
-\label{sec:introduzione}
+\section{Definizioni preliminari}
+\label{sec:Definizioni preliminari}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nelle precedenti sezioni sono stati illustrati i concetti che si pongono a fondamento delle \acl{CTBN}:
 \begin{itemize}
@@ -241,14 +242,34 @@ Nelle precedenti sezioni sono stati illustrati i concetti che si pongono a fonda
     \item i \mprocess{}, omogenei e non, al fine di introdurre le modalità di rappresentazione (qualitativa e quantitativa) esplicita delle dinamiche temporali.
 \end{itemize}
 
- \`E ora possibile quindi presentare le \acl{CTBN} come una collezione di \ac{CTMP} con spazio degli stati discreto~\cite{Nodelman2007}.
+\`E ora possibile quindi presentare le \acl{CTBN} come una collezione di \ac{CTMP} non omogenei e con spazio degli stati discreto~\cite{Nodelman2007}.
 
 \begin{definizione}[\acl{CTMP}]
 Variabile casuale $\setel{X}(t)$, che gode della proprietà di Markov, indicizzata dal tempo $t\in[\,0,\,\infty)$.
 \end{definizione}
 
-Dato quindi un insieme di \acl{CTMP} $\set{X}$ è conveniente definire questo insieme come una singola \emph{Process Variable} $\set{X}(t)$.
-Chiameremo invece \emph{traiettoria} l'istanziazione di un insieme di valori per $\set{X}(t)$ al variare di $t$.
+Di seguito, invece, si riportano alcune definizioni che torneranno utili durante il prosieguo della discussione.
+
+\begin{definizione}[\ACL{PV}]
+    Una \acf{PV} $\set{X}$ è un insieme di \acl{CTMP} $\setel{X}(t)$.
+\end{definizione}
+
+\begin{definizione}[Traiettoria]
+    Istanziazione di un insieme di valori per $\setel{X}(t)$ al variare di $t$.
+\end{definizione}
+
+\begin{definizione}[$J$-time-segment]
+Partizionamento di un intervallo temporale $[\,0,\,T)$ in $J$ intervalli chiusi a sinistra:
+\[
+[\,0,\,t_1)\:;\:[\,t_1,\,t_2)\:;\:\dotsc\:;\:[\,t_{J-1},\,T)
+\]
+\end{definizione}
+
+\begin{definizione}[$J$-evidence-stream]
+Dato un $J$-time-segment composto da $J$ intervalli temporali e una \acl{PV} $\set{X}$ composta da $N$ variabili casuali, un $J$-evidence-stream è l'insieme delle istanziazioni comuni $\set{X}=\set{x}$ associate ad ogni $J$-time-segment per ogni sottoinsieme delle variabili casuali. \`E denotato con $(\set{X}^1=\set{x}^1\,,\,\set{X}^2=\set{x}^2\,,\,\dotsc\,,\,\set{X}^J=\set{x}^J)$, o più concisamente $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$.
+\end{definizione}
+
+Un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$ è detto essere \emph{fully observed} (completamente osservato) se lo stato di tutte le variabili $\setel{X_n}\in\set{X}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un $J$-evidence-stream è detto \emph{partially observed} (parzialmente osservato)~\cite{Stella2012}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Rappresentazione}
@@ -264,18 +285,18 @@ Una \acs{CTBN} è composta principalmente da due componenti:
 Più formalmente si definisce:
 \begin{definizione}[\acl{CTBN}]
 \label{defn:ctbn}
-Data una Process Variable $\set{X}$, cioè un insieme di processi di Markov $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$ dove ogni $\setel{X_n}$ ha uno spazio degli stati finito $val(\setel{X_n})=\{\vectel{x_1}, \dotsc, \vectel{x_J}\}$, una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
+Data una Process Variable $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$ a tempo continuo e con spazio degli stati finito $val(\setel{X_n})=\{\,\vectel{x_1}\,,\,\dotsc\,,\,\vectel{x_J}\,\}$ (dove $n=1\,,\,\dotsc\,,\,N$), una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ specificata come una \bn{} $\conceptsym{B}$ su $\set{X}$
     \item un modello di transizione continuo, specificato da:
     \begin{itemize}
-        \item un grafo $\conceptsym{G}$, orientato e non necessariamente aciclico, composto dai nodi $\setel{X_1}, \setel{X_2}, \dotsc, \setel{X_N}$, ognuno dei quali possiede un insieme di genitori (possibilmente vuoto) denotato da $pa(\setel{X_n})$
+        \item un grafo $\conceptsym{G}$, orientato e non necessariamente aciclico, composto dai nodi $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$, ognuno dei quali possiede un insieme di genitori denotato da $pa(\setel{X_n})$
         \item una matrice di intensità condizionale $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$ per ogni nodo $\setel{X_n} \in \set{X}$.
     \end{itemize}
 \end{itemize}
 \end{definizione}
 
-Per ogni variabile causale $\setel{X_n} \in \set{X}$ di $\conceptsym{N}$ si ha quindi un insieme di modelli di probabilità locali: $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$, la \acs{CIM} di $\setel{X_n}$, è infatti un insieme di modelli di transizione Markoviani (definiti tramite delle matrici di intensità \acs{IM}) la cui cardinalità è pari a quella dell'insieme delle diverse istanziazioni di $pa(\setel{X_n})$, l'insieme dei suoi nodi genitori.
+Per ogni variabile causale $\setel{X_n} \in \set{X}$ di $\conceptsym{N}$ si ha quindi un insieme di modelli di probabilità locali: $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$, la \acs{CIM} di $\setel{X_n}$, è infatti un insieme di modelli di transizione Markoviani (definiti tramite delle matrici di intensità \acs{IM}) la cui cardinalità è pari a quella dell'insieme delle diverse istanziazioni di $pa(\setel{X_n})$.
 
 Si riscontra, quindi, quanto già affermato in precedenza (si veda \ref{sec:fondamenti-mp}), cioè che una \acs{CTBN}, fissato un ordinamento delle variabili da cui è costituita, esprime la sua dinamica evolutiva globale tramite un unico \homm\mprocess, costituito da un insieme di \conm\mprocess{} (un insieme di \acs{CIM} e relative distribuzioni di probabilità iniziali).
 
@@ -285,16 +306,28 @@ Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi 
 \section{Apprendimento}
 \label{sec:ctbn-apprendimento}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In questa sezione si affronta il processo di apprendimento (dei parametri) delle \acl{CTBN}.
-Poiché le \acs{CTBN} sono un modello esponenziale la probabilità di un dataset può essere espressa in termini di \emph{sufficient statistics} aggregate, argomento che viene introdotto di seguito.
+In questa sezione si affronta il processo di apprendimento dei parametri delle \acl{CTBN} da \emph{dati completi} mentre quello relativo a dati non completi viene tralasciato poiché non è argomento di questo lavoro di tesi.
 
-Si noti comunque che si affronta solamente il processo di apprendimento da dati completi mentre quello relativo a dati non completi viene tralasciato poiché non è argomento di questo lavoro di tesi.
+Per \emph{dati completi} si intende un insieme $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ composto da una o più traiettorie di tutte le variabili casuali di una \acs{CTBN}, dove ogni $\delta_i$ è un insieme completo (indicizzato dal tempo) di transizioni fra stati: per ogni momento temporale di ogni traiettoria conosciamo l'istanziazione di tutte le variabili casuali in questione.
 
-Per dati completi si intende un insieme $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ composto da una o più traiettorie di tutte le variabili casuali di una \acs{CTBN}, dove ogni $\delta_i$ è un insieme completo di transizioni fra stati (indicizzato dal tempo): per ogni momento temporale di ogni traiettoria conosciamo l'istanziazione di tutte le variabili casuali in questione.
+Poiché le \acs{CTBN} sono un modello esponenziale la probabilità di un dataset può essere espressa in termini di \emph{sufficient statistics} aggregate, argomento che viene introdotto di seguito. Si mostra inoltre come la probabilità di una \acs{CTBN}, così come accade per le \acs{BN}, è un aggregato di probabilità locali.
 
 \subsection{Sufficient Statistics}
+\label{sec:ctbn-sufficient-stats}
+Si consideri un singolo \homm\mprocess{} $\setel{X}(t)$.
+
+Poiché tutte le transizioni sono osservabili la probabilità del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle probabilità individuali di ogni singola transizione $d$. Data quindi una tripla $d=\langle \,x_{d}\,,\,t_d\,,\,x_d^{\prime}\, \rangle\in\conceptsym{D}$ che esprime una transizione di $\setel{X}(t)$ da $x_d$ a $x_d^{\prime}$ dopo essere rimasto $t_d$ tempo in $x_d$, possiamo scrivere la probabilità di questa singola transizione $d$ in funzione dei parametri (\ref{sec:ctbn-params}):
+\begin{equation}
+\begin{split} 
+L_{\setel{X}}(q\,,\,\theta\,|\,d) &= L_{\setel{X}}(q\,|\,d)\,L_{\setel{X}}(\theta\,|\,d) \\
+&= q_{x_d}\,exp(-q_{x_d}\,t_d)\,(\theta_{x_{d}x_d^{\prime}})
+\end{split}
+\end{equation}
+
+\eqref[dall'equazione]{eq:im-distrib} e \autoref{defn:im} ...
 % TODO: parte sulla likelihood? Nodelmann2007 4.2
-Lo scopo delle \emph{sufficient statistics} è riassumere la dinamica evolutiva di un singolo \homm\mprocess{} $\setel{X}(t)$ tramite:
+
+Le \emph{sufficient statistics} per un singolo \homm\mprocess{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva:
 \begin{itemize}
     \item $\tstat{x}$, la quantità di tempo trascorsa nello stato $x$
     \item $\mstat{x,x^\prime}$, il numero di transizioni dallo stato $x$ allo stato $x^\prime$.
@@ -303,7 +336,8 @@ Il numero totale di transizioni uscenti da uno stato $x$ è
 \[
 \mstat{x}=\sum_{x^\prime}\mstat{x,x^\prime}\text{.}
 \]
-Traslando il concetto alle \acl{CTBN} e quindi ai \conm\mprocess{} è necessario considerare le succitate quantità contestualmente all'istanziazione dell'insieme $\set{U}$ dei nodi genitori. Poiché, nel caso di dati completi, si conosce l'istanziazione di $\set{U}$ durante l'intera traiettoria allora, per ogni preciso momento nel tempo $t$, si conosce quale matrice di intensità (omogenea) $\cimsign{\setel{X}}{\setel{u}}$ governi la dinamica di $X$.
+Traslando il concetto alle \acl{CTBN} e quindi ai \conm\mprocess{} è necessario considerare le succitate quantità contestualmente all'istanziazione dell'insieme $\set{U}$ dei nodi genitori. Poiché, nel caso di dati completi, si conosce sempre l'istanziazione di $\set{U}$, allora, per ogni preciso momento nel tempo $t$, si conosce quale matrice di intensità (omogenea) $\cimsign{\setel{X}}{\setel{u}}$ governi la dinamica di $X$.
+% TODO: hmm ... manca un "collegamento"
 Perciò otteniamo:
 \begin{itemize}
     \item $\tstat{x\,|\,u}$, la quantità di tempo trascorsa da $\setel{X}(t)$ nello stato $x$ quando $\set{U}=u$
@@ -314,6 +348,7 @@ Perciò otteniamo:
 % TODO: come calcolare una CIM dalle SS -> 5.1
 
 \subsection{Stima dei parametri}
+\label{sec:ctbn-params}
 Introdotte le \emph{sufficient statistics} possiamo approcciare il problema dell'apprendimento dei parametri di una \acl{CTBN} di cui conosciamo la struttura da un insieme di dati completi.
 I parametri, infatti, sono funzione delle \emph{sufficient statistics}.
 % TODO: 5.1 da Nodelman2007
@@ -366,15 +401,4 @@ I parametri, infatti, sono funzione delle \emph{sufficient statistics}.
 
 
 % TODO: dove servono, se servono?
-% \begin{definizione}[$J$-time-segment]
-% Partizionamento di un intervallo temporale $[\,0,\,T)$ in $J$ intervalli chiusi a sinistra:
-% \[
-% [\,0,\,t_1)\:;\:[\,t_1,\,t_2)\:;\:\dotsc\:;\:[\,t_{J-1},\,T)
-% \]
-% \end{definizione}
 
-% \begin{definizione}[$J$-evidence-stream]
-% Per ogni sottoinsieme delle variabili casuali $\setel{X_n}$ (con $n=1,\dotsc,N$), il $J$-evidence-stream è l'insieme delle istanziazioni comuni $\setel{X}=x$ associate ad ogni $J$-time-segment. \`E denotato con $(\setel{X^1}=x^1,\,\setel{X^2}=x^2,\,\dotsc,\,\setel{X^J}=x^J)$, o più concisamente $(x^1,\,x^2,\,\dotsc,\,x^J)$.
-% \end{definizione}
-
-% Un $J$-evidence-stream $(x^1,\,x^2,\,\dotsc,\,x^J)$ è detto essere \emph{<<fully observed>>} (completamente osservato) se lo stato di tutte le variabili $\setel{X_n}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un $J$-evidence-stream è detto \emph{<<partially observed>>} (parzialmente osservato)~\cite{Stella2012}.

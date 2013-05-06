@@ -84,6 +84,7 @@
 \AtBeginEnvironment{acronym}{\@in@acrolisttrue}
 \newrobustcmd{\ul}[2]{\if@in@acrolist#1\else#2\fi}          % \ul{C}{c}iao defines an uppercase and lowercase variant of the same acronym
 \newcommand{\ACF}[1]{{\@in@acrolisttrue\acf{#1}}}           % \ACF{<acronym>} force the defined capitalized variants of acronym letters/words
+\newcommand{\ACL}[1]{{\@in@acrolisttrue\acl{#1}}}           % \ACL{<acronym}
 \makeatother
 
 %*********************************************************************************
