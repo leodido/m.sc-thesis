@@ -171,11 +171,11 @@
 \usepackage{etoolbox}
 \let\originaleqref\eqref
 \renewcommand\eqref[2][]{%
-  \ifstrempty{#1}{%
-    \ref{#2}%
-  }{%
-    #1~\ref{#2}%
-  }%
+    \ifstrempty{#1}{%
+        \ref{#2}%
+    }{%
+        #1~\ref{#2}%
+    }%
 }
 
 %*********************************************************************************
@@ -204,6 +204,16 @@
 \newcommand{\imsign}[1]{\set{Q}_{#1}}
 \newcommand{\cimsign}[2]{\imsign{\,#1|#2}}
 \newcommand{\priorsign}[1]{\set{P}^0_{#1}}
+\newcommand{\tstat}[1]{T[\,#1\,]}
+\newcommand{\mstat}[2][]{
+    \ifstrempty{#1}{%
+        M[\,#2\,]%
+    }{%
+        M[\,#1\,,\,#2\,]%
+    }%
+}
+% \newcommand{\qparam}[2]{q_{#1\,|\,#2}}
+% \newcommand{\tparam}[3]{\theta}
 
 %*********************************************************************************
 % Eccezioni all'algoritmo di sillabazione

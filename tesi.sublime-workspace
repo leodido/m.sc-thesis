@@ -523,7 +523,7 @@
 			"file": "capitoli/2.tex",
 			"settings":
 			{
-				"buffer_size": 6900,
+				"buffer_size": 31297,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,39 +531,23 @@
 			"file": "impostazioni-tesi.tex",
 			"settings":
 			{
-				"buffer_size": 8135,
+				"buffer_size": 8715,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "tesi.tex",
+			"file": "bibliografia.bib",
 			"settings":
 			{
-				"buffer_size": 7956,
+				"buffer_size": 2844,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "tesi-frn.tex",
+			"file": "backmatter/acronimi.tex",
 			"settings":
 			{
-				"buffer_size": 971,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "frontmatter/frontespizio.tex",
-			"settings":
-			{
-				"buffer_size": 1528,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/leodido/.config/sublime-text-2/Packages/Markdown Preview/sample.md",
-			"settings":
-			{
-				"buffer_size": 3601,
+				"buffer_size": 975,
 				"line_ending": "Unix"
 			}
 		}
@@ -571,9 +555,13 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 102.0,
+		"height": 171.0,
 		"selected_items":
 		[
+			[
+				"latext",
+				"Snippet: Turn selection into LaTeX environment"
+			],
 			[
 				"mark pre b",
 				"Markdown Preview: preview in Browser"
@@ -585,10 +573,6 @@
 			[
 				"mark",
 				"Markdown Preview: preview in Browser"
-			],
-			[
-				"latext",
-				"LaTeXTools: Toggle focus (PDF/editor)"
 			],
 			[
 				"latex",
@@ -891,7 +875,7 @@
 				"Snippet: File.foreach (\"..\") { |line| .. }"
 			]
 		],
-		"width": 561.0
+		"width": 435.0
 	},
 	"console":
 	{
@@ -908,6 +892,15 @@
 	},
 	"file_history":
 	[
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/bibliografia.bib",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/backmatter/appendice2.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/impostazioni-tesi.tex",
+		"/usr/share/texlive/texmf-dist/tex/latex/arsclassica/arsclassica.sty",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/backmatter/bibliografia.tex",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi-frn.tex",
+		"/home/leodido/.config/sublime-text-2/Packages/Markdown Preview/sample.md",
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/frontmatter/frontespizio.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/README.md",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/backmatter/acronimi.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/6.tex",
@@ -917,7 +910,6 @@
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.aux",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/backmatter/dichiarazione.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/frontmatter/indici.tex",
-		"/home/leodido/Università/UNIMIB/Laurea/Tesi/backmatter/appendice2.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/frontmatter/dichiarazione.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/altro/acronimi.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/altro/indici.tex",
@@ -930,13 +922,9 @@
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/altro/acronimi.text",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.pdf",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/altro/frontespizio.tex",
-		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi-frn.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/classicthesis__.sty",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/[no file]",
-		"/usr/share/texlive/texmf-dist/tex/latex/arsclassica/arsclassica.sty",
-		"/home/leodido/Università/UNIMIB/Laurea/Tesi/bibliografia.bib",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/My Collection.bib",
-		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/ipsum.tex",
 		"/home/leodido/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
 		"/home/leodido/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
@@ -946,7 +934,6 @@
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/1.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/altro/colophon.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/2.tex",
-		"/home/leodido/Università/UNIMIB/Laurea/Tesi/impostazioni-tesi.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.sublime-project~",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/capitoli/2.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/thesis/capitoli/3.tex",
@@ -1032,10 +1019,7 @@
 		"/home/leodido/Workspace/R/Tesi/rctbnc/data2/SamplingModel_8-100.csv",
 		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/uno.csv",
 		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/cinque.csv",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/sampling-due.csv",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/data2/SamplingModel_8-1.csv",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel10.csv",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/data3/SamplingModel11.csv"
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/sampling-due.csv"
 	],
 	"find":
 	{
@@ -1051,9 +1035,59 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"probabilità istantanea di transizione",
+			"enumerate",
+			"Nodelman2002",
+			"\\\\homm\\\\mprocess",
+			"\\\\homm\\\\mprocess ",
+			"\\\\homm\\\\mprocess",
+			"\\\\honm\\\\mprocess",
+			"\\\\honm\\\\mprocess ",
+			"\\\\conm\\\\mprocess",
+			"\\\\conm\\\\mprocess ",
+			"\\\\cmprocess\\{\\}[\\sProcess]+",
+			"\\\\cmprocess\\{\\}",
+			"\\\\hom",
+			"\\\\omprocess\\{\\}[\\sProcess]+",
+			"\\\\omprocess\\{\\}[]",
+			"mprocess",
+			"si definisce come",
+			"mprocess",
+			"mprocess\\{\\}",
+			"Markov Process",
+			"Markov Processù",
+			"Markov Process",
+			"\\\\mprocess\\{\\}",
+			"mprocess",
+			"markov process",
+			"mycmd",
+			"provess",
+			"eq:",
+			"eqref",
+			"cimsign",
+			"\\cimsi",
+			"cite",
+			"osservazione",
+			"cite",
+			"\\|",
+			"|",
+			"dt",
+			"sec:bn",
+			"bns",
+			"eq:bnchainrule",
+			"rappresentazione",
+			"label",
+			"chainrule",
+			"pa(",
+			"definizione",
+			"i",
+			"1",
+			"i",
+			"teorema",
+			"vertici",
 			">> ",
 			"altro",
 			"prior",
@@ -1131,57 +1165,7 @@
 			"md",
 			"v1",
 			"mm",
-			"curr_time",
-			"m",
-			"X",
-			"]]\n",
-			"b",
-			"output_dir",
-			"inp_dit",
-			"input_dir",
-			"dir_path",
-			"x",
-			"q",
-			",\\s\\d,\\d=",
-			"\\}\\.",
-			"X\\d,\\d=\\{\\d,\\d=",
-			"1",
-			"2,1,1,2,1,2,1",
-			"cols_possibilities",
-			"cols_num",
-			"n",
-			"n_poss",
-			"N",
-			"M1",
-			"([0-9]{2,}),A",
-			"([0-9]{2,}),B",
-			"([0-9]{2,}),2",
-			"([0-9]{2,}),1",
-			"[0-9]+\\,1",
-			"trans_value",
-			"a",
-			"q_current_next",
-			"current_state_q",
-			"#####'))",
-			"next_j_segment",
-			"j_segment",
-			"class_nodes",
-			"xTab",
-			"*",
-			"\"",
-			"trues",
-			"preds",
-			"clss",
-			"xTab",
-			"pred",
-			"predAct",
-			"pred_class",
-			"> ",
-			"presm",
-			"eresm",
-			"resm",
-			"klass",
-			"cont"
+			"curr_time"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1189,6 +1173,11 @@
 		"regex": true,
 		"replace_history":
 		[
+			"\\\\conm\\\\mprocess ",
+			"\\\\homm",
+			"\\\\hom\\\\mprocess",
+			"\\\\mprocess{}",
+			"\\mprocess{}",
 			"tesi",
 			", ",
 			",",
@@ -1214,7 +1203,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1222,15 +1211,15 @@
 					"file": "capitoli/2.tex",
 					"settings":
 					{
-						"buffer_size": 6900,
+						"buffer_size": 31297,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6716,
-								6716
+								27186,
+								27186
 							]
 						],
 						"settings":
@@ -1302,6 +1291,7 @@
 							[
 							],
 							"pyflakes_ignore_import_*": true,
+							"spell_check": true,
 							"sublimelinter": true,
 							"sublimelinter_delay": 2,
 							"sublimelinter_disable":
@@ -1328,7 +1318,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1512.0,
+						"translation.y": 8609.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1338,15 +1328,15 @@
 					"file": "impostazioni-tesi.tex",
 					"settings":
 					{
-						"buffer_size": 8135,
+						"buffer_size": 8715,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6744,
-								6744
+								8389,
+								8389
 							]
 						],
 						"settings":
@@ -1444,38 +1434,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1828.0,
+						"translation.y": 3294.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "tesi.tex",
+					"file": "bibliografia.bib",
 					"settings":
 					{
-						"buffer_size": 7956,
+						"buffer_size": 2844,
 						"regions":
 						{
-							"bookmarks":
-							{
-								"flags": 144,
-								"icon": "bookmark",
-								"regions":
-								[
-									[
-										6491,
-										6491
-									]
-								],
-								"scope": "bookmarks"
-							}
 						},
 						"selection":
 						[
 							[
-								855,
-								855
+								564,
+								564
 							]
 						],
 						"settings":
@@ -1537,7 +1514,6 @@
 								"trailing": true,
 								"wsh": true
 							},
-							"keep focus": true,
 							"pep8": true,
 							"pep8_ignore":
 							[
@@ -1569,9 +1545,7 @@
 								"Ruby on Rails": "ruby"
 							},
 							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/LaTeX/Bibtex.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1581,18 +1555,18 @@
 				},
 				{
 					"buffer": 3,
-					"file": "tesi-frn.tex",
+					"file": "backmatter/acronimi.tex",
 					"settings":
 					{
-						"buffer_size": 971,
+						"buffer_size": 975,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								948,
+								948
 							]
 						],
 						"settings":
@@ -1689,236 +1663,6 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "frontmatter/frontespizio.tex",
-					"settings":
-					{
-						"buffer_size": 1528,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								517,
-								517
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": false,
-							"sublimelinter_mark_style": "outline",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/home/leodido/.config/sublime-text-2/Packages/Markdown Preview/sample.md",
-					"settings":
-					{
-						"buffer_size": 3601,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								965,
-								965
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": false,
-							"sublimelinter_mark_style": "outline",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/Markdown/Markdown.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 54.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1959,7 +1703,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 524.0
+		"height": 381.0
 	},
 	"output.git":
 	{
@@ -1997,7 +1741,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 200.0,
 	"status_bar_visible": true
 }
