@@ -285,7 +285,7 @@ Una \acs{CTBN} è composta principalmente da due componenti:
 Più formalmente si definisce:
 \begin{definizione}[\acl{CTBN}]
 \label{defn:ctbn}
-Data una Process Variable $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$ a tempo continuo e con spazio degli stati finito $val(\setel{X_n})=\{\,\vectel{x_1}\,,\,\dotsc\,,\,\vectel{x_J}\,\}$ (dove $n=1\,,\,\dotsc\,,\,N$), una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
+Data una \ACL{PV} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$ a tempo continuo e con spazio degli stati finito $val(\setel{X_n})=\{\,\vectel{x_1}\,,\,\dotsc\,,\,\vectel{x_J}\,\}$ (dove $n=1\,,\,\dotsc\,,\,N$), una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ specificata come una \bn{} $\conceptsym{B}$ su $\set{X}$
     \item un modello di transizione continuo, specificato da:
@@ -312,44 +312,77 @@ Per \emph{dati completi} si intende un insieme $\conceptsym{D}=\{\,\delta_1\,,\,
 
 Poiché le \acs{CTBN} sono un modello esponenziale la probabilità di un dataset può essere espressa in termini di \emph{sufficient statistics} aggregate, argomento che viene introdotto di seguito. Si mostra inoltre come la probabilità di una \acs{CTBN}, così come accade per le \acs{BN}, è un aggregato di probabilità locali.
 
-\subsection{Sufficient Statistics}
-\label{sec:ctbn-sufficient-stats}
+\subsection{Likelihood di una singola transazione}
+\label{sec:ctbn-data-likelihood-1}
 Si consideri un singolo \homm\mprocess{} $\setel{X}(t)$.
+Poiché tutte le transizioni sono osservabili, la \emph{likelihood}\footnote{Funzione di verosimiglianza di un evento, più debole della funzione di probabilità. Si applica solitamente ai parametri di un modello statistico. La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$.
 
-Poiché tutte le transizioni sono osservabili la probabilità del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle probabilità individuali di ogni singola transizione $d$. Data quindi una tripla $d=\langle \,x_{d}\,,\,t_d\,,\,x_d^{\prime}\, \rangle\in\conceptsym{D}$ che esprime una transizione di $\setel{X}(t)$ da $x_d$ a $x_d^{\prime}$ dopo essere rimasto $t_d$ tempo in $x_d$, possiamo scrivere la probabilità di questa singola transizione $d$ in funzione dei parametri (\ref{sec:ctbn-params}):
+Data quindi una tripla $d=\langle \,x_{d}\,,\,t_d\,,\,x_{d^{\prime}}\,\rangle\in\conceptsym{D}$ che esprime una transizione di $\setel{X}(t)$ da $x_d$ a $x_{d^{\prime}}$ dopo essere rimasto $t_d$ tempo in $x_d$, possiamo scrivere la likelihood di questa singola transizione $d$ in funzione dei parametri (\ref{sec:ctbn-params}):
 \begin{equation}
+\label{eq:ctbn-trans-hmm-likelihood}
 \begin{split} 
-L_{\setel{X}}(q\,,\,\theta\,|\,d) &= L_{\setel{X}}(q\,|\,d)\,L_{\setel{X}}(\theta\,|\,d) \\
-&= q_{x_d}\,exp(-q_{x_d}\,t_d)\,(\theta_{x_{d}x_d^{\prime}})
+L_{\setel{X}}(q\,,\,\theta:d) &= L_{\setel{X}}(q:d)\,L_{\setel{X}}(\theta:d) \\
+&= q_{x_d}\,exp(-q_{x_d}\,t_d)\,(\theta_{x_{d}x_{d^{\prime}}})\text{.}
+% &= q_{x_d}\,exp(-q_{x_d}\,t_d)\,\Big(\frac{q_{x_{d}x_{d^{\prime}}}}{q_{x_d}}\Big) \\
+% &= exp(-q_{x_d}\,t_d)\,q_{x_{d}x_{d^{\prime}}}
 \end{split}
 \end{equation}
 
-\eqref[dall'equazione]{eq:im-distrib} e \autoref{defn:im} ...
-% TODO: parte sulla likelihood? Nodelmann2007 4.2
+Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{p.d.f} di $\setel{X}(t)$ (\eqref[vedasi]{eq:im-distrib}) per la \emph{probabilità istantanea di transizione} (vedasi \ref{defn:im}).
 
-Le \emph{sufficient statistics} per un singolo \homm\mprocess{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva:
+Poiché moltiplicando le singole probabilità di transizione possiamo calcolare la probabilità dell'intero dataset $\conceptsym{D}$ possiamo quindi sintetizzare $\conceptsym{D}$ aggregando le \emph{sufficient statistics}.
+
+\subsection{Sufficient Statistics}
+\label{sec:ctbn-sufficient-stats}
+Le \emph{sufficient statistics} per un singolo \homm\mprocess{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva con:
 \begin{itemize}
     \item $\tstat{x}$, la quantità di tempo trascorsa nello stato $x$
     \item $\mstat{x,x^\prime}$, il numero di transizioni dallo stato $x$ allo stato $x^\prime$.
 \end{itemize}
+
 Il numero totale di transizioni uscenti da uno stato $x$ è
 \[
 \mstat{x}=\sum_{x^\prime}\mstat{x,x^\prime}\text{.}
 \]
-Traslando il concetto alle \acl{CTBN} e quindi ai \conm\mprocess{} è necessario considerare le succitate quantità contestualmente all'istanziazione dell'insieme $\set{U}$ dei nodi genitori. Poiché, nel caso di dati completi, si conosce sempre l'istanziazione di $\set{U}$, allora, per ogni preciso momento nel tempo $t$, si conosce quale matrice di intensità (omogenea) $\cimsign{\setel{X}}{\setel{u}}$ governi la dinamica di $X$.
-% TODO: hmm ... manca un "collegamento"
-Perciò otteniamo:
+
+Perciò possiamo ora calcolare la likelihood del dataset $\conceptsym{D}$ rispetto a $\setel{X}(t)$.
+\begin{equation}
+\label{eq:ctbn-data-hmp-likelihood} 
+\begin{split}
+L_{\setel{X}}(q\,,\,\theta\,:\,\conceptsym{D}) &= \Bigg(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(q:d) \Bigg)\Bigg(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\theta:d)\Bigg) \\
+&= \Bigg(\prod_{x}q_x^{\mstat{x}}\,exp\Big(-q_x\,\tstat{x}\Big)\Bigg)\Bigg(\prod_{x}\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}}^{\mstat{x,x^{\prime}}}\Bigg)\text{.}
+\end{split}
+\end{equation}
+
+Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transazioni contestualmente all'istanziazione dell'insieme $\set{U}$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $\set{U}$, allora, per ogni preciso momento nel tempo $t$, si conosce quale matrice di intensità (omogenea) $\cimsign{\setel{X_i}}{\setel{u}}$ governi la dinamica di $\setel{X_i}$.
+
+Perciò la likelihood dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è il prodotto delle likelihood di ogni variabile $\setel{X_n}$:
+\begin{equation}
+\begin{split}
+L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D}) &= \prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,|\,\setel{u}}\,,\,\theta_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D}) \\
+&= \prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D})L_{\setel{X_i}}(\theta_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D})
+\end{split}
+\end{equation}
+Il termine $L_{\setel{X_i}}(\theta_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D})$ è la probabilità di una sequenza di transizioni trascurando il tempo che intercorre fra esse poiché esse dipendono esclusivamente dal valore di nodi genitori. Usando le \emph{sufficient statistics} possiamo perciò scrivere:
+\[
+L_{\setel{X_i}}(\theta_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D}) = \prod_{u} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,|\,u}^{\mstat[x]{x^{\prime}\,|\,u}}
+\]
+
+% 
+% 
+
+Perciò, si ottiene:
 \begin{itemize}
     \item $\tstat{x\,|\,u}$, la quantità di tempo trascorsa da $\setel{X}(t)$ nello stato $x$ quando $\set{U}=u$
-    \item $\mstat{x,x^\prime\,|\,u}$, il numero di transizioni dallo stato $x$ allo stato $x^\prime$ di $\setel{X}(t)$ quando $\set{U}=u$.
+    \item $\mstat[x]{x^\prime\,|\,u}$, il numero di transizioni dallo stato $x$ allo stato $x^\prime$ di $\setel{X}(t)$ quando $\set{U}=u$.
 \end{itemize}
-% TODO: parte sulla likelihood? Nodelmann2007 4.5
+
 
 % TODO: come calcolare una CIM dalle SS -> 5.1
 
 \subsection{Stima dei parametri}
 \label{sec:ctbn-params}
-Introdotte le \emph{sufficient statistics} possiamo approcciare il problema dell'apprendimento dei parametri di una \acl{CTBN} di cui conosciamo la struttura da un insieme di dati completi.
+Introdotte le \emph{sufficient statistics} si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} di cui conosciamo la struttura da un insieme di dati completi.
 I parametri, infatti, sono funzione delle \emph{sufficient statistics}.
 % TODO: 5.1 da Nodelman2007
 
