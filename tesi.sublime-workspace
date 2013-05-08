@@ -523,7 +523,7 @@
 			"file": "capitoli/2.tex",
 			"settings":
 			{
-				"buffer_size": 31297,
+				"buffer_size": 35805,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,7 +531,7 @@
 			"file": "impostazioni-tesi.tex",
 			"settings":
 			{
-				"buffer_size": 8715,
+				"buffer_size": 8792,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +547,15 @@
 			"file": "backmatter/acronimi.tex",
 			"settings":
 			{
-				"buffer_size": 975,
+				"buffer_size": 1039,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "backmatter/appendice2.tex",
+			"settings":
+			{
+				"buffer_size": 3528,
 				"line_ending": "Unix"
 			}
 		}
@@ -555,9 +563,13 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 171.0,
+		"height": 286.0,
 		"selected_items":
 		[
+			[
+				"pa ls",
+				"Package Control: List Packages"
+			],
 			[
 				"latext",
 				"Snippet: Turn selection into LaTeX environment"
@@ -665,10 +677,6 @@
 			[
 				"git: pus",
 				"Git: Push Current Branch"
-			],
-			[
-				"pa ls",
-				"Package Control: List Packages"
 			],
 			[
 				"git push",
@@ -892,11 +900,15 @@
 	},
 	"file_history":
 	[
+		"/home/leodido/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/leodido/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+		"/home/leodido/Workspace/zf2/library/Zend/Db/Metadata/Source/AbstractSource.php",
+		"/home/leodido/Workspace/zf2/library/Zend/Db/Metadata/Source/MysqlMetadata.php",
+		"/usr/share/texlive/texmf-dist/tex/latex/arsclassica/arsclassica.sty",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/bibliografia.bib",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/backmatter/appendice2.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/impostazioni-tesi.tex",
-		"/usr/share/texlive/texmf-dist/tex/latex/arsclassica/arsclassica.sty",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/backmatter/bibliografia.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi-frn.tex",
 		"/home/leodido/.config/sublime-text-2/Packages/Markdown Preview/sample.md",
@@ -926,9 +938,7 @@
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/[no file]",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/My Collection.bib",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/ipsum.tex",
-		"/home/leodido/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
 		"/home/leodido/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
-		"/home/leodido/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
 		"/home/leodido/.config/sublime-text-2/Packages/LaTeXTools/Default (Linux).sublime-keymap",
 		"/home/leodido/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/capitoli/1.tex",
@@ -1017,9 +1027,7 @@
 		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/todo-fixme-note-etc.r",
 		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/import/functions.r",
 		"/home/leodido/Workspace/R/Tesi/rctbnc/data2/SamplingModel_8-100.csv",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/uno.csv",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/cinque.csv",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/sampling-due.csv"
+		"/home/leodido/Workspace/R/Tesi/rctbnc/data1/uno.csv"
 	],
 	"find":
 	{
@@ -1038,6 +1046,19 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"\\Big",
+			"\\Bigg",
+			"bigg",
+			"Big",
+			"ctbn-data-likelihood-1",
+			"likelihood-single-trans",
+			"amo",
+			"im",
+			"\\\\label\\{eq",
+			"enumerate",
+			"introduzione",
+			"Introduzione",
+			"enumerate",
 			"probabilità istantanea di transizione",
 			"enumerate",
 			"Nodelman2002",
@@ -1152,20 +1173,7 @@
 			"source",
 			"file",
 			"tii",
-			"i",
-			"Processor",
-			"pre_x",
-			"pre.x",
-			"klass",
-			"k",
-			"i",
-			"cl",
-			"curr_ss",
-			"sd",
-			"md",
-			"v1",
-			"mm",
-			"curr_time"
+			"i"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1211,15 +1219,15 @@
 					"file": "capitoli/2.tex",
 					"settings":
 					{
-						"buffer_size": 31297,
+						"buffer_size": 35805,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								27186,
-								27186
+								17208,
+								17208
 							]
 						],
 						"settings":
@@ -1318,7 +1326,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 8609.0,
+						"translation.y": 5100.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1328,15 +1336,15 @@
 					"file": "impostazioni-tesi.tex",
 					"settings":
 					{
-						"buffer_size": 8715,
+						"buffer_size": 8792,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8389,
-								8389
+								3969,
+								3969
 							]
 						],
 						"settings":
@@ -1434,7 +1442,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3294.0,
+						"translation.y": 3678.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1558,15 +1566,131 @@
 					"file": "backmatter/acronimi.tex",
 					"settings":
 					{
-						"buffer_size": 975,
+						"buffer_size": 1039,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								948,
-								948
+								1038,
+								1038
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "backmatter/appendice2.tex",
+					"settings":
+					{
+						"buffer_size": 3528,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1863,
+								1863
 							]
 						],
 						"settings":
@@ -1662,7 +1786,7 @@
 							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 936.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1733,7 +1857,7 @@
 		[
 			[
 				"",
-				"/home/leodido/Workspace/R/Packages/xvalidation/xvalidation.sublime-project"
+				"/home/leodido/Workspace/R/Tesi/ctbn/ctbn.sublime-project"
 			]
 		],
 		"width": 380.0
