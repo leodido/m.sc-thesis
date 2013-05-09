@@ -60,18 +60,18 @@ Dato un insieme di variabili casuali e una distribuzione di probabilità congiun
 
 Perciò, dato un insieme di variabili casuali $\setel{A_1},\dotsc,\setel{A_n}$ è possibile calcolare il valore di tale membro della distribuzione di probabilità congiunta applicando la definizione di probabilità condizionale:
 \[
-\set{P}(\setel{A_1},\dotsc,\setel{A_n})=\set{P}(\setel{A_n}\,|\,\setel{A_{n-1}},\dotsc,\setel{A_1})\cdot\set{P}(\setel{A_{n-1}},\dotsc,\setel{A_1})
+\set{P}(\setel{A_1},\dotsc,\setel{A_n})=\set{P}(\setel{A_n}\,\arrowvert\,\setel{A_{n-1}},\dotsc,\setel{A_1})\cdot\set{P}(\setel{A_{n-1}},\dotsc,\setel{A_1})
 \]
 Ripetendo tale processo per ogni termine finale si ottiene:
 \begin{equation}
 \label{eq:chain-rule}
-\set{P}(\bigcap_{k=1}^{n}\setel{A_k})=\prod_{k=1}^{n}\set{P}(\setel{A_k}\,|\,\bigcap_{j=1}^{k-1}\setel{A_j})
+\set{P}(\bigcap_{k=1}^{n}\setel{A_k})=\prod_{k=1}^{n}\set{P}(\setel{A_k}\,\arrowvert\,\bigcap_{j=1}^{k-1}\setel{A_j})
 \end{equation}
 
 Applicando la \eqref{eq:chain-rule} alle \acl{BN} diciamo che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
 \begin{equation}
 \label{eq:bn-chain-rule}
-\set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}\,|\,pa(\setel{X_i}))
+\set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}\,\arrowvert\,pa(\setel{X_i}))
 \end{equation}
 L'equazione \eqref{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi. Si noti inoltre, che le \acl{BN} richiedono che la loro componente $\conceptsym{G}$ non contenga cicli (si veda \acs{DAG} in \ref{defn:bn}) affinché possano rispettare tale proprietà.
 
@@ -80,11 +80,11 @@ Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi immediat
 Un evento $\setel{A}$ è \emph{condizionalmente indipendente} da un evento $\setel{B}$, data l'evidenza su un evento $\setel{C}$, qualora la conoscenza di $\setel{B}$ non apporta alcuna variazione alla probabilità di $\setel{A}$ rispetto a quella conseguente alla conoscenza di $\setel{C}$.
 Formalmente, ciò significa che:
 \[
-\set{P}(\setel{A},\setel{B}\,|\,\setel{C})=\set{P}(\setel{A}\,|\,\setel{B},\setel{C})\cdot\set{P}(\setel{B}\,|\,\setel{C})=\set{P}(\setel{A}\,|\,\setel{C})\cdot\set{P}(\setel{B}\,|\,\setel{C})
+\set{P}(\setel{A},\setel{B}\,\arrowvert\,\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{B},\setel{C})\cdot\set{P}(\setel{B}\,\arrowvert\,\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{C})\cdot\set{P}(\setel{B}\,\arrowvert\,\setel{C})
 \]
 Da cui segue che:
 \[
-\setel{A}\perp\setel{B}\,|\,\setel{C}\iff\set{P}(\setel{A}\,|\,\setel{B},\setel{C})=\set{P}(\setel{A}\,|\,\setel{C})
+\setel{A}\perp\setel{B}\,\arrowvert\,\setel{C}\iff\set{P}(\setel{A}\,\arrowvert\,\setel{B},\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{C})
 \]
 \end{definizione}
 In termini non formali, supponendo di essere nel caso della definizione, cioè di avere una variabile casuale $\setel{A}$ \emph{condizionalmente indipendente} da $\setel{B}$ dato $\setel{C}$, ciò significa che è possibile ignorare $\setel{B}$ poiché essa non ha alcun riflesso sulla distribuzione condizionale di $\setel{A}$.
@@ -93,7 +93,7 @@ Si noti che il concetto appena espresso gioca quindi un ruolo importante per i m
 
 $\forall$ $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$:
 \[
-\set{P}(\setel{X_i}\,|\,\setel{E},pa(\setel{X_i}))=\set{P}(\setel{X_i}\,|\,pa(\setel{X_i}))\;\forall\:\setel{E}\in nd(\setel{X_i})
+\set{P}(\setel{X_i}\,\arrowvert\,\setel{E},pa(\setel{X_i}))=\set{P}(\setel{X_i}\,\arrowvert\,pa(\setel{X_i}))\;\forall\:\setel{E}\in nd(\setel{X_i})
 \]
 dove $nd(\setel{X_i})$ è l'insieme dei nodi non--discendenti (ed $\setel{E}$ è una variabile casuale o un insieme di variabili casuali ad essi associati).
 In base a ciò si dice quindi che le \acl{BN} rispettano l'\emph{assunzione locale di Markov}.
@@ -131,7 +131,7 @@ Secondo la proprietà di Markov gli stati futuri di un processo stocastico sono 
 Formalmente, se $\setel{X}(t),\:t > 0$ è un processo stocastico che gode di tale proprietà, allora $\forall\:h > 0$ vale la seguente equazione:
 \begin{equation}
 \label{eq:markov-assumption}
-\set{P}(\setel{X}(t + h)\,|\,\setel{X}(s)=x(s),\,s\leq t)=\set{P}(\setel{X}(t + h)\,|\,\setel{X}(t)=x(t))
+\set{P}(\setel{X}(t + h)\,\arrowvert\,\setel{X}(s)=x(s),\,s\leq t)=\set{P}(\setel{X}(t + h)\,\arrowvert\,\setel{X}(t)=x(t))
 \end{equation}
 Con la caratterizzazione \emph{assunzione di Markov} si è soliti descrivere i modelli che rispettano tale proprietà.
 \end{definizione}
@@ -153,7 +153,7 @@ Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi dando
 Un processo di Markov è detto \emph{omogeneo} qualora esso $\forall\:t,\,h > 0$ non dipenda dal tempo $t$, ovvero:
 \begin{equation}
 \label{eq:homogeneus-markov-process}
-\set{P}(\setel{X}(t + h)\,|\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)\,|\,\setel{X}(0)=x(0))
+\set{P}(\setel{X}(t + h)\,\arrowvert\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)\,\arrowvert\,\setel{X}(0)=x(0))
 \end{equation}
 \end{definizione}
 Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})=\{ \vectel{x_1}, \dotsc, \vectel{x_J} \}$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definibile in termini di:
@@ -185,8 +185,8 @@ Data quindi una matrice di intensità $\imsign{\setel{X}}$ essa descrive il comp
 \begin{equation}
 \label{eq:im-distrib}
 \begin{split}
-f(t) &= q_{x_i}\,exp(-q_{x_i}\,t)\,,\quad t>0 \\
-F(t) &= 1-exp(-q_{x_i}\,t)\,,\quad t\geq0
+f(t) &= q_{x_i}\,\exp(-q_{x_i}\,t)\,,\quad t>0 \\
+F(t) &= 1-\exp(-q_{x_i}\,t)\,,\quad t\geq0
 \end{split} 
 \end{equation}
 
@@ -329,8 +329,8 @@ Il numero totale di transizioni uscenti da uno stato $x$ è:
 \]
 Nel caso di un \conm\mprocess{} è invece necessario considerare anche l'istanziazione dell'insieme $\set{U}$ dei nodi genitori:
 \begin{itemize}
-    \item $\tstat{x\,|\,u}$: la quantità di tempo trascorsa nello stato $x$ quando $\set{U}=u$
-    \item $\mstat[x]{x^\prime\,|\,u}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$ quando $\set{U}=u$.
+    \item $\tstat{x\,\arrowvert\,u}$: la quantità di tempo trascorsa nello stato $x$ quando $\set{U}=u$
+    \item $\mstat[x]{x^\prime\,\arrowvert\,u}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$ quando $\set{U}=u$.
 \end{itemize}
 Chiaramente, il numero totale di transizioni si calcola come sopra.
 
@@ -345,9 +345,9 @@ Data una tripla $d=\langle \,x_{d}\,,\,t_d\,,\,x_{d^{\prime}}\,\rangle\in\concep
 \label{eq:ctbn-trans-hmm-likelihood}
 \begin{split} 
 L_{\setel{X}}(q\,,\,\theta:d) &= L_{\setel{X}}(q:d)\,L_{\setel{X}}(\theta:d) \\
-&= q_{x_d}\,exp(-q_{x_d}\,t_d)\,(\theta_{x_{d}x_{d^{\prime}}})\text{.}
-% &= q_{x_d}\,exp(-q_{x_d}\,t_d)\,\Big(\frac{q_{x_{d}x_{d^{\prime}}}}{q_{x_d}}\Big) \\
-% &= exp(-q_{x_d}\,t_d)\,q_{x_{d}x_{d^{\prime}}}
+&= q_{x_d}\,\exp(-q_{x_d}\,t_d)\,(\theta_{x_{d}x_{d^{\prime}}})\text{.}
+% &= q_{x_d}\,\exp(-q_{x_d}\,t_d)\,\Big(\frac{q_{x_{d}x_{d^{\prime}}}}{q_{x_d}}\Big) \\
+% &= \exp(-q_{x_d}\,t_d)\,q_{x_{d}x_{d^{\prime}}}
 \end{split}
 \end{equation}
 Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{funzione di distribuzione di probabilità} di $\setel{X}(t)$ (\eqref[vedasi]{eq:im-distrib}) per la \emph{probabilità istantanea di transizione} (vedasi \ref{defn:im}).
@@ -360,8 +360,8 @@ Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singo
 \begin{equation}
 \label{eq:ctbn-data-hmp-likelihood} 
 \begin{split}
-L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\bigg(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(q:d) \bigg)\bigg(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\theta:d)\bigg) \\
-&=\bigg(\prod_{x}q_x^{\mstat{x}}exp(-q_x\tstat{x})\bigg)\bigg(\prod_{x}\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}}^{\mstat[x]{x^\prime}}\bigg)\text{.}
+L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\Big(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(q:d) \Big)\Big(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\theta:d)\Big) \\
+&=\Big(\prod_{x}q_x^{\mstat{x}}\exp(-q_x\tstat{x})\Big)\Big(\prod_{x}\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}}^{\mstat[x]{x^\prime}}\Big)\text{.}
 \end{split}
 \end{equation}
 
@@ -370,46 +370,54 @@ Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ co
 Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è il prodotto delle likelihood di ogni variabile $\setel{X_i}$:
 \begin{equation}
 \begin{split}
-L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,|\,\set{U}_i}\,,\,\theta_{\setel{X_i}\,|\,\set{U}_i}:\conceptsym{D}) \\
-&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,|\,\set{U}_i}:\conceptsym{D})\,L_{\setel{X_i}}(\theta_{\setel{X_i}\,|\,\set{U}_i}:\conceptsym{D})\text{.}
+L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,\set{U}_i}\,,\,\theta_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D}) \\
+&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D})\,L_{\setel{X_i}}(\theta_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D})\text{.}
 \end{split}
 \end{equation}
-Il termine $L_{\set{X}}(\theta_{\,\set{X}\,|\,\set{U}}:\conceptsym{D})$ esprime la likelihood di tutte le sequenze di transizioni. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{sufficient statistics} si può scrivere:
+Il termine $L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ esprime la likelihood di tutte le sequenze di transizioni. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{sufficient statistics} si può scrivere:
 \[
-L_{\set{X}}(\theta_{\,\set{X}\,|\,\set{U}}:\conceptsym{D})=\prod_{u} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,|\,u}^{\mstat[x]{x^{\prime}\,|\,u}}\text{.}
+L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})=\prod_{u} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,u}^{\mstat[x]{x^{\prime}\,\arrowvert\,u}}\text{.}
 \]
 
-Per quanto riguarda il calcolo di $L_{\set{X}}(q_{\,\set{X}\,|\,\set{U}}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da un nodo qualsiasi $X_i$ termini non a causa di un suo cambiamento di valore (transizione) ma bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $\set{U}_i$). Ebbene, è quindi necessario includere la probabilità che $X_i$ rimanga in $x$ (mentre i nodi genitori non effettuano alcuna transizione di stato) una quantità di tempo almeno pari a $t$. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
+Per quanto riguarda il calcolo di $L_{\set{X}}(q_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da un nodo qualsiasi $X_i$ termini non a causa di un suo cambiamento di valore (transizione) ma bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $\set{U}_i$). Ebbene, è quindi necessario includere la probabilità che $X_i$ rimanga in $x$ (mentre i nodi genitori non effettuano alcuna transizione di stato) una quantità di tempo almeno pari a $t$. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
 \[
-1-F(t)=exp(-q_{x\,|\,u}\,t)\text{.}
+1-F(t)=\exp(-q_{x\,\arrowvert\,u}\,t)\text{.}
 \]
 Perciò la likelihood delle quantità di tempo trascorse in ogni stato è:
 \[
-L_{\set{X}}(q_{\,\set{X}\,|\,\set{U}}:\conceptsym{D})=\prod_{u}\prod_{x}q_{x\,|\,u}^{\mstat{x\,|\,u}}exp(-q_{x\,|\,u}\,\tstat{x\,|\,u})\text{.}
+L_{\set{X}}(q_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})=\prod_{u}\prod_{x}q_{x\,\arrowvert\,u}^{\mstat{x\,\arrowvert\,u}}\exp(-q_{x\,\arrowvert\,u}\,\tstat{x\,\arrowvert\,u})\text{.}
 \]
-
 La likelihood di $\conceptsym{N}$ è quindi:
 \begin{equation}
 \label{eq:ctbn-likelihood}
-L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\prod_{u}\prod_{x}\Big(q_{x\,|\,u}^{\mstat{x\,|\,u}}exp(-q_{x\,|\,u}\,\tstat{x\,|\,u})\,\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,|\,u}^{\mstat[x]{x^{\prime}\,|\,u}}\Big)\text{.}
+\resizebox{.92\hsize}{!}{$L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\prod_{u}\prod_{x}\Big(q_{x\,\arrowvert\,u}^{\mstat{x\,\arrowvert\,u}}\exp(-q_{x\,\arrowvert\,u}\,\tstat{x\,\arrowvert\,u})\,\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,u}^{\mstat[x]{x^{\prime}\,\arrowvert\,u}}\Big)$}\text{.}
 \end{equation}
-
-...
-
+Mentre, scrivendola come \emph{log-likelihood}, si ottiene:
 \begin{equation}
 \label{eq:ctbn-log-likelihood}
-\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{u}\sum_{x}\Big(\mstat{x\,|\,u}ln(q_{x\,|\,u})-q_{x\,|\,u}\tstat{x\,|\,u}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,|\,u}ln(\theta_{xx^{\prime}\,|\,u})\Big)
+\resizebox{.90\hsize}{!}{$\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{u}\sum_{x}\Big(\mstat{x\,\arrowvert\,u}\ln(q_{x\,\arrowvert\,u})-q_{x\,\arrowvert\,u}\tstat{x\,\arrowvert\,u}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,u}\ln(\theta_{xx^{\prime}\,\arrowvert\,u})\Big)$}\text{.}
 \end{equation}
-
-
 
 % TODO: come calcolare una CIM dalle SS -> 5.1
 
 \subsection{Stima dei parametri}
 \label{sec:ctbn-params}
-Introdotte le \emph{sufficient statistics} si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} di cui conosciamo la struttura da un insieme di dati completi.
+Introdotte le \emph{sufficient statistics} si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota) da un insieme di dati completi.
 I parametri, infatti, sono funzione delle \emph{sufficient statistics}.
-% TODO: 5.1 da Nodelman2007
+
+
+
+qx|u = M[x|u]/T[x|u]
+thetax,x'|u = M[x,x'|u]/M[x|u]
+Relazione fra i parametri: thetaij = qij / qi
+oss.: sono maximum-likelihood parameters (MLE) poiché pensati per
+massimizzare la probabilità a posteriori di un dataset, dato un modello
+(dataset likelihood)
+Il reciproco di qx|u (1/qx|u), parametro della distribuzione esponenziale, è
+il tempo medio di transizione uscente da x (quando U = u)
+Il numero medio di transizioni uscenti da x che portano a x' è esattamente
+M[x,x'|u]/M[x
+
 
 \subsection{Algoritmo di apprendimento}
 ...
