@@ -320,12 +320,12 @@ Un insieme $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ composto da
 Le \emph{sufficient statistics} per un singolo \homm\mprocess{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva con:
 \begin{itemize}
     \item $\tstat{x}$: la quantità di tempo trascorsa nello stato $x$
-    \item $\mstat{x,x^\prime}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$.
+    \item $\mstat[x]{x^\prime}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$.
 \end{itemize}
 
 Il numero totale di transizioni uscenti da uno stato $x$ è:
 \[
-\mstat{x}=\sum_{x^\prime}\mstat{x,x^\prime}\text{.}
+\mstat{x}=\sum_{x^\prime}\mstat[x]{x^\prime}\text{.}
 \]
 Nel caso di un \conm\mprocess{} è invece necessario considerare anche l'istanziazione dell'insieme $\set{U}$ dei nodi genitori:
 \begin{itemize}
@@ -354,41 +354,52 @@ Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltip
 
 \subsubsection{Likelihood di un dataset completo}
 \label{sec:ctbn-likelihood-dataset}
+Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{sufficient statistics} relative a ogni \conm\mprocess{} di una \acs{CTBN}.
 
-Poiché moltiplicando le singole probabilità di transizione possiamo calcolare la probabilità dell'intero dataset $\conceptsym{D}$ possiamo quindi sintetizzare $\conceptsym{D}$ aggregando le \emph{sufficient statistics}.
-
-La tipologia
-Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$.
-
-Perciò possiamo ora calcolare la likelihood del dataset $\conceptsym{D}$ rispetto al singolo $\setel{X}(t)$.
+Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \homm\mprocess{} $\setel{X}(t)$ è:
 \begin{equation}
 \label{eq:ctbn-data-hmp-likelihood} 
 \begin{split}
-L_{\setel{X}}(q\,,\,\theta\,:\,\conceptsym{D}) &= \Bigg(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(q:d) \Bigg)\Bigg(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\theta:d)\Bigg) \\
-&= \Bigg(\prod_{x}q_x^{\mstat{x}}\,exp\Big(-q_x\,\tstat{x}\Big)\Bigg)\Bigg(\prod_{x}\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}}^{\mstat{x,x^{\prime}}}\Bigg)\text{.}
+L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\bigg(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(q:d) \bigg)\bigg(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\theta:d)\bigg) \\
+&=\bigg(\prod_{x}q_x^{\mstat{x}}exp(-q_x\tstat{x})\bigg)\bigg(\prod_{x}\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}}^{\mstat[x]{x^\prime}}\bigg)\text{.}
 \end{split}
 \end{equation}
 
-Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $\set{U}$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $\set{U}$, allora, per ogni preciso momento nel tempo $t$, si conosce quale matrice di intensità (omogenea) $\cimsign{\setel{X_i}}{\setel{u}}$ governi la dinamica di $\setel{X_i}$.
+Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni nodo $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $\set{U}_i$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $\set{U}_i$, allora, per ogni preciso momento nel tempo $t$, si conosce quale matrice di intensità $\cimsign{\setel{X_i}}{\setel{u}}\,$, con $u\in\set{U}_i\,$, governi la dinamica di $\setel{X_i}$.
 
-Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è il prodotto delle likelihood di ogni variabile $\setel{X_n}$:
+Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è il prodotto delle likelihood di ogni variabile $\setel{X_i}$:
 \begin{equation}
 \begin{split}
-L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D}) &= \prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,|\,\setel{u}}\,,\,\theta_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D}) \\
-&= \prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D})L_{\setel{X_i}}(\theta_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D})
+L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,|\,\set{U}_i}\,,\,\theta_{\setel{X_i}\,|\,\set{U}_i}:\conceptsym{D}) \\
+&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,|\,\set{U}_i}:\conceptsym{D})\,L_{\setel{X_i}}(\theta_{\setel{X_i}\,|\,\set{U}_i}:\conceptsym{D})\text{.}
 \end{split}
 \end{equation}
-Il termine $L_{\setel{X_i}}(\theta_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D})$ esprime la likelihood di una specifica sequenza di transizioni. Si osservi, di seguito, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Usando le \emph{sufficient statistics} possiamo perciò scrivere:
+Il termine $L_{\set{X}}(\theta_{\,\set{X}\,|\,\set{U}}:\conceptsym{D})$ esprime la likelihood di tutte le sequenze di transizioni. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{sufficient statistics} si può scrivere:
 \[
-L_{\setel{X_i}}(\theta:\conceptsym{D}) = \prod_{u} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,|\,u}^{\mstat[x]{x^{\prime}\,|\,u}}
+L_{\set{X}}(\theta_{\,\set{X}\,|\,\set{U}}:\conceptsym{D})=\prod_{u} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,|\,u}^{\mstat[x]{x^{\prime}\,|\,u}}\text{.}
 \]
-Tale funzione esprime la likelihood di tutte le sequenze di transizione.
 
-Ora si affronta, invece, il calcolo di $L_{\setel{X_i}}(q_{\setel{X_i}\,|\,\setel{u}}:\conceptsym{D})$. Innanzitutto si consideri il caso in cui il tempo trascorso in uno determinato stato $x$ da $X_i$ termini non a causa di un suo cambiamento di valore (transizione) ma bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori). Ebbene, è quindi necessario includere la probabilità che $X_i$ rimanga in $x$ (mentre i nodi genitori non effettuano alcuna transizione di stato) una quantità di tempo almeno pari a $t$. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
+Per quanto riguarda il calcolo di $L_{\set{X}}(q_{\,\set{X}\,|\,\set{U}}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da un nodo qualsiasi $X_i$ termini non a causa di un suo cambiamento di valore (transizione) ma bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $\set{U}_i$). Ebbene, è quindi necessario includere la probabilità che $X_i$ rimanga in $x$ (mentre i nodi genitori non effettuano alcuna transizione di stato) una quantità di tempo almeno pari a $t$. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
 \[
 1-F(t)=exp(-q_{x\,|\,u}\,t)\text{.}
 \]
+Perciò la likelihood delle quantità di tempo trascorse in ogni stato è:
+\[
+L_{\set{X}}(q_{\,\set{X}\,|\,\set{U}}:\conceptsym{D})=\prod_{u}\prod_{x}q_{x\,|\,u}^{\mstat{x\,|\,u}}exp(-q_{x\,|\,u}\,\tstat{x\,|\,u})\text{.}
+\]
 
+La likelihood di $\conceptsym{N}$ è quindi:
+\begin{equation}
+\label{eq:ctbn-likelihood}
+L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\prod_{u}\prod_{x}\Big(q_{x\,|\,u}^{\mstat{x\,|\,u}}exp(-q_{x\,|\,u}\,\tstat{x\,|\,u})\,\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,|\,u}^{\mstat[x]{x^{\prime}\,|\,u}}\Big)\text{.}
+\end{equation}
+
+...
+
+\begin{equation}
+\label{eq:ctbn-log-likelihood}
+\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{u}\sum_{x}\Big(\mstat{x\,|\,u}ln(q_{x\,|\,u})-q_{x\,|\,u}\tstat{x\,|\,u}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,|\,u}ln(\theta_{xx^{\prime}\,|\,u})\Big)
+\end{equation}
 
 
 
