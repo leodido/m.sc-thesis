@@ -178,7 +178,7 @@ il cui scopo è rappresentare e descrivere il comportamento transiente di $\sete
 
 Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$. Ciò è possibile solo se:
 \[
-q_{x_i}=\sum_{i \neq j}q_{x_{ij}}\quad\text{con}\quad q_{x_i}\,,\,q_{x_{ij}}>0
+q_{x_i}=\sum_{i \neq j}q_{x_ix_j}\quad\text{con}\quad q_{x_i}\,,\,q_{x_ix_j}>0
 \]
 
 Data quindi una matrice di intensità $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=x_i$ allora il processo di Markov omogeneo (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $x_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $q_{x_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $X$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $x$ la probabilità che $X$ assuma valori minori o uguali ad $x$.} $F$ sono:
@@ -195,8 +195,13 @@ Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano la \emph{probabilità
 Possiamo quindi calcolare:
 \begin{itemize}
     \item il \emph{tempo atteso di una transizione uscente} dallo stato $x_i$ \[1/q_{x_i}\]
-    \item la \emph{probabilità istantanea di transizione} dallo stato $x_i$ allo stato $x_j$ \[\theta_{x_{ij}}=q_{x_{ij}}/q_{x_i}\text{.}\]
+    \item la \emph{probabilità istantanea di transizione} dallo stato $x_i$ allo stato $x_j$ \[\theta_{x_ix_j}=q_{x_ix_j}/q_{x_i}\text{.}\]
 \end{itemize}
+\begin{osservazione}
+Si noti che poiché non è possibile che avvenga una transizione da $x$ a $x$ non esiste un parametro multinomiale $\theta_{x_ix_i}$.
+\end{osservazione}
+
+
 Quindi una matrice di intensità induce una distribuzione di probabilità locale fattorizzata in due parti:
 \begin{itemize}
     \item $q_{x_i}$, una \emph{distribuzione esponenziale}, che esprime \emph{quando} avvengono le transizioni
@@ -431,10 +436,6 @@ Da questi parametri (e indirettamente dalle sufficient statistics) è quindi pos
 \[
 q_{xx^\prime\,\arrowvert\,u}=\theta_{xx^\prime\,\arrowvert\,u}\,q_{x\,\arrowvert\,u}\text{.}
 \]
-
-% TODO: come calcolare una CIM dalle SS -> 5.1
-% Relazione fra i parametri: thetaij = qij / qi
-
 
 \subsection{Algoritmo di apprendimento}
 ...
