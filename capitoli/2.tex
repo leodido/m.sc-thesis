@@ -406,6 +406,15 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 \label{sec:ctbn-params}
 Si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi.
 
+Sintetizzando le transizioni dei nodi di $\conceptsym{G}$ (che sono dei \conm\mprocess{} indicizzati dal tempo) come un unico \homm\mprocess{}, la rispettiva matrice di intensità (si veda \ref{defn:im}) induce una modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,u}$, che esprime il tempo trascorso in uno stato $x$ da un nodo data una istanziazione $u$ per i nodi genitori, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,u}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
+
+Ebbene, la media della succitata distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,u}$. Tale quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$ (fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $u$); cioè il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,u}$, rapportato al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,u}$. Perciò si ottiene:
+\[
+\frac{1}{q_{x\,\arrowvert\,u}}=\frac{\tstat{x\,\arrowvert\,u}}{\mstat{x\,\arrowvert\,u}}\text{.}
+\]
+
+Invece, il numero medio di transizioni uscenti da uno stato $x$ verso $x^\prime$ è dato dal rapporto tra il numero totale di transizioni da $x$ a $x^\prime$ diviso il numero totale di transizioni uscenti da $x$; cioè $\mstat[x]{x^\prime\,\arrowvert\,u}/\mstat{x\,\arrowvert\,u}$.
+
 \begin{teorema}{Parametri \ac{MLE}.}
 I parametri che massimizzano la likelihood \eqref[dell'equazione]{eq:ctbn-log-likelihood} sono funzione delle sufficient statistics:
 \begin{equation}
@@ -419,14 +428,8 @@ q_{x\,\arrowvert\,u}&=\frac{\mstat{x\,\arrowvert\,u}}{\tstat{x\,\arrowvert\,u}} 
 Si noti che, in questo caso (dataset completo), $q_{x\,\arrowvert\,u}$ e $\theta_{xx^\prime\,\arrowvert\,u}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
 
-Relazione fra i parametri: thetaij = qij / qi
-
-Il reciproco di qx|u (1/qx|u), parametro della distribuzione esponenziale, è
-il tempo medio di transizione uscente da x (quando U = u)
-Il numero medio di transizioni uscenti da x che portano a x' è esattamente
-M[x,x'|u]/M[x
-
 % TODO: come calcolare una CIM dalle SS -> 5.1
+% Relazione fra i parametri: thetaij = qij / qi
 
 
 \subsection{Algoritmo di apprendimento}
