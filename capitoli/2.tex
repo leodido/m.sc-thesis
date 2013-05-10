@@ -54,7 +54,7 @@ Mentre un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rapp
 
 Prima di procedere con la discussione si introduce la Chain Rule, regola molto utile nel caso delle \acs{BN}.
 
-\begin{teorema}[Chain Rule]
+\begin{teorema}[Chain Rule.]
 Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità condizionale delle variabili casuali~\cite{Russel2003}.
 \end{teorema}
 
@@ -398,25 +398,35 @@ Mentre, scrivendola come \emph{log-likelihood}, si ottiene:
 \resizebox{.90\hsize}{!}{$\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{u}\sum_{x}\Big(\mstat{x\,\arrowvert\,u}\ln(q_{x\,\arrowvert\,u})-q_{x\,\arrowvert\,u}\tstat{x\,\arrowvert\,u}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,u}\ln(\theta_{xx^{\prime}\,\arrowvert\,u})\Big)$}\text{.}
 \end{equation}
 
-% TODO: come calcolare una CIM dalle SS -> 5.1
+In questa sezione si è presentato come computare la likelihood di un modello di una \acs{CTBN} rispetto a un dataset completo; informazione che ha un chiara relazione, tramite il \emph{teorema di Bayes}, con la probabilità di un dataset completo dato un modello di una \acs{CTBN}.
+
+Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è necessario stimarli. Nella prossima sezione viene affrontato esattamente questo argomento.
 
 \subsection{Stima dei parametri}
 \label{sec:ctbn-params}
-Introdotte le \emph{sufficient statistics} si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota) da un insieme di dati completi.
-I parametri, infatti, sono funzione delle \emph{sufficient statistics}.
+Si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi.
+
+\begin{teorema}{Parametri \ac{MLE}.}
+I parametri che massimizzano la likelihood \eqref[dell'equazione]{eq:ctbn-log-likelihood} sono funzione delle sufficient statistics:
+\begin{equation}
+\label{eq:ctbn-params}
+\begin{split}
+q_{x\,\arrowvert\,u}&=\frac{\mstat{x\,\arrowvert\,u}}{\tstat{x\,\arrowvert\,u}} \\
+\theta_{xx^\prime\,\arrowvert\,u}&=\frac{\mstat[x]{x^\prime\,\arrowvert\,u}}{\mstat{x\,\arrowvert\,u}}\text{.}
+\end{split}
+\end{equation}
+\end{teorema}
+Si noti che, in questo caso (dataset completo), $q_{x\,\arrowvert\,u}$ e $\theta_{xx^\prime\,\arrowvert\,u}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
 
-
-qx|u = M[x|u]/T[x|u]
-thetax,x'|u = M[x,x'|u]/M[x|u]
 Relazione fra i parametri: thetaij = qij / qi
-oss.: sono maximum-likelihood parameters (MLE) poiché pensati per
-massimizzare la probabilità a posteriori di un dataset, dato un modello
-(dataset likelihood)
+
 Il reciproco di qx|u (1/qx|u), parametro della distribuzione esponenziale, è
 il tempo medio di transizione uscente da x (quando U = u)
 Il numero medio di transizioni uscenti da x che portano a x' è esattamente
 M[x,x'|u]/M[x
+
+% TODO: come calcolare una CIM dalle SS -> 5.1
 
 
 \subsection{Algoritmo di apprendimento}

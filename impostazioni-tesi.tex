@@ -49,8 +49,10 @@
 
 % definizioni (serve il pacchetto amsthm)
 \theoremstyle{definition} 
-\newtheorem{definizione}{Definizione}[section]
-\newtheorem{osservazione}{Osservazione}[section]
+\newtheorem{definizione}{Definizione}
+\newtheorem{osservazione}[definizione]{Osservazione}
+% \newtheorem{definizione}{Definizione}[section]
+% \newtheorem{osservazione}{Osservazione}[section]
 
 % note
 \theoremstyle{remark}
