@@ -49,6 +49,11 @@
                                             % 2. compilare a parte tesi-frn.tex, generato dalla compilazione precedente;
                                             % 3. compilare ancora tesi.tex che cercherà il file tesi-frn.pdf
 
+\usepackage{relsize}
+\usepackage[printonlyused,
+            smaller,
+            withpage]{acronym}              % acronimi
+            
 \usepackage{indentfirst}                    % rientra il primo capoverso di ogni sezione
 
 \usepackage{graphicx}                       % immagini
@@ -86,6 +91,7 @@
 
 \usepackage{eurosym}                        % simbolo dell'euro
 
+
 % ********************************************************************
 % Available options for classicthesis.sty:
 % drafting
@@ -119,10 +125,6 @@
 %        \chapterNumber & \spacedallcaps{#1}
 %   \end{tabularx}} 
 
-\usepackage{relsize}
-\usepackage[printonlyused,
-            smaller,
-            withpage]{acronym}              % acronimi
 
 \usepackage{bookmark}                       % segnalibri
 
@@ -157,13 +159,15 @@
 \input{capitoli/4}
 \input{capitoli/5}
 \input{capitoli/6}
+\input{capitoli/7}
+\input{capitoli/8}
 % *****************************************************************
 % Backmatter
 %******************************************************************
 \appendix
 \input{backmatter/appendice1}
-\input{backmatter/appendice2}
-\input{backmatter/appendice3}
+% \input{backmatter/appendice2}
+% \input{backmatter/appendice3}
 \input{backmatter/acronimi}
 \input{backmatter/bibliografia}
 % \input{backmatter/glossario} % indice dei termini

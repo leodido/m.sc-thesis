@@ -247,7 +247,7 @@ Nelle precedenti sezioni sono stati illustrati i concetti che si pongono a fonda
     \item i \mprocess{}, omogenei e non, al fine di introdurre le modalità di rappresentazione (qualitativa e quantitativa) esplicita delle dinamiche temporali.
 \end{itemize}
 
-\`E ora possibile quindi presentare le \acl{CTBN} come una collezione di \ac{CTMP} non omogenei e con spazio degli stati discreto~\cite{Nodelman2007}.
+\`E ora possibile quindi presentare le \acl{CTBN} come una collezione di \ac{CTMP} non omogenei e con spazio degli stati discreto~\cite{Nodelman2002}.
 
 \begin{definizione}[\acl{CTMP}]
 Variabile casuale $\setel{X}(t)$, che gode della proprietà di Markov, indicizzata dal tempo $t\in[\,0,\,\infty)$.
@@ -437,7 +437,8 @@ Da questi parametri (e indirettamente dalle sufficient statistics) è quindi pos
 q_{xx^\prime\,\arrowvert\,u}=\theta_{xx^\prime\,\arrowvert\,u}\,q_{x\,\arrowvert\,u}\text{.}
 \]
 
-\subsection{Algoritmo di apprendimento}
+\subsection{Apprendimento}
+\label{sec:ctbn-learning}
 ...
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -448,24 +449,6 @@ q_{xx^\prime\,\arrowvert\,u}=\theta_{xx^\prime\,\arrowvert\,u}\,q_{x\,\arrowvert
 
 % TODO: sezione 8 da Nodelman2007 ?
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Apprendimento strutturale}
-\label{sec:ctbn-apprendimento-strutturale}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-...
-% TODO: 5.2 da Nodelman2007, paper Nodelman2002
-
-\subsection{Score} % funzione di valutazione
-\label{sec:ctbn-score}
-
-\subsection{Ricerca della struttura}
-\label{sec:ctbn-graph-search}
-% TODO: bla bla bla
-
-\subsubsection{Hill Climbing}
-...
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % TODO: inserire riferimento/i per la sezione apprendimento e inferenza delle BN (Pearl, Heckermann 1995, Yedidia2000 per generalized belief propagation)
 % TODO: inserire riferimento/i per la sezione sui Markov process
@@ -481,7 +464,7 @@ q_{xx^\prime\,\arrowvert\,u}=\theta_{xx^\prime\,\arrowvert\,u}\,q_{x\,\arrowvert
 
 % Le variabili casuali devono rappresentare aspetti distinti del mondo
 % perciò si assume che esse non possano effettuare transizioni nello
-% stesso istante
+% stesso istante (vedi definizione 5.1, 5.2 in Nodelman2007) -> mettere in rappresentazione (sunbsection semantica?) ctbn!
 
 
 % TODO: dove servono, se servono?
