@@ -8,20 +8,19 @@
 \label{cap:ctbn}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \acresetall
-In questo capitolo si introducono i concetti fondamentali relativi alle \ac{CTBN}. Le \acs{CTBN} sono un framework capace di modellare processi stocastici a tempo continuo con spazio degli stati discreto.
+In questo capitolo si introducono i concetti fondamentali relativi alle \ac{CTBN}. Le \acs{CTBN} sono un framework capace di modellare processi stocastici a tempo continuo e con spazio degli stati discreto.
 
 Prima di affrontare tale argomento si presentano alcuni concetti propedeutici a questo lavoro di tesi: le \ac{BN} e i \mprocess{} (\autoref{sec:fondamenti}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Fondamenti}
 \label{sec:fondamenti}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Come accennato, le \acl{CTBN} sviluppano e integrano concetti e idee provenienti da altre teorie afferenti l'area statistica e del machine learning. Al fine di conferire alla discussione sulle \acs{CTBN} un quadro iniziale completo ed esauriente, si presentano quindi gli aspetti di maggior rilievo di tali argomenti.
+Le \acl{CTBN} utilizzano concetti e idee provenienti da teorie afferenti l'area statistica e del machine learning. Al fine di conferire alla discussione sulle \acs{CTBN} un quadro iniziale completo ed esauriente, si presentano quindi gli aspetti di maggior rilievo di tali argomenti.
 \begin{description}
-\item[\bn{}] \hfill \\
-Le \acl{CTBN} utilizzano una rappresentazione strutturata dello spazio degli stati propria della teoria delle \acl{BN}. Ne ereditano perciò gli aspetti chiave (\eg{} indipendenza condizionale) nonché l'insieme delle tecniche algoritmiche efficienti per l'apprendimento e l'inferenza.
-\item[\mprocess{}] \hfill \\
-\label{sec:fondamenti-mp}
-Le \acl{CTBN} descrivono la dinamica evolutiva delle variabili casuali da cui sono costituite tramite un \homm\mprocess globale, costituito da un insieme di \conm\mprocess{}.
+\item[Le \bn{}] \hfill \\
+Le \acl{CTBN} utilizzano una rappresentazione strutturata dello spazio degli stati propria della teoria delle \acl{BN}. Ne ereditano perciò gli aspetti chiave (\eg{} indipendenza condizionale) nonché l'insieme delle tecniche algoritmiche per l'apprendimento e l'inferenza.
+\item[I Processi di Markov]\label{sec:fondamenti-mp}\hfill \\
+Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un \mprocess*{} \omog*{} costituito da un insieme di \mprocess{} \cond{}.
 \end{description} 
 
 \subsection{\bn{}}
@@ -119,7 +118,7 @@ Quando si dispone del grafo sottostante una \acs{BN}, aldilà dell'osservabilit�
 \end{itemize}
 Gli algoritmi facenti parte della seconda famiglia utilizzando una strategia di ricerca (\eg{} Hill Climbing, Best First Search, Simulated Annealing) e una funzione di scoring. Solitamente la funzione di scoring utilizza la probabilità a posteriori della struttura in esame, dato l'insieme dei dati di apprendimento (\ie{} training set). Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono super esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili.
 
-\subsection{\mprocess}
+\subsection{\protect\mprocess{}}
 \label{sec:mps}
 
 Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presentando alcuni concetti propedeutici relativi ai \mprocess{}, una categoria di processi stocastici \emph{memoryless} (con assenza di memoria).
@@ -148,7 +147,7 @@ Si definisce come Markov process un processo stocastico che gode della propriet�
 
 Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi dandone le definizioni.
 
-\begin{definizione}[\homm\mprocess]
+\begin{definizione}[\mprocess{} \omog]
 \label{defn:homogeneus-markov-process}
 Un processo di Markov è detto \emph{omogeneo} qualora esso $\forall\:t,\,h > 0$ non dipenda dal tempo $t$, ovvero:
 \begin{equation}
@@ -210,9 +209,9 @@ Quindi una matrice di intensità induce una distribuzione di probabilità locale
 
 Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (\eqref[vale l'equazione]{eq:homogeneus-markov-process}).
 
-\begin{definizione}[\conm\mprocess]
+\begin{definizione}[\mprocess{}cond]
 \label{defn:conditional-markov-process}
-Un processo di Markov le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \conm\mprocess{} (o Inhomogeneous \mprocess{}).
+Un processo di Markov le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess{}cond{} (o Inhomogeneous \mprocess{}).
 
 Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un processo di Markov $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $\set{U}$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{\set{U}}$.
 
@@ -280,7 +279,7 @@ Un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$ è d
 \section{Rappresentazione}
 \label{sec:ctbn-rappresentazione}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}. Quindi ogni nodo è un \conm\mprocess{} (\ref{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
+Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}. Quindi ogni nodo è un \mprocess{}cond{} (\ref{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
 
 Una \acs{CTBN} è composta principalmente da due componenti:
 \begin{itemize}
@@ -303,7 +302,7 @@ Data una \ACL{PV} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\set
 
 Per ogni variabile causale $\setel{X_n} \in \set{X}$ di $\conceptsym{N}$ si ha quindi un insieme di modelli di probabilità locali: $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$, la \acs{CIM} di $\setel{X_n}$, è infatti un insieme di modelli di transizione Markoviani (definiti tramite delle matrici di intensità \acs{IM}) la cui cardinalità è pari a quella dell'insieme delle diverse istanziazioni di $pa(\setel{X_n})$.
 
-Si riscontra, quindi, quanto già affermato in precedenza (si veda \ref{sec:fondamenti-mp}), cioè che una \acs{CTBN}, fissato un ordinamento delle variabili da cui è costituita, esprime la sua dinamica evolutiva globale tramite un unico \homm\mprocess, costituito da un insieme di \conm\mprocess{} (un insieme di \acs{CIM} e relative distribuzioni di probabilità iniziali).
+Si riscontra, quindi, quanto già affermato in precedenza (si veda \ref{sec:fondamenti-mp}), cioè che una \acs{CTBN}, fissato un ordinamento delle variabili da cui è costituita, esprime la sua dinamica evolutiva globale tramite un unico \mprocess{} \omog, costituito da un insieme di \mprocess{}cond{} (un insieme di \acs{CIM} e relative distribuzioni di probabilità iniziali).
 
 Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le relazioni temporali fra essi. Tali relazioni codificano le dinamiche evolutive dei nodi, ognuna delle quali è espressa condizionatamente alla dinamica evolutiva degli stati dei suoi nodi genitori, tramite le matrici di intensità condizionale. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati.
 
@@ -322,7 +321,7 @@ Un insieme $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ composto da
 
 \subsection{Sufficient Statistics}
 \label{sec:ctbn-sufficient-stats}
-Le \emph{sufficient statistics} per un singolo \homm\mprocess{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva con:
+Le \emph{sufficient statistics} per un singolo \mprocess{} \omog{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva con:
 \begin{itemize}
     \item $\tstat{x}$: la quantità di tempo trascorsa nello stato $x$
     \item $\mstat[x]{x^\prime}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$.
@@ -332,7 +331,7 @@ Il numero totale di transizioni uscenti da uno stato $x$ è:
 \[
 \mstat{x}=\sum_{x^\prime}\mstat[x]{x^\prime}\text{.}
 \]
-Nel caso di un \conm\mprocess{} è invece necessario considerare anche l'istanziazione dell'insieme $\set{U}$ dei nodi genitori:
+Nel caso di un \mprocess{}cond{} è invece necessario considerare anche l'istanziazione dell'insieme $\set{U}$ dei nodi genitori:
 \begin{itemize}
     \item $\tstat{x\,\arrowvert\,u}$: la quantità di tempo trascorsa nello stato $x$ quando $\set{U}=u$
     \item $\mstat[x]{x^\prime\,\arrowvert\,u}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$ quando $\set{U}=u$.
@@ -341,7 +340,7 @@ Chiaramente, il numero totale di transizioni si calcola come sopra.
 
 \subsection{Likelihood}
 \label{sec:ctbn-likelihood}
-Al fine di presentare il calcolo della likelihood\footnote{Funzione di verosimiglianza di un evento, più debole della funzione di probabilità. Si applica solitamente ai parametri di un modello statistico. La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \homm\mprocess{} $\setel{X}(t)$.
+Al fine di presentare il calcolo della likelihood\footnote{Funzione di verosimiglianza di un evento, più debole della funzione di probabilità. Si applica solitamente ai parametri di un modello statistico. La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \mprocess{} \omog{} $\setel{X}(t)$.
 
 \subsubsection{Likelihood di una singola transizione}
 \label{sec:ctbn-likelihood-single-trans-single-hmp}
@@ -359,9 +358,9 @@ Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltip
 
 \subsubsection{Likelihood di un dataset completo}
 \label{sec:ctbn-likelihood-dataset}
-Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{sufficient statistics} relative a ogni \conm\mprocess{} di una \acs{CTBN}.
+Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{sufficient statistics} relative a ogni \mprocess{}cond{} di una \acs{CTBN}.
 
-Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \homm\mprocess{} $\setel{X}(t)$ è:
+Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \mprocess{} \omog{} $\setel{X}(t)$ è:
 \begin{equation}
 \label{eq:ctbn-data-hmp-likelihood} 
 \begin{split}
@@ -411,7 +410,7 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 \label{sec:ctbn-params}
 Si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi.
 
-Sintetizzando le transizioni dei nodi di $\conceptsym{G}$ (che sono dei \conm\mprocess{} indicizzati dal tempo) come un unico \homm\mprocess{}, la rispettiva matrice di intensità (si veda \ref{defn:im}) induce una modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,u}$, che esprime il tempo trascorso in uno stato $x$ da un nodo data una istanziazione $u$ per i nodi genitori, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,u}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
+Sintetizzando le transizioni dei nodi di $\conceptsym{G}$ (che sono dei \mprocess{}cond{} indicizzati dal tempo) come un unico \mprocess{} \omog{}, la rispettiva matrice di intensità (si veda \ref{defn:im}) induce una modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,u}$, che esprime il tempo trascorso in uno stato $x$ da un nodo data una istanziazione $u$ per i nodi genitori, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,u}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
 Ebbene, la media della succitata distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,u}$. Tale quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$ (fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $u$); cioè il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,u}$, rapportato al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,u}$. Perciò si ottiene:
 \[

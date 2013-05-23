@@ -199,9 +199,18 @@
 \newcommand{\ctbnc}{Continuos time \bn{} Classifier}
 \newcommand{\im}{Intensity Matrix}
 \newcommand{\cim}{Conditional \im{}}
-\newcommand{\mprocess}{processi di Markov}
-\newcommand{\homm}{Homogeneus }
-\newcommand{\conm}{Conditional }
+% \newcommand{\mprocess}{processi di Markov}
+
+\makeatletter
+\newcommand{\mprocess}{process\@ifstar{o di Markov}{i di Markov}}
+\makeatother%
+
+\makeatletter
+\newcommand{\omog}{omogene\@ifstar{o}{i}}
+\makeatother
+\makeatletter
+\newcommand{\cond}{condizional\@ifstar{e}{i}}
+\makeatother
 
 % elementi matematici comuni
 \newcommand{\imsign}[1]{\set{Q}_{#1}}
