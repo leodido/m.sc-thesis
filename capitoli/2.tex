@@ -70,29 +70,29 @@ Ripetendo tale processo per ogni termine finale si ottiene:
 
 Applicando \eqref[l'equazione]{eq:chain-rule} alle \acl{BN} diciamo che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
 \begin{equation}\label{eq:bn-chain-rule}
-\set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}\,\arrowvert\,pa(\setel{X_i}))
+\set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}\,\arrowvert\,pa(\setel{X_i}))\text{.}
 \end{equation}
 \eqref[L'equazione]{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi. Si noti inoltre, che le \acl{BN} richiedono che la loro componente $\conceptsym{G}$ non contenga cicli (\acs{DAG}, \myref[definizione]{defn:bn}) affinché possano rispettare tale proprietà.
 
-Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi immediati ascendenti (i.e. nodi genitori), è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito introduciamo tale concetto formalmente.
+Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi genitori, è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito introduciamo tale concetto formalmente.
 \begin{definizione}[Indipendenza condizionale]\label{defn:ic}
 Un evento $\setel{A}$ è \emph{condizionalmente indipendente} da un evento $\setel{B}$, data l'evidenza su un evento $\setel{C}$, qualora la conoscenza di $\setel{B}$ non apporta alcuna variazione alla probabilità di $\setel{A}$ rispetto a quella conseguente alla conoscenza di $\setel{C}$.
 Formalmente, ciò significa che:
 \[
-\set{P}(\setel{A},\setel{B}\,\arrowvert\,\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{B},\setel{C})\cdot\set{P}(\setel{B}\,\arrowvert\,\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{C})\cdot\set{P}(\setel{B}\,\arrowvert\,\setel{C})
+\set{P}(\setel{A},\setel{B}\,\arrowvert\,\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{B},\setel{C})\cdot\set{P}(\setel{B}\,\arrowvert\,\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{C})\cdot\set{P}(\setel{B}\,\arrowvert\,\setel{C})\text{.}
 \]
 Da cui segue che:
 \[
-\setel{A}\perp\setel{B}\,\arrowvert\,\setel{C}\iff\set{P}(\setel{A}\,\arrowvert\,\setel{B},\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{C})
+\setel{A}\perp\setel{B}\,\arrowvert\,\setel{C}\iff\set{P}(\setel{A}\,\arrowvert\,\setel{B},\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{C})\text{.}
 \]
 \end{definizione}
 In termini non formali, supponendo di essere nel caso della definizione, cioè di avere una variabile casuale $\setel{A}$ \emph{condizionalmente indipendente} da $\setel{B}$ dato $\setel{C}$, ciò significa che è possibile ignorare $\setel{B}$ poiché essa non ha alcun riflesso sulla distribuzione condizionale di $\setel{A}$ quando sia noto l'evento $\setel{C}$.
 
-Si noti che il concetto appena espresso gioca un ruolo importante per i modelli probabilistici, quali sono le \acl{BN}, semplificando i calcoli richiesti per l'inferenza e l'apprendimento. Le \acl{BN} ereditano questi benefici dell'indipendenza condizionale come conseguenza della loro definizione (si veda \myref[l'osservazione]{oss:bn-markov-assumption}): la distribuzione condizionale di ogni variabile casuale $\setel{X_i}$ dipende solo ed esclusivamente dal valore dei suoi genitori $pa(\setel{X_i})$ mentre ignora completamente le variabili casuali associate a nodi non--discendenti di $\setel{X_i}$. In breve:
+Si noti che il concetto appena espresso gioca un ruolo importante per i modelli probabilistici, quali sono le \acl{BN}, semplificando i calcoli richiesti per l'inferenza e l'apprendimento. Le \acl{BN} ereditano questi benefici dell'indipendenza condizionale come conseguenza della loro definizione (si veda \myref[l'osservazione]{oss:bn-markov-assumption}). Infatti, la distribuzione condizionale di ogni variabile casuale $\setel{X_i}$ dipende solo ed esclusivamente dal valore dei suoi genitori, $pa(\setel{X_i})$, mentre ignora completamente i valori dei nodi che non discendono da essa, $nd(\setel{X_i})$.
 
-$\forall$ $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$:
+Grazie \myref[alla definizione]{defn:ic} è possibile esprimere in modo formale il concetto appena espresso per ogni nodo $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$:
 \[
-\set{P}(\setel{X_i}\,\arrowvert\,\setel{E},pa(\setel{X_i}))=\set{P}(\setel{X_i}\,\arrowvert\,pa(\setel{X_i}))\;\forall\:\setel{E}\in nd(\setel{X_i})
+\set{P}(\setel{X_i}\,\arrowvert\,\setel{E},pa(\setel{X_i}))=\set{P}(\setel{X_i}\,\arrowvert\,pa(\setel{X_i}))\;\forall\:\setel{E}\in nd(\setel{X_i})\text{,}
 \]
 dove $nd(\setel{X_i})$ è l'insieme dei nodi non--discendenti (ed $\setel{E}$ è una variabile casuale o un insieme di variabili casuali ad essi associati).
 In base a ciò si dice quindi che le \acl{BN} rispettano l'\emph{assunzione locale di Markov}.
