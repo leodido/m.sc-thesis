@@ -98,58 +98,58 @@ dove $nd(\setel{X_i})$ è l'insieme dei nodi non--discendenti (ed $\setel{E}$ è
 In base a ciò si dice quindi che le \acl{BN} rispettano l'\emph{assunzione locale di Markov}.
 
 \subsubsection{Apprendimento e Inferenza}\acresetall
-In questa sezione si descrivono brevemente, e solo a scopo introduttivo, i processi di apprendimento e inferenza sulle \acl{BN}.
+In questa sezione si descrivono brevemente e a scopo introduttivo i processi di apprendimento e inferenza sulle \acl{BN}.
 
 Il problema dell'apprendimento per le \acl{BN} si divide principalmente in due casi:
 \begin{itemize}
     \item apprendere le \acs{CPD}, nota la struttura 
     \item apprendere sia le \acs{CPD}, sia la struttura (incognita).
 \end{itemize}
-In entrambi i casi è di grande aiuto la rappresentazione efficiente delle \acl{BN} che, tramite la \emph{fattorizzazione} della distribuzione di probabilità congiunta, permette di rappresentarla in modo compatto \eqref{eq:bn-chain-rule} riducendo notevolmente il numero di parametri da calcolare.
+In entrambi i casi è di grande aiuto la rappresentazione efficiente delle \acl{BN} che, tramite la \emph{fattorizzazione} della distribuzione di probabilità congiunta, permette di rappresentarla in modo compatto (tramite \eqref[l'equazione]{eq:bn-chain-rule}) riducendo notevolmente il numero di parametri da calcolare.
 
-Come detto, per specificare completamente una \acl{BN} è necessario rappresentare completamente la distribuzione di probabilità congiunta delle sue variabili tramite la \acl{CPD} di ognuna di esse. In generale, tali distribuzioni condizionali possono avere una qualsiasi forma anche se, al fine di semplificare i calcoli, è comune utilizzare distribuzioni discrete o Gaussiane per modellarle. \`E frequente la situazione in cui queste distribuzioni condizionali includono parametri sconosciuti che è necessario stimare dai dati. In tali casi solitamente si procede tramite l'algoritmo di \acf{EM}, il quale alterna il calcolo dei valori attesi delle variabili casuali non osservate condizionalmente ai dati osservati con la massimizzazione della likelihood. Tale approccio generalmente converge ai valori di massima probabilità a posteriori per i parametri. Esistono comunque una varietà di altri approcci possibili (\eg{} trattare i parametri come variabili casuali sconosciute addizionali) per l'\emph{apprendimento dei parametri} che tuttavia non sono argomento di questo lavoro di tesi.
+Come detto, per specificare completamente una \acl{BN} è necessario rappresentare completamente la distribuzione di probabilità congiunta delle sue variabili tramite la \acl{CPD} di ognuna di esse. In generale, tali distribuzioni condizionali possono avere una qualsiasi forma anche se, al fine di semplificare i calcoli, è comune utilizzare distribuzioni discrete o Gaussiane per modellarle. Nel caso in cui i dati siano parzialmente osservabili solitamente si procede tramite l'algoritmo di \acf{EM}, il quale alterna il calcolo dei valori attesi delle variabili casuali non osservate condizionalmente ai dati osservati con la massimizzazione della likelihood. Tale approccio generalmente converge ai valori di massima probabilità a posteriori per i parametri. Esistono comunque una varietà di altri approcci possibili (\eg{} trattare i parametri come variabili casuali sconosciute addizionali) per l'\emph{apprendimento dei parametri} che tuttavia non sono argomento di questo lavoro di tesi.
 
-Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo clique tree proprogation. Questi metodi, come gli altri presenti in letterature, sono esponenziali rispetto al tree-width del grafo. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'importance sampling e la simulazione \acf{MCMC}.
+Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo clique tree proprogation. Questi metodi, come gli altri presenti in letteratura, dati tutti i possibili alberi di decomposizione del grafo, sono esponenziali rispetto alla larghezza minore rilevata fra essi. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'importance sampling e la simulazione \acf{MCMC}.
 
-Quando si dispone del grafo sottostante una \acs{BN}, aldilà dell'osservabilità o meno delle sue variabili casuali, è possibile quindi usare tale \acs{BN} per effettuare inferenza. Nel caso in cui invece non si disponga della struttura di una \acs{BN} si presenta innanzitutto il problema dell'\emph{apprendimento strutturale}. Per apprendere automaticamente il grafo di una \acl{BN} sono stati sviluppati principalmente due famiglie di algoritmi:
+Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\emph{apprendimento strutturale}. Per apprendere il grafo di una \acl{BN} sono stati sviluppate due famiglie di algoritmi:
 \begin{itemize}
     \item algoritmi basati sulla ricerca dello scheletro del grafo dal quale, tramite le indipendenze condizionali osservate, si deducono successivamente le direzioni degli archi
-    \item algoritmi che utilizzano tecniche di ricerca ottimizzata.
+    \item algoritmi che utilizzano tecniche di ottimizzazione (\eg{} Hill Climbing, Best First Search, Simulated Annealing) di una funzione di scoring.
 \end{itemize}
-Gli algoritmi facenti parte della seconda famiglia utilizzando una strategia di ricerca (\eg{} Hill Climbing, Best First Search, Simulated Annealing) e una funzione di scoring. Solitamente la funzione di scoring utilizza la probabilità a posteriori della struttura in esame, dato l'insieme dei dati di apprendimento (\ie{} training set). Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono super esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili.
+Solitamente la funzione di scoring utilizza la probabilità a posteriori della struttura in esame, dato l'insieme dei dati di apprendimento (\ie{} training set). Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili.
 
 \subsection{Processi di Markov}
 \label{sec:mps}
 
-Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presentando alcuni concetti propedeutici relativi ai \mprocess{}, una categoria di processi stocastici \emph{memoryless} (con assenza di memoria).
+Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presentando alcuni concetti propedeutici relativi ai \mprocess{}, una categoria di processi stocastici con assenza di memoria.
 
 \begin{definizione}[Proprietà di Markov]
 \label{defn:markov-assumption}
 Secondo la proprietà di Markov gli stati futuri di un processo stocastico sono indipendenti dagli stati passati, avendo evidenza sullo stato presente di tale processo.
 
-Formalmente, se $\setel{X}(t),\:t > 0$ è un processo stocastico che gode di tale proprietà, allora $\forall\:h > 0$ vale la seguente equazione:
+Formalmente, se $\setel{X}(t)$, con $t > 0$, è un processo stocastico che gode di tale proprietà, allora $\forall\:h > 0$ vale la seguente equazione:
 \begin{equation}
 \label{eq:markov-assumption}
 \set{P}(\setel{X}(t + h)\,\arrowvert\,\setel{X}(s)=x(s),\,s\leq t)=\set{P}(\setel{X}(t + h)\,\arrowvert\,\setel{X}(t)=x(t))
 \end{equation}
-Con la caratterizzazione \emph{assunzione di Markov} si è soliti descrivere i modelli che rispettano tale proprietà.
+I modelli che rispettano tale proprietà sono detti modelli che rispettano l'\emph{assunzione di Markov}.
 \end{definizione}
 
-Di conseguenza possiamo osservare che la \acl{CPD} degli stati futuri di un processo stocastico che gode di tale proprietà dipende solo ed esclusivamente dallo stato attuale del processo, data la conoscenza dei suoi stati passati.
+Di conseguenza la \acl{CPD} degli stati futuri di un processo stocastico che gode di tale proprietà è indipendente dagli stati passati dato quello attuale.
 
 In altri termini ciò indica che lo stato futuro di una variabile casuale è \emph{condizionalmente indipendente} (si veda \myref[la definizione]{defn:ic}) dalla sequenza dei suoi stati passati, avendo evidenza sul suo stato presente.
 
-Dalla proprietà di Markov deriva la definizione di \mprocess{}.
+Dalla proprietà di Markov deriva la definizione dei \mprocess{}.
 
-\begin{definizione}[\mprocess{}]
-Si definisce come Markov process un processo stocastico che gode della proprietà di Markov.
+\begin{definizione}[\upcase\mprocess*{}]
+Si definisce come \mprocess*{} un processo stocastico che gode della proprietà di Markov.
 \end{definizione}
 
-Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi dandone le definizioni.
+Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi fornendone le definizioni.
 
-\begin{definizione}[\mprocess{} \omog]
+\begin{definizione}[\upcase\mprocess*{} \omog*{}]
 \label{defn:homogeneus-markov-process}
-Un processo di Markov è detto \emph{omogeneo} qualora esso $\forall\:t,\,h > 0$ non dipenda dal tempo $t$, ovvero:
+Un \mprocess*{} è detto \emph{\omog*{}} qualora, $\forall\:t>0$, $\forall\:h>0$, esso non dipenda dal tempo $t$, ovvero:
 \begin{equation}
 \label{eq:homogeneus-markov-process}
 \set{P}(\setel{X}(t + h)\,\arrowvert\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)\,\arrowvert\,\setel{X}(0)=x(0))
@@ -172,10 +172,10 @@ Una matrice di intensità, o \acf{IM}, rappresenta un \emph{modello di transizio
                         q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
                     \end{bmatrix}
 \]
-il cui scopo è rappresentare e descrivere il comportamento transiente di $\setel{X}$, un processo di Markov omogeneo.
+il cui scopo è descrivere il comportamento transiente di un processo di Markov omogeneo $\setel{X}$.
 \end{definizione}
 
-Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$. Ciò è possibile solo se:
+Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$:
 \[
 q_{x_i}=\sum_{i \neq j}q_{x_ix_j}\quad\text{con}\quad q_{x_i}\,,\,q_{x_ix_j}>0
 \]
@@ -189,29 +189,25 @@ F(t) &= 1-\exp(-q_{x_i}\,t)\,,\quad t\geq0
 \end{split} 
 \end{equation}
 
-Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano la \emph{probabilità istantanea} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale\footnote{Elementi della matrice per i cui indici $i$ e $j$ risulta vero che $i \neq j$.}, $x_{ij}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$. 
+Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano la \emph{probabilità istantanea} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale, $q_{x_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$. 
 
 Possiamo quindi calcolare:
 \begin{itemize}
     \item il \emph{tempo atteso di una transizione uscente} dallo stato $x_i$ \[1/q_{x_i}\]
     \item la \emph{probabilità istantanea di transizione} dallo stato $x_i$ allo stato $x_j$ \[\theta_{x_ix_j}=q_{x_ix_j}/q_{x_i}\text{.}\]
 \end{itemize}
-\begin{osservazione}
-Si noti che poiché non è possibile che avvenga una transizione da $x$ a $x$ non esiste un parametro multinomiale $\theta_{x_ix_i}$.
-\end{osservazione}
-
 
 Quindi una matrice di intensità induce una distribuzione di probabilità locale fattorizzata in due parti:
 \begin{itemize}
-    \item $q_{x_i}$, una \emph{distribuzione esponenziale}, che esprime \emph{quando} avvengono le transizioni
-    \item $\theta_{x_{ij}}$, una \emph{distribuzione multinomiale}, che esprime \emph{verso} quale stato avvengono le transizioni.
+    \item $q_{x_i}$, che esprime quando avvengono le transizioni attraverso una \emph{distribuzione di probabilità esponenziale}
+    \item $\theta_{x_{ij}}$, che esprime la \emph{distribuzione di probabilità multinomiale} tra coppie di stati $i \neq j$.
 \end{itemize}
 
 Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (\eqref[vale l'equazione]{eq:homogeneus-markov-process}).
 
-\begin{definizione}[\mprocess{}cond]
+\begin{definizione}[\upcase\mprocess*{} \cond*{}]
 \label{defn:conditional-markov-process}
-Un processo di Markov le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess{}cond{} (o Inhomogeneous \mprocess{}).
+Un \mprocess*{} le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess*{} \cond*{} (o \mprocess*{} non \omog*{}).
 
 Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un processo di Markov $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $\set{U}$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{\set{U}}$.
 
@@ -310,7 +306,7 @@ Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi 
 \section{Apprendimento}
 \label{sec:ctbn-apprendimento}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In questa sezione si argomenta circa la probabilità di un \emph{insieme di dati completo}, data una \acl{CTBN}. A tal fine si mostra quindi come essa possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e quindi espressa in termini di \emph{sufficient statistics} aggregate, essendo le \acs{CTBN} un modello esponenziale.
+In questa sezione si argomenta circa la probabilità di un \emph{insieme di dati completo}, data una \acl{CTBN}. A tal fine si mostra quindi come essa possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e quindi espressa in termini di \emph{\stats{}} aggregate, essendo le \acs{CTBN} un modello esponenziale.
 
 Si affronta infine il processo di apprendimento dei parametri delle \acl{CTBN} da \emph{dati completi}. I processi di apprendimento relativi a dati non completi sono tralasciati poiché non facenti parte degli argomenti di questo lavoro di tesi.
 
@@ -319,9 +315,9 @@ Si affronta infine il processo di apprendimento dei parametri delle \acl{CTBN} d
 Un insieme $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ composto da una o più traiettorie di un insieme di variabili casuali. Ogni $\delta_i$ è un insieme completo (indicizzato dal tempo) di transizioni fra stati: l'istanziazione di tutte le variabili casuali è osservabile per ogni momento temporale di ogni traiettoria.
 \end{definizione}
 
-\subsection{Sufficient Statistics}
+\subsection{Statistiche sufficienti}
 \label{sec:ctbn-sufficient-stats}
-Le \emph{sufficient statistics} per un singolo \mprocess{} \omog{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva con:
+Le \emph{\stats{}} per un singolo \mprocess*{} \omog*{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva con:
 \begin{itemize}
     \item $\tstat{x}$: la quantità di tempo trascorsa nello stato $x$
     \item $\mstat[x]{x^\prime}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$.
@@ -358,7 +354,7 @@ Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltip
 
 \subsubsection{Likelihood di un dataset completo}
 \label{sec:ctbn-likelihood-dataset}
-Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{sufficient statistics} relative a ogni \mprocess{}cond{} di una \acs{CTBN}.
+Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{\stats{}} relative a ogni \mprocess{}cond{} di una \acs{CTBN}.
 
 Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \mprocess{} \omog{} $\setel{X}(t)$ è:
 \begin{equation}
@@ -378,7 +374,7 @@ L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X_i}\in\set{X}}
 &=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D})\,L_{\setel{X_i}}(\theta_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D})\text{.}
 \end{split}
 \end{equation}
-Il termine $L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ esprime la likelihood di tutte le sequenze di transizioni. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{sufficient statistics} si può scrivere:
+Il termine $L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ esprime la likelihood di tutte le sequenze di transizioni. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{\stats{}} si può scrivere:
 \[
 L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})=\prod_{u} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,u}^{\mstat[x]{x^{\prime}\,\arrowvert\,u}}\text{.}
 \]
@@ -420,7 +416,7 @@ Ebbene, la media della succitata distribuzione esponenziale è pari a $1/q_{x\,\
 Invece, il numero medio di transizioni uscenti da uno stato $x$ verso $x^\prime$ è dato dal rapporto tra il numero totale di transizioni da $x$ a $x^\prime$ diviso il numero totale di transizioni uscenti da $x$; cioè $\mstat[x]{x^\prime\,\arrowvert\,u}/\mstat{x\,\arrowvert\,u}$.
 
 \begin{teorema}{Parametri \ac{MLE}.}
-I parametri che massimizzano la likelihood \eqref[dell'equazione]{eq:ctbn-log-likelihood} sono funzione delle sufficient statistics:
+I parametri che massimizzano la likelihood \eqref[dell'equazione]{eq:ctbn-log-likelihood} sono funzione delle \stats{}:
 \begin{equation}
 \label{eq:ctbn-params}
 \begin{split}
@@ -431,7 +427,7 @@ q_{x\,\arrowvert\,u}&=\frac{\mstat{x\,\arrowvert\,u}}{\tstat{x\,\arrowvert\,u}} 
 \end{teorema}
 Si noti che, in questo caso (dataset completo), $q_{x\,\arrowvert\,u}$ e $\theta_{xx^\prime\,\arrowvert\,u}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
-Da questi parametri (e indirettamente dalle sufficient statistics) è quindi possibile costruire le \acl{CIM} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di matrici di intensità, una per ogni istanziazione $u$ dei nodi genitori (si veda\myref[la definizione]{defn:cim}). Perciò, fissato $u$, si può computare la rispettiva matrice di intensità per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,u}$ e ricavando i valori non sulla diagonale dalla relazione fra i parametri $q$ e $\theta$ (\ie{} la probabilità istantanea di transizione fra due stati,\myref[la definizione]{defn:im}):
+Da questi parametri (e indirettamente dalle \stats{}) è quindi possibile costruire le \acl{CIM} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di matrici di intensità, una per ogni istanziazione $u$ dei nodi genitori (si veda\myref[la definizione]{defn:cim}). Perciò, fissato $u$, si può computare la rispettiva matrice di intensità per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,u}$ e ricavando i valori non sulla diagonale dalla relazione fra i parametri $q$ e $\theta$ (\ie{} la probabilità istantanea di transizione fra due stati,\myref[la definizione]{defn:im}):
 \[
 q_{xx^\prime\,\arrowvert\,u}=\theta_{xx^\prime\,\arrowvert\,u}\,q_{x\,\arrowvert\,u}\text{.}
 \]
