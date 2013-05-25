@@ -306,13 +306,13 @@ Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi 
 \section{Apprendimento}
 \label{sec:ctbn-apprendimento}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In questa sezione si argomenta circa la probabilità di un \emph{insieme di dati completo}, data una \acl{CTBN}. A tal fine si mostra quindi come essa possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e quindi espressa in termini di \emph{\stats{}} aggregate, essendo le \acs{CTBN} un modello esponenziale.
+In questa sezione si argomenta sulla probabilità di un \emph{insieme di dati completo} rispetto a una \acl{CTBN}. A tal fine si mostra come una \acs{CTBN}, essendo un modello esponenziale, possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e espressa in termini di \emph{\stats{}} aggregate.
 
 Si affronta infine il processo di apprendimento dei parametri delle \acl{CTBN} da \emph{dati completi}. I processi di apprendimento relativi a dati non completi sono tralasciati poiché non facenti parte degli argomenti di questo lavoro di tesi.
 
 \begin{definizione}[Insieme di dati completo]
 \label{defn:dataset-completo}
-Un insieme $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ composto da una o più traiettorie di un insieme di variabili casuali. Ogni $\delta_i$ è un insieme completo (indicizzato dal tempo) di transizioni fra stati: l'istanziazione di tutte le variabili casuali è osservabile per ogni momento temporale di ogni traiettoria.
+Dato un insieme di variabili casuali, un insieme di dati $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ si dice \emph{completo} se ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un insieme di traiettorie completamente osservate delle variabili casuali (\ie{} l'istanziazione di tutte le variabili casuali è osservabile per ogni istante temporale di ogni traiettoria).
 \end{definizione}
 
 \subsection{Statistiche sufficienti}
@@ -336,7 +336,7 @@ Chiaramente, il numero totale di transizioni si calcola come sopra.
 
 \subsection{Likelihood}
 \label{sec:ctbn-likelihood}
-Al fine di presentare il calcolo della likelihood\footnote{Funzione di verosimiglianza di un evento, più debole della funzione di probabilità. Si applica solitamente ai parametri di un modello statistico. La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \mprocess*{} \omog*{} $\setel{X}(t)$.
+Al fine di presentare il calcolo della likelihood\footnote{La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \mprocess*{} \omog*{} $\setel{X}(t)$.
 
 \subsubsection{Likelihood di una singola transizione}
 \label{sec:ctbn-likelihood-single-trans-single-hmp}
@@ -365,7 +365,7 @@ L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\Big(\prod_{d\in\conceptsym{D}}L_{\s
 \end{split}
 \end{equation}
 
-Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni nodo $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $\set{U}_i$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $\set{U}_i$, allora, per ogni preciso momento nel tempo $t$, si conosce quale \im*{} $\cimsign{\setel{X_i}}{\setel{u}}\,$, con $u\in\set{U}_i\,$, governi la dinamica di $\setel{X_i}$.
+Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni nodo $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $\set{U}_i$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $\set{U}_i$, allora, per ogni istante di tempo $t$, si conosce quale \im*{} $\cimsign{\setel{X_i}}{\setel{u}}\,$, con $u\in\set{U}_i\,$, governi la dinamica di $\setel{X_i}$.
 
 Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è il prodotto delle likelihood di ogni variabile $\setel{X_i}$:
 \begin{equation}
@@ -374,7 +374,7 @@ L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X_i}\in\set{X}}
 &=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D})\,L_{\setel{X_i}}(\theta_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D})\text{.}
 \end{split}
 \end{equation}
-Il termine $L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ esprime la likelihood di tutte le sequenze di transizioni. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{\stats{}} si può scrivere:
+Il termine $L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{\stats{}} si può scrivere:
 \[
 L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})=\prod_{u} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,u}^{\mstat[x]{x^{\prime}\,\arrowvert\,u}}\text{.}
 \]
