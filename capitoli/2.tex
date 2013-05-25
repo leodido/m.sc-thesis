@@ -18,7 +18,7 @@ Prima di affrontare tale argomento si presentano alcuni concetti propedeutici a 
 Le \acl{CTBN} utilizzano concetti e idee provenienti da teorie afferenti l'area statistica e del machine learning. Al fine di conferire alla discussione sulle \acs{CTBN} un quadro iniziale completo ed esauriente, si presentano quindi gli aspetti di maggior rilievo di tali argomenti.
 \begin{description}
 \item[\bn{}] \hfill \\
-Le \acl{CTBN} utilizzano una rappresentazione strutturata dello spazio degli stati propria della teoria delle \acl{BN}. Ne ereditano perciò gli aspetti chiave (\eg{} indipendenza condizionale) nonché l'insieme delle tecniche algoritmiche per l'apprendimento e l'inferenza.
+Le \acl{CTBN} utilizzano una rappresentazione strutturata dello spazio degli stati propria della teoria delle \acl{BN}. Ne ereditano perciò gli aspetti chiave (\eg{} indipendenza \cond*{}) nonché l'insieme delle tecniche algoritmiche per l'apprendimento e l'inferenza.
 \item[Processi di Markov]\label{sec:fondamenti-mp}\hfill \\
 Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un \mprocess*{} \omog*{} costituito da un insieme di \mprocess{} \cond{}.
 \end{description} 
@@ -26,7 +26,7 @@ Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un \
 \subsection{\bn{}}
 \label{sec:bn}
 Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}\footnote{Un grafo aciclico orientato (anche detto grafo aciclico diretto o digrafo aciclico) è un tipo di grafo che non presenta cicli diretti: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.}. I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi evidenziano le dipendenze (e le indipendenze) condizionali fra esse. 
-Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità condizionale di ognuna di essa (si veda \eqref[l'equazione]{eq:bn-chain-rule}).
+Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità \cond*{} di ognuna di essa (si veda \eqref[l'equazione]{eq:bn-chain-rule}).
 Le \acs{BN} sono quindi modelli grafico probabilistici con cui è possibile modellare in modo probabilistico le relazioni causali tra variabili. Esse risultano molto utili nella rappresentazione e analisi di domini caratterizzati da incertezza. Sono infatti usate in svariate applicazioni di supporto alle decisioni, bioinformatica, biologia computazionale, data mining, information retrieval e classificazione.
 
 \subsubsection{Rappresentazione}
@@ -50,15 +50,15 @@ Ogni nodo di una \acs{BN} è condizionalmente indipendente (\myref[si veda la de
 
 La \acs{CPD} di ogni variabile casuale $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$ esprime i suoi valori di probabilità in funzione dei valori assunti da $pa(\setel{X_i})$, notazione con cui denotiamo l'\emph{insieme dei nodi genitori} per ogni nodo o variabile casuale.
 
-Un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta una dipendenza diretta fra le corrispettive variabili casuali. I nodi non direttamente connessi rappresentano variabili casuali condizionalmente indipendenti dagli altri nodi (per quanto riguarda il concetto di \emph{indipendenza condizionale} si rimanda alla \myref[definizione]{defn:ic}).
+Un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta una dipendenza diretta fra le corrispettive variabili casuali. I nodi non direttamente connessi rappresentano variabili casuali condizionalmente indipendenti dagli altri nodi (per quanto riguarda il concetto di \emph{indipendenza \cond*{}} si rimanda alla \myref[definizione]{defn:ic}).
 
 Prima di procedere con la discussione si introduce la Chain Rule, proprietà fondamentale delle \acs{BN}.
 
 \begin{teorema}[Chain Rule.]
-Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità condizionale delle variabili casuali~\cite{Russel2003}.
+Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità \cond*{} delle variabili casuali~\cite{Russel2003}.
 \end{teorema}
 
-Perciò, dato un insieme di variabili casuali $\setel{A_1},\dotsc,\setel{A_n}$ è possibile calcolare il valore di tale membro della distribuzione di probabilità congiunta applicando la definizione di probabilità condizionale:
+Perciò, dato un insieme di variabili casuali $\setel{A_1},\dotsc,\setel{A_n}$ è possibile calcolare il valore di tale membro della distribuzione di probabilità congiunta applicando la definizione di probabilità \cond*{}:
 \[
 \set{P}(\setel{A_1},\dotsc,\setel{A_n})=\set{P}(\setel{A_n}\,\arrowvert\,\setel{A_{n-1}},\dotsc,\setel{A_1})\cdot\set{P}(\setel{A_{n-1}},\dotsc,\setel{A_1})
 \]
@@ -75,7 +75,7 @@ Applicando \eqref[l'equazione]{eq:chain-rule} alle \acl{BN} diciamo che la distr
 \eqref[L'equazione]{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi. Si noti inoltre, che le \acl{BN} richiedono che la loro componente $\conceptsym{G}$ non contenga cicli (\acs{DAG}, \myref[definizione]{defn:bn}) affinché possano rispettare tale proprietà.
 
 Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi genitori, è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito introduciamo tale concetto formalmente.
-\begin{definizione}[Indipendenza condizionale]\label{defn:ic}
+\begin{definizione}[Indipendenza \cond*{}]\label{defn:ic}
 Un evento $\setel{A}$ è \emph{condizionalmente indipendente} da un evento $\setel{B}$, data l'evidenza su un evento $\setel{C}$, qualora la conoscenza di $\setel{B}$ non apporta alcuna variazione alla probabilità di $\setel{A}$ rispetto a quella conseguente alla conoscenza di $\setel{C}$.
 Formalmente, ciò significa che:
 \[
@@ -86,9 +86,9 @@ Da cui segue che:
 \setel{A}\perp\setel{B}\,\arrowvert\,\setel{C}\iff\set{P}(\setel{A}\,\arrowvert\,\setel{B},\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{C})\text{.}
 \]
 \end{definizione}
-In termini non formali, supponendo di essere nel caso della definizione, cioè di avere una variabile casuale $\setel{A}$ \emph{condizionalmente indipendente} da $\setel{B}$ dato $\setel{C}$, ciò significa che è possibile ignorare $\setel{B}$ poiché essa non ha alcun riflesso sulla distribuzione condizionale di $\setel{A}$ quando sia noto l'evento $\setel{C}$.
+In termini non formali, supponendo di essere nel caso della definizione, cioè di avere una variabile casuale $\setel{A}$ \emph{condizionalmente indipendente} da $\setel{B}$ dato $\setel{C}$, ciò significa che è possibile ignorare $\setel{B}$ poiché essa non ha alcun riflesso sulla distribuzione \cond*{} di $\setel{A}$ quando sia noto l'evento $\setel{C}$.
 
-Si noti che il concetto appena espresso gioca un ruolo importante per i modelli probabilistici, quali sono le \acl{BN}, semplificando i calcoli richiesti per l'inferenza e l'apprendimento. Le \acl{BN} ereditano questi benefici dell'indipendenza condizionale come conseguenza della loro definizione (si veda \myref[l'osservazione]{oss:bn-markov-assumption}). Infatti, la distribuzione condizionale di ogni variabile casuale $\setel{X_i}$ dipende solo ed esclusivamente dal valore dei suoi genitori, $pa(\setel{X_i})$, mentre ignora completamente i valori dei nodi che non discendono da essa, $nd(\setel{X_i})$.
+Si noti che il concetto appena espresso gioca un ruolo importante per i modelli probabilistici, quali sono le \acl{BN}, semplificando i calcoli richiesti per l'inferenza e l'apprendimento. Le \acl{BN} ereditano questi benefici dell'indipendenza \cond*{} come conseguenza della loro definizione (si veda \myref[l'osservazione]{oss:bn-markov-assumption}). Infatti, la distribuzione \cond*{} di ogni variabile casuale $\setel{X_i}$ dipende solo ed esclusivamente dal valore dei suoi genitori, $pa(\setel{X_i})$, mentre ignora completamente i valori dei nodi che non discendono da essa, $nd(\setel{X_i})$.
 
 Grazie \myref[alla definizione]{defn:ic} è possibile esprimere in modo formale il concetto appena espresso per ogni nodo $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$:
 \[
@@ -211,12 +211,12 @@ Un \mprocess*{} le cui intensità di transizione variano nel tempo non in funzio
 
 Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $\set{U}$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{\set{U}}$.
 
-Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un \mprocess{} il cui comportamento dipende dalle istanziazioni dei valori di $\set{U}$.
+Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un \mprocess*{} il cui comportamento dipende dalle istanziazioni dei valori di $\set{U}$.
 \end{definizione}
 
 \begin{definizione}[Matrice di intensità \cond*]
 \label{defn:cim}
-Dato un insieme di processi di Markov $\set{U}$, una \im*{} condizionale $\cimsign{\setel{X}}{\set{U}}$ è costituita da un insieme di matrici di intensità $\cimsign{\setel{X}}{\setel{u_i}}$, una per ogni diversa istanziazione $\setel{u_i}$ di $\set{U}$.
+Dato un insieme di processi di Markov $\set{U}$, una \im*{} \cond*{} $\cimsign{\setel{X}}{\set{U}}$ è costituita da un insieme di matrici di intensità $\cimsign{\setel{X}}{\setel{u_i}}$, una per ogni diversa istanziazione $\setel{u_i}$ di $\set{U}$.
 \[
 \cimsign{\setel{X}}{\set{U}}=\big\{\,\cimsign{\setel{X}}{\setel{u_1}}\,,\,\cimsign{\setel{X}}{\setel{u_2}}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{\setel{u_n}}\,\big\}
 \]
@@ -238,8 +238,8 @@ dove\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nelle precedenti sezioni sono stati illustrati i concetti che si pongono a fondamento delle \acl{CTBN}:
 \begin{itemize}
-    \item le \acl{BN} utili a comprendere la rappresentazione strutturata dello spazio degli stati delle \acs{CTBN}, l'utilizzo della nozione di indipendenza condizionale e le conseguenti tecniche di apprendimento e inferenza
-    \item i \mprocess{}, omogenei e non, al fine di introdurre le modalità di rappresentazione (qualitativa e quantitativa) esplicita delle dinamiche temporali.
+    \item le \acl{BN}: utili a comprendere la rappresentazione strutturata dello spazio degli stati delle \acs{CTBN}, l'utilizzo della nozione di indipendenza \cond*{} e le conseguenti tecniche di apprendimento e inferenza
+    \item i \mprocess{}, \omog{} e non, al fine di introdurre le modalità di rappresentazione (qualitativa e quantitativa) delle \acs{CTBN}.
 \end{itemize}
 
 \`E ora possibile quindi presentare le \acl{CTBN} come una collezione di \ac{CTMP} non omogenei e con spazio degli stati discreto~\cite{Nodelman2002}.
@@ -275,7 +275,7 @@ Un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$ è d
 \section{Rappresentazione}
 \label{sec:ctbn-rappresentazione}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}. Quindi ogni nodo è un \mprocess{}cond{} \myref[la definizione]{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
+Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}. Quindi ogni nodo è un \mprocess*{} \cond*{} \myref[la definizione]{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
 
 Una \acs{CTBN} è composta principalmente da due componenti:
 \begin{itemize}
@@ -291,16 +291,16 @@ Data una \ACL{PV} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\set
     \item un modello di transizione continuo, specificato da:
     \begin{itemize}
         \item un grafo $\conceptsym{G}$, orientato e non necessariamente aciclico, composto dai nodi $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$, ognuno dei quali possiede un insieme di genitori denotato da $pa(\setel{X_n})$
-        \item una \im*{} condizionale $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$ per ogni nodo $\setel{X_n} \in \set{X}$.
+        \item una \im*{} \cond*{} $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$ per ogni nodo $\setel{X_n} \in \set{X}$.
     \end{itemize}
 \end{itemize}
 \end{definizione}
 
 Per ogni variabile causale $\setel{X_n} \in \set{X}$ di $\conceptsym{N}$ si ha quindi un insieme di modelli di probabilità locali: $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$, la \acs{CIM} di $\setel{X_n}$, è infatti un insieme di modelli di transizione Markoviani (definiti tramite delle matrici di intensità \acs{IM}) la cui cardinalità è pari a quella dell'insieme delle diverse istanziazioni di $pa(\setel{X_n})$.
 
-Si riscontra, quindi, quanto già affermato in precedenza (si veda \ref{sec:fondamenti-mp}), cioè che una \acs{CTBN}, fissato un ordinamento delle variabili da cui è costituita, esprime la sua dinamica evolutiva globale tramite un unico \mprocess{} \omog, costituito da un insieme di \mprocess{}cond{} (un insieme di \acs{CIM} e relative distribuzioni di probabilità iniziali).
+Si riscontra, quindi, quanto già affermato in precedenza (si veda \ref{sec:fondamenti-mp}), cioè che una \acs{CTBN}, fissato un ordinamento delle variabili da cui è costituita, esprime la sua dinamica evolutiva globale tramite un unico \mprocess*{} \omog*{}, costituito da un insieme di \mprocess{} \cond{} (un insieme di \acs{CIM} e relative distribuzioni di probabilità iniziali).
 
-Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le relazioni temporali fra essi. Tali relazioni codificano le dinamiche evolutive dei nodi, ognuna delle quali è espressa condizionatamente alla dinamica evolutiva degli stati dei suoi nodi genitori, tramite le matrici di intensità condizionale. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati.
+Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le relazioni temporali fra essi. Tali relazioni codificano le dinamiche evolutive dei nodi, ognuna delle quali è espressa condizionatamente alla dinamica evolutiva degli stati dei suoi nodi genitori, tramite le matrici di intensità \cond*{}. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Apprendimento}
@@ -327,7 +327,7 @@ Il numero totale di transizioni uscenti da uno stato $x$ è:
 \[
 \mstat{x}=\sum_{x^\prime}\mstat[x]{x^\prime}\text{.}
 \]
-Nel caso di un \mprocess{}cond{} è invece necessario considerare anche l'istanziazione dell'insieme $\set{U}$ dei nodi genitori:
+Nel caso di un \mprocess*{} \cond*{} è invece necessario considerare anche l'istanziazione dell'insieme $\set{U}$ dei nodi genitori:
 \begin{itemize}
     \item $\tstat{x\,\arrowvert\,u}$: la quantità di tempo trascorsa nello stato $x$ quando $\set{U}=u$
     \item $\mstat[x]{x^\prime\,\arrowvert\,u}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$ quando $\set{U}=u$.
@@ -336,7 +336,7 @@ Chiaramente, il numero totale di transizioni si calcola come sopra.
 
 \subsection{Likelihood}
 \label{sec:ctbn-likelihood}
-Al fine di presentare il calcolo della likelihood\footnote{Funzione di verosimiglianza di un evento, più debole della funzione di probabilità. Si applica solitamente ai parametri di un modello statistico. La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \mprocess{} \omog{} $\setel{X}(t)$.
+Al fine di presentare il calcolo della likelihood\footnote{Funzione di verosimiglianza di un evento, più debole della funzione di probabilità. Si applica solitamente ai parametri di un modello statistico. La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \mprocess*{} \omog*{} $\setel{X}(t)$.
 
 \subsubsection{Likelihood di una singola transizione}
 \label{sec:ctbn-likelihood-single-trans-single-hmp}
@@ -354,9 +354,9 @@ Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltip
 
 \subsubsection{Likelihood di un dataset completo}
 \label{sec:ctbn-likelihood-dataset}
-Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{\stats{}} relative a ogni \mprocess{}cond{} di una \acs{CTBN}.
+Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{\stats{}} relative a ogni \mprocess*{} \cond*{} di una \acs{CTBN}.
 
-Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \mprocess{} \omog{} $\setel{X}(t)$ è:
+Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \mprocess*{} \omog*{} $\setel{X}(t)$ è:
 \begin{equation}
 \label{eq:ctbn-data-hmp-likelihood} 
 \begin{split}
@@ -406,7 +406,7 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 \label{sec:ctbn-params}
 Si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi.
 
-Sintetizzando le transizioni dei nodi di $\conceptsym{G}$ (che sono dei \mprocess{}cond{} indicizzati dal tempo) come un unico \mprocess{} \omog{}, la rispettiva \im*{} (si veda\myref[la definizione]{defn:im}) induce una modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,u}$, che esprime il tempo trascorso in uno stato $x$ da un nodo data una istanziazione $u$ per i nodi genitori, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,u}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
+Sintetizzando le transizioni dei nodi di $\conceptsym{G}$ (che sono dei \mprocess{} \cond{} indicizzati dal tempo) come un unico \mprocess*{} \omog*{}, la rispettiva \im*{} (si veda\myref[la definizione]{defn:im}) induce una modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,u}$, che esprime il tempo trascorso in uno stato $x$ da un nodo data una istanziazione $u$ per i nodi genitori, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,u}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
 Ebbene, la media della succitata distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,u}$. Tale quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$ (fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $u$); cioè il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,u}$, rapportato al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,u}$. Perciò si ottiene:
 \[
