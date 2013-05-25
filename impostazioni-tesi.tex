@@ -204,13 +204,12 @@
 \newcommand{\eg}{e.\,g.}
 \newcommand{\Eg}{E.\,g.} 
 
-% parole comuni
+% comuni
 \newcommand{\bn}{Bayesian Network}
 \newcommand{\ctbn}{Continuos time \bn{}}
 \newcommand{\ctbnc}{Continuos time \bn{} Classifier}
-% \newcommand{\im}{Intensity Matrix}
-% \newcommand{\cim}{Conditional \im{}}
 \newcommand{\stats}{statistiche sufficienti}
+\newcommand{\pv}{variabile di processo}
 
 \makeatletter
 \newcommand{\omog}{omogene\@ifstar{o}{i}}
@@ -232,6 +231,9 @@
 \newcommand{\mprocess}{process\@ifstar{o di Markov}{i di Markov}}
 \makeatother
 
+\makeatletter
+\newcommand{\ctmp}{\@ifstar{\mprocess*{} a tempo continuo}{\mprocess{} a tempo continuo}}
+\makeatother
 
 % elementi matematici comuni
 \newcommand{\imsign}[1]{\set{Q}_{#1}}
