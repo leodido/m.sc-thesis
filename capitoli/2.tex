@@ -172,7 +172,7 @@ Una matrice di intensità, o \acf{IM}, rappresenta un \emph{modello di transizio
                         q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
                     \end{bmatrix}
 \]
-il cui scopo è descrivere il comportamento transiente di un processo di Markov omogeneo $\setel{X}$.
+il cui scopo è descrivere il comportamento transiente di un \mprocess*{} \omog*{} $\setel{X}$.
 \end{definizione}
 
 Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$:
@@ -180,7 +180,7 @@ Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve somma
 q_{x_i}=\sum_{i \neq j}q_{x_ix_j}\quad\text{con}\quad q_{x_i}\,,\,q_{x_ix_j}>0
 \]
 
-Data quindi una matrice di intensità $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=x_i$ allora il processo di Markov omogeneo (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $x_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $q_{x_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $X$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $x$ la probabilità che $X$ assuma valori minori o uguali ad $x$.} $F$ sono:
+Data quindi una matrice di intensità $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=x_i$ allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $x_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $q_{x_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $X$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $x$ la probabilità che $X$ assuma valori minori o uguali ad $x$.} $F$ sono:
 \begin{equation}
 \label{eq:im-distrib}
 \begin{split}
@@ -209,7 +209,7 @@ Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}
 \label{defn:conditional-markov-process}
 Un \mprocess*{} le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess*{} \cond*{} (o \mprocess*{} non \omog*{}).
 
-Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un processo di Markov $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $\set{U}$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{\set{U}}$.
+Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $\set{U}$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{\set{U}}$.
 
 Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un \mprocess{} il cui comportamento dipende dalle istanziazioni dei valori di $\set{U}$.
 \end{definizione}

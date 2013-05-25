@@ -531,7 +531,7 @@
 			"file": "impostazioni-tesi.tex",
 			"settings":
 			{
-				"buffer_size": 9521,
+				"buffer_size": 9425,
 				"line_ending": "Unix"
 			}
 		},
@@ -1027,7 +1027,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 95.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"\\omog",
@@ -1345,15 +1345,15 @@
 					"file": "impostazioni-tesi.tex",
 					"settings":
 					{
-						"buffer_size": 9521,
+						"buffer_size": 9425,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8425,
-								8425
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1686,7 +1686,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 702.0,
+						"translation.y": 720.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1757,7 +1757,7 @@
 		[
 			[
 				"",
-				"/home/leodido/Università/UNIMIB/Laurea/Intelligenza Artificiale/Relazione/socialdata-article.sublime-project"
+				"/home/leodido/Workspace/Zend/DefaultWorkspace/SRAPI2/module/SyracuseAPI/client/cms/singringcms-app.sublime-project"
 			]
 		],
 		"width": 380.0
