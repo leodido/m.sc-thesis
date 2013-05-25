@@ -208,20 +208,30 @@
 \newcommand{\bn}{Bayesian Network}
 \newcommand{\ctbn}{Continuos time \bn{}}
 \newcommand{\ctbnc}{Continuos time \bn{} Classifier}
-\newcommand{\im}{Intensity Matrix}
-\newcommand{\cim}{Conditional \im{}}
+% \newcommand{\im}{Intensity Matrix}
+% \newcommand{\cim}{Conditional \im{}}
 \newcommand{\stats}{statistiche sufficienti}
-
-\makeatletter
-\newcommand{\mprocess}{process\@ifstar{o di Markov}{i di Markov}}
-\makeatother%
 
 \makeatletter
 \newcommand{\omog}{omogene\@ifstar{o}{i}}
 \makeatother
+
 \makeatletter
 \newcommand{\cond}{condizional\@ifstar{e}{i}}
 \makeatother
+
+\makeatletter
+\newcommand{\im}{matric\@ifstar{e di intensit\`a}{i di intensit\`a}}
+\makeatother
+
+\makeatletter
+\newcommand{\cim}{\@ifstar{\im* \cond*}{\im \cond}}
+\makeatother
+
+\makeatletter
+\newcommand{\mprocess}{process\@ifstar{o di Markov}{i di Markov}}
+\makeatother
+
 
 % elementi matematici comuni
 \newcommand{\imsign}[1]{\set{Q}_{#1}}

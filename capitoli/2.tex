@@ -158,12 +158,12 @@ Un \mprocess*{} è detto \emph{\omog*{}} qualora, $\forall\:t>0$, $\forall\:h>0$
 Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})=\{ \vectel{x_1}, \dotsc, \vectel{x_J} \}$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definibile in termini di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ su $val(\setel{X})$
-    \item una matrice di intensità $\imsign{\setel{X}}$.
+    \item una \im*{} $\imsign{\setel{X}}$.
 \end{itemize}
 
-\begin{definizione}[Matrice di intensità]
+\begin{definizione}[\upcase\im*{}]
 \label{defn:im}
-Una matrice di intensità, o \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}
+Una \im*{}, o \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}
 \[
 \imsign{\setel{X}}= \begin{bmatrix}
                         -q_{x_1}    & q_{x_1x_2}& \cdots & q_{x_1x_k}   \\[0.5em]
@@ -180,7 +180,7 @@ Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve somma
 q_{x_i}=\sum_{i \neq j}q_{x_ix_j}\quad\text{con}\quad q_{x_i}\,,\,q_{x_ix_j}>0
 \]
 
-Data quindi una matrice di intensità $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=x_i$ allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $x_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $q_{x_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $X$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $x$ la probabilità che $X$ assuma valori minori o uguali ad $x$.} $F$ sono:
+Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=x_i$ allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $x_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $q_{x_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $X$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $x$ la probabilità che $X$ assuma valori minori o uguali ad $x$.} $F$ sono:
 \begin{equation}
 \label{eq:im-distrib}
 \begin{split}
@@ -197,7 +197,7 @@ Possiamo quindi calcolare:
     \item la \emph{probabilità istantanea di transizione} dallo stato $x_i$ allo stato $x_j$ \[\theta_{x_ix_j}=q_{x_ix_j}/q_{x_i}\text{.}\]
 \end{itemize}
 
-Quindi una matrice di intensità induce una distribuzione di probabilità locale fattorizzata in due parti:
+Quindi una \im*{} induce una distribuzione di probabilità locale fattorizzata in due parti:
 \begin{itemize}
     \item $q_{x_i}$, che esprime quando avvengono le transizioni attraverso una \emph{distribuzione di probabilità esponenziale}
     \item $\theta_{x_{ij}}$, che esprime la \emph{distribuzione di probabilità multinomiale} tra coppie di stati $i \neq j$.
@@ -214,9 +214,9 @@ Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*
 Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un \mprocess{} il cui comportamento dipende dalle istanziazioni dei valori di $\set{U}$.
 \end{definizione}
 
-\begin{definizione}[Matrice di intensità condizionale]
+\begin{definizione}[Matrice di intensità \cond*]
 \label{defn:cim}
-Dato un insieme di processi di Markov $\set{U}$, una matrice di intensità condizionale $\cimsign{\setel{X}}{\set{U}}$ è costituita da un insieme di matrici di intensità $\cimsign{\setel{X}}{\setel{u_i}}$, una per ogni diversa istanziazione $\setel{u_i}$ di $\set{U}$.
+Dato un insieme di processi di Markov $\set{U}$, una \im*{} condizionale $\cimsign{\setel{X}}{\set{U}}$ è costituita da un insieme di matrici di intensità $\cimsign{\setel{X}}{\setel{u_i}}$, una per ogni diversa istanziazione $\setel{u_i}$ di $\set{U}$.
 \[
 \cimsign{\setel{X}}{\set{U}}=\big\{\,\cimsign{\setel{X}}{\setel{u_1}}\,,\,\cimsign{\setel{X}}{\setel{u_2}}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{\setel{u_n}}\,\big\}
 \]
@@ -291,7 +291,7 @@ Data una \ACL{PV} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\set
     \item un modello di transizione continuo, specificato da:
     \begin{itemize}
         \item un grafo $\conceptsym{G}$, orientato e non necessariamente aciclico, composto dai nodi $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$, ognuno dei quali possiede un insieme di genitori denotato da $pa(\setel{X_n})$
-        \item una matrice di intensità condizionale $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$ per ogni nodo $\setel{X_n} \in \set{X}$.
+        \item una \im*{} condizionale $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$ per ogni nodo $\setel{X_n} \in \set{X}$.
     \end{itemize}
 \end{itemize}
 \end{definizione}
@@ -365,7 +365,7 @@ L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\Big(\prod_{d\in\conceptsym{D}}L_{\s
 \end{split}
 \end{equation}
 
-Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni nodo $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $\set{U}_i$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $\set{U}_i$, allora, per ogni preciso momento nel tempo $t$, si conosce quale matrice di intensità $\cimsign{\setel{X_i}}{\setel{u}}\,$, con $u\in\set{U}_i\,$, governi la dinamica di $\setel{X_i}$.
+Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni nodo $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $\set{U}_i$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $\set{U}_i$, allora, per ogni preciso momento nel tempo $t$, si conosce quale \im*{} $\cimsign{\setel{X_i}}{\setel{u}}\,$, con $u\in\set{U}_i\,$, governi la dinamica di $\setel{X_i}$.
 
 Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è il prodotto delle likelihood di ogni variabile $\setel{X_i}$:
 \begin{equation}
@@ -406,7 +406,7 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 \label{sec:ctbn-params}
 Si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi.
 
-Sintetizzando le transizioni dei nodi di $\conceptsym{G}$ (che sono dei \mprocess{}cond{} indicizzati dal tempo) come un unico \mprocess{} \omog{}, la rispettiva matrice di intensità (si veda\myref[la definizione]{defn:im}) induce una modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,u}$, che esprime il tempo trascorso in uno stato $x$ da un nodo data una istanziazione $u$ per i nodi genitori, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,u}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
+Sintetizzando le transizioni dei nodi di $\conceptsym{G}$ (che sono dei \mprocess{}cond{} indicizzati dal tempo) come un unico \mprocess{} \omog{}, la rispettiva \im*{} (si veda\myref[la definizione]{defn:im}) induce una modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,u}$, che esprime il tempo trascorso in uno stato $x$ da un nodo data una istanziazione $u$ per i nodi genitori, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,u}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
 Ebbene, la media della succitata distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,u}$. Tale quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$ (fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $u$); cioè il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,u}$, rapportato al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,u}$. Perciò si ottiene:
 \[
@@ -427,7 +427,7 @@ q_{x\,\arrowvert\,u}&=\frac{\mstat{x\,\arrowvert\,u}}{\tstat{x\,\arrowvert\,u}} 
 \end{teorema}
 Si noti che, in questo caso (dataset completo), $q_{x\,\arrowvert\,u}$ e $\theta_{xx^\prime\,\arrowvert\,u}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
-Da questi parametri (e indirettamente dalle \stats{}) è quindi possibile costruire le \acl{CIM} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di matrici di intensità, una per ogni istanziazione $u$ dei nodi genitori (si veda\myref[la definizione]{defn:cim}). Perciò, fissato $u$, si può computare la rispettiva matrice di intensità per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,u}$ e ricavando i valori non sulla diagonale dalla relazione fra i parametri $q$ e $\theta$ (\ie{} la probabilità istantanea di transizione fra due stati,\myref[la definizione]{defn:im}):
+Da questi parametri (e indirettamente dalle \stats{}) è quindi possibile costruire le \acl{CIM} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di matrici di intensità, una per ogni istanziazione $u$ dei nodi genitori (si veda\myref[la definizione]{defn:cim}). Perciò, fissato $u$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,u}$ e ricavando i valori non sulla diagonale dalla relazione fra i parametri $q$ e $\theta$ (\ie{} la probabilità istantanea di transizione fra due stati,\myref[la definizione]{defn:im}):
 \[
 q_{xx^\prime\,\arrowvert\,u}=\theta_{xx^\prime\,\arrowvert\,u}\,q_{x\,\arrowvert\,u}\text{.}
 \]
