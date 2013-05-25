@@ -379,7 +379,7 @@ Il termine $L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$
 L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})=\prod_{u} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,u}^{\mstat[x]{x^{\prime}\,\arrowvert\,u}}\text{.}
 \]
 
-Per quanto riguarda il calcolo di $L_{\set{X}}(q_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da un nodo qualsiasi $X_i$ termini non a causa di un suo cambiamento di valore (transizione) ma bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $\set{U}_i$). Ebbene, è quindi necessario includere la probabilità che $X_i$ rimanga in $x$ (mentre i nodi genitori non effettuano alcuna transizione di stato) una quantità di tempo almeno pari a $t$. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
+Per quanto riguarda il calcolo di $L_{\set{X}}(q_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da un nodo qualsiasi $X_i$ termini non a causa di un suo cambiamento di valore (transizione) bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $\set{U}_i$). Ebbene, è quindi necessario includere la probabilità che $X_i$ rimanga in $x$ (mentre i nodi genitori non effettuano alcuna transizione di stato) una quantità di tempo almeno pari a $t$. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
 \[
 1-F(t)=\exp(-q_{x\,\arrowvert\,u}\,t)\text{.}
 \]
@@ -398,22 +398,22 @@ Mentre, scrivendola come \emph{log-likelihood}, si ottiene:
 \resizebox{.90\hsize}{!}{$\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{u}\sum_{x}\Big(\mstat{x\,\arrowvert\,u}\ln(q_{x\,\arrowvert\,u})-q_{x\,\arrowvert\,u}\tstat{x\,\arrowvert\,u}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,u}\ln(\theta_{xx^{\prime}\,\arrowvert\,u})\Big)$}\text{.}
 \end{equation}
 
-In questa sezione si è presentato come computare la likelihood di un modello di una \acs{CTBN} rispetto a un dataset completo; informazione che ha un chiara relazione, tramite il \emph{teorema di Bayes}, con la probabilità di un dataset completo dato un modello di una \acs{CTBN}.
+In questa sezione si è presentato come computare la likelihood di un modello di una \acs{CTBN} rispetto a un dataset completo.
 
 Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è necessario stimarli. Nella prossima sezione viene affrontato esattamente questo argomento.
 
 \subsection{Stima dei parametri}
 \label{sec:ctbn-params}
-Si approccia ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi.
+Si affronta ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi.
 
 Sintetizzando le transizioni dei nodi di $\conceptsym{G}$ (che sono dei \mprocess{} \cond{} indicizzati dal tempo) come un unico \mprocess*{} \omog*{}, la rispettiva \im*{} (si veda\myref[la definizione]{defn:im}) induce una modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,u}$, che esprime il tempo trascorso in uno stato $x$ da un nodo data una istanziazione $u$ per i nodi genitori, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,u}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
-Ebbene, la media della succitata distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,u}$. Tale quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$ (fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $u$); cioè il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,u}$, rapportato al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,u}$. Perciò si ottiene:
+La media di tale distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,u}$. Questa quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$ (fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $u$); cioè il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,u}$, rapportato al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,u}$. Perciò si ottiene:
 \[
 \frac{1}{q_{x\,\arrowvert\,u}}=\frac{\tstat{x\,\arrowvert\,u}}{\mstat{x\,\arrowvert\,u}}\text{.}
 \]
 
-Invece, il numero medio di transizioni uscenti da uno stato $x$ verso $x^\prime$ è dato dal rapporto tra il numero totale di transizioni da $x$ a $x^\prime$ diviso il numero totale di transizioni uscenti da $x$; cioè $\mstat[x]{x^\prime\,\arrowvert\,u}/\mstat{x\,\arrowvert\,u}$.
+Invece, la probabilità di transizione da uno stato $x$ verso $x^\prime$ è data dal rapporto tra il numero totale di transizioni da $x$ a $x^\prime$ diviso il numero totale di transizioni uscenti da $x$; cioè $\mstat[x]{x^\prime\,\arrowvert\,u}/\mstat{x\,\arrowvert\,u}$.
 
 \begin{teorema}{Parametri \ac{MLE}.}
 I parametri che massimizzano la likelihood \eqref[dell'equazione]{eq:ctbn-log-likelihood} sono funzione delle \stats{}:
@@ -427,7 +427,7 @@ q_{x\,\arrowvert\,u}&=\frac{\mstat{x\,\arrowvert\,u}}{\tstat{x\,\arrowvert\,u}} 
 \end{teorema}
 Si noti che, in questo caso (dataset completo), $q_{x\,\arrowvert\,u}$ e $\theta_{xx^\prime\,\arrowvert\,u}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
-Da questi parametri (e indirettamente dalle \stats{}) è quindi possibile costruire le \acl{CIM} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di matrici di intensità, una per ogni istanziazione $u$ dei nodi genitori (si veda\myref[la definizione]{defn:cim}). Perciò, fissato $u$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,u}$ e ricavando i valori non sulla diagonale dalla relazione fra i parametri $q$ e $\theta$ (\ie{} la probabilità istantanea di transizione fra due stati,\myref[la definizione]{defn:im}):
+Da questi parametri è quindi possibile costruire le \acl{CIM} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di matrici di intensità, una per ogni istanziazione $u$ dei nodi genitori (si veda\myref[la definizione]{defn:cim}). Perciò, fissato $u$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,u}$ e ricavando i valori non sulla diagonale dalla relazione fra i parametri $q$ e $\theta$ (\ie{} la probabilità istantanea di transizione fra due stati,\myref[la definizione]{defn:im}):
 \[
 q_{xx^\prime\,\arrowvert\,u}=\theta_{xx^\prime\,\arrowvert\,u}\,q_{x\,\arrowvert\,u}\text{.}
 \]
