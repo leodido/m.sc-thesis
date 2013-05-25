@@ -275,7 +275,7 @@ Un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$ è d
 \section{Rappresentazione}
 \label{sec:ctbn-rappresentazione}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Una \acl{CTBN} è un modello grafico in cui ogni nodo è associato con una variabile casuale i cui stati evolvono nel tempo continuo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}. Quindi ogni nodo è un \mprocess*{} \cond*{} \myref[la definizione]{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
+Una \acl{CTBN} è un modello grafico in cui ogni nodo rappresenta una variabile casuale i cui stati evolvono in modo continuo bel tempo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}. Quindi ogni nodo è un \mprocess*{} \cond*{} \myref[la definizione]{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
 
 Una \acs{CTBN} è composta principalmente da due componenti:
 \begin{itemize}
@@ -285,10 +285,10 @@ Una \acs{CTBN} è composta principalmente da due componenti:
 Più formalmente si definisce:
 \begin{definizione}[\acl{CTBN}]
 \label{defn:ctbn}
-Data una \ACL{PV} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$ a tempo continuo e con spazio degli stati finito $val(\setel{X_n})=\{\,\vectel{x_1}\,,\,\dotsc\,,\,\vectel{x_J}\,\}$ (dove $n=1\,,\,\dotsc\,,\,N$), una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
+Data una \pv{} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$ a tempo continuo e con spazio degli stati finito $val(\setel{X_n})=\{\,\vectel{x_1}\,,\,\dotsc\,,\,\vectel{x_J}\,\}$ (dove $n=1\,,\,\dotsc\,,\,N$), una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ specificata come una \bn{} $\conceptsym{B}$ su $\set{X}$
-    \item un modello di transizione continuo, specificato da:
+    \item un modello di transizione a tempo continuo, specificato da:
     \begin{itemize}
         \item un grafo $\conceptsym{G}$, orientato e non necessariamente aciclico, composto dai nodi $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$, ognuno dei quali possiede un insieme di genitori denotato da $pa(\setel{X_n})$
         \item una \im*{} \cond*{} $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$ per ogni nodo $\setel{X_n} \in \set{X}$.
@@ -296,11 +296,11 @@ Data una \ACL{PV} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\set
 \end{itemize}
 \end{definizione}
 
-Per ogni variabile causale $\setel{X_n} \in \set{X}$ di $\conceptsym{N}$ si ha quindi un insieme di modelli di probabilità locali: $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$, la \acs{CIM} di $\setel{X_n}$, è infatti un insieme di modelli di transizione Markoviani (definiti tramite delle matrici di intensità \acs{IM}) la cui cardinalità è pari a quella dell'insieme delle diverse istanziazioni di $pa(\setel{X_n})$.
+Per ogni variabile causale $\setel{X_n} \in \set{X}$ di $\conceptsym{N}$ si ha quindi un insieme di modelli di probabilità locali: $\cimsign{\setel{X_n}}{pa(\setel{X_n})}$, la \acs{CIM} di $\setel{X_n}$, è infatti un insieme di modelli di transizione Markoviani la cui cardinalità è pari a quella dell'insieme delle diverse istanziazioni di $pa(\setel{X_n})$.
 
-Si riscontra, quindi, quanto già affermato in precedenza (si veda \ref{sec:fondamenti-mp}), cioè che una \acs{CTBN}, fissato un ordinamento delle variabili da cui è costituita, esprime la sua dinamica evolutiva globale tramite un unico \mprocess*{} \omog*{}, costituito da un insieme di \mprocess{} \cond{} (un insieme di \acs{CIM} e relative distribuzioni di probabilità iniziali).
+Si riscontra, quindi, quanto già affermato in precedenza (si veda \ref{sec:fondamenti-mp}), cioè che una \acs{CTBN} esprime la sua dinamica evolutiva globale tramite un unico \mprocess*{} \omog*{}, costituito da un insieme di \mprocess{} \cond{} (un insieme di \acs{CIM} e relative distribuzioni di probabilità iniziali).
 
-Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le relazioni temporali fra essi. Tali relazioni codificano le dinamiche evolutive dei nodi, ognuna delle quali è espressa condizionatamente alla dinamica evolutiva degli stati dei suoi nodi genitori, tramite le matrici di intensità \cond*{}. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati.
+Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le dipendenze nel tempo. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Apprendimento}
