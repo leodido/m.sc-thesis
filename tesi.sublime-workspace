@@ -523,7 +523,7 @@
 			"file": "capitoli/2.tex",
 			"settings":
 			{
-				"buffer_size": 40550,
+				"buffer_size": 40419,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,7 +531,7 @@
 			"file": "impostazioni-tesi.tex",
 			"settings":
 			{
-				"buffer_size": 9425,
+				"buffer_size": 9685,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +539,7 @@
 			"file": "backmatter/acronimi.tex",
 			"settings":
 			{
-				"buffer_size": 1622,
+				"buffer_size": 1779,
 				"line_ending": "Unix"
 			}
 		},
@@ -1039,6 +1039,45 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"matrice d",
+			"matrice",
+			"matrici",
+			"matrici di",
+			"CTMP",
+			":im",
+			"im",
+			"condizionale",
+			"matrici di intensità",
+			"matrice di",
+			"matrice",
+			"u",
+			"unico \\mprocess*",
+			"CTBN",
+			"u",
+			"_i",
+			"u",
+			"\\set{U}_i",
+			"\\setel{x_",
+			"1em",
+			"1",
+			"\\setel{",
+			"u_i",
+			"\\setel{u_",
+			"\\setel{u_1}",
+			"\\setel{X}",
+			"\\setel{u_",
+			"\\setel{u_1}",
+			"transizione di Markov",
+			"transizione Mark",
+			"PV",
+			"condizionale",
+			"mprocess",
+			"rappresentazione",
+			"matrice di intensità",
+			"Markov",
+			"markov",
+			"processo",
+			"proprietà",
 			"fronte",
 			"processi",
 			"processo",
@@ -1127,46 +1166,7 @@
 			"si definisce come",
 			"mprocess",
 			"mprocess\\{\\}",
-			"Markov Process",
-			"Markov Processù",
-			"Markov Process",
-			"\\\\mprocess\\{\\}",
-			"mprocess",
-			"markov process",
-			"mycmd",
-			"provess",
-			"eq:",
-			"eqref",
-			"cimsign",
-			"\\cimsi",
-			"cite",
-			"osservazione",
-			"cite",
-			"\\|",
-			"|",
-			"dt",
-			"sec:bn",
-			"bns",
-			"eq:bnchainrule",
-			"rappresentazione",
-			"label",
-			"chainrule",
-			"pa(",
-			"definizione",
-			"i",
-			"1",
-			"i",
-			"teorema",
-			"vertici",
-			">> ",
-			"altro",
-			"prior",
-			"cim",
-			"upcase",
-			"Network",
-			"network",
-			"Dichiarazione",
-			"micro"
+			"Markov Process"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1174,6 +1174,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\\im{}",
+			"\\cond*{}",
+			"\\im*{}",
 			"\\mprocess{}",
 			"\\mprocess*{}",
 			"\\\\mprocess*{}",
@@ -1219,7 +1222,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1227,15 +1230,15 @@
 					"file": "capitoli/2.tex",
 					"settings":
 					{
-						"buffer_size": 40550,
+						"buffer_size": 40419,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								20482,
-								20482
+								18399,
+								18399
 							]
 						],
 						"settings":
@@ -1335,7 +1338,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 6036.0,
+						"translation.y": 5622.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1345,15 +1348,15 @@
 					"file": "impostazioni-tesi.tex",
 					"settings":
 					{
-						"buffer_size": 9425,
+						"buffer_size": 9685,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								8735,
+								8735
 							]
 						],
 						"settings":
@@ -1452,7 +1455,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3564.0,
+						"translation.y": 3744.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1462,15 +1465,15 @@
 					"file": "backmatter/acronimi.tex",
 					"settings":
 					{
-						"buffer_size": 1622,
+						"buffer_size": 1779,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1607,
-								1607
+								1480,
+								1480
 							]
 						],
 						"settings":
@@ -1586,8 +1589,8 @@
 						"selection":
 						[
 							[
-								1936,
-								1936
+								3130,
+								3130
 							]
 						],
 						"settings":
@@ -1686,7 +1689,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 720.0,
+						"translation.y": 756.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1765,7 +1768,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 200.0,
 	"status_bar_visible": true
 }

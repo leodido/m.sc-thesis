@@ -189,12 +189,12 @@ F(t) &= 1-\exp(-q_{x_i}\,t)\,,\quad t\geq0
 \end{split} 
 \end{equation}
 
-Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano la \emph{probabilità istantanea} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale, $q_{x_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$. 
+Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano una quantità che può essere interpretata come la \emph{<<probabilità istantanea>>} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale, $q_{x_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$. 
 
 Possiamo quindi calcolare:
 \begin{itemize}
-    \item il \emph{tempo atteso di una transizione uscente} dallo stato $x_i$ \[1/q_{x_i}\]
-    \item la \emph{probabilità istantanea di transizione} dallo stato $x_i$ allo stato $x_j$ \[\theta_{x_ix_j}=q_{x_ix_j}/q_{x_i}\text{.}\]
+    \item il \emph{tempo atteso} di una transizione uscente dallo stato $x_i$ \[1/q_{x_i}\]
+    \item la \emph{<<probabilità istantanea>>} di transizione dallo stato $x_i$ allo stato $x_j$ \[\theta_{x_ix_j}=q_{x_ix_j}/q_{x_i}\text{.}\]
 \end{itemize}
 
 Quindi una \im*{} induce una distribuzione di probabilità locale fattorizzata in due parti:
@@ -352,7 +352,7 @@ L_{\setel{X}}(q\,,\,\theta:d) &= L_{\setel{X}}(q:d)\,L_{\setel{X}}(\theta:d) \\
 % &= \exp(-q_{x_d}\,t_d)\,q_{x_{d}x_{d^{\prime}}}
 \end{split}
 \end{equation}
-Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{funzione di distribuzione di probabilità} di $\setel{X}(t)$ (\eqref[vedasi]{eq:im-distrib}) per la \emph{probabilità istantanea di transizione} (vedasi \myref[la definizione]{defn:im}).
+Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{funzione di distribuzione di probabilità} di $\setel{X}(t)$ (\eqref[vedasi]{eq:im-distrib}) per la \emph{<<probabilità istantanea>>} di transizione (vedasi \myref[la definizione]{defn:im}).
 
 \subsubsection{Likelihood di un dataset completo}
 \label{sec:ctbn-likelihood-dataset}
@@ -431,7 +431,7 @@ Si noti che, in questo caso (dataset completo), $q_{x\,\arrowvert\,pa(x)}$ e $\t
 
 Da questi parametri è quindi possibile costruire le \cim{} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa(x)$ dei nodi genitori (si veda\myref[la definizione]{defn:cim}).
 
-Perciò, fissato $pa(x)$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,pa(x)}$ e ricavando i valori non sulla diagonale dalla relazione fra i parametri $q$ e $\theta$ (\ie{} la probabilità istantanea di transizione fra due stati; si veda a riguardo \myref[la definizione]{defn:im}):
+Perciò, fissato $pa(x)$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,pa(x)}$ e ricavando i valori non sulla diagonale (\ie{} la \emph{<<probabilità istantanea>>} di transizione fra due stati; si veda a riguardo \myref[la definizione]{defn:im}) dalla relazione fra i parametri $q$ e $\theta$:
 \[
 q_{xx^\prime\,\arrowvert\,pa(x)}=\theta_{xx^\prime\,\arrowvert\,pa(x)}\,q_{x\,\arrowvert\,pa(x)}\text{.}
 \]
