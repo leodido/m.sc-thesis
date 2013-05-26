@@ -163,7 +163,7 @@ Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazion
 
 \begin{definizione}[\upcase\im*{}]
 \label{defn:im}
-Una \im*{}, o \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}
+Una \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}:
 \[
 \imsign{\setel{X}}= \begin{bmatrix}
                         -q_{x_1}    & q_{x_1x_2}& \cdots & q_{x_1x_k}   \\[0.5em]
@@ -172,7 +172,7 @@ Una \im*{}, o \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}
                         q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
                     \end{bmatrix}
 \]
-il cui scopo è descrivere il comportamento transiente di un \mprocess*{} \omog*{} $\setel{X}$.
+Lo scopo di un \im*{} è descrivere il comportamento transiente di $\setel{X}$, un \mprocess*{} \omog*{}.
 \end{definizione}
 
 Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$:
@@ -216,7 +216,7 @@ Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbia
 
 \begin{definizione}[Matrice di intensità \cond*{}]
 \label{defn:cim}
-Dato un insieme di processi di Markov $pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{pa(\setel{X})}$ è costituita da un insieme di matrici di intensità $\cimsign{\setel{X}}{pa(x_i)}$, una per ogni diversa istanziazione $pa(x_i)$ di $pa(\setel{X})$.
+Dato un insieme di processi di Markov $pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{pa(\setel{X})}$ è costituita da un insieme di \im{} $\cimsign{\setel{X}}{pa(x_i)}$, una per ogni diversa istanziazione $pa(x_i)$ di $pa(\setel{X})$.
 \[
 \cimsign{\setel{X}}{pa(\setel{X})}=\big\{\,\cimsign{\setel{X}}{pa(x_1)}\,,\,\cimsign{\setel{X}}{pa(x_2)}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{pa(x_n)}\,\big\}
 \]
@@ -244,7 +244,7 @@ Nelle precedenti sezioni sono stati illustrati i concetti che si pongono a fonda
     \item i \mprocess{}, \omog{} e non, al fine di introdurre le modalità di rappresentazione (qualitativa e quantitativa) delle \acs{CTBN}.
 \end{itemize}
 
-\`E ora possibile quindi presentare le \acl{CTBN} come una collezione di \ac{CTMP} non \omog{} e con spazio degli stati discreto~\cite{Nodelman2002}.
+\`E ora possibile quindi presentare le \acl{CTBN} come una collezione di \ctmp{} non \omog{} e con spazio degli stati discreto~\cite{Nodelman2002}.
 
 \begin{definizione}[\acl{CTMP}]
 Variabile casuale $\setel{X}(t)$, che gode della proprietà di Markov, indicizzata dal tempo $t\in[\,0,\,\infty)$.
@@ -253,7 +253,7 @@ Variabile casuale $\setel{X}(t)$, che gode della proprietà di Markov, indicizza
 Di seguito, invece, si riportano alcune definizioni che torneranno utili durante il prosieguo della discussione.
 
 \begin{definizione}[\acl{PV}]
-    Una \pv{} $\set{X}$ è un insieme di \ctmp{} $\setel{X}(t)$.
+    Una \pv{} $\set{X}$, anche detta \ACF{PV}~\cite{Nodelman2007}, è un insieme di \ctmp{} $\setel{X}(t)$.
 \end{definizione}
 
 \begin{definizione}[Traiettoria]
