@@ -209,28 +209,30 @@ Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}
 \label{defn:conditional-markov-process}
 Un \mprocess*{} le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess*{} \cond*{} (o \mprocess*{} non \omog*{}).
 
-Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $\set{U}$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{\set{U}}$.
+Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $pa(\setel{X})$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{pa(\setel{X})}$.
 
-Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un \mprocess*{} il cui comportamento dipende dalle istanziazioni dei valori di $\set{U}$.
+Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un \mprocess*{} il cui comportamento dipende dalle istanziazioni dei valori di $pa(\setel{X})$.
 \end{definizione}
 
-\begin{definizione}[Matrice di intensità \cond*]
+\begin{definizione}[Matrice di intensità \cond*{}]
 \label{defn:cim}
-Dato un insieme di processi di Markov $\set{U}$, una \im*{} \cond*{} $\cimsign{\setel{X}}{\set{U}}$ è costituita da un insieme di matrici di intensità $\cimsign{\setel{X}}{\setel{u_i}}$, una per ogni diversa istanziazione $\setel{u_i}$ di $\set{U}$.
+Dato un insieme di processi di Markov $pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{pa(\setel{X})}$ è costituita da un insieme di matrici di intensità $\cimsign{\setel{X}}{pa(x_i)}$, una per ogni diversa istanziazione $pa(x_i)$ di $pa(\setel{X})$.
 \[
-\cimsign{\setel{X}}{\set{U}}=\big\{\,\cimsign{\setel{X}}{\setel{u_1}}\,,\,\cimsign{\setel{X}}{\setel{u_2}}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{\setel{u_n}}\,\big\}
+\cimsign{\setel{X}}{pa(\setel{X})}=\big\{\,\cimsign{\setel{X}}{pa(x_1)}\,,\,\cimsign{\setel{X}}{pa(x_2)}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{pa(x_n)}\,\big\}
 \]
 dove\\
 \[
-\cimsign{\setel{X}}{u_i}
+\cimsign{\setel{X}}{pa(\setel{x_i})}
     =  \begin{bmatrix}
-        -q_{x_1}^{u_i}   & q_{x_1x_2}^{u_i} & \cdots & q_{x_1x_k}^{u_i}\\[0.5em]
-        q_{x_2x_1}^{u_i} & -q_{x_2}^{u_i}   & \cdots & q_{x_2x_k}^{u_i}\\[0.5em]
-        \vdots           & \vdots           & \ddots & \vdots          \\[0.5em]
-        q_{x_kx_1}^{u_i} & q_{x_kx_2}^{u_i} & \cdots & -q_{x_k}^{u_i}
+        -q_{x_1}^{pa(x_i)}   & q_{x_1x_2}^{pa(x_i)} & \cdots & q_{x_1x_k}^{pa(x_i)} \\[0.5em]
+        q_{x_2x_1}^{pa(x_i)} & -q_{x_2}^{pa(x_i)}   & \cdots & q_{x_2x_k}^{pa(x_i)} \\[0.5em]
+        \vdots           & \vdots           & \ddots & \vdots                       \\[0.5em]
+        q_{x_kx_1}^{pa(x_i)} & q_{x_kx_2}^{pa(x_i)} & \cdots & -q_{x_k}^{pa(x_i)}
     \end{bmatrix}
+\text{.}
 \]
-\end{definizione} 
+\end{definizione}
+% FIXME: usare K o altro indice (e.g. I) vedi paper stella! dipende da j-time-segment?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Definizioni preliminari}
@@ -327,10 +329,10 @@ Il numero totale di transizioni uscenti da uno stato $x$ è:
 \[
 \mstat{x}=\sum_{x^\prime}\mstat[x]{x^\prime}\text{.}
 \]
-Nel caso di un \mprocess*{} \cond*{} è invece necessario considerare anche l'istanziazione dell'insieme $\set{U}$ dei nodi genitori:
+Nel caso di un \mprocess*{} \cond*{} è invece necessario considerare anche l'istanziazione dell'insieme $pa(\setel{X})$ dei nodi genitori:
 \begin{itemize}
-    \item $\tstat{x\,\arrowvert\,u}$: la quantità di tempo trascorsa nello stato $x$ quando $\set{U}=u$
-    \item $\mstat[x]{x^\prime\,\arrowvert\,u}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$ quando $\set{U}=u$.
+    \item $\tstat{x\,\arrowvert\,pa(x)}$: la quantità di tempo trascorsa nello stato $x$ quando $pa(\setel{X})=pa(x)$
+    \item $\mstat[x]{x^\prime\,\arrowvert\,pa(x)}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$ quando $pa(\setel{X})=pa(x)$.
 \end{itemize}
 Chiaramente, il numero totale di transizioni si calcola come sopra.
 
@@ -365,37 +367,37 @@ L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\Big(\prod_{d\in\conceptsym{D}}L_{\s
 \end{split}
 \end{equation}
 
-Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni nodo $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $\set{U}_i$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $\set{U}_i$, allora, per ogni istante di tempo $t$, si conosce quale \im*{} $\cimsign{\setel{X_i}}{\setel{u}}\,$, con $u\in\set{U}_i\,$, governi la dinamica di $\setel{X_i}$.
+Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni nodo $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $pa(\setel{X_i})$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $pa(\setel{X_i})$, allora, per ogni istante di tempo $t$, si conosce quale \im*{} $\cimsign{\setel{X_i}}{pa(x_i)}\,$, con $x_i\in pa(\setel{X_i})\,$, governi la dinamica di $\setel{X_i}$.
 
 Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è il prodotto delle likelihood di ogni variabile $\setel{X_i}$:
 \begin{equation}
 \begin{split}
-L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,\set{U}_i}\,,\,\theta_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D}) \\
-&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D})\,L_{\setel{X_i}}(\theta_{\setel{X_i}\,\arrowvert\,\set{U}_i}:\conceptsym{D})\text{.}
+L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,pa(\setel{X_i})}\,,\,\theta_{\setel{X_i}\,\arrowvert\,pa(\setel{X_i})}:\conceptsym{D}) \\
+&=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,pa(\setel{X_i})}:\conceptsym{D})\,L_{\setel{X_i}}(\theta_{\setel{X_i}\,\arrowvert\,pa(\setel{X_i})}:\conceptsym{D})\text{.}
 \end{split}
 \end{equation}
-Il termine $L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{\stats{}} si può scrivere:
+Il termine $L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{\stats{}} si può scrivere:
 \[
-L_{\set{X}}(\theta_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})=\prod_{u} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,u}^{\mstat[x]{x^{\prime}\,\arrowvert\,u}}\text{.}
+L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})=\prod_{pa(x)} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa(x)}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa(x)}}\text{.}
 \]
 
-Per quanto riguarda il calcolo di $L_{\set{X}}(q_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da un nodo qualsiasi $X_i$ termini non a causa di un suo cambiamento di valore (transizione) bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $\set{U}_i$). Ebbene, è quindi necessario includere la probabilità che $X_i$ rimanga in $x$ (mentre i nodi genitori non effettuano alcuna transizione di stato) una quantità di tempo almeno pari a $t$. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
+Per quanto riguarda il calcolo di $L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da $X$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $pa(\setel{X})$). \`E quindi necessario includere la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $pa(\setel{X})$ non effettuano alcuna transizione di stato. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
 \[
-1-F(t)=\exp(-q_{x\,\arrowvert\,u}\,t)\text{.}
+1-F(t)=\exp(-q_{x\,\arrowvert\,pa(x)}\,t)\text{.}
 \]
 Perciò la likelihood delle quantità di tempo trascorse in ogni stato è:
 \[
-L_{\set{X}}(q_{\,\set{X}\,\arrowvert\,\set{U}}:\conceptsym{D})=\prod_{u}\prod_{x}q_{x\,\arrowvert\,u}^{\mstat{x\,\arrowvert\,u}}\exp(-q_{x\,\arrowvert\,u}\,\tstat{x\,\arrowvert\,u})\text{.}
+\resizebox{0.994\hsize}{!}{$L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})=\prod_{pa(x)}\prod_{x}q_{x\,\arrowvert\,pa(x)}^{\mstat{x\,\arrowvert\,pa(x)}}\exp(-q_{x\,\arrowvert\,pa(x)}\,\tstat{x\,\arrowvert\,pa(x)})$}\text{.}
 \]
 La likelihood di $\conceptsym{N}$ è quindi:
 \begin{equation}
 \label{eq:ctbn-likelihood}
-\resizebox{.92\hsize}{!}{$L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\prod_{u}\prod_{x}\Big(q_{x\,\arrowvert\,u}^{\mstat{x\,\arrowvert\,u}}\exp(-q_{x\,\arrowvert\,u}\,\tstat{x\,\arrowvert\,u})\,\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,u}^{\mstat[x]{x^{\prime}\,\arrowvert\,u}}\Big)$}\text{.}
+\resizebox{.92\hsize}{!}{$L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\prod_{pa(x)}\prod_{x}\Big(q_{x\,\arrowvert\,pa(x)}^{\mstat{x\,\arrowvert\,pa(x)}}\exp(-q_{x\,\arrowvert\,pa(x)}\,\tstat{x\,\arrowvert\,pa(x)})\,\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa(x)}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa(x)}}\Big)$}\text{.}
 \end{equation}
 Mentre, scrivendola come \emph{log-likelihood}, si ottiene:
 \begin{equation}
 \label{eq:ctbn-log-likelihood}
-\resizebox{.90\hsize}{!}{$\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{u}\sum_{x}\Big(\mstat{x\,\arrowvert\,u}\ln(q_{x\,\arrowvert\,u})-q_{x\,\arrowvert\,u}\tstat{x\,\arrowvert\,u}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,u}\ln(\theta_{xx^{\prime}\,\arrowvert\,u})\Big)$}\text{.}
+\resizebox{.90\hsize}{!}{$\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{pa(x)}\sum_{x}\Big(\mstat{x\,\arrowvert\,pa(x)}\ln(q_{x\,\arrowvert\,pa(x)})-q_{x\,\arrowvert\,pa(x)}\tstat{x\,\arrowvert\,pa(x)}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,pa(x)}\ln(\theta_{xx^{\prime}\,\arrowvert\,pa(x)})\Big)$}\text{.}
 \end{equation}
 
 In questa sezione si è presentato come computare la likelihood di un modello di una \acs{CTBN} rispetto a un dataset completo.
@@ -406,30 +408,32 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 \label{sec:ctbn-params}
 Si affronta ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi.
 
-Sintetizzando le transizioni dei nodi di $\conceptsym{G}$ (che sono dei \mprocess{} \cond{} indicizzati dal tempo) come un unico \mprocess*{} \omog*{}, la rispettiva \im*{} (si veda\myref[la definizione]{defn:im}) induce una modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,u}$, che esprime il tempo trascorso in uno stato $x$ da un nodo data una istanziazione $u$ per i nodi genitori, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,u}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
+In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\myref[]{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \myref[definizione]{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,pa(x)}$, che esprime il tempo trascorso in uno stato $x$ da un nodo $\setel{X}$ data una istanziazione $pa(x)$ per i nodi genitori $pa(\setel{X})$, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,pa(x)}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
-La media di tale distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,u}$. Questa quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$ (fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $u$); cioè il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,u}$, rapportato al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,u}$. Perciò si ottiene:
+La media di tale distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,pa(x)}$. Questa quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$, fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $pa(x)$. Poiché il tempo medio si calcola rapportando il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,pa(x)}$, rispetto al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,pa(x)}$, si ottiene:
 \[
-\frac{1}{q_{x\,\arrowvert\,u}}=\frac{\tstat{x\,\arrowvert\,u}}{\mstat{x\,\arrowvert\,u}}\text{.}
+\frac{1}{q_{x\,\arrowvert\,pa(x)}}=\frac{\tstat{x\,\arrowvert\,pa(x)}}{\mstat{x\,\arrowvert\,pa(x)}}\text{.}
 \]
 
-Invece, la probabilità di transizione da uno stato $x$ verso $x^\prime$ è data dal rapporto tra il numero totale di transizioni da $x$ a $x^\prime$ diviso il numero totale di transizioni uscenti da $x$; cioè $\mstat[x]{x^\prime\,\arrowvert\,u}/\mstat{x\,\arrowvert\,u}$.
+Invece, la probabilità di transizione da uno stato $x$ verso $x^\prime$ è data dal rapporto tra il numero totale di transizioni da $x$ a $x^\prime$ diviso il numero totale di transizioni uscenti da $x$; cioè $\mstat[x]{x^\prime\,\arrowvert\,pa(x)}/\mstat{x\,\arrowvert\,pa(x)}$.
 
 \begin{teorema}{Parametri \ac{MLE}.}
 I parametri che massimizzano la likelihood \eqref[dell'equazione]{eq:ctbn-log-likelihood} sono funzione delle \stats{}:
 \begin{equation}
 \label{eq:ctbn-params}
 \begin{split}
-q_{x\,\arrowvert\,u}&=\frac{\mstat{x\,\arrowvert\,u}}{\tstat{x\,\arrowvert\,u}} \\
-\theta_{xx^\prime\,\arrowvert\,u}&=\frac{\mstat[x]{x^\prime\,\arrowvert\,u}}{\mstat{x\,\arrowvert\,u}}\text{.}
+q_{x\,\arrowvert\,pa(x)}&=\frac{\mstat{x\,\arrowvert\,pa(x)}}{\tstat{x\,\arrowvert\,pa(x)}} \\
+\theta_{xx^\prime\,\arrowvert\,pa(x)}&=\frac{\mstat[x]{x^\prime\,\arrowvert\,pa(x)}}{\mstat{x\,\arrowvert\,pa(x)}}\text{.}
 \end{split}
 \end{equation}
 \end{teorema}
-Si noti che, in questo caso (dataset completo), $q_{x\,\arrowvert\,u}$ e $\theta_{xx^\prime\,\arrowvert\,u}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
+Si noti che, in questo caso (dataset completo), $q_{x\,\arrowvert\,pa(x)}$ e $\theta_{xx^\prime\,\arrowvert\,pa(x)}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
-Da questi parametri è quindi possibile costruire le \acl{CIM} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di matrici di intensità, una per ogni istanziazione $u$ dei nodi genitori (si veda\myref[la definizione]{defn:cim}). Perciò, fissato $u$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,u}$ e ricavando i valori non sulla diagonale dalla relazione fra i parametri $q$ e $\theta$ (\ie{} la probabilità istantanea di transizione fra due stati,\myref[la definizione]{defn:im}):
+Da questi parametri è quindi possibile costruire le \cim{} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa(x)$ dei nodi genitori (si veda\myref[la definizione]{defn:cim}).
+
+Perciò, fissato $pa(x)$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,pa(x)}$ e ricavando i valori non sulla diagonale dalla relazione fra i parametri $q$ e $\theta$ (\ie{} la probabilità istantanea di transizione fra due stati; si veda a riguardo \myref[la definizione]{defn:im}):
 \[
-q_{xx^\prime\,\arrowvert\,u}=\theta_{xx^\prime\,\arrowvert\,u}\,q_{x\,\arrowvert\,u}\text{.}
+q_{xx^\prime\,\arrowvert\,pa(x)}=\theta_{xx^\prime\,\arrowvert\,pa(x)}\,q_{x\,\arrowvert\,pa(x)}\text{.}
 \]
 
 \subsection{Apprendimento}
