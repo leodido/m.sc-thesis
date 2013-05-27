@@ -25,7 +25,7 @@ Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un \
 
 \subsection{\bn{}}
 \label{sec:bn}
-Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}\footnote{Un grafo aciclico orientato (anche detto grafo aciclico diretto o digrafo aciclico) è un tipo di grafo che non presenta cicli diretti: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.}. I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi evidenziano le dipendenze (e le indipendenze) condizionali fra esse. 
+Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}\footnote{Un grafo aciclico orientato (anche detto grafo aciclico diretto o digrafo aciclico) è un tipo di grafo che non presenta cicli diretti: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.}. I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi evidenziano le dipendenze (e le indipendenze) condizionali fra esse~\citep{Korb2011}. 
 Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità \cond*{} di ognuna di essa (si veda \eqref[l'equazione]{eq:bn-chain-rule}).
 Le \acs{BN} sono quindi modelli grafico probabilistici con cui è possibile modellare in modo probabilistico le relazioni causali tra variabili. Esse risultano molto utili nella rappresentazione e analisi di domini caratterizzati da incertezza. Sono infatti usate in svariate applicazioni di supporto alle decisioni, bioinformatica, biologia computazionale, data mining, information retrieval e classificazione.
 
@@ -54,7 +54,7 @@ Un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta
 
 Prima di procedere con la discussione si introduce la Chain Rule, proprietà fondamentale delle \acs{BN}.
 
-\begin{teorema}[Chain Rule.]
+\begin{teorema}[Chain Rule]
 Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità \cond*{} delle variabili casuali.
 \end{teorema}
 
@@ -72,7 +72,7 @@ Applicando \eqref[l'equazione]{eq:chain-rule} alle \acl{BN} diciamo che la distr
 \begin{equation}\label{eq:bn-chain-rule}
 \set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}\,\arrowvert\,pa(\setel{X_i}))\text{.}
 \end{equation}
-\eqref[L'equazione]{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi~\citep[][sezione 14.2]{Russel2003}. Si noti inoltre, che le \acl{BN} richiedono che la loro componente $\conceptsym{G}$ non contenga cicli (\acs{DAG}, \myref[definizione]{defn:bn}) affinché possano rispettare tale proprietà~\citep[][sezione 14.1]{Russel2003}.
+\eqref[L'equazione]{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, detta \emph{distribuzione di probabilità globale}, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi~\citep[][sezione 14.2]{Russel2003}, dette \emph{distribuzioni di probabilità locali}. Questa proprietà contiene in sè il concetto di \emph{proprietà di Markov} (si veda \myref[la definizione]{defn:markov-assumption}), il quale attesta che ogni nodo di una \acl{BN} dipende solo ed esclusivamente dai suoi nodi genitori~\citep[][sezione 2.2.4]{Korb2011}. Si noti inoltre, che le \acl{BN} richiedono (\acs{DAG}, \myref[definizione]{defn:bn}) che la loro componente $\conceptsym{G}$ non contenga cicli  affinché possano rispettare tale proprietà~\citep[][sezione 14.1]{Russel2003}.
 
 Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi genitori, è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito introduciamo tale concetto formalmente.
 \begin{definizione}[Indipendenza \cond*{}]\label{defn:ic}
@@ -112,6 +112,8 @@ Come detto, per specificare completamente una \acl{BN} è necessario rappresenta
 Per l'\emph{apprendimento dei parametri} esistono comunque una varietà di altri approcci possibili (\eg{} trattare i parametri come variabili casuali sconosciute addizionali) che tuttavia non sono argomento di questo lavoro di tesi.
 
 Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo clique tree proprogation. Questi metodi, come gli altri presenti in letteratura, dati tutti i possibili alberi di decomposizione del grafo, sono esponenziali rispetto alla larghezza minore rilevata fra essi. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'importance sampling e la simulazione \acf{MCMC}.
+
+% TODO: aggiustare copiando Scutari
 
 Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\emph{apprendimento strutturale}. Per apprendere il grafo di una \acl{BN} sono state sviluppate due famiglie di algoritmi:
 \begin{itemize}
