@@ -77,11 +77,13 @@
 \usepackage[babel,
             italian=guillemets]{csquotes}   % rende automatiche alcune scelte stilistiche dipendenti dalla lingua:
                                             % quando viene usato il comando \mkbibquote si otterranno le virgolette orizzontali invece che quelle verticali
-\usepackage[style=numeric-comp,
-            hyperref,backref,natbib,
+\usepackage[style=philosophy-modern,
+            hyperref,backref,square,natbib,
             backend=bibtex]{biblatex}       % eccellente pacchetto per la bibliografia;
-                                            % philosophy-modern produce uno stile di citazione autore-anno (aggiungere opzione square dopo backref)
-                                            % numeric-comp produce riferimenti numerici                                         
+                                            % philosophy-modern produce uno stile di citazione autore/anno
+                                            % aggiungere opzione square dopo backref per parentesti quadrate invece che tonde
+                                            % numeric-comp produce riferimenti numerici
+
 \bibliography{bibliografia}                 % database di biblatex 
                                           
 \usepackage{subfig}                         % sottofigure, sottotabelle

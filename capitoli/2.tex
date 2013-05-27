@@ -50,12 +50,12 @@ Ogni nodo di una \acs{BN} è condizionalmente indipendente (\myref[si veda la de
 
 La \acs{CPD} di ogni variabile casuale $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$ esprime i suoi valori di probabilità in funzione dei valori assunti da $pa(\setel{X_i})$, notazione con cui denotiamo l'\emph{insieme dei nodi genitori} per ogni nodo o variabile casuale.
 
-Un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta una dipendenza diretta fra le corrispettive variabili casuali. I nodi non direttamente connessi rappresentano variabili casuali condizionalmente indipendenti dagli altri nodi (per quanto riguarda il concetto di \emph{indipendenza \cond*{}} si rimanda alla \myref[definizione]{defn:ic}).
+Un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta una dipendenza diretta fra le corrispettive variabili casuali~\citep[si veda][sezione 14.1]{Russel2003}. I nodi non direttamente connessi rappresentano variabili casuali condizionalmente indipendenti dagli altri nodi (per quanto riguarda il concetto di \emph{indipendenza \cond*{}} si rimanda alla \myref[definizione]{defn:ic}).
 
 Prima di procedere con la discussione si introduce la Chain Rule, proprietà fondamentale delle \acs{BN}.
 
 \begin{teorema}[Chain Rule.]
-Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità \cond*{} delle variabili casuali~\cite{Russel2003}.
+Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità \cond*{} delle variabili casuali.
 \end{teorema}
 
 Perciò, dato un insieme di variabili casuali $\setel{A_1},\dotsc,\setel{A_n}$ è possibile calcolare il valore di tale membro della distribuzione di probabilità congiunta applicando la definizione di probabilità \cond*{}:
@@ -72,7 +72,7 @@ Applicando \eqref[l'equazione]{eq:chain-rule} alle \acl{BN} diciamo che la distr
 \begin{equation}\label{eq:bn-chain-rule}
 \set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}\,\arrowvert\,pa(\setel{X_i}))\text{.}
 \end{equation}
-\eqref[L'equazione]{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi. Si noti inoltre, che le \acl{BN} richiedono che la loro componente $\conceptsym{G}$ non contenga cicli (\acs{DAG}, \myref[definizione]{defn:bn}) affinché possano rispettare tale proprietà.
+\eqref[L'equazione]{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi~\citep[][sezione 14.2]{Russel2003}. Si noti inoltre, che le \acl{BN} richiedono che la loro componente $\conceptsym{G}$ non contenga cicli (\acs{DAG}, \myref[definizione]{defn:bn}) affinché possano rispettare tale proprietà~\citep[][sezione 14.1]{Russel2003}.
 
 Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi genitori, è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito introduciamo tale concetto formalmente.
 \begin{definizione}[Indipendenza \cond*{}]\label{defn:ic}
@@ -107,16 +107,20 @@ Il problema dell'apprendimento per le \acl{BN} si divide principalmente in due c
 \end{itemize}
 In entrambi i casi è di grande aiuto la rappresentazione efficiente delle \acl{BN} che, tramite la \emph{fattorizzazione} della distribuzione di probabilità congiunta, permette di rappresentarla in modo compatto (tramite \eqref[l'equazione]{eq:bn-chain-rule}) riducendo notevolmente il numero di parametri da calcolare.
 
-Come detto, per specificare completamente una \acl{BN} è necessario rappresentare completamente la distribuzione di probabilità congiunta delle sue variabili tramite la \acl{CPD} di ognuna di esse. In generale, tali distribuzioni condizionali possono avere una qualsiasi forma anche se, al fine di semplificare i calcoli, è comune utilizzare distribuzioni discrete o Gaussiane per modellarle. Nel caso in cui i dati siano parzialmente osservabili solitamente si procede tramite l'algoritmo di \acf{EM}, il quale alterna il calcolo dei valori attesi delle variabili casuali non osservate condizionalmente ai dati osservati con la massimizzazione della likelihood. Tale approccio generalmente converge ai valori di massima probabilità a posteriori per i parametri. Esistono comunque una varietà di altri approcci possibili (\eg{} trattare i parametri come variabili casuali sconosciute addizionali) per l'\emph{apprendimento dei parametri} che tuttavia non sono argomento di questo lavoro di tesi.
+Come detto, per specificare completamente una \acl{BN} è necessario rappresentare completamente la distribuzione di probabilità congiunta delle sue variabili tramite la \acl{CPD} di ognuna di esse. In generale, tali distribuzioni condizionali possono avere una qualsiasi forma anche se, al fine di semplificare i calcoli, è comune utilizzare distribuzioni discrete o Gaussiane per modellarle. Nel caso in cui i dati siano parzialmente osservabili solitamente si procede tramite l'algoritmo di \acf{EM}, il quale alterna il calcolo dei valori attesi delle variabili casuali non osservate condizionalmente ai dati osservati con la massimizzazione della likelihood. Tale approccio generalmente converge ai valori di massima probabilità a posteriori per i parametri~\citep[si veda][]{Dempster1977}.
+
+Per l'\emph{apprendimento dei parametri} esistono comunque una varietà di altri approcci possibili (\eg{} trattare i parametri come variabili casuali sconosciute addizionali) che tuttavia non sono argomento di questo lavoro di tesi.
 
 Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo clique tree proprogation. Questi metodi, come gli altri presenti in letteratura, dati tutti i possibili alberi di decomposizione del grafo, sono esponenziali rispetto alla larghezza minore rilevata fra essi. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'importance sampling e la simulazione \acf{MCMC}.
 
-Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\emph{apprendimento strutturale}. Per apprendere il grafo di una \acl{BN} sono stati sviluppate due famiglie di algoritmi:
+Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\emph{apprendimento strutturale}. Per apprendere il grafo di una \acl{BN} sono state sviluppate due famiglie di algoritmi:
 \begin{itemize}
-    \item algoritmi basati sulla ricerca dello scheletro del grafo dal quale, tramite le indipendenze condizionali osservate, si deducono successivamente le direzioni degli archi
-    \item algoritmi che utilizzano tecniche di ottimizzazione (\eg{} Hill Climbing, Best First Search, Simulated Annealing) di una funzione di scoring.
+    \item \emph{algoritmi basati su vincoli}: algoritmi basati sulla ricerca dello scheletro del grafo dal quale, tramite le indipendenze condizionali osservate, si deducono successivamente le direzioni degli archi
+    \item \emph{algoritmi basati su funzione di scoring}: assegnano un punteggio (tramite la funzione di scoring) a tutte le strutture candidate e utilizzando tecniche di ottimizzazione cercano di raggiungere il punteggio massimo.
+
+    cercano il punteggio massimo fra tutti i punteggi assegnati alle strutture candidate utilizzando tecniche di ottimizzazione (\eg{} \emph{hill climbing}, \emph{tabu search}, \emph{best first search}, \emph{simulated annealing}) di una funzione di scoring.
 \end{itemize}
-Solitamente la funzione di scoring utilizza la probabilità a posteriori della struttura in esame, dato l'insieme dei dati di apprendimento (\ie{} training set). Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili.
+Solitamente la funzione di scoring utilizza la probabilità a posteriori della struttura in esame, dato l'insieme dei dati di apprendimento (\ie{} training set). Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili~\citep[][]{Heckerman1995}.
 
 \subsection{Processi di Markov}
 \label{sec:mps}
@@ -127,11 +131,13 @@ Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presenta
 \label{defn:markov-assumption}
 Secondo la proprietà di Markov gli stati futuri di un processo stocastico sono indipendenti dagli stati passati, avendo evidenza sullo stato presente di tale processo.
 
-Formalmente, se $\setel{X}(t)$, con $t > 0$, è un processo stocastico che gode di tale proprietà, allora $\forall\:h > 0$ vale la seguente equazione:
+Formalmente, un processo stocastico $\setel{X}$ gode di tale proprietà, se e solo se vale la seguente equazione~\citep{Norris1998}:
 \begin{equation}
 \label{eq:markov-assumption}
-\set{P}(\setel{X}(t + h)\,\arrowvert\,\setel{X}(s)=x(s),\,s\leq t)=\set{P}(\setel{X}(t + h)\,\arrowvert\,\setel{X}(t)=x(t))
+\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t),\,\setel{X}(s))=\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))\text{,}
 \end{equation}
+per ogni $s$, e $t$ tali che $s < t < \infty$.
+
 I modelli che rispettano tale proprietà sono detti modelli che rispettano l'\emph{assunzione di Markov}.
 \end{definizione}
 
@@ -145,14 +151,18 @@ Dalla proprietà di Markov deriva la definizione dei \mprocess{}.
 Si definisce come \mprocess*{} un processo stocastico che gode della proprietà di Markov.
 \end{definizione}
 
+\begin{definizione}[Catena di Markov]
+Un \mprocess*{} che può assumere solo un numero finito di stati è solitamente definito come una \emph{catena di Markov}~\citep[si veda][10]{Norris1998}.
+\end{definizione}
+
 Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi fornendone le definizioni.
 
 \begin{definizione}[\upcase\mprocess*{} \omog*{}]
 \label{defn:homogeneus-markov-process}
-Un \mprocess*{} è detto \emph{\omog*{}} qualora, $\forall\:t>0$, $\forall\:h>0$, esso non dipenda dal tempo $t$, ovvero:
+Un \mprocess*{} è detto \emph{\omog*{}} qualora $\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))$ non dipende dal tempo $t$. Affinché ciò sia vero, ponenedo $t=0$, deve risultare che:
 \begin{equation}
 \label{eq:homogeneus-markov-process}
-\set{P}(\setel{X}(t + h)\,\arrowvert\,\setel{X}(t)=x(t))=\set{P}(\setel{X}(h)\,\arrowvert\,\setel{X}(0)=x(0))
+\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))=\set{P}(\setel{X}(\Delta t)\,\arrowvert\,\setel{X}(0))\text{.}
 \end{equation}
 \end{definizione}
 Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})=\{ \vectel{x_1}, \dotsc, \vectel{x_J} \}$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definibile in termini di:
@@ -165,12 +175,13 @@ Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazion
 \label{defn:im}
 Una \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}:
 \[
-\imsign{\setel{X}}= \begin{bmatrix}
-                        -q_{x_1}    & q_{x_1x_2}& \cdots & q_{x_1x_k}   \\[0.5em]
-                        q_{x_2x_1}  & -q_{x_2}  & \cdots & q_{x_2x_k}   \\[0.5em]
-                        \vdots      & \vdots    & \ddots & \vdots       \\[0.5em]
-                        q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
-                    \end{bmatrix}
+\imsign{\setel{X}}=
+\begin{bmatrix}
+    -q_{x_1}    & q_{x_1x_2}& \cdots & q_{x_1x_k}   \\[0.5em]
+    q_{x_2x_1}  & -q_{x_2}  & \cdots & q_{x_2x_k}   \\[0.5em]
+    \vdots      & \vdots    & \ddots & \vdots       \\[0.5em]
+    q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
+\end{bmatrix}
 \]
 Lo scopo di un \im*{} è descrivere il comportamento transiente di $\setel{X}$, un \mprocess*{} \omog*{}.
 \end{definizione}
@@ -222,13 +233,13 @@ Dato un insieme di processi di Markov $pa(\setel{X})$, una \im*{} \cond*{} $\cim
 \]
 dove\\
 \[
-\cimsign{\setel{X}}{pa(\setel{x_i})}
-    =  \begin{bmatrix}
-        -q_{x_1}^{pa(x_i)}   & q_{x_1x_2}^{pa(x_i)} & \cdots & q_{x_1x_k}^{pa(x_i)} \\[0.5em]
-        q_{x_2x_1}^{pa(x_i)} & -q_{x_2}^{pa(x_i)}   & \cdots & q_{x_2x_k}^{pa(x_i)} \\[0.5em]
-        \vdots           & \vdots           & \ddots & \vdots                       \\[0.5em]
-        q_{x_kx_1}^{pa(x_i)} & q_{x_kx_2}^{pa(x_i)} & \cdots & -q_{x_k}^{pa(x_i)}
-    \end{bmatrix}
+\cimsign{\setel{X}}{pa(\setel{x_i})}=
+\begin{bmatrix}
+-q_{x_1}^{pa(x_i)}   & q_{x_1x_2}^{pa(x_i)} & \cdots & q_{x_1x_k}^{pa(x_i)}\\[0.5em]
+q_{x_2x_1}^{pa(x_i)} & -q_{x_2}^{pa(x_i)}   & \cdots & q_{x_2x_k}^{pa(x_i)}\\[0.5em]
+\vdots           & \vdots           & \ddots & \vdots\\[0.5em]
+q_{x_kx_1}^{pa(x_i)} & q_{x_kx_2}^{pa(x_i)} & \cdots & -q_{x_k}^{pa(x_i)}
+\end{bmatrix}
 \text{.}
 \]
 \end{definizione}
@@ -244,16 +255,12 @@ Nelle precedenti sezioni sono stati illustrati i concetti che si pongono a fonda
     \item i \mprocess{}, \omog{} e non, al fine di introdurre le modalità di rappresentazione (qualitativa e quantitativa) delle \acs{CTBN}.
 \end{itemize}
 
-\`E ora possibile quindi presentare le \acl{CTBN} come una collezione di \ctmp{} non \omog{} e con spazio degli stati discreto~\cite{Nodelman2002}.
+Prima di presentare le \acl{CTBN} come una collezione di \ctmp{} non \omog{} e con spazio degli stati discreto~\citep{Nodelman2007}, si forniscono alcune definizioni utili per il prosieguo della discussione.
 
-\begin{definizione}[\acl{CTMP}]
-Variabile casuale $\setel{X}(t)$, che gode della proprietà di Markov, indicizzata dal tempo $t\in[\,0,\,\infty)$.
-\end{definizione}
-
-Di seguito, invece, si riportano alcune definizioni che torneranno utili durante il prosieguo della discussione.
+%TODO: definizione CTMP o CTMC ?
 
 \begin{definizione}[\acl{PV}]
-    Una \pv{} $\set{X}$, anche detta \ACF{PV}~\cite{Nodelman2007}, è un insieme di \ctmp{} $\setel{X}(t)$.
+    Una \pv{} $\set{X}$, anche detta \ACF{PV}~\citep{Nodelman2007}, è un insieme di \ctmp{} $\setel{X}(t)$.
 \end{definizione}
 
 \begin{definizione}[Traiettoria]
@@ -271,13 +278,13 @@ Partizionamento di un intervallo temporale $[\,0,\,T)$ in $J$ intervalli chiusi 
 Dato un $J$-time-segment composto da $J$ intervalli temporali e una \acl{PV} $\set{X}$ composta da $N$ variabili casuali, un $J$-evidence-stream è l'insieme delle istanziazioni comuni $\set{X}=\set{x}$ associate ad ogni $J$-time-segment per ogni sottoinsieme delle variabili casuali. \`E denotato con $(\set{X}^1=\set{x}^1\,,\,\set{X}^2=\set{x}^2\,,\,\dotsc\,,\,\set{X}^J=\set{x}^J)$, o più concisamente $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$.
 \end{definizione}
 
-Un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$ è detto essere \emph{fully observed} (completamente osservato) se lo stato di tutte le variabili $\setel{X_n}\in\set{X}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un $J$-evidence-stream è detto \emph{partially observed} (parzialmente osservato)~\cite{Stella2012}.
+Un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$ è detto essere \emph{fully observed} (completamente osservato) se lo stato di tutte le variabili $\setel{X_n}\in\set{X}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un $J$-evidence-stream è detto \emph{partially observed} (parzialmente osservato)~\citep{Stella2012}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Rappresentazione}
 \label{sec:ctbn-rappresentazione}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Una \acl{CTBN} è un modello grafico in cui ogni nodo rappresenta una variabile casuale i cui stati evolvono in modo continuo bel tempo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\cite{Stella2012}. Quindi ogni nodo è un \mprocess*{} \cond*{} \myref[la definizione]{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
+Una \acl{CTBN} è un modello grafico in cui ogni nodo rappresenta una variabile casuale i cui stati evolvono in modo continuo bel tempo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine <<nodo padre>>, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\citep{Stella2012}. Quindi ogni nodo è un \mprocess*{} \cond*{} (\myref[si veda la definizione]{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
 
 Una \acs{CTBN} è composta principalmente da due componenti:
 \begin{itemize}
@@ -352,11 +359,11 @@ L_{\setel{X}}(q\,,\,\theta:d) &= L_{\setel{X}}(q:d)\,L_{\setel{X}}(\theta:d) \\
 % &= \exp(-q_{x_d}\,t_d)\,q_{x_{d}x_{d^{\prime}}}
 \end{split}
 \end{equation}
-Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{funzione di distribuzione di probabilità} di $\setel{X}(t)$ (\eqref[vedasi]{eq:im-distrib}) per la \emph{<<probabilità istantanea>>} di transizione (vedasi \myref[la definizione]{defn:im}).
+Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{funzione di distribuzione di probabilità} di $\setel{X}(t)$ (\eqref[equazione]{eq:im-distrib}) per la \emph{<<probabilità istantanea>>} di transizione (si veda \myref[la definizione]{defn:im}).
 
 \subsubsection{Likelihood di un dataset completo}
 \label{sec:ctbn-likelihood-dataset}
-Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{\stats{}} relative a ogni \mprocess*{} \cond*{} di una \acs{CTBN}.
+Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$~\citep[si veda][3]{Nodelman2002}. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{\stats{}} relative a ogni \mprocess*{} \cond*{} di una \acs{CTBN}.
 
 Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \mprocess*{} \omog*{} $\setel{X}(t)$ è:
 \begin{equation}
@@ -376,12 +383,12 @@ L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X_i}\in\set{X}}
 &=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,pa(\setel{X_i})}:\conceptsym{D})\,L_{\setel{X_i}}(\theta_{\setel{X_i}\,\arrowvert\,pa(\setel{X_i})}:\conceptsym{D})\text{.}
 \end{split}
 \end{equation}
-Il termine $L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori. Quindi, usando le \emph{\stats{}} si può scrivere:
+Il termine $L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori~\citep[si veda][3]{Nodelman2002}. Quindi, usando le \emph{\stats{}} si può scrivere:
 \[
 L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})=\prod_{pa(x)} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa(x)}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa(x)}}\text{.}
 \]
 
-Per quanto riguarda il calcolo di $L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da $X$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $pa(\setel{X})$). \`E quindi necessario includere la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $pa(\setel{X})$ non effettuano alcuna transizione di stato. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
+Per quanto riguarda il calcolo di $L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da $X$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $pa(\setel{X})$). \`E quindi necessario considerare la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $pa(\setel{X})$ non effettuano alcuna transizione di stato~\citep[si veda][3]{Nodelman2002}. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
 \[
 1-F(t)=\exp(-q_{x\,\arrowvert\,pa(x)}\,t)\text{.}
 \]
@@ -406,7 +413,7 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 
 \subsection{Stima dei parametri}
 \label{sec:ctbn-params}
-Si affronta ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi.
+Si affronta ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
 
 In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\myref[]{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \myref[definizione]{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,pa(x)}$, che esprime il tempo trascorso in uno stato $x$ da un nodo $\setel{X}$ data una istanziazione $pa(x)$ per i nodi genitori $pa(\setel{X})$, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,pa(x)}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
@@ -448,7 +455,6 @@ q_{xx^\prime\,\arrowvert\,pa(x)}=\theta_{xx^\prime\,\arrowvert\,pa(x)}\,q_{x\,\a
 
 % TODO: sezione 8 da Nodelman2007 ?
 
-
 % TODO: inserire riferimento/i per la sezione apprendimento e inferenza delle BN (Pearl, Heckermann 1995, Yedidia2000 per generalized belief propagation)
 % TODO: inserire riferimento/i per la sezione sui Markov process
 % TODO: inserire immagini esemplificative delle ctbn
@@ -464,7 +470,6 @@ q_{xx^\prime\,\arrowvert\,pa(x)}=\theta_{xx^\prime\,\arrowvert\,pa(x)}\,q_{x\,\a
 % Le variabili casuali devono rappresentare aspetti distinti del mondo
 % perciò si assume che esse non possano effettuare transizioni nello
 % stesso istante (vedi definizione 5.1, 5.2 in Nodelman2007) -> mettere in rappresentazione (sunbsection semantica?) ctbn!
-
 
 % TODO: dove servono, se servono?
 
