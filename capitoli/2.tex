@@ -161,7 +161,7 @@ Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi forne
 
 \begin{definizione}[\upcase\mprocess*{} \omog*{}]
 \label{defn:homogeneus-markov-process}
-Un \mprocess*{} è detto \emph{\omog*{}} qualora $\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))$ non dipende dal tempo $t$. Affinché ciò sia vero, ponenedo $t=0$, deve risultare che:
+Un \mprocess*{} è detto \emph{\omog*{}} qualora $\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))$ non dipenda dal tempo $t$. Affinché ciò sia vero, ponenedo $t=0$, deve risultare che:
 \begin{equation}
 \label{eq:homogeneus-markov-process}
 \set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))=\set{P}(\setel{X}(\Delta t)\,\arrowvert\,\setel{X}(0))\text{.}
@@ -222,16 +222,16 @@ Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}
 \label{defn:conditional-markov-process}
 Un \mprocess*{} le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess*{} \cond*{} (o \mprocess*{} non \omog*{}).
 
-Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $pa(\setel{X})$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{pa(\setel{X})}$.
+Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $Pa(\setel{X})$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{Pa(\setel{X})}$.
 
-Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un \mprocess*{} il cui comportamento dipende dalle istanziazioni dei valori di $pa(\setel{X})$.
+Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un \mprocess*{} il cui comportamento dipende dalle istanziazioni dei valori di $Pa(\setel{X})$.
 \end{definizione}
 
 \begin{definizione}[Matrice di intensità \cond*{}]
 \label{defn:cim}
-Dato un insieme di processi di Markov $pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{pa(\setel{X})}$ è costituita da un insieme di \im{} $\cimsign{\setel{X}}{pa(x_i)}$, una per ogni diversa istanziazione $pa(x_i)$ di $pa(\setel{X})$.
+Dato un insieme di processi di Markov $Pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{Pa(\setel{X})}$ è costituita da un insieme di \im{} $\cimsign{\setel{X}}{pa(x_i)}$, una per ogni diversa istanziazione $pa(x_i)$ di $Pa(\setel{X})$.
 \[
-\cimsign{\setel{X}}{pa(\setel{X})}=\big\{\,\cimsign{\setel{X}}{pa(x_1)}\,,\,\cimsign{\setel{X}}{pa(x_2)}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{pa(x_n)}\,\big\}
+\cimsign{\setel{X}}{Pa(\setel{X})}=\big\{\,\cimsign{\setel{X}}{pa(x_1)}\,,\,\cimsign{\setel{X}}{pa(x_2)}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{pa(x_n)}\,\big\}
 \]
 dove\\
 \[
@@ -338,10 +338,10 @@ Il numero totale di transizioni uscenti da uno stato $x$ è:
 \[
 \mstat{x}=\sum_{x^\prime}\mstat[x]{x^\prime}\text{.}
 \]
-Nel caso di un \mprocess*{} \cond*{} è invece necessario considerare anche l'istanziazione dell'insieme $pa(\setel{X})$ dei nodi genitori:
+Nel caso di un \mprocess*{} \cond*{} è invece necessario considerare anche l'istanziazione dell'insieme $Pa(\setel{X})$ dei nodi genitori:
 \begin{itemize}
-    \item $\tstat{x\,\arrowvert\,pa(x)}$: la quantità di tempo trascorsa nello stato $x$ quando $pa(\setel{X})=pa(x)$
-    \item $\mstat[x]{x^\prime\,\arrowvert\,pa(x)}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$ quando $pa(\setel{X})=pa(x)$.
+    \item $\tstat{x\,\arrowvert\,pa(x)}$: la quantità di tempo trascorsa nello stato $x$ quando $Pa(\setel{X})=pa(x)$
+    \item $\mstat[x]{x^\prime\,\arrowvert\,pa(x)}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$ quando $Pa(\setel{X})=pa(x)$.
 \end{itemize}
 Chiaramente, il numero totale di transizioni si calcola come sopra.
 
@@ -385,18 +385,18 @@ L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X_i}\in\set{X}}
 &=\prod_{\setel{X_i}\in\set{X}}L_{\setel{X_i}}(q_{\setel{X_i}\,\arrowvert\,pa(\setel{X_i})}:\conceptsym{D})\,L_{\setel{X_i}}(\theta_{\setel{X_i}\,\arrowvert\,pa(\setel{X_i})}:\conceptsym{D})\text{.}
 \end{split}
 \end{equation}
-Il termine $L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori~\citep[si veda][3]{Nodelman2002}. Quindi, usando le \emph{\stats{}} si può scrivere:
+Il termine $L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori~\citep[si veda][3]{Nodelman2002}. Quindi, usando le \emph{\stats{}} si può scrivere:
 \[
-L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})=\prod_{pa(x)} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa(x)}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa(x)}}\text{.}
+L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa(x)} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa(x)}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa(x)}}\text{.}
 \]
 
-Per quanto riguarda il calcolo di $L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da $X$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $pa(\setel{X})$). \`E quindi necessario considerare la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $pa(\setel{X})$ non effettuano alcuna transizione di stato~\citep[si veda][3]{Nodelman2002}. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
+Per quanto riguarda il calcolo di $L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso in uno determinato stato $x$ da $X$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $Pa(\setel{X})$). \`E quindi necessario considerare la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $Pa(\setel{X})$ non effettuano alcuna transizione di stato~\citep[si veda][3]{Nodelman2002}. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
 \[
 1-F(t)=\exp(-q_{x\,\arrowvert\,pa(x)}\,t)\text{.}
 \]
 Perciò la likelihood delle quantità di tempo trascorse in ogni stato è:
 \[
-\resizebox{0.994\hsize}{!}{$L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,pa(\setel{X})}:\conceptsym{D})=\prod_{pa(x)}\prod_{x}q_{x\,\arrowvert\,pa(x)}^{\mstat{x\,\arrowvert\,pa(x)}}\exp(-q_{x\,\arrowvert\,pa(x)}\,\tstat{x\,\arrowvert\,pa(x)})$}\text{.}
+\resizebox{0.994\hsize}{!}{$L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa(x)}\prod_{x}q_{x\,\arrowvert\,pa(x)}^{\mstat{x\,\arrowvert\,pa(x)}}\exp(-q_{x\,\arrowvert\,pa(x)}\,\tstat{x\,\arrowvert\,pa(x)})$}\text{.}
 \]
 La likelihood di $\conceptsym{N}$ è quindi:
 \begin{equation}
@@ -417,7 +417,7 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 \label{sec:ctbn-params}
 Si affronta ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
 
-In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\myref[]{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \myref[definizione]{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,pa(x)}$, che esprime il tempo trascorso in uno stato $x$ da un nodo $\setel{X}$ data una istanziazione $pa(x)$ per i nodi genitori $pa(\setel{X})$, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,pa(x)}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
+In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\myref[]{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \myref[definizione]{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione esponenziale} con parametro $q_{x\,\arrowvert\,pa(x)}$, che esprime il tempo trascorso in uno stato $x$ da un nodo $\setel{X}$ data una istanziazione $pa(x)$ per i nodi genitori $Pa(\setel{X})$, e una \emph{distribuzione multinomiale} con parametro $\theta_{xx^\prime\,\arrowvert\,pa(x)}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
 La media di tale distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,pa(x)}$. Questa quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$, fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $pa(x)$. Poiché il tempo medio si calcola rapportando il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,pa(x)}$, rispetto al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,pa(x)}$, si ottiene:
 \[
