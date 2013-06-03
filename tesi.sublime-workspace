@@ -900,6 +900,7 @@
 	},
 	"file_history":
 	[
+		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi.sublime-project",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/backmatter/acronimi.tex",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/My Collection.bib",
 		"/home/leodido/Università/UNIMIB/Laurea/Tesi/tesi-frn.tex",
@@ -1026,8 +1027,7 @@
 		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/import/import.r",
 		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/vectors.r",
 		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/lists.r",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/prove3.r",
-		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/utils/stats.r"
+		"/home/leodido/Workspace/R/Tesi/rctbnc/ctbnc/prove3.r"
 	],
 	"find":
 	{
@@ -1047,6 +1047,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"pa\\(\\\\setel\\{X\\}\\)",
 			"gli archi",
 			"proprietà",
 			"apprendimento e inf",
@@ -1173,15 +1174,16 @@
 			"im",
 			"\\\\label\\{eq",
 			"enumerate",
-			"introduzione",
-			"Introduzione"
+			"introduzione"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
+			"Pa(\\\\setel{X})",
+			"Pa(\\setel{X})",
 			"\\im{}",
 			"\\cond*{}",
 			"\\im*{}",
@@ -1230,7 +1232,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1245,8 +1247,8 @@
 						"selection":
 						[
 							[
-								7789,
-								7789
+								0,
+								37371
 							]
 						],
 						"settings":
@@ -1346,7 +1348,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2292.0,
+						"translation.y": 9114.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1885,7 +1887,7 @@
 		[
 			[
 				"",
-				"/home/leodido/Workspace/Zend/DefaultWorkspace/SRAPI2/private/singringcms-app.sublime-project"
+				"/home/leodido/Workspace/Zend/SRAPI2/module/SyracuseAPI/client/cms/SingRingCMS.sublime-project"
 			]
 		],
 		"width": 380.0
