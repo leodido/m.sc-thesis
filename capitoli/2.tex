@@ -399,16 +399,33 @@ Perciò la likelihood delle quantità di tempo trascorse in ogni stato è:
 \resizebox{0.994\hsize}{!}{$L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})$}\text{.}
 \]
 La likelihood di $\conceptsym{N}$ è quindi:
-\begin{equation}
-\label{eq:ctbn-likelihood}
-\resizebox{.92\hsize}{!}{$L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}\Big(q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\,\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\Big)$}\text{.}
+% \begin{equation}
+% \label{eq:ctbn-likelihood}
+% \resizebox{.92\hsize}{!}{$L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}\Big(q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\,\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\Big)$}\text{.}
+% \end{equation}
+{
+\footnotesize
+\begin{equation}\label{eq:ctbn-likelihood}
+\begin{split}
+L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D}) &= \prod_{pa_i(\setel{x})}\prod_{x}\Big(q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\:\cdot \\
+& \quad \cdot \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\Big)\text{.}
+\end{split}
 \end{equation}
+}
 Mentre, scrivendola come \emph{log-likelihood}, si ottiene:
-\begin{equation}
-\label{eq:ctbn-log-likelihood}
-\resizebox{.90\hsize}{!}{$\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{pa_i(\setel{x})}\sum_{x}\Big(\mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(q_{x\,\arrowvert\,pa_i(\setel{x})})-q_{x\,\arrowvert\,pa_i(\setel{x})}\tstat{x\,\arrowvert\,pa_i(\setel{x})}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})})\Big)$}\text{.}
+% \begin{equation}
+% \label{eq:ctbn-log-likelihood}
+% \resizebox{.90\hsize}{!}{$\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{pa_i(\setel{x})}\sum_{x}\Big(\mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(q_{x\,\arrowvert\,pa_i(\setel{x})})-q_{x\,\arrowvert\,pa_i(\setel{x})}\tstat{x\,\arrowvert\,pa_i(\setel{x})}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})})\Big)$}\text{.}
+% \end{equation}
+{
+\footnotesize
+\begin{equation}\label{eq:ctbn-log-likelihood}
+\begin{split}
+\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D}) &= \sum_{pa_i(\setel{x})}\sum_{x}\Big(\mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(q_{x\,\arrowvert\,pa_i(\setel{x})})- q_{x\,\arrowvert\,pa_i(\setel{x})}\tstat{x\,\arrowvert\,pa_i(\setel{x})}\:+ \\
+& \quad  + \sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})})\Big)\text{.}
+\end{split}
 \end{equation}
-
+}
 In questa sezione si è presentato come computare la likelihood di un modello di una \acs{CTBN} rispetto a un dataset completo.
 
 Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è necessario stimarli. Nella prossima sezione viene affrontato esattamente questo argomento.

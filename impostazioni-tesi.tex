@@ -26,10 +26,15 @@
 %*********************************************************************************
 % Impostazioni di amsmath, amssymb, amsthm
 %*********************************************************************************
+% force the equation numbers to be always the same size
+\makeatletter
+\renewcommand{\maketag@@@}[1]{\hbox{\m@th\normalsize\normalfont#1}}%
+\makeatother
+
 % comandi per gli insiemi numerici (serve il pacchetto amssymb)
-\newcommand{\numberset}{\mathbb} 
-\newcommand{\N}{\numberset{N}} 
-\newcommand{\R}{\numberset{R}} 
+\newcommand{\numberset}{\mathbb}
+\newcommand{\N}{\numberset{N}}
+\newcommand{\R}{\numberset{R}}
 
 % comandi per gli insiemi
 \newcommand{\set}[1]{\mathbf{#1}}
@@ -48,7 +53,7 @@
   {\end{array}\right.}
 
 % definizioni (serve il pacchetto amsthm)
-\theoremstyle{definition} 
+\theoremstyle{definition}
 \newtheorem{definizione}{Definizione}
 % \newtheorem{osservazione}[definizione]{Osservazione}
 % \newtheorem{definizione}{Definizione}[section]
@@ -59,9 +64,9 @@
 \newtheorem{nota}{Nota}[section]
 
 % teoremi (serve il pacchetto amsthm)
-\theoremstyle{plain} 
+\theoremstyle{plain}
 \newtheorem{teorema}{Teorema}
-\newtheorem{cor}[teorema]{Corollario} 
+\newtheorem{cor}[teorema]{Corollario}
 \newtheorem{lem}[teorema]{Lemma}
 \newtheorem{prop}[teorema]{Proposizione}
 \newtheorem{oss}[teorema]{Osservazione}
@@ -80,7 +85,7 @@
 % \renewcommand*{\acsfont}[1]{\textssc{#1}}                 % for MinionPro
 \renewcommand*{\acsfont}[1]{\textsmaller{#1}}               % customize font for long version acronyms [works only if footnote not activate]
 \renewcommand*{\acffont}[1]{#1}                             % idem, but for short version of acronyms
-\renewcommand{\bflabel}[1]{{#1}\hfill}                      % fix the list of acronyms                                
+\renewcommand{\bflabel}[1]{{#1}\hfill}                      % fix the list of acronyms
 \makeatletter                                               % macro that tweeks acronym package to rendere lowercase or not
 \newif\if@in@acrolist
 \AtBeginEnvironment{acronym}{\@in@acrolisttrue}
@@ -95,7 +100,7 @@
 \defbibheading{bibliography}{%
 \cleardoublepage
 \manualmark
-\phantomsection 
+\phantomsection
 \addcontentsline{toc}{chapter}{\tocEntry{\bibname}}
 \chapter*{\bibname\markboth{\spacedlowsmallcaps{\bibname}}
 {\spacedlowsmallcaps{\bibname}}}}
@@ -127,7 +132,7 @@
     %draft,	% = elimina tutti i link (utile per stampe in bianco e nero)
     colorlinks=true, linktocpage=true, pdfstartpage=1, pdfstartview=FitV,%
     % decommenta la riga seguente per avere link in nero (per esempio per la stampa in bianco e nero)
-    % colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=1, pdfstartview=FitV,% 
+    % colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=1, pdfstartview=FitV,%
     breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
     plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
     hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
@@ -198,11 +203,11 @@
 % ...
 \newcommand{\omissis}{\dots\negthinspace}
 
-% 
+%
 \newcommand{\ie}{i.\,e.}
 \newcommand{\Ie}{I.\,e.}
 \newcommand{\eg}{e.\,g.}
-\newcommand{\Eg}{E.\,g.} 
+\newcommand{\Eg}{E.\,g.}
 
 % comuni
 \newcommand{\bn}{Bayesian Network}
