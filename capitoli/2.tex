@@ -21,11 +21,11 @@ Le \acl{CTBN} utilizzano concetti e idee provenienti da teorie afferenti l'area 
 Le \acl{CTBN} utilizzano una rappresentazione strutturata dello spazio degli stati propria della teoria delle \acl{BN}. Ne ereditano perciò gli aspetti chiave (\eg{} indipendenza \cond*{}) nonché l'insieme delle tecniche algoritmiche per l'apprendimento e l'inferenza.
 \item[Processi di Markov]\label{sec:fondamenti-mp}\hfill \\
 Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un \mprocess*{} \omog*{} costituito da un insieme di \mprocess{} \cond{}.
-\end{description} 
+\end{description}
 
 \subsection{\bn{}}
 \label{sec:bn}
-Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}\footnote{Un grafo aciclico orientato (anche detto grafo aciclico diretto o digrafo aciclico) è un tipo di grafo che non presenta cicli diretti: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.}. I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi evidenziano le dipendenze (e le indipendenze) condizionali fra esse~\citep{Korb2011}. 
+Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}\footnote{Un grafo aciclico orientato (anche detto grafo aciclico diretto o digrafo aciclico) è un tipo di grafo che non presenta cicli diretti: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.}. I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi evidenziano le dipendenze (e le indipendenze) condizionali fra esse~\citep{Korb2011}.
 Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità \cond*{} di ognuna di essa (si veda \eqref[l'equazione]{eq:bn-chain-rule}).
 Le \acs{BN} sono quindi modelli grafico probabilistici con cui è possibile modellare in modo probabilistico le relazioni causali tra variabili. Esse risultano molto utili nella rappresentazione e analisi di domini caratterizzati da incertezza. Sono infatti usate in svariate applicazioni di supporto alle decisioni, bioinformatica, biologia computazionale, data mining, information retrieval e classificazione.
 
@@ -102,7 +102,7 @@ In questa sezione si descrivono brevemente e a scopo introduttivo i processi di 
 
 Il problema dell'apprendimento per le \acl{BN} si divide principalmente in due casi:
 \begin{itemize}
-    \item apprendere le \acs{CPD}, nota la struttura 
+    \item apprendere le \acs{CPD}, nota la struttura
     \item apprendere sia le \acs{CPD}, sia la struttura (incognita).
 \end{itemize}
 In entrambi i casi è di grande aiuto la rappresentazione efficiente delle \acl{BN} che, tramite la \emph{fattorizzazione} della distribuzione di probabilità congiunta, permette di rappresentarla in modo compatto (tramite \eqref[l'equazione]{eq:bn-chain-rule}) riducendo notevolmente il numero di parametri da calcolare.
@@ -199,10 +199,10 @@ Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento trans
 \begin{split}
 f(t) &= q_{x_i}\,\exp(-q_{x_i}\,t)\,,\quad t>0 \\
 F(t) &= 1-\exp(-q_{x_i}\,t)\,,\quad t\geq0
-\end{split} 
+\end{split}
 \end{equation}
 
-Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano una quantità che può essere interpretata come la \emph{<<probabilità istantanea>>} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale, $q_{x_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$. 
+Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano una quantità che può essere interpretata come la \emph{<<probabilità istantanea>>} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale, $q_{x_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$.
 
 Possiamo quindi calcolare:
 \begin{itemize}
@@ -229,23 +229,23 @@ Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbia
 
 \begin{definizione}[Matrice di intensità \cond*{}]
 \label{defn:cim}
-Dato un insieme di processi di Markov $Pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{Pa(\setel{X})}$ è costituita da un insieme di \im{} $\cimsign{\setel{X}}{pa(x_i)}$, una per ogni diversa istanziazione $pa(x_i)$ di $Pa(\setel{X})$.
+Dato un insieme di processi di Markov $Pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{Pa(\setel{X})}$ è costituita da un insieme di \im{} $\cimsign{\setel{X}}{pa_i(\setel{x})}$, una per ogni diversa istanziazione $pa_i(\setel{x})$ di $Pa(\setel{X})$:
 \[
-\cimsign{\setel{X}}{Pa(\setel{X})}=\big\{\,\cimsign{\setel{X}}{pa(x_1)}\,,\,\cimsign{\setel{X}}{pa(x_2)}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{pa(x_n)}\,\big\}
+\cimsign{\setel{X}}{Pa(\setel{X})}=\big\{\,\cimsign{\setel{X}}{pa_1(x)}\,,\,\cimsign{\setel{X}}{pa_2(x)}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{pa_n(x)}\,\big\}\text{.}
 \]
-dove\\
+Ogni matrice di intensità di $\cimsign{\setel{X}}{Pa(\setel{X})}$ è del seguente tipo:\\
 \[
-\cimsign{\setel{X}}{pa(\setel{x_i})}=
+\cimsign{\setel{X}}{pa_i(\setel{x})}=
 \begin{bmatrix}
--q_{x_1}^{pa(x_i)}   & q_{x_1x_2}^{pa(x_i)} & \cdots & q_{x_1x_k}^{pa(x_i)}\\[0.5em]
-q_{x_2x_1}^{pa(x_i)} & -q_{x_2}^{pa(x_i)}   & \cdots & q_{x_2x_k}^{pa(x_i)}\\[0.5em]
+-q_{x_1}^{pa_i(\setel{x})}   & q_{x_1x_2}^{pa_i(\setel{x})} & \cdots & q_{x_1x_k}^{pa_i(\setel{x})}\\[0.5em]
+q_{x_2x_1}^{pa_i(\setel{x})} & -q_{x_2}^{pa_i(\setel{x})}   & \cdots & q_{x_2x_k}^{pa_i(\setel{x})}\\[0.5em]
 \vdots           & \vdots           & \ddots & \vdots\\[0.5em]
-q_{x_kx_1}^{pa(x_i)} & q_{x_kx_2}^{pa(x_i)} & \cdots & -q_{x_k}^{pa(x_i)}
+q_{x_kx_1}^{pa_i(\setel{x})} & q_{x_kx_2}^{pa_i(\setel{x})} & \cdots & -q_{x_k}^{pa_i(\setel{x})}
 \end{bmatrix}
 \text{.}
 \]
 \end{definizione}
-% FIXME: usare K o altro indice (e.g. I) vedi paper stella! dipende da j-time-segment?
+Si noti infine come l'\emph{ordine} di una matrice di intensità corrisponde a $k$, la cardinalità dell'insieme dei valori assunti da $\setel{X}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Definizioni preliminari}
@@ -354,7 +354,7 @@ Al fine di presentare il calcolo della likelihood\footnote{La likelihood di un i
 Data una tripla $d=\langle \,x_{d}\,,\,t_d\,,\,x_{d^{\prime}}\,\rangle\in\conceptsym{D}$, la quale esprime una transizione di $\setel{X}(t)$ da $x_d$ a $x_{d^{\prime}}$ dopo che esso ha trascorso $t_d$ tempo in $x_d$, è possibile scrivere la likelihood di questa singola transizione $d$ in funzione dei parametri (\ref{sec:ctbn-params}):
 \begin{equation}
 \label{eq:ctbn-trans-hmm-likelihood}
-\begin{split} 
+\begin{split}
 L_{\setel{X}}(q\,,\,\theta:d) &= L_{\setel{X}}(q:d)\,L_{\setel{X}}(\theta:d) \\
 &= q_{x_d}\,\exp(-q_{x_d}\,t_d)\,(\theta_{x_{d}x_{d^{\prime}}})\text{.}
 % &= q_{x_d}\,\exp(-q_{x_d}\,t_d)\,\Big(\frac{q_{x_{d}x_{d^{\prime}}}}{q_{x_d}}\Big) \\
@@ -369,7 +369,7 @@ Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset 
 
 Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \mprocess*{} \omog*{} $\setel{X}(t)$ è:
 \begin{equation}
-\label{eq:ctbn-data-hmp-likelihood} 
+\label{eq:ctbn-data-hmp-likelihood}
 \begin{split}
 L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\Big(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(q:d) \Big)\Big(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\theta:d)\Big) \\
 &=\Big(\prod_{x}q_x^{\mstat{x}}\exp(-q_x\tstat{x})\Big)\Big(\prod_{x}\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}}^{\mstat[x]{x^\prime}}\Big)\text{.}
