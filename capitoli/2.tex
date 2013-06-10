@@ -441,7 +441,10 @@ La media di tale distribuzione esponenziale è pari a $1/q_{x\,\arrowvert\,pa_i(
 \frac{1}{q_{x\,\arrowvert\,pa_i(\setel{x})}}=\frac{\tstat{x\,\arrowvert\,pa_i(\setel{x})}}{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \]
 
-Invece, la probabilità di transizione da uno stato $x$ verso $x^\prime$ è data dal rapporto tra il numero totale di transizioni da $x$ a $x^\prime$ diviso il numero totale di transizioni uscenti da $x$; cioè $\mstat[x]{x^\prime\,\arrowvert\,pa_i(\setel{x})}/\mstat{x\,\arrowvert\,pa_i(\setel{x})}$.
+Invece, la probabilità di transizione da uno stato $x$ verso $x^\prime$ è data dal rapporto tra il numero totale di transizioni da $x$ a $x^\prime$ diviso il numero totale di transizioni uscenti da $x$; cioè:
+\[
+\mstat[x]{x^\prime\,\arrowvert\,pa_i(\setel{x})}/\mstat{x\,\arrowvert\,pa_i(\setel{x})}\text{.}
+\]
 
 \begin{teorema}{Parametri \ac{MLE}.}
 I parametri che massimizzano la likelihood \eqref[dell'equazione]{eq:ctbn-log-likelihood} sono funzione delle \stats{}:
@@ -463,24 +466,21 @@ Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per u
 q_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}=\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})} \cdot q_{x\,\arrowvert\,pa_i(\setel{x})}\text{.}
 \end{equation}
 
-\subsection{Apprendimento}
-\label{sec:ctbn-learning}
-...
+% \subsection{Apprendimento}
+% \label{sec:ctbn-learning}
+% ...
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Inferenza}
-\label{sec:ctbn-inferenza}
+% \section{Inferenza}
+% \label{sec:ctbn-inferenza}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-...
+% ...
 
 % TODO: sezione 8 da Nodelman2007 ?
 
 % TODO: inserire riferimento/i per la sezione apprendimento e inferenza delle BN (Pearl, Heckermann 1995, Yedidia2000 per generalized belief propagation)
 % TODO: inserire riferimento/i per la sezione sui Markov process
-% TODO: inserire immagini esemplificative delle ctbn
-% TODO: controllare da 2.2 di Nodelman2007 la sezione sulle BN
 % TODO: inserire esempi relativi alle im/cim?
-% TODO: prima o dopo queste 2 def parlare della point evidence (vedi paper stella private)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -490,6 +490,4 @@ q_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}=\theta_{xx^\prime\,\arrowvert\,pa_i(\
 % Le variabili casuali devono rappresentare aspetti distinti del mondo
 % perciò si assume che esse non possano effettuare transizioni nello
 % stesso istante (vedi definizione 5.1, 5.2 in Nodelman2007) -> mettere in rappresentazione (sunbsection semantica?) ctbn!
-
-% TODO: dove servono, se servono?
 
