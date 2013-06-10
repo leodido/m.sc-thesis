@@ -229,7 +229,7 @@ Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbia
 
 \begin{definizione}[Matrice di intensità \cond*{}]
 \label{defn:cim}
-Dato un insieme di processi di Markov $Pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{Pa(\setel{X})}$ è costituita da un insieme di \im{} $\cimsign{\setel{X}}{pa_i(\setel{x})}$, una per ogni diversa istanziazione $pa_i(\setel{x})$ di $Pa(\setel{X})$:
+Dato un insieme di processi di Markov $Pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{Pa(\setel{X})}$ è costituita da un insieme di \im{} $\cimsign{\setel{X}}{pa_i(\setel{x})}$, una per ogni diversa istanziazione $pa_i(\setel{x})$ di $Pa(\setel{X})$~\citep{Stella2012}:
 \[
 \cimsign{\setel{X}}{Pa(\setel{X})}=\big\{\,\cimsign{\setel{X}}{pa_1(x)}\,,\,\cimsign{\setel{X}}{pa_2(x)}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{pa_n(x)}\,\big\}\text{.}
 \]
@@ -466,28 +466,11 @@ Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per u
 q_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}=\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})} \cdot q_{x\,\arrowvert\,pa_i(\setel{x})}\text{.}
 \end{equation}
 
-% \subsection{Apprendimento}
-% \label{sec:ctbn-learning}
-% ...
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \section{Inferenza}
 % \label{sec:ctbn-inferenza}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ...
 
-% TODO: sezione 8 da Nodelman2007 ?
 
-% TODO: inserire riferimento/i per la sezione apprendimento e inferenza delle BN (Pearl, Heckermann 1995, Yedidia2000 per generalized belief propagation)
-% TODO: inserire riferimento/i per la sezione sui Markov process
-% TODO: inserire esempi relativi alle im/cim?
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Le CTBN rappresentano esplicitamente il tempo: non è necessario
-% scegliere la granularità temporale a priori (contro DBNs)
-
-% Le variabili casuali devono rappresentare aspetti distinti del mondo
-% perciò si assume che esse non possano effettuare transizioni nello
-% stesso istante (vedi definizione 5.1, 5.2 in Nodelman2007) -> mettere in rappresentazione (sunbsection semantica?) ctbn!
 
