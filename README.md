@@ -23,12 +23,12 @@ Based on a customization of the `ClassicThesis` style, obtained through the `Ars
 
 #### Prerequisites
 
-The following files are
-
 * Texlive (or similar) complete distribution
 * ArsClassica package installed
 * Sublime Text 2
 * Sublime Text 2 LaTeXTools package installed
+* Graphviz installed (`dot` utility have to be in the `$PATH` variable)
+* Compiling: `pdflatex` with option `-shell-escape`
 
 #### Steps
 

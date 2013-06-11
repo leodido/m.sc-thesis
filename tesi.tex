@@ -29,13 +29,13 @@
               cleardoublepage=empty,%       % pagine vuote senza testatina e piede di pagina
               tablecaptionabove,%           % didascalie in cima alle tabelle
               ]{scrreprt}                   % classe report di KOMA-Script;
-               
+
 \usepackage[T1]{fontenc}                    % codifica dei font:
                                             % NOTA BENE: richiede una distribuzione *completa* di LaTeX (per esempio TeXLive o MiKTeX *complete*)
 
 \usepackage{textcomp}                       % fix warning with missing font shapes
-\usepackage{scrhack}                        % fix warnings when using KOMA with listings package          
-\usepackage{xspace}                         % to get the spacing after macros right 
+\usepackage{scrhack}                        % fix warnings when using KOMA with listings package
+\usepackage{xspace}                         % to get the spacing after macros right
 
 \usepackage[utf8]{inputenc}                 % codifica di input; anche [latin1] va bene
                                             % NOTA BENE! va accordata con le preferenze dell'editor
@@ -48,7 +48,7 @@
                                             % 1. compilare una prima volta tesi.tex;
                                             % 2. compilare a parte tesi-frn.tex, generato dalla compilazione precedente;
                                             % 3. compilare ancora tesi.tex che cercherà il file tesi-frn.pdf
-            
+
 \usepackage{indentfirst}                    % rientra il primo capoverso di ogni sezione
 
 \usepackage{graphicx}                       % immagini
@@ -84,14 +84,15 @@
                                             % aggiungere opzione square dopo backref per parentesti quadrate invece che tonde
                                             % numeric-comp produce riferimenti numerici
 
-\bibliography{bibliografia}                 % database di biblatex 
-                                          
+\bibliography{bibliografia}                 % database di biblatex
+
 \usepackage{subfig}                         % sottofigure, sottotabelle
 
 \usepackage{lipsum}                         % testo fittizio
 
 \usepackage{eurosym}                        % simbolo dell'euro
 
+\usepackage{graphviz}
 
 % ********************************************************************
 % Available options for classicthesis.sty:
@@ -121,15 +122,15 @@
 %     \hspace{10pt}\vline}  }{10pt}%
 %     {\spacedallcaps}
 
-% \renewcommand\formatchapter[1]{% 
-%   \begin{tabularx}{0.8\linewidth}{@{} l X @{}} 
+% \renewcommand\formatchapter[1]{%
+%   \begin{tabularx}{0.8\linewidth}{@{} l X @{}}
 %        \chapterNumber & \spacedallcaps{#1}
-%   \end{tabularx}} 
+%   \end{tabularx}}
 
 
 \usepackage{bookmark}                       % segnalibri
 
-\usepackage{etoolbox} 
+\usepackage{etoolbox}
 
 \input{impostazioni-tesi}                   % file con le impostazioni personali
 
@@ -137,8 +138,8 @@
 % Documento
 %******************************************************************
 \begin{document}
-\pagestyle{scrheadings} 
-\pagenumbering{roman}                       
+\pagestyle{scrheadings}
+\pagenumbering{roman}
 %******************************************************************
 % Front matter
 %******************************************************************
