@@ -7,19 +7,26 @@
 \chapter{Classificazione}
 \label{cap:ctbnc}
 %************************************************
-\lipsum[1]
+In questo capitolo viene introdotta una classe di modelli, che prende il nome di \acf{CTBNC}, il cui scopo è la classificazione supervisionata di traiettorie multivariate di variabili discrete a tempo continuo e spazio degli stati discreto. Si descrivono due istanze di tale classe: i classificatori \acf{CTNB} nella \autoref{sec:learning-ctnb} e i classificatori \acf{CTTANB} nella \autoref{sec:learning-cttanb}, per le quali si affronta il processo di apprendimento in caso di dati completi.
+
+Infine, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di inferenza esatta per la classe dei \acs{CTBNC}.
 
 \section{Apprendimento}
 ...
 
-\subsection{Na\"ive Bayes}
+\subsection{Na\"ive Bayes}\label{sec:learning-ctnb}
 ...
 
-\subsection{Tree Augumented Na\"ive Bayes}
+\subsection{Tree Augumented Na\"ive Bayes}\label{sec:learning-cttanb}
 ...
 
-\section{Inferenza}
-\lipsum[4]
-
-\subsection{Na\"ive Bayes}
+\section{Inferenza}\label{sec:inference-ctbnc}
 ...
+
+\subsection{Na\"ive Bayes}\label{sec:inference-ctnb}
+...
+
+
+% TODO
+% They implement a trade-off between computational complexity and classification accuracy.
+% The performance of the continuous time naive Bayes classifier is assessed in the case where real-time feedback to neurological patients undergoing motor rehabilitation must be provided
