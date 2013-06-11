@@ -113,27 +113,33 @@ Per l'\emph{apprendimento dei parametri} esistono comunque una varietà di altri
 
 Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo clique tree proprogation. Questi metodi, come gli altri presenti in letteratura, dati tutti i possibili alberi di decomposizione del grafo, sono esponenziali rispetto alla larghezza minore rilevata fra essi. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'importance sampling e la simulazione \acf{MCMC}.
 
-% TODO: aggiustare copiando Scutari
+Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\emph{apprendimento strutturale}. Gli algoritmi per l'apprendimento strutturale delle \acl{BN} possono essere divisi in due famiglie.
+\begin{description}
+    \item[Algoritmi basati su vincoli] \hfill \\
+    Algoritmi che apprendono la struttura del grafo analizzando le relazioni probabilistiche derivanti dalla proprietà di Markov tramite test di indipendenza condizionale e costruendo un grafo che soddisfi le proprietà di \emph{d-separazione}\footnote{Concetto di separazione direzionale tra insieme di nodi collegato al concetto di \emph{indipendenza condizionale}. Ad esempio, quando un insieme di nodi $\set{E}$ \emph{d-separa} un insieme di nodi $\set{X}=\{\,\setel{A}\,,\,\setel{B}\,\}$ allora $\setel{A}$ e $\setel{B}$ sono condizionalmente indipendenti dato $\set{E}$.} corrispondenti. I modelli risultanti sono spesso interpretati come \emph{modelli causali}~\citep{Pearl1988}.
+    \item[Algoritmi basati su punteggio] \hfill \\
+    Algoritmi che assegnano un punteggio (tramite una funzione di scoring) a tutte le strutture candidate e utilizzando tecniche di ottimizzazione cercano di raggiungere il punteggio massimo. Gli algoritmi di ricerca greedy (\ie{} \emph{golosi}, \emph{aggressivi} o \emph{avidi} a seconda della traduzione preferita dall'inglese) sono la scelta più comune, tuttavia qualsiasi procedura di ricerca può essere usata.
+\end{description}
 
-Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\emph{apprendimento strutturale}. Per apprendere il grafo di una \acl{BN} sono state sviluppate due famiglie di algoritmi:
+Gli \emph{algoritmi basati su vincoli} sono basati sull'algoritmo \acf{IC} di~\citeauthor{Verma1991}~\citeyearpar{Verma1991} che fornisce un contesto teorico finalizzato all'apprendimento delle strutture dei modelli causali. L'algoritmo \acs{IC} può essere riassunto nei tre passi successivi.
 \begin{itemize}
-    \item \emph{algoritmi basati su vincoli}: algoritmi basati sulla ricerca dello scheletro del grafo dal quale, tramite le indipendenze condizionali osservate, si deducono successivamente le direzioni degli archi
-    \item \emph{algoritmi basati su funzione di scoring}: assegnano un punteggio (tramite la funzione di scoring) a tutte le strutture candidate e utilizzando tecniche di ottimizzazione cercano di raggiungere il punteggio massimo.
-
-    cercano il punteggio massimo fra tutti i punteggi assegnati alle strutture candidate utilizzando tecniche di ottimizzazione (\eg{} \emph{hill climbing}, \emph{tabu search}, \emph{best first search}, \emph{simulated annealing}) di una funzione di scoring.
+    \item Apprendimento dello scheletro (\ie{} grafo non diretto) della rete. Poiché la ricerca esaustiva non è, nella maggior parte dei casi, computazionalmente realizzabile, tutti gli algoritmi di apprendimento restringono la ricerca al \emph{Markov blanket}\footnote{Il \emph{Markov blanket} di un nodo $\setel{A}$ è un insieme composto dai nodi genitori di $\setel{A}$, dai suoi nodi figli e da tutti i nodi che condividono un figlio con $\setel{A}$.} di ogni nodo.
+    \item Impostare la direzione degli archi che fanno parte di una \emph{v-structure}\footnote{Una \emph{v-structure} è una tripla di nodi $\setel{X}_j\rightarrow\setel{X}_i\leftarrow\setel{X}_k$ incidenti su una connessione convergente.}.
+    \item Impostare la direzione degli archi fra i nodi rimanenti affinché il vincolo di aciclicità sia rispettato.
 \end{itemize}
-Solitamente la funzione di scoring utilizza la probabilità a posteriori della struttura in esame, dato l'insieme dei dati di apprendimento (\ie{} training set). Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili~\citep[][]{Heckerman1995}.
+
+Gli \emph{algoritmi basati su punteggio} sono invece delle applicazioni dei vari algoritmi di ricerca euristica (\eg{} \emph{hill climbing}, \emph{tabu search}, \emph{best first search}, \emph{simulated annealing}) che utilizzano una funzione di \emph{scoring}. Solitamente la funzione di \emph{scoring} utilizza la probabilità a posteriori della struttura in esame, dato l'insieme dei dati di apprendimento (\ie{} training set), ed è \emph{score-equivalent}, affinché reti che definiscono la stessa distribuzione di probabilità abbiano lo stesso score~\citep{Chickering2013}. Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili~\citep[][]{Heckerman1995}.
 
 \subsection{Processi di Markov}
 \label{sec:mps}
 
-Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presentando alcuni concetti propedeutici relativi ai \mprocess{}, una categoria di processi stocastici con assenza di memoria.
+Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presentando alcuni concetti propedeutici relativi ai \mprocess{}, una categoria di processi stocastici con assenza di memoria~\citep{Loeve1978}.
 
 \begin{definizione}[Proprietà di Markov]
 \label{defn:markov-assumption}
 Secondo la proprietà di Markov gli stati futuri di un processo stocastico sono indipendenti dagli stati passati, avendo evidenza sullo stato presente di tale processo.
 
-Formalmente, un processo stocastico $\setel{X}$ gode di tale proprietà, se e solo se vale la seguente equazione~\citep{Norris1998}:
+Formalmente, un processo stocastico $\setel{X}$ gode di tale proprietà, se e solo se vale la seguente equazione~\citep{Loeve1978}:
 \begin{equation}
 \label{eq:markov-assumption}
 \set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t),\,\setel{X}(s))=\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))\text{,}
@@ -150,7 +156,7 @@ In altri termini ciò indica che lo stato futuro di una variabile casuale è \em
 Dalla proprietà di Markov deriva la definizione dei \mprocess{}.
 
 \begin{definizione}[\upcase\mprocess*{}]
-Si definisce come \mprocess*{} un processo stocastico che gode della proprietà di Markov.
+Si definisce come \mprocess*{} un processo stocastico che gode della proprietà di Markov~\citep{Loeve1978}.
 \end{definizione}
 
 \begin{definizione}[Catena di Markov]
