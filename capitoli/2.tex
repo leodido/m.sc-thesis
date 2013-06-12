@@ -451,7 +451,7 @@ Invece, la probabilità di transizione da uno stato $x$ verso $x^\prime$ è data
 \]
 
 \begin{teorema}{Parametri \ac{MLE}.}
-I parametri che massimizzano la likelihood \eqref[dell'equazione]{eq:ctbn-log-likelihood} sono funzione delle \stats{}:
+I parametri che massimizzano la likelihood di una \acl{CTBN} sono funzione delle \stats{}:
 \begin{equation}
 \label{eq:ctbn-params}
 \begin{split}
@@ -460,7 +460,7 @@ q_{x\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat{x\,\arrowvert\,pa_i(\setel{x})}
 \end{split}
 \end{equation}
 \end{teorema}
-Si noti che, in questo caso (dataset completo), $q_{x\,\arrowvert\,pa_i(\setel{x})}$ e $\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
+Si noti che, in questo caso (\emph{dataset completo}), $q_{x\,\arrowvert\,pa_i(\setel{x})}$ e $\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
 Da questi parametri è quindi possibile costruire le \cim{} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda \myref[la definizione]{defn:cim}).
 
