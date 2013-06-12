@@ -11,8 +11,8 @@ In questo capitolo viene introdotta una classe di modelli, che prende il nome di
 
 Infine, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di inferenza esatta per la classe dei \acs{CTBNC}.
 
-\section{Apprendimento}
-Ciao!
+\section{Classificatore}\label{sec:ctbnc}
+Il modello definito dalle \acl{CTBN} (\myref[si veda la definizione]{defn:ctbn}), come mostrato in ~\citeauthor{Stella2012} [\citeyear{Stella2012}], può essere utilizzato al fine di costruire un modello di classificazione supervisionata che rappresenta l'evoluzione nel tempo continuo di una variabile di processo $\set{X}$ (\ie{} insieme di \mprocess{}, \myref[si veda la definizione]{defn:pv}).
 
 \begin{figure}
 \centering
@@ -21,8 +21,9 @@ Ciao!
 \label{fig:ctbnc-example}
 \end{figure}
 
-\subsection{Na\"ive Bayes}\label{sec:learning-ctnb}
+\begin{definizione}[Na\"ive Bayes]\label{defn:ctnbc}
 ...
+\end{definizione}
 
 \begin{figure}
 \centering
@@ -31,8 +32,11 @@ Ciao!
 \label{fig:ctnb}
 \end{figure}
 
-\subsection{Tree Augumented Na\"ive Bayes}\label{sec:learning-cttanb}
+\begin{definizione}[Tree Augumented Na\"ive Bayes]\label{defn:cttanbc}
 ...
+\end{definizione}
+
+\section{Apprendimento}\label{sec:learning-ctbnc}
 
 \begin{figure}
 \centering
@@ -46,7 +50,6 @@ Ciao!
 
 \subsection{Na\"ive Bayes}\label{sec:inference-ctnb}
 ...
-
 
 % TODO
 % They implement a trade-off between computational complexity and classification accuracy.
