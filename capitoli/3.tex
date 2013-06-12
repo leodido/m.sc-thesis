@@ -12,7 +12,7 @@ In questo capitolo viene introdotta una classe di modelli, che prende il nome di
 Infine, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di inferenza esatta per la classe dei \acs{CTBNC}.
 
 \section{Classificatore}\label{sec:ctbnc}
-Il modello definito dalle \acl{CTBN} (\myref[si veda la definizione]{defn:ctbn}), come mostrato in ~\citeauthor{Stella2012} [\citeyear{Stella2012}], può essere utilizzato al fine di costruire un modello di classificazione supervisionata che rappresenta l'evoluzione nel tempo continuo di una variabile di processo $\set{X}$ (\ie{} insieme di \mprocess{}, \myref[si veda la definizione]{defn:pv}).
+Il modello definito dalle \acl{CTBN} (\myref[si veda la definizione]{defn:ctbn}), come mostrato in~\citet{Stella2012}, può essere utilizzato al fine di costruire un modello di classificazione supervisionata che rappresenta l'evoluzione nel tempo continuo di una variabile di processo $\set{X}$ (\ie{} insieme di \mprocess{}, \myref[si veda la definizione]{defn:pv}).
 
 Al fine di costruire questa nuova classe di modelli di classificazione supervisionata è necessario un nodo aggiuntivo, che indicheremo con $\setel{Y}$, associato alla classe.
 \begin{definizione}[\acl{CTBNC}]\label{defn:ctbnc}
@@ -28,7 +28,7 @@ E inoltre il grafo su $\conceptsym{N}$ (\ie{} il grafo $\conceptsym{G}$, \myref[
     \item il nodo $\setel{Y}$ è indipendente dal tempo ed è specificato solo ed esclusivamente dalla sua probabilità marginale $\set{P}(\setel{Y})$.
 \end{itemize}
 \end{definizione}
-A supporto della \myref[definizione]{defn:ctbnc}, la figura~\vref{fig:ctbnc-example} fornisce un'istanza di \acs{CTBNC} composta dai nodi attributi $\setel{X_1},\setel{X_2},\setel{X_3},\setel{X_4},\setel{X_5}$ e dal nodo classe $\setel{Y}$ (nodo radice). Si osservi come tale istanza contenga dei cicli, uno riguardante i nodi $\setel{X_2},\setel{X_3},\setel{X_4},\setel{X_5}$ e l'altro riguardante i nodi $\setel{X_1},\setel{X_3}$.
+A supporto della \myref[definizione]{defn:ctbnc}, la figura~\vref{fig:ctbnc-example} fornisce un'istanza di \acs{CTBNC} composta dai nodi attributi $\setel{X_1},\setel{X_2},\setel{X_3},\setel{X_4},\setel{X_5}$ e dal nodo classe $\setel{Y}$ (nodo radice). Si osservi come tale istanza contenga dei cicli, uno riguardante i nodi $\setel{X_2},\setel{X_4},\setel{X_5},\setel{X_3}$ e l'altro riguardante i nodi $\setel{X_1},\setel{X_3}$.
 
 \begin{figure}
 \centering
@@ -37,7 +37,7 @@ A supporto della \myref[definizione]{defn:ctbnc}, la figura~\vref{fig:ctbnc-exam
 \label{fig:ctbnc-example}
 \end{figure}
 
-... following the motivations bla bla
+Seguendo le motivazioni espresse in~\citet{Friedman1997}
 
 \begin{definizione}[\acl{CTNBC}]\label{defn:ctnbc}
 Un \acf{CTNBC} è un \acl{CTBNC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$ caratterizzato dal fatto che ogni nodo attributo ha un solo genitore, il nodo classe $\setel{Y}$. Risulta quindi che:
