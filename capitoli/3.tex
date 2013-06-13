@@ -9,16 +9,22 @@
 %************************************************
 La classificazione è un argomento centrale nei campi di ricerca relativi all'apprendimento automatico e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione supervisionata} quando è necessario indurre un classificatore a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati.
 
-In questo capitolo viene quindi introdotta una classe di modelli, che prende il nome di \acf{CTBNC}, il cui scopo è la \emph{classificazione supervisionata} di traiettorie multivariate di variabili discrete a \emph{tempo continuo}. Si descrivono due istanze di tale classe: i classificatori \acf{CTNB} e i classificatori \acf{CTTANB}; classificatori per i quali si affronta il processo di apprendimento in caso di dati completi.
+In questo capitolo viene quindi introdotta una classe di modelli, che prende il nome di \acf{CTBNC}, il cui scopo è la \emph{classificazione supervisionata} di traiettorie multivariate di variabili discrete a \emph{tempo continuo}. Si descrivono due istanze di tale classe: i classificatori \acf{CTNB} e i classificatori \acf{CTTANB}; classificatori per i quali si affronta il processo di apprendimento in caso di dati completi (\autoref{sec:learning-ctbnc}).
 
 Infine, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di inferenza esatta per la classe dei \acs{CTBNC}.
 
-\section{Classificatore}\label{sec:ctbnc}
-Al fine di risolvere il succitato problema della classificazione sono stati proposti numerosi approcci. Ad esempio, \citet{DudaHart1973} e \citet{Langley1992} hanno proposto uno dei classificatori più performanti, il \lwcase \nb{} \class{}.
+\section{Modello}\label{sec:ctbnc-model}
+Al fine di risolvere il succitato problema della classificazione sono stati proposti numerosi approcci. Ad esempio, \citet{DudaHart1973} hanno proposto il \lwcase \nb{} \class{}, un classificatore semplice ma robusto, rivelatosi essere uno fra i classificatori più performanti~\citep{Langley1992}. Esso apprende dai dati la probabilità condizionale di ogni attributo $\setel{A}_i$ data la classe $\setel{C}$. La classificazione di nuove istanze dei dati è effettuata applicando la \emph{regola di Bayes} al fine di calcolare la probabilità della classe $\setel{C}$ data l'istanziazione di $\setel{A}_i,\,\dotsc\,,\setel{A}_N$ e scegliendo quella con la maggiore probabilità a posteriori. Questo calcolo è reso possibile da un'assunzione forte: tutti gli attributi $\setel{A}_i$ sono \emph{condizionalmente indipendenti} (\myref[si veda la definizione]{defn:ic}) tra di loro data evidenza sulla classe $\setel{C}$.
 
-Il modello definito dalle \acl{CTBN} (\myref[si veda la definizione]{defn:ctbn}), come mostrato in~\citet{Stella2012}, può essere utilizzato al fine di costruire un modello di \emph{classificazione supervisionata} che rappresenta l'evoluzione nel tempo continuo di una variabile di processo $\set{X}$ (\ie{} insieme di \mprocess{}, \myref[si veda la definizione]{defn:pv}).
+Poiché tale assunzione è chiaramente irreale,~\citet{Friedman1997} ha investigato come migliorare ulteriormente le prestazioni del \lwcase \nb{} \class{} evitando assunzioni di indipendenza non giustificate dai dati. A tal fine~\citet{Friedman1997}, generalizzando il \lwcase \nb{} \class{}, ha proposto una classe di modelli di \emph{classificazione supervisionata}, chiamata \acf{BNC} (di cui fa parte il \acf{TAN} \class{}, ad esempio) che ereditano dalla teoria delle \acl{BN} (\myref[si rimanda alla definizione]{defn:bn} per maggiori dettagli) una rappresentazione fattorizzata delle distribuzioni di probabilità dei nodi attributo e rappresentano esplicitamente le indipendenze condizionali fra essi.
 
-Al fine di costruire questa nuova classe di modelli di classificazione supervisionata è necessario un nodo aggiuntivo associato alla classe $\setel{Y}$.
+Seguendo le stesse motivazioni,~\citet{Stella2012} hanno proposto una classe di modelli di \emph{classificazione supervisionata}, chiamati \acf{CTBNC}, basata sulle \acs{CTBN} (\myref[si veda la definizione]{defn:ctbn}).
+
+In questa sezione si presentano quindi i \acl{CTBNC} e due istanze di classificatori appartenenti a tale classe: il \acf{CTNBC} e il \acf{CTTANBC}.
+
+Un \acl{CTBNC} estende una \acs{CTBN} tramite l'aggiunta di un nodo associato alla variabile classe $\setel{Y}$. Si ricorda, dalla \myref[definizione]{defn:ctbn}, che una \acs{CTBN} rappresenta l'evoluzione nel tempo continuo di una variabile di processo $\set{X}$ (\ie{} insieme composto da $N$ \mprocess{}, \myref[si veda la definizione]{defn:pv}).
+
+Di seguito si dà la definizione di questa nuova classe di modelli di \emph{classificazione supervisionata}.
 \begin{definizione}[\acl{CTBNC}]\label{defn:ctbnc}
 Un \acf{CTBNC} è composto da una coppia $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$ dove:
 \begin{itemize}
@@ -32,7 +38,9 @@ E inoltre il grafo su $\conceptsym{N}$ (\ie{} il grafo $\conceptsym{G}$, \myref[
     \item il nodo $\setel{Y}$ è indipendente dal tempo ed è specificato solo ed esclusivamente dalla sua probabilità marginale $\set{P}(\setel{Y})$.
 \end{itemize}
 \end{definizione}
-A supporto della \myref[definizione]{defn:ctbnc}, la figura~\vref{fig:ctbnc-example} fornisce un'istanza di \acs{CTBNC} composta dai nodi attributi $\setel{X_1},\setel{X_2},\setel{X_3},\setel{X_4},\setel{X_5}$ e dal nodo classe $\setel{Y}$ (nodo radice). Si osservi come tale istanza contenga dei cicli, uno riguardante i nodi $\setel{X_2},\setel{X_4},\setel{X_5},\setel{X_3}$ e l'altro riguardante i nodi $\setel{X_1},\setel{X_3}$.
+A supporto della \myref[definizione]{defn:ctbnc}, la figura~\vref{fig:ctbnc-example} fornisce un'istanza di \acs{CTBNC} composta dai nodi attributi $\setel{X_1},\setel{X_2},\setel{X_3},\setel{X_4},\setel{X_5}$ e dal nodo classe $\setel{Y}$ (nodo radice). Si osservi come tale istanza contenga dei cicli, uno riguardante i nodi $\setel{X_2},\setel{X_4},\setel{X_5},\setel{X_3}$ e l'altro riguardante i nodi $\setel{X_1},\setel{X_3}$. Si fa notare che gli archi della rete $\conceptsym{N}$ rappresentano le dipendenze causali nel tempo.
+
+\newpage
 
 \begin{figure}
 \centering
@@ -41,8 +49,7 @@ A supporto della \myref[definizione]{defn:ctbnc}, la figura~\vref{fig:ctbnc-exam
 \label{fig:ctbnc-example}
 \end{figure}
 
-% TODO: quali motivazioni?
-Seguendo le stesse motivazioni che hanno portato~\citet{Friedman1997} a sfruttare il modello delle \acl{BN} per costruire un \acf{BNC} e successivamente estendere questo modello di classificazione supervisionata imponendovi una struttura ad albero, creando un \acf{TAN} \class{}, si presentano di seguito due istanze di classificatori appartenenti alla classe dei \acf{CTBNC}: il \acf{CTNBC} e il \acf{CTTANBC}.
+Parallelamente a quanto fatto in~\citet{Langley1992}, si presentano ora due istanze particolari di \acl{CTBNC}.
 
 \begin{definizione}[\acl{CTNBC}]\label{defn:ctnbc}
 Un \acf{CTNBC} è un \acl{CTBNC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$ caratterizzato dal fatto che ogni nodo attributo ha un solo genitore, il nodo classe $\setel{Y}$. Risulta quindi che:
@@ -50,16 +57,9 @@ Un \acf{CTNBC} è un \acl{CTBNC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\se
 Pa(\setel{X}_i)=\{\,\setel{Y}\,\} \quad \forall \; \setel{X}_i \in \conceptsym{G}\text{.}
 \]
 \end{definizione}
-Come mostrato dalla figura~\vref{fig:ctnb}, un \acs{CTNBC} possiede un nodo radice, associato alla variabile casuale $\setel{Y}$, che è l'unico genitore di tutti i restanti nodi $\setel{X}_i$, con $i=1,2,\,\dotsc\,,N$, che lo compongono.
+Come mostrato dalla figura~\vref{fig:ctnb}, un \acs{CTNBC} possiede un nodo radice, associato alla variabile casuale $\setel{Y}$, che è l'unico genitore di tutti i restanti nodi $\setel{X}_i$ (con $i=1,2,\,\dotsc\,,N$) che lo compongono. Si osservi come la rete di un \acs{CTNBC} rappresenti l'assunzione di \emph{indipendenza condizionale} di ogni nodo attributo dagli altri, data evidenza sulla variabile classe $Y$.
 
-% TODO: commentare circa la struttura e le assunzioni che codifica: e.g indipendenza condizionale [ QUESTO SOPRA, modificato un po' e sintetizzato]
-% One of the most effective classifiers, in the sense that its predictive performance is competitive with state-of-the-art classifiers, is the so-called naive Bayesian classifier described, for example, by Duda and Hart (1973) and by Langley et al. (1992). This classifier learns from training data the conditional probability of each attribute Ai given the class label C. Classification is then done by applying Bayes rule to compute the probability of C given the particular instance of A1,...,An, and then predicting the class with the highest poste- rior probability. This computation is rendered feasible by making a strong independence assumption: all the attributes Ai are conditionally independent given the value of the class C. By independence we mean probabilistic independence, that is, A is independent of B given C whenever Pr(A|B,C) = Pr(A|C) for all possible values of A,B andC, whenever Pr(C) > 0.
-% The performance of naive Bayes is somewhat surprising, since the above assumption is clearly unrealistic. Consider, for example, a classifier for assessing the risk in loan applications: it seems counterintuitive to ignore the correlations between age, education level, and income. This example raises the following question: can we improve the performance of naive Bayesian classifiers by avoiding unwarranted (by the data) assumptions about independence? In order to tackle this problem effectively, we need an appropriate language and efficient machinery to represent and manipulate independence assertions. Both are provided by Bayesian networks (Pearl, 1988) [link a definizione/sezione ad esse riguardante]
 
-% When represented as a Bayesian network, a naive Bayesian classifier has the simple structure depicted in Figure 1. This network captures the main assumption behind the naive Bayesian classifier, namely, that every attribute (every leaf in the network) is independent from the rest of the attributes, given the state of the class variable (the root in the network).
-% Since we have the means to represent and manipulate independence assertions, the obvious question follows: can we induce better classifiers by learning unrestricted Bayesian networks?
-
-% TODO: si noti che qui gli archi rappresentano dipendenze causali nel tempo.
 
 \begin{figure}
 \centering
@@ -83,7 +83,7 @@ Un \acf{CTTANBC} è un \acl{CTBNC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\
 % TODO: dire che è una estensione (o riduzione, dati i vincoli ulteriori) del CTNBC (e far notare che differisce solo nel fatto che i nodi figli nel nodo classe hanno archi tra di loro, o più semplicemente che la cardinalità degli insieme Pa dei nodi attributo non è sempre pari a 1)
 
 \section{Apprendimento}\label{sec:learning-ctbnc}
-...
+\lipsum[1]
 
 % TODO: partire di qua? come mostra la figura d'esempio 1 bla bla
 % Several considerations concerning the exploitation of the structure of the graph G of the CTBNC in the case where the classification task is performed on a fully observed J-evidence-stream can be made. In such an evidential setting, the only unobserved random variable is the class variable Y; thus it is possible to fruitfully and conditionally exploit independence relationships between random variables as it happens in ordinary BNs
