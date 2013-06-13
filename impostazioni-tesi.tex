@@ -176,7 +176,6 @@
 %*********************************************************************************
 % Equation references
 %*********************************************************************************
-\usepackage{etoolbox}
 \let\originaleqref\eqref
 \renewcommand\eqref[2][]{%
     \ifstrempty{#1}{%
@@ -196,6 +195,12 @@
         #1~\ref{#2}%
     }%
 }
+
+%*********************************************************************************
+% Set footnote's continuos numbering and linking capabilities (using cleveref and chngcntr packages)
+%*********************************************************************************
+\counterwithout{footnote}{chapter}
+\crefformat{footnote}{#2\footnotemark[#1]#3}
 
 %*********************************************************************************
 % Altro

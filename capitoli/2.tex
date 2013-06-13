@@ -123,7 +123,7 @@ Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\
 
 Gli \emph{algoritmi basati su vincoli} sono basati sull'algoritmo \acf{IC} di~\citet{Verma1991} che fornisce un contesto teorico finalizzato all'apprendimento delle strutture dei modelli causali. L'algoritmo \acs{IC} può essere riassunto nei tre passi successivi.
 \begin{itemize}
-    \item Apprendimento dello scheletro (\ie{} grafo non diretto) della rete. Poiché la ricerca esaustiva non è, nella maggior parte dei casi, computazionalmente realizzabile, tutti gli algoritmi di apprendimento restringono la ricerca al \emph{Markov blanket}\footnote{Il \emph{Markov blanket} di un nodo $\setel{A}$ è un insieme composto dai nodi genitori di $\setel{A}$, dai suoi nodi figli e da tutti i nodi che condividono un figlio con $\setel{A}$.} di ogni nodo.
+    \item Apprendimento dello scheletro (\ie{} grafo non diretto) della rete. Poiché la ricerca esaustiva non è, nella maggior parte dei casi, computazionalmente realizzabile, tutti gli algoritmi di apprendimento restringono la ricerca al \emph{Markov blanket}\footnote{\label{note:markov-blanket}Il \emph{Markov blanket} di un nodo $\setel{A}$ è un insieme composto dai nodi genitori di $\setel{A}$, dai suoi nodi figli e da tutti i nodi che condividono un figlio con $\setel{A}$.} di ogni nodo.
     \item Impostare la direzione degli archi che fanno parte di una \emph{v-structure}\footnote{Una \emph{v-structure} è una tripla di nodi $\setel{X}_j\rightarrow\setel{X}_i\leftarrow\setel{X}_k$ incidenti su una connessione convergente.}.
     \item Impostare la direzione degli archi fra i nodi rimanenti affinché il vincolo di aciclicità sia rispettato.
 \end{itemize}

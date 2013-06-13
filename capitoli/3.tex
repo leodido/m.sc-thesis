@@ -44,7 +44,7 @@ A supporto della \myref[definizione]{defn:ctbnc}, la figura~\vref{fig:ctbnc-exam
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\columnwidth]{immagini/ctbnc}
+\includegraphics[width=0.8\columnwidth]{immagini/ctbnc}
 \caption[Un esempio di \acs{CTBNC}]{Un esempio di \acf{CTBNC} con cinque nodi attributo, $\setel{X}_1\,,\,\dotsc\,,\,\setel{X}_5$, e un nodo classe, $\setel{Y}$.}
 \label{fig:ctbnc-example}
 \end{figure}
@@ -57,15 +57,13 @@ Un \acf{CTNBC} è un \acl{CTBNC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\se
 Pa(\setel{X}_i)=\{\,\setel{Y}\,\} \quad \forall \; \setel{X}_i \in \conceptsym{G}\text{.}
 \]
 \end{definizione}
-Come mostrato dalla figura~\vref{fig:ctnb}, un \acs{CTNBC} possiede un nodo radice, associato alla variabile casuale $\setel{Y}$, che è l'unico genitore di tutti i restanti nodi $\setel{X}_i$ (con $i=1,2,\,\dotsc\,,N$) che lo compongono. Si osservi come la rete di un \acs{CTNBC} rappresenti l'assunzione di \emph{indipendenza condizionale} di ogni nodo attributo dagli altri, data evidenza sulla variabile classe $Y$.
+Come mostrato dalla figura~\vref{fig:ctnbc}, un \acs{CTNBC} possiede un nodo radice, associato alla variabile casuale $\setel{Y}$, che è l'unico genitore di tutti i restanti nodi $\setel{X}_i$ (con $i=1,2,\,\dotsc\,,N$) che lo compongono. Si osservi come la rete di un \acs{CTNBC} rappresenti l'assunzione di \emph{indipendenza condizionale} di ogni nodo attributo dagli altri, data evidenza sulla variabile classe $Y$.
 
-
-
-\begin{figure}
+\begin{figure}[b]
 \centering
 \includegraphics[width=0.9\columnwidth]{immagini/ctnb}
 \caption[Un \acs{CTNBC}]{Un \acf{CTNBC}.}
-\label{fig:ctnb}
+\label{fig:ctnbc}
 \end{figure}
 
 \begin{definizione}[\acl{CTTANBC}]\label{defn:cttanbc}
@@ -78,22 +76,21 @@ Un \acf{CTTANBC} è un \acl{CTBNC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\
     \]
 \end{itemize}
 \end{definizione}
-
-% TODO: esempio sulla "rimozione" del nosto Y .. albero formato da .. (collegarsi dall'immagine)
-% TODO: dire che è una estensione (o riduzione, dati i vincoli ulteriori) del CTNBC (e far notare che differisce solo nel fatto che i nodi figli nel nodo classe hanno archi tra di loro, o più semplicemente che la cardinalità degli insieme Pa dei nodi attributo non è sempre pari a 1)
-
-\section{Apprendimento}\label{sec:learning-ctbnc}
-\lipsum[1]
-
-% TODO: partire di qua? come mostra la figura d'esempio 1 bla bla
-% Several considerations concerning the exploitation of the structure of the graph G of the CTBNC in the case where the classification task is performed on a fully observed J-evidence-stream can be made. In such an evidential setting, the only unobserved random variable is the class variable Y; thus it is possible to fruitfully and conditionally exploit independence relationships between random variables as it happens in ordinary BNs
+Come mostrato dalla figura~\ref{fig:cttanbc} un classificatore \acs{CTTANB} è un estensione del classificatore \acs{CTNB}: tutti i nodi attributo della rete $\conceptsym{N}$ sono vincolati ad avere come genitore, oltre al nodo radice, al massimo un altro nodo attributo. Ciò comporta che tutti i nodi attributo fanno parte del \emph{Markov blanket}\cref{note:markov-blanket} del nodo radice associato con la variabile classe $\setel{Y}$.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.9\columnwidth]{immagini/cttanb}
 \caption[Un \acs{CTTANBC}]{Un \acf{CTTANBC}: qualora la variabile classe $\setel{Y}$ venga rimossa, le variabili rimanenti formano un albero.}
-\label{fig:cttanb}
+\label{fig:cttanbc}
 \end{figure}
+
+\section{Apprendimento}\label{sec:learning-ctbnc}
+...
+
+%VEDI private
+%VEDI Friedman1997
+% Several considerations concerning the exploitation of the structure of the graph G of the CTBNC in the case where the classification task is performed on a fully observed J-evidence-stream can be made. In such an evidential setting, the only unobserved random variable is the class variable Y; thus it is possible to fruitfully and conditionally exploit independence relationships between random variables as it happens in ordinary BNs
 
 \section{Inferenza}\label{sec:inference-ctbnc}
 ...
