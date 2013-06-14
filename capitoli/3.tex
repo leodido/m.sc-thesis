@@ -94,7 +94,6 @@ Di conseguenza, per l'apprendimento di un \acs{CTNBC} è richiesto uno sforzo co
 
 Si presenta di seguito l'\autoref{lst:ctnbc-learning} relativo all'apprendimento di un \acs{CTNBC} da un \emph{dataset completo}.
 
-prova: \autoref{lst:linea3}
 
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTNB}, label=lst:ctnbc-learning]
 linea
@@ -102,7 +101,8 @@ linea
 linea<ls>\label{lst:linea3}<le>
 \end{lstlisting}
 
-% TODO CTBNC (!!!) learning non ne abbiamo?
+% TODO CTBNC (!!!) learning generico non ne abbiamo? si ..
+% prova: \autoref{lst:linea3} lnkare linee
 
 Input
 dataset D composto da |D| fully observed J-evidence-stream
@@ -114,7 +114,6 @@ Algoritmo di learning
 Consiste nella stima della CIM (e quindi delle Sufficient Statistics) per
 ogni classe yj in val(Y) e per ogni variabile casuale di R
 oss.: lo sforzo computazionale è minimo
-
 
 %VEDI private
 %VEDI Friedman1997
@@ -129,7 +128,7 @@ dati completi
 oss.: possibile sfruttare l'indipendenza condizionale come nelle BNs
 
 
-\begin{lstlisting}[caption=Inferenza \acs{CTBNC},label=lst:ctbnc-inference]
+\begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
 var logp
 foreach (k in index(classes)) {
     logp[k] = log(classes[k])
@@ -147,9 +146,7 @@ return max(logp)
 
 % timeseg è il fully observed j-time-segment (si considera già calcolato)
 
-\subsection{Na\"ive Bayes}\label{sec:inference-ctnb}
 ...
 
 % TODO
 % They implement a trade-off between computational complexity and classification accuracy.
-% The performance of the continuous time naive Bayes classifier is assessed in the case where real-time feedback to neurological patients undergoing motor rehabilitation must be provided
