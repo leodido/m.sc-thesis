@@ -10,17 +10,17 @@
 \pdfbookmark{\contentsname}{tableofcontents}
 \setcounter{tocdepth}{2}
 \tableofcontents
-\markboth{\spacedlowsmallcaps{\contentsname}}{\spacedlowsmallcaps{\contentsname}} 
+\markboth{\spacedlowsmallcaps{\contentsname}}{\spacedlowsmallcaps{\contentsname}}
 \clearpage
 
-\begingroup 
+\begingroup
     \let\clearpage\relax
     \let\cleardoublepage\relax
     \let\cleardoublepage\relax
-    
+
     %*******************************************************
     % Elenco delle figure
-    %*******************************************************    
+    %*******************************************************
     \phantomsection
     \pdfbookmark{\listfigurename}{lof}
     \listoffigures
@@ -33,9 +33,18 @@
     \phantomsection
     \pdfbookmark{\listtablename}{lot}
     \listoftables
-        
+
     \vspace*{8ex}
-       
+
+    %*******************************************************
+    % Elenco degli algoritmi
+    %*******************************************************
+    \phantomsection
+    \pdfbookmark{\lstlistlistingname}{loa}
+    \lstlistoflistings
+
+    \vspace*{8ex}
+
 \endgroup
 
 \cleardoublepage

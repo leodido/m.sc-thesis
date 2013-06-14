@@ -13,21 +13,21 @@
 \makeindex
 
 % Bilanciamento delle colonne dell’ultima pagina dell’indice analitico
-\let\orgtheindex\theindex
-\let\orgendtheindex\endtheindex
-\def\theindex{%
-\def\twocolumn{\begin{multicols}{2}}%
-\def\onecolumn{}%
-\clearpage
-\orgtheindex
-}
-\def\endtheindex{%
-\end{multicols}%
-\orgendtheindex
-}
+% \let\orgtheindex\theindex
+% \let\orgendtheindex\endtheindex
+% \def\theindex{%
+% \def\twocolumn{\begin{multicols}{2}}%
+% \def\onecolumn{}%
+% \clearpage
+% \orgtheindex
+% }
+% \def\endtheindex{%
+% \end{multicols}%
+% \orgendtheindex
+% }
 
 % Comandi per l'indicizzazione dei termini
-\newcommand*{\keyword}[2][]{#2\index{#2#1}}% semplice keyword da incizzare
+\newcommand*{\keyword}[2][]{#2\index{\lowercase{#2}@#2#1}}% semplice keyword da incizzare
 \newcommand{\keywordsub}[2][]{#2\index{#1!#2}}% termine con genitore/categoria
 \newcommand{\keywordpagb}[1]{\keyword[|textbf]{#1}}% pagina in grassetto
 \newcommand{\keywordpagi}[1]{\keyword[|textit]{#1}}% pagina in corsivo
@@ -161,23 +161,46 @@
 {\spacedlowsmallcaps{\bibname}}}}
 
 %*********************************************************************************
+% Definizione di un linguaggio di pseudo-codice
+%*********************************************************************************
+\lstdefinelanguage{pseudo}{
+    morekeywords=%
+    {
+        for,foreach,return,if,else,ifelse,max,min,in,len,log,index,var
+    },
+    morecomment=[l][\color{Green}\ttfamily]{//},
+    morecomment=[s][\color{Green}\ttfamily]{/*}{*/},
+    morestring=[b][\color{Red}\rmfamily]",
+    moredelim=[is][\color{Orange}]{|*}{*|}
+}
+
+%*********************************************************************************
 % Impostazioni di listings
 %*********************************************************************************
-\lstset{language=[LaTeX]Tex,%C++,
-    keywordstyle=\color{RoyalBlue},%\bfseries,
-    basicstyle=\small\ttfamily,
-    %identifierstyle=\color{NavyBlue},
-    commentstyle=\color{Green}\ttfamily,
-    stringstyle=\rmfamily,
-    numbers=none,%left,%
+\lstset{
+    language=pseudo,%[LaTeX]Tex,%C++,
+    basicstyle=\normalsize\ttfamily,
+    % identifierstyle=\color{NavyBlue},
+    % keywordstyle=\bfseries,%\color{RoyalBlue},%\bfseries,
+    % commentstyle=\color{Green}\ttfamily,
+    % stringstyle=\rmfamily,
+    numbers=left,%none
     numberstyle=\scriptsize,%\tiny
-    stepnumber=5,
+    stepnumber=1,
     numbersep=8pt,
     showstringspaces=false,
     breaklines=true,
-    frameround=ftff,
-    frame=single
+    frameround=ftff,%fttt,%
+    frame=TB,%lines,
+    tabsize=1,
+    escapeinside={<ls>}{<le>}
 }
+
+% Dichiarazioni utili per l'indice della tesi e le etichette
+\addto\captionsitalian{%
+\renewcommand{\lstlistingname}{Algoritmo}}
+\addto\captionsitalian{%
+\renewcommand{\lstlistlistingname}{Elenco degli algoritmi}}
 
 %*********************************************************************************
 % Impostazioni di hyperref

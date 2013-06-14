@@ -7,7 +7,7 @@
 \chapter{Classificazione}
 \label{cap:ctbnc}
 %************************************************
-La classificazione è un argomento centrale nei campi di ricerca relativi all'apprendimento automatico e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione supervisionata} quando è necessario indurre un classificatore a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati.
+La classificazione è un argomento centrale nei campi di ricerca relativi all'\keyword{apprendimento automatico} (anche detto \keyword{machine learning}) e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione \keywordsub[classificazione]{supervisionata}} quando è necessario indurre un \keywordsub[classificazione]{classificatore} a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati.
 
 In questo capitolo viene quindi introdotta una classe di modelli, che prende il nome di \acf{CTBNC}, il cui scopo è la \emph{classificazione supervisionata} di traiettorie multivariate di variabili discrete a \emph{tempo continuo}. Si descrivono due istanze di tale classe: i classificatori \acf{CTNB} e i classificatori \acf{CTTANB}; classificatori per i quali si affronta il processo di apprendimento in caso di dati completi (\autoref{sec:learning-ctbnc}).
 
@@ -44,7 +44,7 @@ A supporto della \myref[definizione]{defn:ctbnc}, la figura~\vref{fig:ctbnc-exam
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\columnwidth]{immagini/ctbnc}
+\includegraphics[width=0.8\columnwidth]{ctbnc}
 \caption[Un esempio di \acs{CTBNC}]{Un esempio di \acf{CTBNC} con cinque nodi attributo, $\setel{X}_1\,,\,\dotsc\,,\,\setel{X}_5$, e un nodo classe, $\setel{Y}$.}
 \label{fig:ctbnc-example}
 \end{figure}
@@ -61,7 +61,7 @@ Come mostrato dalla figura~\vref{fig:ctnbc}, un \acs{CTNBC} possiede un nodo rad
 
 \begin{figure}[b]
 \centering
-\includegraphics[width=0.9\columnwidth]{immagini/ctnb}
+\includegraphics[width=0.9\columnwidth]{ctnb}
 \caption[Un \acs{CTNBC}]{Un \acf{CTNBC}.}
 \label{fig:ctnbc}
 \end{figure}
@@ -80,7 +80,7 @@ Come mostrato dalla figura~\ref{fig:cttanbc} un classificatore \acs{CTTANB} è u
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\columnwidth]{immagini/cttanb}
+\includegraphics[width=0.9\columnwidth]{cttanb}
 \caption[Un \acs{CTTANBC}]{Un \acf{CTTANBC}: qualora la variabile classe $\setel{Y}$ venga rimossa, le variabili rimanenti formano un albero.}
 \label{fig:cttanbc}
 \end{figure}
@@ -91,18 +91,25 @@ Come mostrato dalla figura~\ref{fig:cttanbc} un classificatore \acs{CTTANB} è u
 %VEDI private
 %VEDI Friedman1997
 
-\keyword{prova} \\
-\keywordpagb{pagina grassetto} \\
-\keywordpagi{pagina corsivo} \\
-\keywordsub[category]{subentry} \\
-\keywordbold{grassetto} \\
-\keyworditalic{corsivo} \\
-
-
-
-
 \section{Inferenza}\label{sec:inference-ctbnc}
 ...
+\begin{lstlisting}[caption=Inferenza \acs{CTBNC},label=lst:ctbnc-inference]
+var logp
+foreach (k in index(classes)) {
+    logp[k] = log(classes[k])
+    for (j in index(timeseg)) {
+        for (n in 1:N) {
+            logp[k] = logp[k] - <ls>$q_{x_{n_j}}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
+            if (<ls>$x_{n_j}$<le> != <ls>$x_{n_{j+1}}$<le>) {
+                logp[k] = logp[k] + log(<ls>$q_{x_{n_j}\,x_{n_{j+1}}}^{pa_j(\setel{x_n})}$<le>)
+            }
+        }
+    }
+}
+return max(logp)
+\end{lstlisting}
+
+% timeseg è il fully observed j-time-segment (si considera già calcolato)
 
 \subsection{Na\"ive Bayes}\label{sec:inference-ctnb}
 ...
