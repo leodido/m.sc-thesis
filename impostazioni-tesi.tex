@@ -20,7 +20,7 @@
 \begin{minipage}[b]{0.15\linewidth}
 \chapterNumber
 \end{minipage}%
-\begin{minipage}[b]{0.7\linewidth}
+\begin{minipage}[b]{0.70\linewidth}%length of the second row
 \raggedright\spacedallcaps{#1}
 \end{minipage}
 }
@@ -219,6 +219,9 @@
 \renewcommand{\lstlistingname}{Algoritmo}}
 \addto\captionsitalian{%
 \renewcommand{\lstlistlistingname}{Elenco degli algoritmi}}
+\providecommand*{\lstlistingautorefname}{algoritmo}
+\providecommand*{\lstnumberautorefname}{linea}
+
 
 %*********************************************************************************
 % Impostazioni di hyperref
