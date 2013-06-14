@@ -88,11 +88,30 @@ Come mostrato dalla figura~\ref{fig:cttanbc} un classificatore \acs{CTTANB} è u
 \section{Apprendimento}\label{sec:learning-ctbnc}
 ...
 
+oss.: Y è l'unica variabile non osservata in caso di classificazione su
+dati completi
+oss.: possibile sfruttare l'indipendenza condizionale come nelle BNs
+
+Input
+dataset D composto da |D| fully observed J-evidence-stream
+insieme delle classi del dataset {y1, ..., y|D|}, con yj in val(Y) e j = 1,
+2, ..., |D|
+Output
+Un CTNB Classifier C = {R, P(Y)}
+Algoritmo di learning
+Consiste nella stima della CIM (e quindi delle Sufficient Statistics) per
+ogni classe yj in val(Y) e per ogni variabile casuale di R
+oss.: lo sforzo computazionale è minimo
+
+
 %VEDI private
 %VEDI Friedman1997
 
 \section{Inferenza}\label{sec:inference-ctbnc}
 ...
+oss.: ottimo trade-off fra complessità computazionale e performance di
+classificazione
+
 \begin{lstlisting}[caption=Inferenza \acs{CTBNC},label=lst:ctbnc-inference]
 var logp
 foreach (k in index(classes)) {

@@ -4,7 +4,7 @@
 % !TEX spellcheck = it-IT
 
 %************************************************
-\chapter{\texorpdfstring{Learning strutturale}{Apprendimento strutturale}}
+\chapter{Apprendimento strutturale}
 \label{cap:ctbn-structural-learning}
 %************************************************
 \lipsum[1]
@@ -14,6 +14,9 @@
 
 % This is a form of unsupervised learning, in the sense that the learner does not distinguish the class variable from the attribute
 % variables in the data. The objective is to induce a network (or a set of networks) that “best describes” the probability distribution over the training data. This optimization process is implemented in practice by using heuristic search techniques to find the best candidate over the space of possible networks. The search process relies on a scoring function that assesses the merits of each candidate network.
+
+% TODO: vedi Friedman1997, poi spiega il perché è così -> formula MDL -> mettere solo se anche il nostro score ha lo stesso problema
+% This approach is justified by the asymptotic correctness of the Bayesian learning pro- cedure. Given a large data set, the learned network will be a close approximation for the probability distribution governing the domain (assuming that instances are sampled inde- pendently from a fixed distribution). Although this argument provides us with a sound theoretical basis, in practice we may encounter cases where the learning process returns a network with a relatively good MDL score that performs poorly as a classifier. To understand the possible discrepancy between good predictive accuracy and
 
 \section{Score}
 \label{sec:ctbn-score}

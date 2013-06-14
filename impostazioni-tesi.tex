@@ -8,6 +8,24 @@
 %*********************************************************************************
 
 %*********************************************************************************
+% Stile capitoli
+%*********************************************************************************
+% Stile numero capitolo (on = stesso font corpo, off = eulerchapternumbers)
+% \renewcommand{\chapterNumber}{%
+% \fontsize{70}{70}\usefont{\encodingdefault}{\sfdefault}{b}{n}%
+% }%
+
+% Workaround per titoli multi-riga
+\renewcommand\formatchapter[1]{%
+\begin{minipage}[b]{0.15\linewidth}
+\chapterNumber
+\end{minipage}%
+\begin{minipage}[b]{0.7\linewidth}
+\raggedright\spacedallcaps{#1}
+\end{minipage}
+}
+
+%*********************************************************************************
 % Indice analitico
 %*********************************************************************************
 \makeindex
@@ -27,7 +45,7 @@
 % }
 
 % Comandi per l'indicizzazione dei termini
-\newcommand*{\keyword}[2][]{#2\index{\lowercase{#2}@#2#1}}% semplice keyword da incizzare
+\newcommand*{\keyword}[2][]{#2\index{#2@#2#1}}% semplice keyword da incizzare
 \newcommand{\keywordsub}[2][]{#2\index{#1!#2}}% termine con genitore/categoria
 \newcommand{\keywordpagb}[1]{\keyword[|textbf]{#1}}% pagina in grassetto
 \newcommand{\keywordpagi}[1]{\keyword[|textit]{#1}}% pagina in corsivo
@@ -48,7 +66,7 @@
 \newcommand{\myLocation}{Milano}% dove
 \newcommand{\myTime}{Settembre 2013}% quando
 \newcommand{\mySubject}{Continuos time Bayesian Networks}
-\newcommand{\myKeywords}{Continuos time Bayesian Network, CTBN, Continuos time Bayesian Newtork Classifier, CTBNC}
+\newcommand{\myKeywords}{Classification, Continuos time Bayesian Network, CTBN, Continuos time Bayesian Newtork Classifier, CTBNC}
 
 %*********************************************************************************
 % Impostazioni di amsmath, amssymb, amsthm
@@ -166,7 +184,7 @@
 \lstdefinelanguage{pseudo}{
     morekeywords=%
     {
-        for,foreach,return,if,else,ifelse,max,min,in,len,log,index,var
+        for,foreach,return,if,else,ifelse,max,min,in,len,log,index,var,-,*
     },
     morecomment=[l][\color{Green}\ttfamily]{//},
     morecomment=[s][\color{Green}\ttfamily]{/*}{*/},
