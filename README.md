@@ -27,13 +27,17 @@ Based on a customization of the `ClassicThesis` style, obtained through the `Ars
 * ArsClassica package installed
 * Sublime Text 2
 * Sublime Text 2 LaTeXTools package installed
-* Graphviz installed (`dot` utility have to be in the `$PATH` variable)
-* Compiling: `pdflatex` with option `-shell-escape`
+* <del>Graphviz installed (`dot` utility have to be in the `$PATH` variable)</del>
+* <del>Compiling: `pdflatex` with option `-shell-escape`</del>
 
 #### Steps
 
-* Use the LaTeX build tool provided to compile `tesi.tex`
-* Open `tesi-frn.tex` and compile it to generate the frontispiece related `tesi-frn.pdf` file
-* Compile again `tesi.tex` to insert the frontispiece and get completed the project
+1. Use the LaTeX `sublime text 2` build tool provided to compile `tesi.tex`
+2. Open `tesi-frn.tex` and compile it to generate the frontispiece related `tesi-frn.pdf` file
+3. Compile again `tesi.tex` to insert the frontispiece
+4. Run `makeindex -s classic tesi` in the shell (into the project directory) to build the definitive (and better) `arclassica` analytical index<sup>(*)</sup>
+5. Recompile `tesi.tex`
 
 Note: `tesi.sublime-project` file set `tesi.tex` file as the `tex` root file for the project.
+
+<sub>(*) Thi step is required each time a new indexed term (or keyword) is added.</sub>

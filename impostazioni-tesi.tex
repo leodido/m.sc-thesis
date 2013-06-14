@@ -8,8 +8,35 @@
 %*********************************************************************************
 
 %*********************************************************************************
+% Indice analitico
+%*********************************************************************************
+\makeindex
+
+% Bilanciamento delle colonne dell’ultima pagina dell’indice analitico
+\let\orgtheindex\theindex
+\let\orgendtheindex\endtheindex
+\def\theindex{%
+\def\twocolumn{\begin{multicols}{2}}%
+\def\onecolumn{}%
+\clearpage
+\orgtheindex
+}
+\def\endtheindex{%
+\end{multicols}%
+\orgendtheindex
+}
+
+% Comandi per l'indicizzazione dei termini
+\newcommand*{\keyword}[2][]{#2\index{#2#1}}% semplice keyword da incizzare
+\newcommand{\keywordsub}[2][]{#2\index{#1!#2}}% termine con genitore/categoria
+\newcommand{\keywordpagb}[1]{\keyword[|textbf]{#1}}% pagina in grassetto
+\newcommand{\keywordpagi}[1]{\keyword[|textit]{#1}}% pagina in corsivo
+\newcommand{\keywordbold}[1]{#1\index{#1@\textbf{#1}}}% termine in grassetto
+\newcommand{\keyworditalic}[1]{#1\index{#1@\textsl{#1}}}% termine in corsivo
+
+%*********************************************************************************
 % Comandi personali
-%*******************************************************
+%*********************************************************************************
 \newcommand{\myName}{Leonardo~Di~Donato}% autore
 \newcommand{\myTitle}{Continuos Time Bayesian Networks Classifiers}% titolo
 \newcommand{\myDegree}{Tesi di Laurea}% tipo di tesi
@@ -19,7 +46,7 @@
 \newcommand{\myProf}{Prof.~F.~Antonio~Stella}% relatore
 \newcommand{\myOtherProf}{Dott.~Daniele~Codecasa}% correlatore
 \newcommand{\myLocation}{Milano}% dove
-\newcommand{\myTime}{Luglio 2013}% quando
+\newcommand{\myTime}{Settembre 2013}% quando
 \newcommand{\mySubject}{Continuos time Bayesian Networks}
 \newcommand{\myKeywords}{Continuos time Bayesian Network, CTBN, Continuos time Bayesian Newtork Classifier, CTBNC}
 
@@ -53,6 +80,20 @@
   {\end{array}\right.}
 
 % definizioni (serve il pacchetto amsthm)
+\newtheoremstyle{classicdef}% Nome
+{12pt}% Spazio che precede l’enunciato
+{12pt}% Spazio che segue l’enunciato
+{}% Stile del font dell’enunciato
+{}% Rientro (se vuoto, non c’è rientro,
+% \parindent = rientro dei capoversi)
+{\scshape}% Stile del font dell’intestazione
+{:}% Punteggiatura che segue l’intestazione
+{.5em}% Spazio che segue l’intestazione:
+% " " = normale spazio inter-parola;
+% \newline = a capo
+{}% Specifica l’intestazione dell’enunciato
+% (normalmente viene lasciata vuota)
+
 \theoremstyle{definition}
 \newtheorem{definizione}{Definizione}
 % \newtheorem{osservazione}[definizione]{Osservazione}
@@ -64,6 +105,20 @@
 \newtheorem{nota}{Nota}[section]
 
 % teoremi (serve il pacchetto amsthm)
+\newtheoremstyle{classicthm}% Nome
+{12pt}% Spazio che precede l’enunciato
+{12pt}% Spazio che segue l’enunciato
+{\itshape}% Stile del font dell’enunciato
+{}% Rientro (se vuoto, non c’è rientro,
+% \parindent = rientro dei capoversi)
+{\scshape}% Stile del font dell’intestazione
+{:}% Punteggiatura che segue l’intestazione
+{.5em}% Spazio che segue l’intestazione:
+% " " = normale spazio inter-parola;
+% \newline = a capo
+{}% Specifica l’intestazione dell’enunciato
+% (normalmente viene lasciata vuota)
+
 \theoremstyle{plain}
 \newtheorem{teorema}{Teorema}
 \newtheorem{cor}[teorema]{Corollario}

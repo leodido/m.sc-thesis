@@ -22,12 +22,14 @@
               a4paper,%                     % carta A4
 %             twoside,openright,%           % fronte-retro
               oneside,openany,%             % solo fronte
-              titlepage,%                   % frontespizio
+              titlepage,%                   % dopo il titolo deve iniziare una nuova pagina
+              %fleqn,%                      % position equations at a fixed indent from the left margin rather than centered in the text column (amsmath option)
               headinclude,,footinclude,%    % testatina e piede di pagina
               BCOR5mm,%                     % rilegatura di 5 mm
               numbers=noenddot,%            % niente punto dopo il numero delle sezioni
               cleardoublepage=empty,%       % pagine vuote senza testatina e piede di pagina
               tablecaptionabove,%           % didascalie in cima alle tabelle
+              %draft%                         % sostituire con final quando completato
               ]{scrreprt}                   % classe report di KOMA-Script;
 
 \usepackage[T1]{fontenc}                    % codifica dei font:
@@ -102,7 +104,7 @@
 % ********************************************************************
 \usepackage[eulerchapternumbers,%           % numeri dei capitoli nel font Euler
             subfig,%                        % se si usa il pacchetto subfig
-            %minionpro,%                    %
+            %minionpro,                    %
             beramono,%                      % Bera Mono come font a spaziatura fissa
             eulermath,%                     % AMS Euler come font per la matematica
             pdfspacing,%                    % migliora il riempimento di riga
@@ -133,6 +135,12 @@
 \usepackage{cleveref}
 
 \usepackage{chngcntr}
+
+\usepackage{amsfonts}                       % abilito i font matematici
+
+\usepackage{makeidx}                        % indice analitico
+
+\usepackage{multicol}
 
 \input{impostazioni-tesi}                   % file con le impostazioni personali
 
@@ -178,6 +186,7 @@
 % \input{backmatter/appendice2}
 % \input{backmatter/appendice3}
 \input{backmatter/acronimi}
+\input{backmatter/index}
 \input{backmatter/bibliografia}
 % \input{backmatter/glossario} % indice dei termini
 \input{backmatter/dichiarazione}
