@@ -269,22 +269,21 @@ Prima di presentare le \acl{CTBN} come una collezione di \ctmp{} non \omog{} e c
     Una \pv{} $\set{X}$, anche detta \ACF{PV}~\citep{Nodelman2007}, è un insieme di \ctmp{} $\setel{X}(t)$.
 \end{definizione}
 
-\begin{definizione}[Traiettoria]
+\begin{definizione}[Traiettoria]\label{defn:traiettoria}
     Istanziazione di un insieme di valori per $\setel{X}(t)$ al variare di $t$.
 \end{definizione}
 
-\begin{definizione}[$J$-time-segment]
+\begin{definizione}[$J$-time-segment]\label{defn:j-time-segment}
 Partizionamento di un intervallo temporale $[\,0,\,T)$ in $J$ intervalli chiusi a sinistra:
 \[
 [\,0,\,t_1)\:;\:[\,t_1,\,t_2)\:;\:\dotsc\:;\:[\,t_{J-1},\,T)
 \]
 \end{definizione}
 
-\begin{definizione}[$J$-evidence-stream]
-Dato un $J$-time-segment composto da $J$ intervalli temporali e una \acl{PV} $\set{X}$ composta da $N$ variabili casuali, un $J$-evidence-stream è l'insieme delle istanziazioni comuni $\set{X}=\set{x}$ associate ad ogni $J$-time-segment per ogni sottoinsieme delle variabili casuali. \`E denotato con $(\set{X}^1=\set{x}^1\,,\,\set{X}^2=\set{x}^2\,,\,\dotsc\,,\,\set{X}^J=\set{x}^J)$, o più concisamente $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$.
+\begin{definizione}[$J$-evidence-stream]\label{defn:j-evidence-stream}
+Dato un $J$-time-segment composto da $J$ intervalli temporali e una \pv{} $\set{X}$ composta da $N$ variabili casuali, un $J$-evidence-stream è l'insieme delle istanziazioni comuni $\set{X}=\set{x}$ associate ad ogni $J$-time-segment per ogni sottoinsieme delle variabili casuali~\citep{Stella2012}. \`E denotato con $(\set{X}^1=\set{x}^1\,,\,\set{X}^2=\set{x}^2\,,\,\dotsc\,,\,\set{X}^J=\set{x}^J)$, o più concisamente $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$.
 \end{definizione}
-
-Un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$ è detto essere \emph{fully observed} (completamente osservato) se lo stato di tutte le variabili $\setel{X_n}\in\set{X}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un $J$-evidence-stream è detto \emph{partially observed} (parzialmente osservato)~\citep{Stella2012}.
+Un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$ è detto essere completamente osservato (\ie{} \emph{fully observed}) se lo stato di tutte le variabili $\setel{X_n}\in\set{X}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un $J$-evidence-stream è detto parzialmente osservato (\ie{} \emph{partially observed}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Rappresentazione}

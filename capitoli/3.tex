@@ -13,6 +13,8 @@ In questo capitolo viene quindi introdotta una classe di modelli, che prende il 
 
 Infine, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di inferenza esatta per la classe dei \acs{CTBNC}.
 
+%FIXME: rivedere "classificatori per i quali si affronta "!
+
 \section{Modello}\label{sec:ctbnc-model}
 Al fine di risolvere il succitato problema della classificazione sono stati proposti numerosi approcci. Ad esempio \lwcase \nb{} \class{}, un classificatore semplice ma robusto proposto da~\citet{DudaHart1973}; rivelatosi essere uno fra i classificatori più performanti~\citep{Langley1992}. Esso apprende dai dati la probabilità condizionale di ogni attributo $\setel{A}_i$ data la classe $\setel{C}$. La classificazione di nuove istanze dei dati è effettuata applicando la \emph{regola di Bayes} al fine di calcolare la probabilità della classe $\setel{C}$ data l'istanziazione di $\setel{A}_i,\,\dotsc\,,\setel{A}_N$ e scegliendo quella con la maggiore probabilità a posteriori. Questo calcolo è reso possibile da un'assunzione forte: tutti gli attributi $\setel{A}_i$ sono \emph{condizionalmente indipendenti} (\myref[si veda la definizione]{defn:ic}) tra di loro data evidenza sulla classe $\setel{C}$.
 
@@ -22,7 +24,7 @@ Seguendo le stesse motivazioni, in ~\citet{Stella2012} viene formalizzata una cl
 
 Di seguito si definiscono quindi i \acl{CTBNC} e due istanze di classificatori appartenenti a tale classe: il \acf{CTNBC} e il \acf{CTTANBC}.
 
-Un \acl{CTBNC} estende una \acs{CTBN} tramite l'aggiunta di un nodo associato alla variabile classe $\setel{Y}$. Si ricorda, dalla \myref[definizione]{defn:ctbn}, che una \acs{CTBN} rappresenta l'evoluzione nel tempo continuo di una variabile di processo $\set{X}$ (\ie{} insieme composto da $N$ \mprocess{}, \myref[si veda la definizione]{defn:pv}).
+Un \acl{CTBNC} estende una \acs{CTBN} tramite l'aggiunta di un nodo associato alla variabile classe $\setel{Y}$. Si ricorda, dalla \myref[definizione]{defn:ctbn}, che una \acs{CTBN} rappresenta l'evoluzione nel tempo continuo di una \pv{} $\set{X}$ (\ie{} insieme composto da $N$ \mprocess{}, \myref[si veda la definizione]{defn:pv}).
 
 Di seguito si dà la definizione di questa nuova classe di modelli di \emph{classificazione supervisionata}.
 \begin{definizione}[\acl{CTBNC}]\label{defn:ctbnc}
@@ -92,30 +94,30 @@ Per definizione (\myref[si veda]{defn:ctbnc}) essi sono basati sul modello delle
 
 Di conseguenza, per l'apprendimento di un \acs{CTNBC} è richiesto uno sforzo computazionale minimo. Per l'apprendimento di un \acs{CTTANBC}, poiché questo modello prevede archi anche fra i nodi attributo, è invece richiesto uno sforzo computazionale leggermente maggiore~\citep{Stella2012}.
 
-Si presenta di seguito l'\autoref{lst:ctnbc-learning} relativo all'apprendimento di un \acs{CTNBC} da un \emph{dataset completo}.
+Si presenta di seguito l'\autoref{lst:ctnbc-learning} relativo all'apprendimento di un \acs{CTNBC}.
 
+Esso richiede in input un \emph{dataset completo} $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ e il corrispettivo insieme delle classi $\{\setel{y}_1\,,\,\setel{y}_2\,,\,\dotsc\,,\,\setel{y}_h\}$, con $\setel{y}_i \in val(\setel{Y})$. Per completezza si osservi (\myref[in base alla definizione]{defn:dataset-completo}) che ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^{J_h})$ (a tal riguardo si veda \myref[la definizione]{defn:j-evidence-stream}).
+
+Il risultato dell'applicazione dell'\autoref{lst:ctnbc-learning} è un \acl{CTNBC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$.
 
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTNB}, label=lst:ctnbc-learning]
-linea
-linea
-linea<ls>\label{lst:linea3}<le>
+function(dataset, classes) {
+    var h = len(dataset)
+    var priors[h]
+    foreach (i in index(dataset)) {
+        priors[classes[i]] = priors[classes[i]] + (1 / h)
+    }
+    foreach (i in index(dataset)) {
+    }
+}
 \end{lstlisting}
 
 % TODO CTBNC (!!!) learning generico non ne abbiamo? si ..
-% prova: \autoref{lst:linea3} lnkare linee
 
-Input
-dataset D composto da |D| fully observed J-evidence-stream
-insieme delle classi del dataset {y1, ..., y|D|}, con yj in val(Y) e j = 1,
-2, ..., |D|
-Output
-Un CTNB Classifier C = {R, P(Y)}
 Algoritmo di learning
 Consiste nella stima della CIM (e quindi delle Sufficient Statistics) per
 ogni classe yj in val(Y) e per ogni variabile casuale di R
-oss.: lo sforzo computazionale è minimo
 
-%VEDI private
 %VEDI Friedman1997
 
 \section{Inferenza}\label{sec:inference-ctbnc}
@@ -129,9 +131,11 @@ oss.: possibile sfruttare l'indipendenza condizionale come nelle BNs
 
 
 \begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
-var logp
+var logp[len(classes)]
 foreach (k in index(classes)) {
     logp[k] = log(classes[k])
+}
+foreach (k in index(classes)) {
     for (j in index(timeseg)) {
         for (n in 1:N) {
             logp[k] = logp[k] - <ls>$q_{x_{n_j}}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
