@@ -96,23 +96,85 @@ Di conseguenza, per l'apprendimento di un \acs{CTNBC} è richiesto uno sforzo co
 
 Si presenta di seguito l'\autoref{lst:ctnbc-learning} relativo all'apprendimento di un \acs{CTNBC}.
 
-Esso richiede in input un \emph{dataset completo} $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ e il corrispettivo insieme delle classi $\{\setel{y}_1\,,\,\setel{y}_2\,,\,\dotsc\,,\,\setel{y}_h\}$, con $\setel{y}_i \in val(\setel{Y})$. Per completezza si osservi (\myref[in base alla definizione]{defn:dataset-completo}) che ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^{J_h})$ (a tal riguardo si veda \myref[la definizione]{defn:j-evidence-stream}).
+Esso richiede in input un \emph{dataset completo} $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$, il corrispettivo insieme delle classi $\{\setel{y}_1\,,\,\setel{y}_2\,,\,\dotsc\,,\,\setel{y}_h\}$, con $\setel{y}_i \in val(\setel{Y})$, e il grafo $\conceptsym{G}$ di una \acs{CTBN} $\conceptsym{N}$.
+
+Per completezza si osservi (\myref[in base alla definizione]{defn:dataset-completo}) che ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^{J_h})$ (a tal riguardo si veda \myref[la definizione]{defn:j-evidence-stream}).
 
 Il risultato dell'applicazione dell'\autoref{lst:ctnbc-learning} è un \acl{CTNBC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$.
 
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTNB}, label=lst:ctnbc-learning]
-function(dataset, classes) {
-    var h = len(dataset)
-    var priors[h]
-    foreach (i in index(dataset)) {
-        priors[classes[i]] = priors[classes[i]] + (1 / h)
+function learn(data, classes, graph) {
+    var h = len(data)
+    var priors[len(classes)]
+    foreach (i in index(data)) {
+        var class = classes[i]
+        priors[class] = priors[class] + (1 / h)
     }
-    foreach (i in index(dataset)) {
+    var m(), t()
+    foreach (i in index(data)) {
+        var class = classes[i]
+        var j = 1
+        while (<ls>$t_j \leq T_i$<le>) {
+            foreach (n in index(graph.nodes)) {
+                m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, class) = m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, class) + 1
+                t(<ls>$\setel{x}_n^j$<le>, class) = t(<ls>$\setel{x}_n^j$<le>, class) + <ls>$(t_j - t_{j-1})$<le>
+            }
+            j = j + 1
+        }
     }
+    var q(), thet()
+    foreach (k in index(classes)) {
+        foreach (n in index(graph.nodes)) {
+            for (<ls>$\setel{x}_n$<le> in <ls>$val(\setel{X}_n)$<le>) {
+                var mm(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>) = <ls>$\sum_{\setel{x}_n^{\prime}\neq\setel{x}_n}$<le> m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, <ls>$\setel{y}_k$<le>)
+                q(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>) = mm(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>) / t(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>)
+                thet(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>) = m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, <ls>$\setel{y}_k$<le>) / mm(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>)
+            }
+        }
+    }
+    var ctbn = new ctbn(graph, q, thet)
+    return (priors, ctbn)
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTBN}, label=lst:ctbnc-learning]
+function learn(data, classes, graph) {
+    var h = len(data)
+    var n = len(graph.nodes)
+    var priors[len(classes)]
+    foreach (i in index(data)) {
+        var class = classes[i]
+        priors[class] = priors[class] + (1 / h)
+    }
+    var m(), t()
+    foreach (i in index(data)) {
+        var j = 1
+        while (<ls>$t_j \leq T_i$<le>) {
+            foreach (n in index(graph.nodes)) {
+                var p = <ls>$val_{\setel{x}_n}^j(Pa(\setel{X}_n))$<le>
+                m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, p) = m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, p) + 1
+                t(<ls>$\setel{x}_n^j$<le>, p) = t(<ls>$\setel{x}_n^j$<le>, p) + <ls>$(t_j - t_{j-1})$<le>
+            }
+            j = j + 1
+        }
+    }
+    var q(), thet()
+    foreach (n in index(graph.nodes)) {
+        for (<ls>$\setel{x}_n$<le> in <ls>$val(\setel{X}_n)$<le>) {
+            foreach (p in <ls>$val_{\setel{x}_n}(Pa(\setel{X}_n))$<le>) {
+                var mm(<ls>$\setel{x}_n$<le>, p) = <ls>$\sum_{\setel{x}_n^{\prime}\neq\setel{x}_n}$<le> m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, p)
+                q(<ls>$\setel{x}_n$<le>, p) = mm(<ls>$\setel{x}_n$<le>, p) / t(<ls>$\setel{x}_n$<le>, p)
+                thet(<ls>$\setel{x}_n$<le>, p) = m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, p) / mm(<ls>$\setel{x}_n$<le>, p)
+            }
+        }
+    }
+    var ctbn = new ctbn(graph, q, thet)
+    return (priors, ctbn)
 }
 \end{lstlisting}
 
 % TODO CTBNC (!!!) learning generico non ne abbiamo? si ..
+% TODO chiaramente utilizzando questo più generale (CTBNC learning) per il learning CTNB il risultato è lo stesso, il ciclo a linea 24 infatti, in tal caso ciclerà solo sulle istanziazioni della classe quando X_n = x_n (giusto?)
 
 Algoritmo di learning
 Consiste nella stima della CIM (e quindi delle Sufficient Statistics) per
