@@ -146,26 +146,23 @@ L'algoritmo di apprendimento appena presentato consiste nella stima delle \cim{}
 \end{enumerate}
 Si osservi che, poiché il processo di apprendimento è eseguito su un classificatore \acs{CTNB}, l'algoritmo condiziona sia il calcolo delle statistiche sufficienti (\ie{} variabili \lstinline[]|t| e \lstinline[]|m|) che la stima dei parametri (\ie{} variabili \lstinline[]|q| e \lstinline[]|thet|) di ogni nodo attributo $\setel{X}_i$ solo ed esclusivamente al valore della variabile classe $\setel{Y}$ (\ie{} variabile \lstinline[]|y|). Questa semplificazione è dovuta al vincolo che caratterizza i classificatori \acs{CTNB}: ogni nodo attributo $\setel{X}_i$ deve avere un solo genitore, il nodo associato alla variabile classe $\setel{Y}$ (si veda la \myref[definizione]{defn:ctnbc}).
 
-Come anticipato, al costo di un leggero incremento di complessità computazionale, è possibile estendere l'\autoref{lst:ctnbc-learning} al fine di creare un algoritmo di apprendimento generale che apprenda un qualsiasi classificatore \acs{CTBN}. Affinché tale obiettivo sia raggiunto è necessario rimuovere il succitato vincolo sull'insieme dei genitori di ogni nodo attributo.
+Come anticipato, al costo di un leggero incremento di complessità computazionale, è possibile estendere l'\autoref{lst:ctnbc-learning} al fine di creare un algoritmo di apprendimento generale che apprenda un qualsiasi classificatore \acs{CTBN}. Affinché tale obiettivo sia raggiunto è necessario rimuovere il succitato vincolo sull'insieme dei genitori di ogni nodo attributo. Mentre il calcolo della probabilità a priori della variabile classe $\setel{Y}$ non varia, il calcolo delle statistiche sufficienti e la stima dei parametri, invece, necessitano di tale generalizzazione.
 
-% ciò che ne risente sono step 2 e step 3, perché ? spiegare nel frattempo, poi prensentare algoritmo e ciao sezione 3.2
-
+Nello specifico:
+\begin{enumerate}
+    \item il calcolo delle statistiche sufficienti di ogni nodo attributo $\setel{X}_i$ va condizionato all'istanziazione attuale (\ie{} al tempo $j$) del suo insieme di nodi genitori $Pa(\setel{X}_i)$; perciò a \autoref{lst:general-ss-computation} dell'\autoref{lst:ctbnc-learning} si prende in considerazione tale valore (\ie{} variabile \lstinline[]|p|)
+    \item la stima dei parametri \acl{MLE} (\acs{MLE}) di ogni noto attributo $\setel{X}_i$ va eseguita in base a ogni istanziazione del suo insieme di nodi genitori $Pa(\setel{X}_i)$; perciò a \autoref{lst:general-params-computation} si itera in base a ogni valore (\ie variabile \lstinline[]|p|) assunto da $Pa(\setel{X}_i)$ (\ie{} $val(Pa(\setel{X}_i))$) mentre l'iterazione per classe non è più coerente e di conseguenza rimossa.
+\end{enumerate}
+Si riporta di seguito l'\autoref{lst:ctbnc-learning}, che include le succitate modifiche finalizzate alla creazione di un algoritmo di apprendimento generale per i \acs{CTBNC}.
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTBN}, label=lst:ctbnc-learning]
 function learn(data, classes, graph) {
-    var h = len(data)
-    var klass = unique(classes)
-    var nk = len(class)
-    var priors[nk]
-    for (i in index(data)) {
-        var k = index(classes[i])
-        priors[k] = priors[k] + (1 / h)
-    }
+    ...
     var m(), t()
     foreach (i in index(data)) {
         var j = 1
         while (<ls>$t_j \leq T_i$<le>) {
             foreach (n in index(graph.nodes)) {
-                var p = <ls>$val_{\setel{x}_n}^j(Pa(\setel{X}_n))$<le>
+                var p = <ls>$val^j(Pa(\setel{X}_n))$\label{lst:general-ss-computation}<le>
                 m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, p) = m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, p) + 1
                 t(<ls>$\setel{x}_n^j$<le>, p) = t(<ls>$\setel{x}_n^j$<le>, p) + <ls>$(t_j - t_{j-1})$<le>
             }
@@ -175,7 +172,7 @@ function learn(data, classes, graph) {
     var q(), thet()
     foreach (n in index(graph.nodes)) {
         for (<ls>$\setel{x}_n$<le> in <ls>$val(\setel{X}_n)$<le>) {
-            foreach (p in <ls>$val_{\setel{x}_n}(Pa(\setel{X}_n))$<le>) {
+            foreach (p in <ls>$val(Pa(\setel{X}_n))$\label{lst:general-params-computation}<le>) {
                 var mm(<ls>$\setel{x}_n$<le>, p) = <ls>$\sum_{\setel{x}_n^{\prime}\neq\setel{x}_n}$<le> m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, p)
                 q(<ls>$\setel{x}_n$<le>, p) = mm(<ls>$\setel{x}_n$<le>, p) / t(<ls>$\setel{x}_n$<le>, p)
                 thet(<ls>$\setel{x}_n$<le>, p) = m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, p) / mm(<ls>$\setel{x}_n$<le>, p)
@@ -187,16 +184,14 @@ function learn(data, classes, graph) {
 }
 \end{lstlisting}
 
-% TODO chiaramente utilizzando questo più generale (CTBNC learning) per il learning CTNB il risultato è lo stesso, il ciclo a linea 24 infatti, in tal caso ciclerà solo sulle istanziazioni della classe quando X_n = x_n (giusto?)
-
 \section{Inferenza}\label{sec:inference-ctbnc}
-...
-oss.: ottimo trade-off fra complessità computazionale e performance di
-classificazione
+% ...
+% oss.: ottimo trade-off fra complessità computazionale e performance di
+% classificazione
 
-oss.: Y è l'unica variabile non osservata in caso di classificazione su
-dati completi
-oss.: possibile sfruttare l'indipendenza condizionale come nelle BNs
+% oss.: Y è l'unica variabile non osservata in caso di classificazione su
+% dati completi
+% oss.: possibile sfruttare l'indipendenza condizionale come nelle BNs
 
 
 \begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
