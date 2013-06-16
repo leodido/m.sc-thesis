@@ -9,11 +9,9 @@
 %************************************************
 La classificazione è un argomento centrale nei campi di ricerca relativi all'\keyword{apprendimento automatico} (anche detto \keyword{machine learning}) e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione \keywordsub[classificazione]{supervisionata}} quando è necessario indurre un \keywordsub[classificazione]{classificatore} a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati.
 
-In questo capitolo viene quindi introdotta una classe di modelli, che prende il nome di \acf{CTBNC}, il cui scopo è la \emph{classificazione supervisionata} di traiettorie multivariate di variabili discrete a \emph{tempo continuo}. Si descrivono due istanze di tale classe: i classificatori \acf{CTNB} e i classificatori \acf{CTTANB}; classificatori per i quali si affronta il processo di apprendimento in caso di dati completi (\autoref{sec:learning-ctbnc}).
+In questo capitolo viene quindi introdotta una classe di modelli, che prende il nome di \acf{CTBNC}, il cui scopo è la \emph{classificazione supervisionata} di traiettorie multivariate di variabili discrete a \emph{tempo continuo}. Si descrivono due istanze di tale classe: i classificatori \acf{CTNB} e i classificatori \acf{CTTANB}.
 
-Infine, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di inferenza esatta per la classe dei \acs{CTBNC}.
-
-%FIXME: rivedere "classificatori per i quali si affronta "!
+Mentre nella \autoref{sec:learning-ctbnc} si affronta il processo di \emph{\keywordsub[classificazione]{apprendimento}} in caso di \emph{dati completi} dei \acs{CTBNC}, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di \emph{\keywordsub[classificazione]{inferenza} esatta} per la classe dei \acs{CTBNC}.
 
 \section{Modello}\label{sec:ctbnc-model}
 Al fine di risolvere il succitato problema della classificazione sono stati proposti numerosi approcci. Ad esempio \lwcase \nb{} \class{}, un classificatore semplice ma robusto proposto da~\citet{DudaHart1973}; rivelatosi essere uno fra i classificatori più performanti~\citep{Langley1992}. Esso apprende dai dati la probabilità condizionale di ogni attributo $\setel{A}_i$ data la classe $\setel{C}$. La classificazione di nuove istanze dei dati è effettuata applicando la \emph{regola di Bayes} al fine di calcolare la probabilità della classe $\setel{C}$ data l'istanziazione di $\setel{A}_i,\,\dotsc\,,\setel{A}_N$ e scegliendo quella con la maggiore probabilità a posteriori. Questo calcolo è reso possibile da un'assunzione forte: tutti gli attributi $\setel{A}_i$ sono \emph{condizionalmente indipendenti} (\myref[si veda la definizione]{defn:ic}) tra di loro data evidenza sulla classe $\setel{C}$.
@@ -138,7 +136,7 @@ function ctnbclearn(data, classes, graph) {
 }
 \end{lstlisting}
 
-L'algoritmo di apprendimento appena presentato consiste nella stima delle \cim{} (\acs{CIM}) di ogni variabile casuale di $\conceptsym{N}$ per ogni classe $\setel{y}_i \in \setel{Y}$. Più in dettaglio, esso è composto da tre fasi consecutive:
+L'algoritmo di apprendimento presentato (\autoref{lst:ctnbc-learning}) consiste nella stima delle \cim{} (\acs{CIM}) di ogni variabile casuale di $\conceptsym{N}$ per ogni classe $\setel{y}_i \in \setel{Y}$. Più in dettaglio, esso è composto da tre fasi consecutive:
 \begin{enumerate}
     \item da \autoref{lst:start-prior-computation} a \autoref{lst:end-prior-computation} viene calcolata la \emph{probabilità a priori} della variabile classe $\setel{Y}$ in base alla frequenza di ogni sua istanziazione $\setel{y}_i \in\setel{Y}$ in $\conceptsym{D}$
     \item da \autoref{lst:start-ss-computation} a \autoref{lst:end-ss-computation} vengono calcolate le \emph{statistiche sufficienti} di ogni nodo attributo $\setel{X}_i$, con $i=1,2,\,\dotsc\,,N$, sull'insieme di dati di apprendimento (anche detto \emph{\keywordsub[classificazione]{training set}}) $\conceptsym{D}$
@@ -151,9 +149,9 @@ Come anticipato, al costo di un leggero incremento di complessità computazional
 Nello specifico:
 \begin{enumerate}
     \item il calcolo delle statistiche sufficienti di ogni nodo attributo $\setel{X}_i$ va condizionato all'istanziazione attuale (\ie{} al tempo $j$) del suo insieme di nodi genitori $Pa(\setel{X}_i)$; perciò a \autoref{lst:general-ss-computation} dell'\autoref{lst:ctbnc-learning} si prende in considerazione tale valore (\ie{} variabile \lstinline[]|p|)
-    \item la stima dei parametri \acl{MLE} (\acs{MLE}) di ogni noto attributo $\setel{X}_i$ va eseguita in base a ogni istanziazione del suo insieme di nodi genitori $Pa(\setel{X}_i)$; perciò a \autoref{lst:general-params-computation} si itera in base a ogni valore (\ie variabile \lstinline[]|p|) assunto da $Pa(\setel{X}_i)$ (\ie{} $val(Pa(\setel{X}_i))$) mentre l'iterazione per classe non è più coerente e di conseguenza rimossa.
+    \item la stima dei parametri \acl{MLE} (\acs{MLE}) di ogni noto attributo $\setel{X}_i$ va eseguita in base a ogni istanziazione del suo insieme di nodi genitori $Pa(\setel{X}_i)$; perciò a \autoref{lst:general-params-computation} si itera in base a ogni valore (\ie{} variabile \lstinline[]|p|) assunto da $Pa(\setel{X}_i)$ (\ie{} $val(Pa(\setel{X}_i))$) mentre l'iterazione per classe non è più coerente e di conseguenza rimossa.
 \end{enumerate}
-Si riporta di seguito l'\autoref{lst:ctbnc-learning}, che include le succitate modifiche finalizzate alla creazione di un algoritmo di apprendimento generale per i \acs{CTBNC}.
+Si riporta di seguito l'\autoref{lst:ctbnc-learning}, il quale include le succitate modifiche finalizzate alla creazione di un algoritmo di apprendimento generale per i \acs{CTBNC}.
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTBN}, label=lst:ctbnc-learning]
 function learn(data, classes, graph) {
     ...
@@ -195,21 +193,23 @@ function learn(data, classes, graph) {
 
 
 \begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
-var logp[len(classes)]
-foreach (k in index(classes)) {
-    logp[k] = log(classes[k])
-}
-foreach (k in index(classes)) {
-    for (j in index(timeseg)) {
-        for (n in 1:N) {
-            logp[k] = logp[k] - <ls>$q_{x_{n_j}}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
-            if (<ls>$x_{n_j}$<le> != <ls>$x_{n_{j+1}}$<le>) {
-                logp[k] = logp[k] + log(<ls>$q_{x_{n_j}\,x_{n_{j+1}}}^{pa_j(\setel{x_n})}$<le>)
+function infer() {
+    var logp[len(classes)]
+    foreach (k in index(classes)) {
+        logp[k] = log(classes[k])
+    }
+    foreach (k in index(classes)) {
+        for (j in index(timeseg)) {
+            for (n in 1:N) {
+                logp[k] = logp[k] - <ls>$q_{x_{n_j}}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
+                if (<ls>$x_{n_j}$<le> != <ls>$x_{n_{j+1}}$<le>) {
+                    logp[k] = logp[k] + log(<ls>$q_{x_{n_j}\,x_{n_{j+1}}}^{pa_j(\setel{x_n})}$<le>)
+                }
             }
         }
     }
+    return max(logp)
 }
-return max(logp)
 \end{lstlisting}
 
 % timeseg è il fully observed j-time-segment (si considera già calcolato)
