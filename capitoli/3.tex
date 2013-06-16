@@ -90,61 +90,75 @@ Come mostrato dalla figura~\ref{fig:cttanbc} un classificatore \acs{CTTANB} è u
 \section{Apprendimento}\label{sec:learning-ctbnc}
 In questa sezione si affronta il problema dell'apprendimento (da \emph{dati completi}) dei \acs{CTBNC}.
 
-Per definizione (\myref[si veda]{defn:ctbnc}) essi sono basati sul modello delle \acs{CTBN}, rappresentano perciò un insieme di modelli di probabilità locali (relativi alle variabili casuali) esprimibili in termini di statistiche sufficienti (per maggiori dettagli relativi a questo aspetto si rimanda alla \autoref{sec:ctbn-apprendimento}). Ne deriva perciò che il problema dell'apprendimento di un classificatore \acs{CTNB} (\myref[definizione]{defn:ctnbc}) si riduce alla computazione delle \keyword{statistiche sufficienti} dei suoi nodi attributo, da cui è successivamente possibile (nonché semplice) stimare i parametri (argomento trattato in dettaglio nella \autoref{sec:ctbn-params}) delle \cim{} (\acs{CIM}).
+Per definizione (\myref[si veda]{defn:ctbnc}) i \acs{CTBNC} sono basati sul modello delle \acs{CTBN}, rappresentano perciò un insieme di modelli di probabilità locali (relativi alle variabili casuali) esprimibili in termini di statistiche sufficienti (per maggiori dettagli relativi a questo aspetto si rimanda alla \autoref{sec:ctbn-apprendimento}). Ne deriva che il problema dell'apprendimento di un classificatore \acs{CTBN} (\myref[definizione]{defn:ctbnc}) si riduce alla computazione delle \keyword{statistiche sufficienti} dei suoi nodi attributo, da cui è successivamente possibile (nonché semplice) stimare i parametri (argomento trattato in dettaglio nella \autoref{sec:ctbn-params}) delle \cim{} (\acs{CIM}).
 
 Di conseguenza, per l'apprendimento di un \acs{CTNBC} è richiesto uno sforzo computazionale minimo. Per l'apprendimento di un \acs{CTTANBC}, poiché questo modello prevede archi anche fra i nodi attributo, è invece richiesto uno sforzo computazionale leggermente maggiore~\citep{Stella2012}.
 
-Si presenta di seguito l'\autoref{lst:ctnbc-learning} relativo all'apprendimento di un \acs{CTNBC}.
+Si presenta di seguito l'\autoref{lst:ctnbc-learning} relativo all'apprendimento di un classificatore \acs{CTNB} (\myref[definizione]{defn:ctnbc}).
 
-Esso richiede in input un \emph{dataset completo} $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$, il corrispettivo insieme delle classi $\{\setel{y}_1\,,\,\setel{y}_2\,,\,\dotsc\,,\,\setel{y}_h\}$, con $\setel{y}_i \in val(\setel{Y})$, e il grafo $\conceptsym{G}$ di una \acs{CTBN} $\conceptsym{N}$.
+Esso richiede in input un \emph{dataset completo} $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$, il corrispettivo insieme delle classi $\{\setel{y}_1\,,\,\setel{y}_2\,,\,\dotsc\,,\,\setel{y}_h\}$, con $\setel{y}_i \in val(\setel{Y})$, e il grafo $\conceptsym{G}$ di una \acs{CTBN} $\conceptsym{N}$ (rispettivamente chiamati \lstinline[]|data|, \lstinline[]|classes| e \lstinline[]|graph| nella firma della funzione \lstinline[]|ctnbclearn|).
 
 Per completezza si osservi (\myref[in base alla definizione]{defn:dataset-completo}) che ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^{J_h})$ (a tal riguardo si veda \myref[la definizione]{defn:j-evidence-stream}).
 
 Il risultato dell'applicazione dell'\autoref{lst:ctnbc-learning} è un \acl{CTNBC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$.
-
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTNB}, label=lst:ctnbc-learning]
-function learn(data, classes, graph) {
-    var h = len(data)
-    var priors[len(classes)]
-    foreach (i in index(data)) {
-        var class = classes[i]
-        priors[class] = priors[class] + (1 / h)
-    }
-    var m(), t()
-    foreach (i in index(data)) {
-        var class = classes[i]
+function ctnbclearn(data, classes, graph) {
+    <ls>\label{lst:start-prior-computation}<le>var h = len(data)
+    var klass = unique(classes)
+    var nk = len(class)
+    var priors[nk]
+    for (i in index(data)) {
+        var k = index(classes[i])
+        priors[k] = priors[k] + (1 / h)
+    }<ls>\label{lst:end-prior-computation}<le>
+    <ls>\label{lst:start-ss-computation}<le>var m(), t()
+    for (i in index(data)) {
+        var y = classes[i]
         var j = 1
         while (<ls>$t_j \leq T_i$<le>) {
-            foreach (n in index(graph.nodes)) {
-                m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, class) = m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, class) + 1
-                t(<ls>$\setel{x}_n^j$<le>, class) = t(<ls>$\setel{x}_n^j$<le>, class) + <ls>$(t_j - t_{j-1})$<le>
+            for (n in index(graph.nodes)) {
+                m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, y) = m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, y) + 1
+                t(<ls>$\setel{x}_n^j$<le>, y) = t(<ls>$\setel{x}_n^j$<le>, y) + <ls>$(t_j - t_{j-1})$<le>
             }
             j = j + 1
         }
-    }
-    var q(), thet()
-    foreach (k in index(classes)) {
-        foreach (n in index(graph.nodes)) {
+    }<ls>\label{lst:end-ss-computation}<le>
+    <ls>\label{lst:start-params-computation}<le>var q(), thet()
+    foreach (y in klass) {
+        for (n in index(graph.nodes)) {
             for (<ls>$\setel{x}_n$<le> in <ls>$val(\setel{X}_n)$<le>) {
-                var mm(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>) = <ls>$\sum_{\setel{x}_n^{\prime}\neq\setel{x}_n}$<le> m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, <ls>$\setel{y}_k$<le>)
-                q(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>) = mm(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>) / t(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>)
-                thet(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>) = m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, <ls>$\setel{y}_k$<le>) / mm(<ls>$\setel{x}_n$<le>, <ls>$\setel{y}_k$<le>)
+                var mm(<ls>$\setel{x}_n$<le>, y) = <ls>$\sum_{\setel{x}_n^{\prime}\neq\setel{x}_n}$<le> m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, y)
+                q(<ls>$\setel{x}_n$<le>, y) = mm(<ls>$\setel{x}_n$<le>, y) / t(<ls>$\setel{x}_n$<le>, y)
+                thet(<ls>$\setel{x}_n$<le>, y) = m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, y) / mm(<ls>$\setel{x}_n$<le>, y)
             }
         }
-    }
+    }<ls>\label{lst:end-params-computation}<le>
     var ctbn = new ctbn(graph, q, thet)
     return (priors, ctbn)
 }
 \end{lstlisting}
 
+L'algoritmo di apprendimento appena presentato consiste nella stima delle \cim{} (\acs{CIM}) di ogni variabile casuale di $\conceptsym{N}$ per ogni classe $\setel{y}_i \in \setel{Y}$. Più in dettaglio, esso è composto da tre fasi consecutive:
+\begin{enumerate}
+    \item da \autoref{lst:start-prior-computation} a \autoref{lst:end-prior-computation} viene calcolata la \emph{probabilità a priori} della variabile classe $\setel{Y}$ in base alla frequenza di ogni sua istanziazione $\setel{y}_i \in\setel{Y}$ in $\conceptsym{D}$
+    \item da \autoref{lst:start-ss-computation} a \autoref{lst:end-ss-computation} vengono calcolate le \emph{statistiche sufficienti} di ogni nodo attributo $\setel{X}_i$, con $i=1,2,\,\dotsc\,,N$, sull'insieme di dati di apprendimento (anche detto \emph{\keywordsub[classificazione]{training set}}) $\conceptsym{D}$
+    \item da \autoref{lst:start-params-computation} a \autoref{lst:end-params-computation} vengono infine stimati, a partire dalle statistiche sufficienti, i \emph{parametri \acl{MLE}} (\acs{MLE}).
+\end{enumerate}
+Si osservi che, poiché il processo di apprendimento è eseguito su un classificatore \acs{CTNB}, l'algoritmo condiziona sia il calcolo delle statistiche sufficienti (\ie{} variabili \lstinline[]|t| e \lstinline[]|m|) che la stima dei parametri (\ie{} variabili \lstinline[]|q| e \lstinline[]|thet|) di ogni nodo attributo $\setel{X}_i$ solo ed esclusivamente al valore della variabile classe $\setel{Y}$ (\ie{} variabile \lstinline[]|y|). Questa semplificazione è dovuta al vincolo che caratterizza i classificatori \acs{CTNB}: ogni nodo attributo $\setel{X}_i$ deve avere un solo genitore, il nodo associato alla variabile classe $\setel{Y}$ (si veda la \myref[definizione]{defn:ctnbc}).
+
+Come anticipato, al costo di un leggero incremento di complessità computazionale, è possibile estendere l'\autoref{lst:ctnbc-learning} al fine di creare un algoritmo di apprendimento generale che apprenda un qualsiasi classificatore \acs{CTBN}. Affinché tale obiettivo sia raggiunto è necessario rimuovere il succitato vincolo sull'insieme dei genitori di ogni nodo attributo.
+
+% ciò che ne risente sono step 2 e step 3, perché ? spiegare nel frattempo, poi prensentare algoritmo e ciao sezione 3.2
+
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTBN}, label=lst:ctbnc-learning]
 function learn(data, classes, graph) {
     var h = len(data)
-    var n = len(graph.nodes)
-    var priors[len(classes)]
-    foreach (i in index(data)) {
-        var class = classes[i]
-        priors[class] = priors[class] + (1 / h)
+    var klass = unique(classes)
+    var nk = len(class)
+    var priors[nk]
+    for (i in index(data)) {
+        var k = index(classes[i])
+        priors[k] = priors[k] + (1 / h)
     }
     var m(), t()
     foreach (i in index(data)) {
@@ -173,14 +187,7 @@ function learn(data, classes, graph) {
 }
 \end{lstlisting}
 
-% TODO CTBNC (!!!) learning generico non ne abbiamo? si ..
 % TODO chiaramente utilizzando questo più generale (CTBNC learning) per il learning CTNB il risultato è lo stesso, il ciclo a linea 24 infatti, in tal caso ciclerà solo sulle istanziazioni della classe quando X_n = x_n (giusto?)
-
-Algoritmo di learning
-Consiste nella stima della CIM (e quindi delle Sufficient Statistics) per
-ogni classe yj in val(Y) e per ogni variabile casuale di R
-
-%VEDI Friedman1997
 
 \section{Inferenza}\label{sec:inference-ctbnc}
 ...
