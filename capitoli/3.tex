@@ -96,7 +96,7 @@ Si presenta di seguito l'\autoref{lst:ctnbc-learning} relativo all'apprendimento
 
 Esso richiede in input un \emph{dataset completo} $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$, il corrispettivo insieme delle classi $\{\setel{y}_1\,,\,\setel{y}_2\,,\,\dotsc\,,\,\setel{y}_h\}$, con $\setel{y}_i \in val(\setel{Y})$, e il grafo $\conceptsym{G}$ di una \acs{CTBN} $\conceptsym{N}$ (rispettivamente chiamati \lstinline[]|data|, \lstinline[]|classes| e \lstinline[]|graph| nella firma della funzione \lstinline[]|ctnbclearn|).
 
-Per completezza si osservi (\myref[in base alla definizione]{defn:dataset-completo}) che ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^{J_h})$ (a tal riguardo si veda \myref[la definizione]{defn:j-evidence-stream}).
+Per completezza si osservi (\myref[in base alla definizione]{defn:dataset-completo}) che ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un flusso di evidenze $\evidencestream{J_i}$ (a tal riguardo si veda \myref[la definizione]{defn:j-evidence-stream}).
 
 Il risultato dell'applicazione dell'\autoref{lst:ctnbc-learning} è un \acl{CTNBC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$.
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTNB}, label=lst:ctnbc-learning]
@@ -154,7 +154,14 @@ Nello specifico:
 Si riporta di seguito l'\autoref{lst:ctbnc-learning}, il quale include le succitate modifiche finalizzate alla creazione di un algoritmo di apprendimento generale per i \acs{CTBNC}.
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTBN}, label=lst:ctbnc-learning]
 function learn(data, classes, graph) {
-    ...
+    var h = len(data)
+    var klass = unique(classes)
+    var nk = len(class)
+    var priors[nk]
+    for (i in index(data)) {
+        var k = index(classes[i])
+        priors[k] = priors[k] + (1 / h)
+    }
     var m(), t()
     foreach (i in index(data)) {
         var j = 1
@@ -183,7 +190,19 @@ function learn(data, classes, graph) {
 \end{lstlisting}
 
 \section{Inferenza}\label{sec:inference-ctbnc}
-In questa sezione si affronta il problema della \emph{\keyword{classificazione}} (o \emph{\keywordsub[classificazione]{inferenza esatta}}) da un $J$-evidence-stream completamente osservato.
+In questa sezione si affronta il problema della \emph{\keyword{classificazione}} (o \emph{\keywordsub[classificazione]{inferenza} esatta}) di un \emph{flusso di evidenze completamente osservato} che, indicato con $\evidencestream{J}$ come da \myref[definizione]{defn:j-evidence-stream}.
+
+Il processo di classificazione è effettuato in base alla regola \emph{\acl{MAP}}\footnote{\ACF{MAP}, \omissis} (\acs{MAP}). La probabilità $P(\setel{Y}\,\arrowvert\,\evidencestream{J})$ viene calcolata per tutti gli stati della variabile classe $\setel{Y}$ del classificatore \acs{CTBN} (\acs{CTBNC}) rispetto al quale si intende inferire la classe del flusso di evidenze in esame. Il classificatore \acs{CTBN} classifica perciò il flusso di evidenze massimizzando la probabilità a posteriori, ricavata applicando la \emph{\keywordsub[classificazione]{regola di Bayes}}:
+\begin{equation}\label{eq:ctbnc-inference-1}
+P(\setel{Y}\,\arrowvert\,\evidencestream{J})=\frac{P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})}{P(\evidencestream{J})}\text{,}
+\end{equation}
+dove $P(\setel{Y})$ è la probabilità marginale associata alla variabile classe $\setel{Y}$, $P(\evidencestream{J})$ è la probabilità del flusso di evidenze mentre $P(\evidencestream{J}\,\arrowvert\,\setel{Y})$ è la likelihood\cref{note:likelihood} del flusso di evidenze data la conoscenza del valore della variabile classe.
+
+La probabilità del flusso di evidenze, similmente a quanto accade per i \acs{BNC}~\citep{Friedman1997}, non è richiesta per l'implementazione della regola \acs{MAP}, perciò è possibile ometterla e riscrivere l'\autoref{eq:ctbnc-inference-1} come una relazione proporzionale:
+\begin{equation}\label{eq:ctbnc-inference-2}
+P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\evidencestream{J}\,\arrowvert\,\setel{Y})
+\end{equation}
+
 
 Si presenta di seguito l'\autoref{lst:ctbnc-inference}, il quale permette di compiere inferenza esatta su un qualsiasi classificatore \acs{CTBN}.
 \begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]

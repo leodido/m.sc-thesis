@@ -120,7 +120,7 @@
 
 % note
 \theoremstyle{remark}
-\newtheorem{nota}{Nota}[definizione]
+\newtheorem{notabene}{Nota}[definizione]
 
 % teoremi (serve il pacchetto amsthm)
 \newtheoremstyle{classicthm}% Nome
@@ -222,6 +222,9 @@
 \providecommand*{\lstlistingautorefname}{algoritmo}
 \providecommand*{\lstnumberautorefname}{linea}
 
+\addto\extrasitalian{%
+  \def\equationautorefname{equazione}%
+}
 
 %*********************************************************************************
 % Impostazioni di hyperref
@@ -275,14 +278,14 @@
 %*********************************************************************************
 % Equation references
 %*********************************************************************************
-\let\originaleqref\eqref
-\renewcommand\eqref[2][]{%
-    \ifstrempty{#1}{%
-        \ref{#2}%
-    }{%
-        #1~\ref{#2}%
-    }%
-}
+% \let\originaleqref\eqref
+% \renewcommand\eqref[2][]{%
+%     \ifstrempty{#1}{%
+%         \ref{#2}%
+%     }{%
+%         #1~\ref{#2}%
+%     }%
+% }
 
 %*********************************************************************************
 % Custom references
@@ -306,7 +309,8 @@
 %*********************************************************************************
 % ...
 \newcommand{\omissis}{\dots\negthinspace}
-\newcommand{\qmarks}[1]{``#1''}
+\newcommand{\virgolette}[1]{``#1''}
+\newcommand{\caporali}[1]{«#1»}
 
 %
 \newcommand{\ie}{i.\,e.}
@@ -364,6 +368,8 @@
 % FIXME: fare (e usare) comandi per hyper-parameters
 % \newcommand{\qparam}[2]{q_{#1\,|\,#2}}
 % \newcommand{\tparam}[3]{\theta}
+
+\newcommand{\evidencestream}[1]{(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^{#1})}
 
 %*********************************************************************************
 % Eccezioni all'algoritmo di sillabazione

@@ -26,7 +26,7 @@ Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un \
 \subsection{\bn{}}
 \label{sec:bn}
 Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}\footnote{Un grafo aciclico orientato (anche detto grafo aciclico diretto o digrafo aciclico) è un tipo di grafo che non presenta cicli diretti: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.}. I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi evidenziano le dipendenze (e le indipendenze) condizionali fra esse~\citep{Korb2011}.
-Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità \cond*{} di ognuna di essa (si veda \eqref[l'equazione]{eq:bn-chain-rule}).
+Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità \cond*{} di ognuna di essa (si veda l'\autoref{eq:bn-chain-rule}).
 Le \acs{BN} sono quindi modelli grafico probabilistici con cui è possibile modellare in modo probabilistico le relazioni causali tra variabili. Esse risultano molto utili nella rappresentazione e analisi di domini caratterizzati da incertezza. Sono infatti usate in svariate applicazioni di supporto alle decisioni, bioinformatica, biologia computazionale, data mining, information retrieval e \keyword{classificazione}.
 
 \subsubsection{Rappresentazione}
@@ -68,11 +68,11 @@ Ripetendo tale processo per ogni termine finale si ottiene:
 \set{P}\big(\bigcap_{k=1}^{n}\setel{A_k}\big)=\prod_{k=1}^{n}\set{P}\big(\setel{A_k}\,\arrowvert\,\bigcap_{j=1}^{k-1}\setel{A_j}\big)
 \end{equation}
 
-Applicando \eqref[l'equazione]{eq:chain-rule} alle \acl{BN} diciamo che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
+Applicando l'\autoref{eq:chain-rule} alle \acl{BN} diciamo che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
 \begin{equation}\label{eq:bn-chain-rule}
 \set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}\,\arrowvert\,Pa(\setel{X_i}))\text{.}
 \end{equation}
-\eqref[L'equazione]{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, detta \emph{distribuzione di probabilità globale}, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi~\citep[][sezione 14.2]{Russel2003}, dette \emph{distribuzioni di probabilità locali}. Questa proprietà contiene in sè il concetto di \emph{proprietà di Markov} (si veda \myref[la definizione]{defn:markov-assumption}), il quale attesta che ogni nodo di una \acl{BN} dipende solo ed esclusivamente dai suoi nodi genitori~\citep[][sezione 2.2.4]{Korb2011}. Si noti inoltre, che le \acl{BN} richiedono (\acs{DAG}, \myref[definizione]{defn:bn}) che la loro componente $\conceptsym{G}$ non contenga cicli  affinché possano rispettare tale proprietà~\citep[][sezione 14.1]{Russel2003}.
+L'\autoref{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, detta \emph{distribuzione di probabilità globale}, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi~\citep[][sezione 14.2]{Russel2003}, dette \emph{distribuzioni di probabilità locali}. Questa proprietà contiene in sè il concetto di \emph{proprietà di Markov} (si veda \myref[la definizione]{defn:markov-assumption}), il quale attesta che ogni nodo di una \acl{BN} dipende solo ed esclusivamente dai suoi nodi genitori~\citep[][sezione 2.2.4]{Korb2011}. Si noti inoltre, che le \acl{BN} richiedono (\acs{DAG}, \myref[definizione]{defn:bn}) che la loro componente $\conceptsym{G}$ non contenga cicli  affinché possano rispettare tale proprietà~\citep[][sezione 14.1]{Russel2003}.
 
 Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi genitori, è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito introduciamo tale concetto formalmente.
 \begin{definizione}[Indipendenza \cond*{}]\label{defn:ic}
@@ -105,7 +105,7 @@ Il problema dell'apprendimento per le \acl{BN} si divide principalmente in due c
     \item apprendere le \acs{CPD}, nota la struttura
     \item apprendere sia le \acs{CPD}, sia la struttura (incognita).
 \end{itemize}
-In entrambi i casi è di grande aiuto la rappresentazione efficiente delle \acl{BN} che, tramite la \emph{fattorizzazione} della distribuzione di probabilità congiunta, permette di rappresentarla in modo compatto (tramite \eqref[l'equazione]{eq:bn-chain-rule}) riducendo notevolmente il numero di parametri da calcolare.
+In entrambi i casi è di grande aiuto la rappresentazione efficiente delle \acl{BN} che, tramite la \emph{fattorizzazione} della distribuzione di probabilità congiunta, permette di rappresentarla in modo compatto (tramite l'\autoref{eq:bn-chain-rule}) riducendo notevolmente il numero di parametri da calcolare.
 
 Come detto, per specificare completamente una \acl{BN} è necessario rappresentare completamente la distribuzione di probabilità congiunta delle sue variabili tramite la \acl{CPD} di ognuna di esse. In generale, tali distribuzioni condizionali possono avere una qualsiasi forma anche se, al fine di semplificare i calcoli, è comune utilizzare distribuzioni discrete o Gaussiane per modellarle. Nel caso in cui i dati siano parzialmente osservabili solitamente si procede tramite l'algoritmo di \acf{EM}, il quale alterna il calcolo dei valori attesi delle variabili casuali non osservate condizionalmente ai dati osservati con la massimizzazione della likelihood. Tale approccio generalmente converge ai valori di massima probabilità a posteriori per i parametri~\citep[si veda][]{Dempster1977}.
 
@@ -222,7 +222,7 @@ Quindi una \im*{} induce una distribuzione di probabilità locale fattorizzata i
     \item $\theta_{x_{ij}}$, che esprime la \emph{distribuzione di probabilità multinomiale} tra coppie di stati $i \neq j$.
 \end{itemize}
 
-Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (\eqref[vale l'equazione]{eq:homogeneus-markov-process}).
+Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (vale l'\autoref{eq:homogeneus-markov-process}).
 
 \begin{definizione}[\upcase\mprocess*{} \cond*{}]
 \label{defn:conditional-markov-process}
@@ -279,13 +279,18 @@ Partizionamento di un intervallo temporale $[\,0,\,T)$ in $J$ intervalli chiusi 
 [\,0,\,t_1)\:;\:[\,t_1,\,t_2)\:;\:\dotsc\:;\:[\,t_{J-1},\,T)\text{.}
 \]
 \end{definizione}
-\begin{nota}
-\`E possibile riferirsi a tale concetto anche tramite l'espressione \emph{\qmarks{insieme dei segmenti temporali}}.
-\end{nota}
+\begin{notabene}
+\`E possibile riferirsi a tale concetto anche tramite l'espressione \emph{\virgolette{insieme dei \keywordsub[definizione]{segmenti temporali}}}.
+\end{notabene}
 \begin{definizione}[$J$-evidence-stream]\label{defn:j-evidence-stream}
-Dato un $J$-time-segment composto da $J$ intervalli temporali e una \pv{} $\set{X}$ composta da $N$ variabili casuali, un $J$-evidence-stream è l'insieme delle istanziazioni comuni $\set{X}=\set{x}$ associate ad ogni $J$-time-segment per ogni sottoinsieme delle variabili casuali~\citep{Stella2012}. \`E denotato con $(\set{X}^1=\set{x}^1\,,\,\set{X}^2=\set{x}^2\,,\,\dotsc\,,\,\set{X}^J=\set{x}^J)$, o più concisamente $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$.
+Dato un insieme di segmenti temporali composto da $J$ intervalli e una \pv{} $\set{X}$ composta da $N$ variabili casuali, un \emph{$J$-evidence-stream} è l'insieme delle istanziazioni comuni $\set{X}=\set{x}$ associate ad ogni intervallo temporale per ogni sottoinsieme delle variabili casuali~\citep{Stella2012}. \`E denotato con $(\set{X}^1=\set{x}^1\,,\,\set{X}^2=\set{x}^2\,,\,\dotsc\,,\,\set{X}^J=\set{x}^J)$, o più concisamente $\evidencestream{J}$.
 \end{definizione}
-Un $J$-evidence-stream $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$ è detto essere completamente osservato (\ie{} \emph{fully observed}) se lo stato di tutte le variabili $\setel{X_n}\in\set{X}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un $J$-evidence-stream è detto parzialmente osservato (\ie{} \emph{partially observed}).
+\begin{notabene}
+\`E possibile riferirsi a tale concetto anche tramite l'espressione \emph{\virgolette{flusso di evidenze}}.
+\end{notabene}
+\begin{notabene}
+Un flusso di evidenze $\evidencestream{J}$. è detto essere \emph{completamente osservato} se lo stato di tutte le variabili $\setel{X_n}\in\set{X}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un flusso di evidenze è detto \emph{parzialmente osservato}.
+\end{notabene}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Rappresentazione}
@@ -352,7 +357,7 @@ Chiaramente, il numero totale di transizioni si calcola come sopra.
 
 \subsection{Likelihood}
 \label{sec:ctbn-likelihood}
-Al fine di presentare il calcolo della likelihood\footnote{La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \mprocess*{} \omog*{} $\setel{X}(t)$.
+Al fine di presentare il calcolo della likelihood\footnote{\label{note:likelihood}La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \mprocess*{} \omog*{} $\setel{X}(t)$.
 
 \subsubsection{Likelihood di una singola transizione}
 \label{sec:ctbn-likelihood-single-trans-single-hmp}
@@ -366,7 +371,7 @@ L_{\setel{X}}(q\,,\,\theta:d) &= L_{\setel{X}}(q:d)\,L_{\setel{X}}(\theta:d) \\
 % &= \exp(-q_{x_d}\,t_d)\,q_{x_{d}x_{d^{\prime}}}
 \end{split}
 \end{equation}
-Si noti che \eqref[l'equazione]{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{funzione di distribuzione di probabilità} di $\setel{X}(t)$ (\eqref[equazione]{eq:im-distrib}) per la \emph{<<probabilità istantanea>>} di transizione (si veda \myref[la definizione]{defn:im}).
+Si noti che l'\autoref{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{funzione di distribuzione di probabilità} di $\setel{X}(t)$ (\autoref{eq:im-distrib}) per la \emph{<<probabilità istantanea>>} di transizione (si veda \myref[la definizione]{defn:im}).
 
 \subsubsection{Likelihood di un dataset completo}
 \label{sec:ctbn-likelihood-dataset}
@@ -395,7 +400,7 @@ Il termine $L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conce
 L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \]
 
-Per quanto riguarda il calcolo di $L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso da $X$ in uno determinato stato $x$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $Pa(\setel{X})$). \`E quindi necessario considerare la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $Pa(\setel{X})$ non effettuano alcuna transizione di stato~\citep[si veda][3]{Nodelman2002}. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale \eqref[(si veda l'equazione]{eq:im-distrib}):
+Per quanto riguarda il calcolo di $L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso da $X$ in uno determinato stato $x$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $Pa(\setel{X})$). \`E quindi necessario considerare la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $Pa(\setel{X})$ non effettuano alcuna transizione di stato~\citep[si veda][3]{Nodelman2002}. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale (\autoref{eq:im-distrib}):
 \[
 1-F(t)=\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})} \cdot t)\text{.}
 \]
