@@ -183,22 +183,16 @@ function learn(data, classes, graph) {
 \end{lstlisting}
 
 \section{Inferenza}\label{sec:inference-ctbnc}
-% ...
-% oss.: ottimo trade-off fra complessità computazionale e performance di
-% classificazione
+In questa sezione si affronta il problema della \emph{\keyword{classificazione}} (o \emph{\keywordsub[classificazione]{inferenza esatta}}) da un $J$-evidence-stream completamente osservato.
 
-% oss.: Y è l'unica variabile non osservata in caso di classificazione su
-% dati completi
-% oss.: possibile sfruttare l'indipendenza condizionale come nelle BNs
-
-
+Si presenta di seguito l'\autoref{lst:ctbnc-inference}, il quale permette di compiere inferenza esatta su un qualsiasi classificatore \acs{CTBN}.
 \begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
 function infer() {
     var logp[len(classes)]
-    foreach (k in index(classes)) {
+    for (k in index(classes)) {
         logp[k] = log(classes[k])
     }
-    foreach (k in index(classes)) {
+    for (k in index(classes)) {
         for (j in index(timeseg)) {
             for (n in 1:N) {
                 logp[k] = logp[k] - <ls>$q_{x_{n_j}}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
@@ -214,7 +208,13 @@ function infer() {
 
 % timeseg è il fully observed j-time-segment (si considera già calcolato)
 
-...
+% ...
+% oss.: ottimo trade-off fra complessità computazionale e performance di
+% classificazione
+
+% oss.: Y è l'unica variabile non osservata in caso di classificazione su
+% dati completi
+% oss.: possibile sfruttare l'indipendenza condizionale come nelle BNs
 
 % TODO
 % They implement a trade-off between computational complexity and classification accuracy.

@@ -276,10 +276,12 @@ Prima di presentare le \acl{CTBN} come una collezione di \ctmp{} non \omog{} e c
 \begin{definizione}[$J$-time-segment]\label{defn:j-time-segment}
 Partizionamento di un intervallo temporale $[\,0,\,T)$ in $J$ intervalli chiusi a sinistra:
 \[
-[\,0,\,t_1)\:;\:[\,t_1,\,t_2)\:;\:\dotsc\:;\:[\,t_{J-1},\,T)
+[\,0,\,t_1)\:;\:[\,t_1,\,t_2)\:;\:\dotsc\:;\:[\,t_{J-1},\,T)\text{.}
 \]
 \end{definizione}
-
+\begin{nota}
+\`E possibile riferirsi a tale concetto anche tramite l'espressione \emph{\qmarks{insieme dei segmenti temporali}}.
+\end{nota}
 \begin{definizione}[$J$-evidence-stream]\label{defn:j-evidence-stream}
 Dato un $J$-time-segment composto da $J$ intervalli temporali e una \pv{} $\set{X}$ composta da $N$ variabili casuali, un $J$-evidence-stream è l'insieme delle istanziazioni comuni $\set{X}=\set{x}$ associate ad ogni $J$-time-segment per ogni sottoinsieme delle variabili casuali~\citep{Stella2012}. \`E denotato con $(\set{X}^1=\set{x}^1\,,\,\set{X}^2=\set{x}^2\,,\,\dotsc\,,\,\set{X}^J=\set{x}^J)$, o più concisamente $(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^J)$.
 \end{definizione}
