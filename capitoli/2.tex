@@ -173,7 +173,7 @@ Un \mprocess*{} è detto \emph{\omog*{}} qualora $\set{P}(\setel{X}(t + \Delta t
 \set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))=\set{P}(\setel{X}(\Delta t)\,\arrowvert\,\setel{X}(0))\text{.}
 \end{equation}
 \end{definizione}
-Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})=\{\,\vectel{x_1}\,,\,\dotsc\,,\,\vectel{x_J}\,\}$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definibile in termini di:
+Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazioni $val(\setel{X})=\{\,\vectel{x}_1\,,\,\dotsc\,,\,\vectel{x}_J\,\}$, $\setel{X}(t)$ è un processo di Markov \emph{omogeneo, a tempo continuo e stati finiti} se e solo se la sua dinamica è definibile in termini di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ su $val(\setel{X})$
     \item una \im*{} $\imsign{\setel{X}}$.
@@ -185,10 +185,10 @@ Una \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}:
 \[
 \imsign{\setel{X}}=
 \begin{bmatrix}
-    -q_{x_1}    & q_{x_1x_2}& \cdots & q_{x_1x_k}   \\[0.5em]
-    q_{x_2x_1}  & -q_{x_2}  & \cdots & q_{x_2x_k}   \\[0.5em]
+    -q_{\setel{x}_1}    & q_{\setel{x}_1\setel{x}_2}& \cdots & q_{\setel{x}_1\setel{x}_k}   \\[0.5em]
+    q_{\setel{x}_2\setel{x}_1}  & -q_{\setel{x}_2}  & \cdots & q_{\setel{x}_2\setel{x}_k}   \\[0.5em]
     \vdots      & \vdots    & \ddots & \vdots       \\[0.5em]
-    q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
+    q_{\setel{x}_k\setel{x}_1}  & q_{\setel{x}_k\setel{x}_2}& \cdots & -q_{\setel{x}_k}
 \end{bmatrix}\text{.}
 \]
 Lo scopo di un \im*{} è descrivere il comportamento transiente di $\setel{X}$, un \mprocess*{} \omog*{}.
@@ -196,33 +196,38 @@ Lo scopo di un \im*{} è descrivere il comportamento transiente di $\setel{X}$, 
 
 Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$:
 \[
-q_{x_i}=\sum_{i \neq j}q_{x_ix_j}\quad\text{con}\quad q_{x_i}\,,\,q_{x_ix_j}>0\text{.}
+q_{\setel{x}_i}=\sum_{i \neq j}q_{\setel{x}_i\setel{x}_j}\quad\text{con}\quad q_{\setel{x}_i}\,,\,q_{\setel{x}_i\setel{x}_j}>0\text{.}
 \]
 
-Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=x_i$ allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $x_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $q_{x_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $X$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $x$ la probabilità che $X$ assuma valori minori o uguali ad $x$.} $F$ sono:
+Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=\setel{x}_i$ allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $\setel{x}_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $q_{\setel{x}_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $X$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $x$ la probabilità che $X$ assuma valori minori o uguali ad $x$.} $F$ sono:
 \begin{equation}
 \label{eq:im-distrib}
 \begin{split}
-f(t) &= q_{x_i}\,\exp(-q_{x_i}\,t)\,,\quad t>0 \\
-F(t) &= 1-\exp(-q_{x_i}\,t)\,,\quad t\geq0\text{.}
+f(t) &= q_{\setel{x}_i}\,\exp(-q_{\setel{x}_i}\,t)\,,\quad t>0 \\
+F(t) &= 1-\exp(-q_{\setel{x}_i}\,t)\,,\quad t\geq0\text{.}
 \end{split}
 \end{equation}
 
-Mentre gli elementi sulla diagonale, $q_{x_i}$, codificano una quantità che può essere interpretata come la \emph{\virgolette{probabilità istantanea}} che $\setel{X}$ abbandoni lo stato $x_i$, gli elementi non sulla diagonale, $q_{x_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $x_i$ allo stato $x_j$.
+Mentre gli elementi sulla diagonale, $q_{\setel{x}_i}$, codificano una quantità che può essere interpretata come la \emph{\virgolette{probabilità istantanea}} che $\setel{X}$ abbandoni lo stato $\setel{x}_i$, gli elementi non sulla diagonale, $q_{\setel{x}_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$.
 
 Possiamo quindi calcolare:
 \begin{itemize}
-    \item il \emph{tempo atteso} di una transizione uscente dallo stato $x_i$ \[1/q_{x_i}\]
-    \item la \emph{\virgolette{probabilità istantanea}} di transizione dallo stato $x_i$ allo stato $x_j$ \[\theta_{x_ix_j}=q_{x_ix_j}/q_{x_i}\text{.}\]
+    \item il \emph{tempo atteso} di una transizione uscente dallo stato $\setel{x}_i$ \[1/q_{\setel{x}_i}\]
+    \item la \emph{\virgolette{probabilità istantanea}} di transizione dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$ \[\theta_{\setel{x}_i\setel{x}_j}=q_{\setel{x}_i\setel{x}_j}/q_{\setel{x}_i}\text{.}\]
 \end{itemize}
 
 Quindi una \im*{} induce una distribuzione di probabilità locale fattorizzata in due parti:
 \begin{itemize}
-    \item $q_{x_i}$, che esprime quando avvengono le transizioni attraverso una \emph{distribuzione di probabilità esponenziale}
-    \item $\theta_{x_{ij}}$, che esprime la \emph{distribuzione di probabilità multinomiale} tra coppie di stati $i \neq j$.
+    \item $q_{\setel{x}_i}$, che esprime quando avvengono le transizioni attraverso una \emph{distribuzione di probabilità esponenziale}
+    \item $\theta_{\setel{x}_{ij}}$, che esprime la \emph{distribuzione di probabilità multinomiale} tra coppie di stati $i \neq j$.
 \end{itemize}
-
-Si osservi infine come la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (vale l'\autoref{eq:homogeneus-markov-process}).
+La matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (vale l'\autoref{eq:homogeneus-markov-process}).
+\begin{osservazione}
+L'\emph{ordine} di una matrice di intensità corrisponde a $k=|val(\setel{X})|\,$, la cardinalità dell'insieme dei valori assunti da $\setel{X}$.
+\end{osservazione}
+\begin{osservazione}\label{oss:squared-im}
+Nel caso in cui $k=2$, la \im*{} $\imsign{\setel{X}}$ è quindi una matrice $2\times2$. Di conseguenza, poiché ogni riga di $\imsign{\setel{X}}$ somma a $0$ per definizione, le \emph{\virgolette{probabilità istantanee}} di transizione fra gli stati di $\setel{X}$ sono sempre pari a $1$.
+\end{osservazione}
 
 \begin{definizione}[\upcase\mprocess*{} \cond*{}]
 \label{defn:conditional-markov-process}
@@ -251,11 +256,23 @@ q_{\setel{x}_k\setel{x}_1}^{pa_i(\setel{x})} & q_{\setel{x}_k\setel{x}_2}^{pa_i(
 \text{.}
 \]
 \end{definizione}
-Si noti infine come l'\emph{ordine} di una matrice di intensità corrisponde a $k$, la cardinalità dell'insieme dei valori assunti da $\setel{X}$.
-\begin{esempio}[Matrice di intensità \cond*{}]\label{ex:cim}
-bla bla
+Di seguito si presenta un breve esempio finalizzato alla comprensione pratica delle \cim{} (\acs{CIM}) e del loro scopo.
+\begin{esempio}\label{ex:cim}\hfill\\
+Date due variabili causali, $\setel{E}(t)$ e $\setel{H}(t)$, delle quali la prima modella l'eventualità che un individuo stia mangiando o meno (se $\setel{e}=2$ allora l'individuo sta mangiando, viceversa se $\setel{e}=1$) mentre la seconda modella l'eventualità che lo stesso individuo abbia fame o meno (se $\setel{h}=2$ allora l'individuo è affamato, viceversa se $\setel{h}=1$) e la \cim*{} $\cimsign{\setel{E}}{\setel{H}}$, che è un insieme composto dalle seguenti \im{}:
+\[
+\cimsign{\setel{E}}{h=1}=\begin{bmatrix}-0.01 & 0.01 \\ 10 & -10\end{bmatrix}
+\hspace*{30pt}
+\cimsign{\setel{E}}{h=2}=\begin{bmatrix}-2 & 2 \\ 0.01 & -0.01\end{bmatrix}
+\text{,}
+\]
+è possibile calcolare la probabilità degli eventi della variabile casuale $\setel{E}$ condizionatamente all'evidenza che si possiede sulla variabile casuale $\setel{H}$.
+
+Ad esempio, ipotizzando che l'unità temporale corrisponda a una ora:
+\begin{itemize}
+    \item un individuo affamato ($\setel{h}=2$) che non sta mangiando ($\setel{e}=1$) inizierà a mangiare in 30 minuti poiché \[\frac{1}{q_{\setel{e}=1\,\arrowvert\,\setel{h}=2}}=\frac{1}{2}\:\text{,}\]
+    \item un individuo non affamato ($\setel{h}=1$) che sta mangiando ($\setel{e}=2$) smetterà di mangiare ($\setel{e}=1$) entro 6 minuti poiché \[\frac{1}{q_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{1}{10}\:\text{;}\] si osservi che la\emph{\virgolette{probabilità istantanea}} di transizione da $\setel{e}=2$ a $\setel{e}=1$, come già evidenziato dall'\autoref{oss:squared-im}, è \[\theta_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}=\frac{q_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}}{q_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{10}{10}=1\text{.}\]
+\end{itemize}
 \end{esempio}
-Prova autoref: \autoref{ex:cim}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Definizioni preliminari}
@@ -310,7 +327,7 @@ Una \acs{CTBN} è composta principalmente da due componenti:
 Più formalmente si definisce:
 \begin{definizione}[\acl{CTBN}]
 \label{defn:ctbn}
-Data una \pv{} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$ a tempo continuo e con spazio degli stati finito $val(\setel{X_n})=\{\,\vectel{x_1}\,,\,\dotsc\,,\,\vectel{x_J}\,\}$ (dove $n=1\,,\,\dotsc\,,\,N$), una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
+Data una \pv{} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$ a tempo continuo e con spazio degli stati finito $val(\setel{X_n})=\{\,\vectel{\setel{x}_1}\,,\,\dotsc\,,\,\vectel{\setel{x}_J}\,\}$ (dove $n=1\,,\,\dotsc\,,\,N$), una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ specificata come una \bn{} $\conceptsym{B}$ su $\set{X}$
     \item un modello di transizione a tempo continuo, specificato da:
@@ -365,14 +382,14 @@ Al fine di presentare il calcolo della likelihood\footnote{\label{note:likelihoo
 
 \subsubsection{Likelihood di una singola transizione}
 \label{sec:ctbn-likelihood-single-trans-single-hmp}
-Data una tripla $d=\langle \,x_{d}\,,\,t_d\,,\,x_{d^{\prime}}\,\rangle\in\conceptsym{D}$, la quale esprime una transizione di $\setel{X}(t)$ da $x_d$ a $x_{d^{\prime}}$ dopo che esso ha trascorso $t_d$ tempo in $x_d$, è possibile scrivere la likelihood di questa singola transizione $d$ in funzione dei parametri (\ref{sec:ctbn-params}):
+Data una tripla $d=\langle \,\setel{x}_{d}\,,\,t_d\,,\,\setel{x}_{d^{\prime}}\,\rangle\in\conceptsym{D}$, la quale esprime una transizione di $\setel{X}(t)$ da $\setel{x}_d$ a $\setel{x}_{d^{\prime}}$ dopo che esso ha trascorso $t_d$ tempo in $\setel{x}_d$, è possibile scrivere la likelihood di questa singola transizione $d$ in funzione dei parametri (\ref{sec:ctbn-params}):
 \begin{equation}
 \label{eq:ctbn-trans-hmm-likelihood}
 \begin{split}
 L_{\setel{X}}(q\,,\,\theta:d) &= L_{\setel{X}}(q:d)\,L_{\setel{X}}(\theta:d) \\
-&= q_{x_d}\,\exp(-q_{x_d}\,t_d)\,(\theta_{x_{d}x_{d^{\prime}}})\text{.}
-% &= q_{x_d}\,\exp(-q_{x_d}\,t_d)\,\Big(\frac{q_{x_{d}x_{d^{\prime}}}}{q_{x_d}}\Big) \\
-% &= \exp(-q_{x_d}\,t_d)\,q_{x_{d}x_{d^{\prime}}}
+&= q_{\setel{x}_d}\,\exp(-q_{\setel{x}_d}\,t_d)\,(\theta_{\setel{x}_{d}\setel{x}_{d^{\prime}}})\text{.}
+% &= q_{\setel{x}_d}\,\exp(-q_{\setel{x}_d}\,t_d)\,\Big(\frac{q_{\setel{x}_{d}\setel{x}_{d^{\prime}}}}{q_{\setel{x}_d}}\Big) \\
+% &= \exp(-q_{\setel{x}_d}\,t_d)\,q_{\setel{x}_{d}\setel{x}_{d^{\prime}}}
 \end{split}
 \end{equation}
 Si noti che l'\autoref{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{funzione di distribuzione di probabilità} di $\setel{X}(t)$ (\autoref{eq:im-distrib}) per la \emph{\virgolette{probabilità istantanea}} di transizione (si veda la \autoref{defn:im}).
