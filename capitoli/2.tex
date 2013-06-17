@@ -60,12 +60,12 @@ Dato un insieme di variabili casuali e una distribuzione di probabilità congiun
 
 Perciò, dato un insieme di variabili casuali $\setel{A_1},\dotsc,\setel{A_n}$ è possibile calcolare il valore di tale membro della distribuzione di probabilità congiunta applicando la definizione di probabilità \cond*{}:
 \[
-\set{P}(\setel{A_1},\dotsc,\setel{A_n})=\set{P}(\setel{A_n}\,\arrowvert\,\setel{A_{n-1}},\dotsc,\setel{A_1})\cdot\set{P}(\setel{A_{n-1}},\dotsc,\setel{A_1})
+\set{P}(\setel{A_1},\dotsc,\setel{A_n})=\set{P}(\setel{A_n}\,\arrowvert\,\setel{A_{n-1}},\dotsc,\setel{A_1})\cdot\set{P}(\setel{A_{n-1}},\dotsc,\setel{A_1})\text{.}
 \]
 Ripetendo tale processo per ogni termine finale si ottiene:
 \begin{equation}
 \label{eq:chain-rule}
-\set{P}\big(\bigcap_{k=1}^{n}\setel{A_k}\big)=\prod_{k=1}^{n}\set{P}\big(\setel{A_k}\,\arrowvert\,\bigcap_{j=1}^{k-1}\setel{A_j}\big)
+\set{P}\big(\bigcap_{k=1}^{n}\setel{A_k}\big)=\prod_{k=1}^{n}\set{P}\big(\setel{A_k}\,\arrowvert\,\bigcap_{j=1}^{k-1}\setel{A_j}\big)\text{.}
 \end{equation}
 
 Applicando l'\autoref{eq:chain-rule} alle \acl{BN} diciamo che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
@@ -189,14 +189,14 @@ Una \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}:
     q_{x_2x_1}  & -q_{x_2}  & \cdots & q_{x_2x_k}   \\[0.5em]
     \vdots      & \vdots    & \ddots & \vdots       \\[0.5em]
     q_{x_kx_1}  & q_{x_kx_2}& \cdots & -q_{x_k}
-\end{bmatrix}
+\end{bmatrix}\text{.}
 \]
 Lo scopo di un \im*{} è descrivere il comportamento transiente di $\setel{X}$, un \mprocess*{} \omog*{}.
 \end{definizione}
 
 Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$:
 \[
-q_{x_i}=\sum_{i \neq j}q_{x_ix_j}\quad\text{con}\quad q_{x_i}\,,\,q_{x_ix_j}>0
+q_{x_i}=\sum_{i \neq j}q_{x_ix_j}\quad\text{con}\quad q_{x_i}\,,\,q_{x_ix_j}>0\text{.}
 \]
 
 Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=x_i$ allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $x_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $q_{x_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $X$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $x$ la probabilità che $X$ assuma valori minori o uguali ad $x$.} $F$ sono:
@@ -204,7 +204,7 @@ Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento trans
 \label{eq:im-distrib}
 \begin{split}
 f(t) &= q_{x_i}\,\exp(-q_{x_i}\,t)\,,\quad t>0 \\
-F(t) &= 1-\exp(-q_{x_i}\,t)\,,\quad t\geq0
+F(t) &= 1-\exp(-q_{x_i}\,t)\,,\quad t\geq0\text{.}
 \end{split}
 \end{equation}
 
@@ -252,6 +252,10 @@ q_{\setel{x}_k\setel{x}_1}^{pa_i(\setel{x})} & q_{\setel{x}_k\setel{x}_2}^{pa_i(
 \]
 \end{definizione}
 Si noti infine come l'\emph{ordine} di una matrice di intensità corrisponde a $k$, la cardinalità dell'insieme dei valori assunti da $\setel{X}$.
+\begin{esempio}[Matrice di intensità \cond*{}]\label{ex:cim}
+bla bla
+\end{esempio}
+Prova autoref: \autoref{ex:cim}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Definizioni preliminari}

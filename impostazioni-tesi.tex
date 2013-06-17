@@ -124,6 +124,10 @@
 % \newtheorem{definizione}{Definizione}[section]
 \newtheorem{osservazione}{Osservazione}[definizione]
 
+% esempi
+\theoremstyle{definition}
+\newtheorem{esempio}{Esempio}[definizione]
+
 % note
 \theoremstyle{remark}
 \newtheorem{notabene}{Nota}[definizione]
@@ -284,17 +288,10 @@
 %*********************************************************************************
 % Custom references for \autoref
 %*********************************************************************************
-% \newcommand\myref[2][]{%
-%     \ifstrempty{#1}{%
-%         \ref{#2}%
-%     }{%
-%         #1~\ref{#2}%
-%     }%
-% }
-% definizioni per \autoref
 \newcommand{\definizioneautorefname}{definizione}
 \newcommand{\osservazioneautorefname}{osservazione}
-\newcommand{\notaautorefname}{nota}
+\newcommand{\notabeneautorefname}{nota}
+\newcommand{\esempioautorefname}{esempio}
 
 %*********************************************************************************
 % Set footnote's continuos numbering and linking capabilities (using cleveref and chngcntr packages)
