@@ -97,6 +97,12 @@
   {\left\lbrace\begin{array}{@{}l@{}}}%
   {\end{array}\right.}
 
+% comandi per le lettere greche
+% ...
+
+%*********************************************************************************
+% Nuovi ambienti: definizioni, teoremi etc. etc.
+%*********************************************************************************
 % definizioni (serve il pacchetto amsthm)
 \newtheoremstyle{classicdef}% Nome
 {12pt}% Spazio che precede l’enunciato
@@ -147,9 +153,6 @@
 % leggi (serve il pacchetto amsthm)
 \newtheorem{legge}{Legge}
 \newtheorem{decreto}[legge]{Decreto}
-
-% comandi per le lettere greche
-% ...
 
 %*********************************************************************************
 % Impostazioni di acronym
@@ -222,10 +225,6 @@
 \providecommand*{\lstlistingautorefname}{algoritmo}
 \providecommand*{\lstnumberautorefname}{linea}
 
-\addto\extrasitalian{%
-  \def\equationautorefname{equazione}%
-}
-
 %*********************************************************************************
 % Impostazioni di hyperref
 %*********************************************************************************
@@ -278,25 +277,24 @@
 %*********************************************************************************
 % Equation references
 %*********************************************************************************
-% \let\originaleqref\eqref
-% \renewcommand\eqref[2][]{%
+\addto\extrasitalian{%
+  \def\equationautorefname{equazione}%
+}
+
+%*********************************************************************************
+% Custom references for \autoref
+%*********************************************************************************
+% \newcommand\myref[2][]{%
 %     \ifstrempty{#1}{%
 %         \ref{#2}%
 %     }{%
 %         #1~\ref{#2}%
 %     }%
 % }
-
-%*********************************************************************************
-% Custom references
-%*********************************************************************************
-\newcommand\myref[2][]{%
-    \ifstrempty{#1}{%
-        \ref{#2}%
-    }{%
-        #1~\ref{#2}%
-    }%
-}
+% definizioni per \autoref
+\newcommand{\definizioneautorefname}{definizione}
+\newcommand{\osservazioneautorefname}{osservazione}
+\newcommand{\notaautorefname}{nota}
 
 %*********************************************************************************
 % Set footnote's continuos numbering and linking capabilities (using cleveref and chngcntr packages)

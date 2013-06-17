@@ -14,15 +14,15 @@ In questo capitolo viene quindi introdotta una classe di modelli, che prende il 
 Mentre nella \autoref{sec:learning-ctbnc} si affronta il processo di \emph{\keywordsub[classificazione]{apprendimento}} in caso di \emph{dati completi} dei \acs{CTBNC}, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di \emph{\keywordsub[classificazione]{inferenza} esatta} per la classe dei \acs{CTBNC}.
 
 \section{Modello}\label{sec:ctbnc-model}
-Al fine di risolvere il succitato problema della classificazione sono stati proposti numerosi approcci. Ad esempio \lwcase \nb{} \class{}, un classificatore semplice ma robusto proposto da~\citet{DudaHart1973}; rivelatosi essere uno fra i classificatori più performanti~\citep{Langley1992}. Esso apprende dai dati la probabilità condizionale di ogni attributo $\setel{A}_i$ data la classe $\setel{C}$. La classificazione di nuove istanze dei dati è effettuata applicando la \emph{regola di Bayes} al fine di calcolare la probabilità della classe $\setel{C}$ data l'istanziazione di $\setel{A}_i,\,\dotsc\,,\setel{A}_N$ e scegliendo quella con la maggiore probabilità a posteriori. Questo calcolo è reso possibile da un'assunzione forte: tutti gli attributi $\setel{A}_i$ sono \emph{condizionalmente indipendenti} (\myref[si veda la definizione]{defn:ic}) tra di loro data evidenza sulla classe $\setel{C}$.
+Al fine di risolvere il succitato problema della classificazione sono stati proposti numerosi approcci. Ad esempio \lwcase \nb{} \class{}, un classificatore semplice ma robusto proposto da~\citet{DudaHart1973}; rivelatosi essere uno fra i classificatori più performanti~\citep{Langley1992}. Esso apprende dai dati la probabilità condizionale di ogni attributo $\setel{A}_i$ data la classe $\setel{C}$. La classificazione di nuove istanze dei dati è effettuata applicando la \emph{regola di Bayes} al fine di calcolare la probabilità della classe $\setel{C}$ data l'istanziazione di $\setel{A}_i,\,\dotsc\,,\setel{A}_N$ e scegliendo quella con la maggiore probabilità a posteriori. Questo calcolo è reso possibile da un'assunzione forte: tutti gli attributi $\setel{A}_i$ sono \emph{condizionalmente indipendenti} (si veda la \autoref{defn:ic}) tra di loro data evidenza sulla classe $\setel{C}$.
 
-Poiché tale assunzione è chiaramente irreale,~\citet{Friedman1997} ha investigato come migliorare ulteriormente le prestazioni del \lwcase \nb{} \class{} evitando assunzioni di indipendenza non giustificate dai dati. A tal fine~\citet{Friedman1997}, generalizzando il \lwcase \nb{} \class{}, ha proposto una classe di modelli di \emph{classificazione supervisionata}, chiamata \acf{BNC} (di cui fa parte il \acf{TAN} \class{}, ad esempio) che ereditano dalla teoria delle \acl{BN} (\myref[si rimanda alla definizione]{defn:bn} per maggiori dettagli) una rappresentazione fattorizzata delle distribuzioni di probabilità dei nodi attributo e rappresentano esplicitamente le indipendenze condizionali fra essi.
+Poiché tale assunzione è chiaramente irreale,~\citet{Friedman1997} ha investigato come migliorare ulteriormente le prestazioni del \lwcase \nb{} \class{} evitando assunzioni di indipendenza non giustificate dai dati. A tal fine~\citet{Friedman1997}, generalizzando il \lwcase \nb{} \class{}, ha proposto una classe di modelli di \emph{classificazione supervisionata}, chiamata \acf{BNC} (di cui fa parte il \acf{TAN} \class{}, ad esempio) che ereditano dalla teoria delle \acl{BN} (si rimanda alla \autoref{defn:bn} per maggiori dettagli) una rappresentazione fattorizzata delle distribuzioni di probabilità dei nodi attributo e rappresentano esplicitamente le indipendenze condizionali fra essi.
 
-Seguendo le stesse motivazioni, in ~\citet{Stella2012} viene formalizzata una classe di modelli di \emph{classificazione supervisionata}, chiamati \acf{CTBNC}, derivata dalle \acs{CTBN} (\myref[si veda la definizione]{defn:ctbn}).
+Seguendo le stesse motivazioni, in ~\citet{Stella2012} viene formalizzata una classe di modelli di \emph{classificazione supervisionata}, chiamati \acf{CTBNC}, derivata dalle \acs{CTBN} (si veda \autoref{defn:ctbn}).
 
 Di seguito si definiscono quindi i \acl{CTBNC} e due istanze di classificatori appartenenti a tale classe: il \acf{CTNBC} e il \acf{CTTANBC}.
 
-Un \acl{CTBNC} estende una \acs{CTBN} tramite l'aggiunta di un nodo associato alla variabile classe $\setel{Y}$. Si ricorda, dalla \myref[definizione]{defn:ctbn}, che una \acs{CTBN} rappresenta l'evoluzione nel tempo continuo di una \pv{} $\set{X}$ (\ie{} insieme composto da $N$ \mprocess{}, \myref[si veda la definizione]{defn:pv}).
+Un \acl{CTBNC} estende una \acs{CTBN} tramite l'aggiunta di un nodo associato alla variabile classe $\setel{Y}$. Si ricorda, dalla \autoref{defn:ctbn}, che una \acs{CTBN} rappresenta l'evoluzione nel tempo continuo di una \pv{} $\set{X}$ (\ie{} insieme composto da $N$ \mprocess{}, si veda la \autoref{defn:pv}).
 
 Di seguito si dà la definizione di questa nuova classe di modelli di \emph{classificazione supervisionata}.
 \begin{definizione}[\acl{CTBNC}]\label{defn:ctbnc}
@@ -31,14 +31,14 @@ Un \acf{CTBNC} è composto da una coppia $\conceptsym{C}=(\conceptsym{N}\,,\,\se
     \item $\conceptsym{N}$ è una \acs{CTBN} con nodi attributo $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$
     \item $\setel{Y}$ è il nodo classe con valori $val(\setel{Y})=\{\,\vectel{y_1}\,,\,\dotsc\,,\,\vectel{y_K}\,\}$ e probabilità marginale $\set{P}(\setel{Y})$.
 \end{itemize}
-E inoltre il grafo su $\conceptsym{N}$ (\ie{} il grafo $\conceptsym{G}$, \myref[si veda la definizione]{defn:ctbn}) rispetta le seguenti condizioni:
+E inoltre il grafo su $\conceptsym{N}$ (\ie{} il grafo $\conceptsym{G}$, si veda la \autoref{defn:ctbn}) rispetta le seguenti condizioni:
 \begin{itemize}
     \item $\conceptsym{G}$ è un grafo connesso\footnote{Il grafo $\conceptsym{G} = (\setel{V}, \setel{E})$ è detto \emph{connesso} se $\forall \: (\setel{u}\,,\,\setel{v}) \in \setel{V}$ esiste un cammino che collega $\setel{u}$ a $\setel{v}$.}
     \item $Pa(\setel{Y})=\{\,\}$, \ie{} la variabile casuale $\setel{Y}$ è associata a un nodo radice\footnote{In un grafo un nodo è detto \emph{radice} qualora esso non abbia alcun genitore.}
     \item il nodo $\setel{Y}$ è indipendente dal tempo ed è specificato solo ed esclusivamente dalla sua probabilità marginale $\set{P}(\setel{Y})$.
 \end{itemize}
 \end{definizione}
-A supporto della \myref[definizione]{defn:ctbnc}, la figura~\vref{fig:ctbnc-example} fornisce un'istanza di \acs{CTBNC} composta dai nodi attributi $\setel{X_1},\setel{X_2},\setel{X_3},\setel{X_4},\setel{X_5}$ e dal nodo classe $\setel{Y}$ (nodo radice). Si osservi come tale istanza contenga dei cicli, uno riguardante i nodi $\setel{X_2},\setel{X_4},\setel{X_5},\setel{X_3}$ e l'altro riguardante i nodi $\setel{X_1},\setel{X_3}$. Si fa notare che gli archi della rete $\conceptsym{N}$ rappresentano le dipendenze causali nel tempo.
+A supporto della \autoref{defn:ctbnc}, la figura~\vref{fig:ctbnc-example} fornisce un'istanza di \acs{CTBNC} composta dai nodi attributi $\setel{X_1},\setel{X_2},\setel{X_3},\setel{X_4},\setel{X_5}$ e dal nodo classe $\setel{Y}$ (nodo radice). Si osservi come tale istanza contenga dei cicli, uno riguardante i nodi $\setel{X_2},\setel{X_4},\setel{X_5},\setel{X_3}$ e l'altro riguardante i nodi $\setel{X_1},\setel{X_3}$. Si fa notare che gli archi della rete $\conceptsym{N}$ rappresentano le dipendenze causali nel tempo.
 
 \newpage
 
@@ -88,15 +88,15 @@ Come mostrato dalla figura~\ref{fig:cttanbc} un classificatore \acs{CTTANB} è u
 \section{Apprendimento}\label{sec:learning-ctbnc}
 In questa sezione si affronta il problema dell'apprendimento (da \emph{dati completi}) dei \acs{CTBNC}.
 
-Per definizione (\myref[si veda]{defn:ctbnc}) i \acs{CTBNC} sono basati sul modello delle \acs{CTBN}, rappresentano perciò un insieme di modelli di probabilità locali (relativi alle variabili casuali) esprimibili in termini di statistiche sufficienti (per maggiori dettagli relativi a questo aspetto si rimanda alla \autoref{sec:ctbn-apprendimento}). Ne deriva che il problema dell'apprendimento di un classificatore \acs{CTBN} (\myref[definizione]{defn:ctbnc}) si riduce alla computazione delle \keyword{statistiche sufficienti} dei suoi nodi attributo, da cui è successivamente possibile (nonché semplice) stimare i parametri (argomento trattato in dettaglio nella \autoref{sec:ctbn-params}) delle \cim{} (\acs{CIM}).
+Per definizione (si veda \ref{defn:ctbnc}) i \acs{CTBNC} sono basati sul modello delle \acs{CTBN}, rappresentano perciò un insieme di modelli di probabilità locali (relativi alle variabili casuali) esprimibili in termini di statistiche sufficienti (per maggiori dettagli relativi a questo aspetto si rimanda alla \autoref{sec:ctbn-apprendimento}). Ne deriva che il problema dell'apprendimento di un classificatore \acs{CTBN} si riduce alla computazione delle \keyword{statistiche sufficienti} dei suoi nodi attributo, da cui è successivamente possibile (nonché semplice) stimare i parametri (argomento trattato in dettaglio nella \autoref{sec:ctbn-params}) delle \cim{} (\acs{CIM}).
 
 Di conseguenza, per l'apprendimento di un \acs{CTNBC} è richiesto uno sforzo computazionale minimo. Per l'apprendimento di un \acs{CTTANBC}, poiché questo modello prevede archi anche fra i nodi attributo, è invece richiesto uno sforzo computazionale leggermente maggiore~\citep{Stella2012}.
 
-Si presenta di seguito l'\autoref{lst:ctnbc-learning} relativo all'apprendimento di un classificatore \acs{CTNB} (\myref[definizione]{defn:ctnbc}).
+Si presenta di seguito l'\autoref{lst:ctnbc-learning} relativo all'apprendimento di un classificatore \acs{CTNB} (\autoref{defn:ctnbc}).
 
 Esso richiede in input un \emph{dataset completo} $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$, il corrispettivo insieme delle classi $\{\setel{y}_1\,,\,\setel{y}_2\,,\,\dotsc\,,\,\setel{y}_h\}$, con $\setel{y}_i \in val(\setel{Y})$, e il grafo $\conceptsym{G}$ di una \acs{CTBN} $\conceptsym{N}$ (rispettivamente chiamati \lstinline[]|data|, \lstinline[]|classes| e \lstinline[]|graph| nella firma della funzione \lstinline[]|ctnbclearn|).
 
-Per completezza si osservi (\myref[in base alla definizione]{defn:dataset-completo}) che ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un flusso di evidenze $\evidencestream{J_i}$ (a tal riguardo si veda \myref[la definizione]{defn:j-evidence-stream}).
+Per completezza si osservi (in base alla \autoref{defn:dataset-completo}) che ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un flusso di evidenze $\evidencestream{J_i}$ (a tal riguardo si veda la \autoref{defn:j-evidence-stream}).
 
 Il risultato dell'applicazione dell'\autoref{lst:ctnbc-learning} è un \acl{CTNBC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$.
 \begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTNB}, label=lst:ctnbc-learning]
@@ -142,7 +142,7 @@ L'algoritmo di apprendimento presentato (\autoref{lst:ctnbc-learning}) consiste 
     \item da \autoref{lst:start-ss-computation} a \autoref{lst:end-ss-computation} vengono calcolate le \emph{statistiche sufficienti} di ogni nodo attributo $\setel{X}_i$, con $i=1,2,\,\dotsc\,,N$, sull'insieme di dati di apprendimento (anche detto \emph{\keywordsub[classificazione]{training set}}) $\conceptsym{D}$
     \item da \autoref{lst:start-params-computation} a \autoref{lst:end-params-computation} vengono infine stimati, a partire dalle statistiche sufficienti, i \emph{parametri \acl{MLE}} (\acs{MLE}).
 \end{enumerate}
-Si osservi che, poiché il processo di apprendimento è eseguito su un classificatore \acs{CTNB}, l'algoritmo condiziona sia il calcolo delle statistiche sufficienti (\ie{} variabili \lstinline[]|t| e \lstinline[]|m|) che la stima dei parametri (\ie{} variabili \lstinline[]|q| e \lstinline[]|thet|) di ogni nodo attributo $\setel{X}_i$ solo ed esclusivamente al valore della variabile classe $\setel{Y}$ (\ie{} variabile \lstinline[]|y|). Questa semplificazione è dovuta al vincolo che caratterizza i classificatori \acs{CTNB}: ogni nodo attributo $\setel{X}_i$ deve avere un solo genitore, il nodo associato alla variabile classe $\setel{Y}$ (si veda la \myref[definizione]{defn:ctnbc}).
+Si osservi che, poiché il processo di apprendimento è eseguito su un classificatore \acs{CTNB}, l'algoritmo condiziona sia il calcolo delle statistiche sufficienti (\ie{} variabili \lstinline[]|t| e \lstinline[]|m|) che la stima dei parametri (\ie{} variabili \lstinline[]|q| e \lstinline[]|thet|) di ogni nodo attributo $\setel{X}_i$ solo ed esclusivamente al valore della variabile classe $\setel{Y}$ (\ie{} variabile \lstinline[]|y|). Questa semplificazione è dovuta al vincolo che caratterizza i classificatori \acs{CTNB}: ogni nodo attributo $\setel{X}_i$ deve avere un solo genitore, il nodo associato alla variabile classe $\setel{Y}$ (si veda la \autoref{defn:ctnbc}).
 
 Come anticipato, al costo di un leggero incremento di complessità computazionale, è possibile estendere l'\autoref{lst:ctnbc-learning} al fine di creare un algoritmo di apprendimento generale che apprenda un qualsiasi classificatore \acs{CTBN}. Affinché tale obiettivo sia raggiunto è necessario rimuovere il succitato vincolo sull'insieme dei genitori di ogni nodo attributo. Mentre il calcolo della probabilità a priori della variabile classe $\setel{Y}$ non varia, il calcolo delle statistiche sufficienti e la stima dei parametri, invece, necessitano di tale generalizzazione.
 
@@ -190,19 +190,19 @@ function learn(data, classes, graph) {
 \end{lstlisting}
 
 \section{Inferenza}\label{sec:inference-ctbnc}
-In questa sezione si affronta il problema della \emph{\keyword{classificazione}} (o \emph{\keywordsub[classificazione]{inferenza} esatta}) di un \emph{flusso di evidenze completamente osservato} che, indicato con $\evidencestream{J}$ come da \myref[definizione]{defn:j-evidence-stream}.
+In questa sezione si affronta il problema della \emph{\keyword{classificazione}} (o \emph{\keywordsub[classificazione]{inferenza} esatta}) di un \emph{flusso di evidenze completamente osservato} che, indicato con $\evidencestream{J}$ come da \autoref{defn:j-evidence-stream}.
 
 Il processo di classificazione è effettuato in base alla regola \emph{\acl{MAP}}\footnote{\ACF{MAP}, \omissis} (\acs{MAP}). La probabilità $P(\setel{Y}\,\arrowvert\,\evidencestream{J})$ viene calcolata per tutti gli stati della variabile classe $\setel{Y}$ del classificatore \acs{CTBN} (\acs{CTBNC}) rispetto al quale si intende inferire la classe del flusso di evidenze in esame. Il classificatore \acs{CTBN} classifica perciò il flusso di evidenze massimizzando la probabilità a posteriori, ricavata applicando la \emph{\keywordsub[classificazione]{regola di Bayes}}:
 \begin{equation}\label{eq:ctbnc-inference-1}
 P(\setel{Y}\,\arrowvert\,\evidencestream{J})=\frac{P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})}{P(\evidencestream{J})}\text{,}
 \end{equation}
-dove $P(\setel{Y})$ è la probabilità marginale associata alla variabile classe $\setel{Y}$, $P(\evidencestream{J})$ è la probabilità del flusso di evidenze mentre $P(\evidencestream{J}\,\arrowvert\,\setel{Y})$ è la likelihood\cref{note:likelihood} del flusso di evidenze data la conoscenza del valore della variabile classe.
+dove $P(\setel{Y})$ è la probabilità marginale associata alla variabile classe $\setel{Y}$, $P(\evidencestream{J})$ è la probabilità del flusso di evidenze mentre $P(\evidencestream{J}\,\arrowvert\,\setel{Y})$ è la likelihood\cref{note:likelihood} del flusso di evidenze data la conoscenza del valore della variabile classe, a cui ci si riferisce anche usando l'espressione \emph{\virgolette{likelihood temporale}}.
 
 La probabilità del flusso di evidenze, similmente a quanto accade per i \acs{BNC}~\citep{Friedman1997}, non è richiesta per l'implementazione della regola \acs{MAP}, perciò è possibile ometterla e riscrivere l'\autoref{eq:ctbnc-inference-1} come una relazione proporzionale:
 \begin{equation}\label{eq:ctbnc-inference-2}
-P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\evidencestream{J}\,\arrowvert\,\setel{Y})
+P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})
 \end{equation}
-
+Il primo termine dell'\autoref{eq:ctbnc-inference-2}, la \emph{\keywordsub[classificazione]{likelihood temporale}}, è invece fondamentale per la classificazione tramite regola \acs{MAP}.
 
 Si presenta di seguito l'\autoref{lst:ctbnc-inference}, il quale permette di compiere inferenza esatta su un qualsiasi classificatore \acs{CTBN}.
 \begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
