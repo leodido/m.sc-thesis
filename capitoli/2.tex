@@ -243,10 +243,10 @@ Ogni matrice di intensità di $\cimsign{\setel{X}}{Pa(\setel{X})}$ è del seguen
 \[
 \cimsign{\setel{X}}{pa_i(\setel{x})}=
 \begin{bmatrix}
--q_{x_1}^{pa_i(\setel{x})}   & q_{x_1x_2}^{pa_i(\setel{x})} & \cdots & q_{x_1x_k}^{pa_i(\setel{x})}\\[0.5em]
-q_{x_2x_1}^{pa_i(\setel{x})} & -q_{x_2}^{pa_i(\setel{x})}   & \cdots & q_{x_2x_k}^{pa_i(\setel{x})}\\[0.5em]
+-q_{\setel{x}_1}^{pa_i(\setel{x})}   & q_{\setel{x}_1\setel{x}_2}^{pa_i(\setel{x})} & \cdots & q_{\setel{x}_1\setel{x}_k}^{pa_i(\setel{x})}\\[0.5em]
+q_{\setel{x}_2\setel{x}_1}^{pa_i(\setel{x})} & -q_{\setel{x}_2}^{pa_i(\setel{x})}   & \cdots & q_{\setel{x}_2\setel{x}_k}^{pa_i(\setel{x})}\\[0.5em]
 \vdots           & \vdots           & \ddots & \vdots\\[0.5em]
-q_{x_kx_1}^{pa_i(\setel{x})} & q_{x_kx_2}^{pa_i(\setel{x})} & \cdots & -q_{x_k}^{pa_i(\setel{x})}
+q_{\setel{x}_k\setel{x}_1}^{pa_i(\setel{x})} & q_{\setel{x}_k\setel{x}_2}^{pa_i(\setel{x})} & \cdots & -q_{\setel{x}_k}^{pa_i(\setel{x})}
 \end{bmatrix}
 \text{.}
 \]
@@ -468,7 +468,7 @@ q_{x\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat{x\,\arrowvert\,pa_i(\setel{x})}
 \end{teorema}
 Si noti che, in questo caso (\emph{dataset completo}), $q_{x\,\arrowvert\,pa_i(\setel{x})}$ e $\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}$ sono delle stime esatte. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
-Da questi parametri è quindi possibile costruire le \cim{} di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}).
+Da\graffito{Come costruire una \acs{CIM} dai parametri.} questi parametri è quindi possibile costruire le \cim{} (\acs{CIM}) di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}).
 
 Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,pa_i(\setel{x})}$ e ricavando i valori non sulla diagonale (\ie{} la \emph{<<probabilità istantanea>>} di transizione fra due stati; si veda a riguardo la \autoref{defn:im}) dalla relazione fra i parametri $q$ e $\theta$:
 \begin{equation}

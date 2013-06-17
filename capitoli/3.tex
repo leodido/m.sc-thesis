@@ -192,7 +192,9 @@ function learn(data, classes, graph) {
 \section{Inferenza}\label{sec:inference-ctbnc}
 In questa sezione si affronta il problema della \emph{\keyword{classificazione}} (o \emph{\keywordsub[classificazione]{inferenza} esatta}) di un \emph{flusso di evidenze completamente osservato} che, indicato con $\evidencestream{J}$ come da \autoref{defn:j-evidence-stream}.
 
-Il processo di classificazione è effettuato in base alla regola \emph{\acl{MAP}}\footnote{\ACF{MAP}, \omissis} (\acs{MAP}). La probabilità $P(\setel{Y}\,\arrowvert\,\evidencestream{J})$ viene calcolata per tutti gli stati della variabile classe $\setel{Y}$ del classificatore \acs{CTBN} (\acs{CTBNC}) rispetto al quale si intende inferire la classe del flusso di evidenze in esame. Il classificatore \acs{CTBN} classifica perciò il flusso di evidenze massimizzando la probabilità a posteriori, ricavata applicando la \emph{\keywordsub[classificazione]{regola di Bayes}}:
+Il processo di classificazione è effettuato in base alla regola \emph{\acl{MAP}}\footnote{\ACF{MAP}, \omissis} (\acs{MAP})~\citep{Stella2012}.
+
+La probabilità $P(\setel{Y}\,\arrowvert\,\evidencestream{J})$ viene calcolata per tutti gli stati della variabile classe $\setel{Y}$ del classificatore \acs{CTBN} (\acs{CTBNC}) rispetto al quale si intende inferire la classe del flusso di evidenze in esame. Il classificatore \acs{CTBN} classifica perciò il flusso di evidenze massimizzando la probabilità a posteriori, ricavata applicando la \emph{\keywordsub[classificazione]{regola di Bayes}}:
 \begin{equation}\label{eq:ctbnc-inference-1}
 P(\setel{Y}\,\arrowvert\,\evidencestream{J})=\frac{P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})}{P(\evidencestream{J})}\text{,}
 \end{equation}
@@ -200,9 +202,48 @@ dove $P(\setel{Y})$ è la probabilità marginale associata alla variabile classe
 
 La probabilità del flusso di evidenze, similmente a quanto accade per i \acs{BNC}~\citep{Friedman1997}, non è richiesta per l'implementazione della regola \acs{MAP}, perciò è possibile ometterla e riscrivere l'\autoref{eq:ctbnc-inference-1} come una relazione proporzionale:
 \begin{equation}\label{eq:ctbnc-inference-2}
-P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})
+P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})\text{.}
 \end{equation}
-Il primo termine dell'\autoref{eq:ctbnc-inference-2}, la \emph{\keywordsub[classificazione]{likelihood temporale}}, è invece fondamentale per la classificazione tramite regola \acs{MAP}.
+Il primo termine dell'\autoref{eq:ctbnc-inference-2}, la \emph{\keywordsub[classificazione]{likelihood temporale}}, è invece fondamentale per la classificazione tramite regola \acs{MAP}; essa può essere espressa come segue:
+\begin{equation}\label{eq:ctbnc-inference-3}
+P(\evidencestream{J}\,\arrowvert\,\setel{Y})=\prod_{j=1}^{J} P(\set{x}^j\,\arrowvert\,\setel{Y})\:P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})\text{,}
+\end{equation}
+dove:
+\begin{itemize}
+    \item $P(\set{x}^j\,\arrowvert\,\setel{Y})$ rappresenta la probabilità che la variabile casuale $\setel{X}$ resti nello stato $\set{x}^j$ durante l'intervallo temporale $[\,t_{j-1},\,t_j)$ data evidenza sulla variabile classe $\setel{Y}$
+    \item $P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})$ rappresenta la probabilità che la variabile casuale $\setel{X}$ esegua una transizione da $\set{x}^j$ a $\set{x}^{j+1}$ all'istante di tempo $t_j$ data evidenza sulla variable classe $\setel{Y}$.
+\end{itemize}
+Inoltre, al fine di assicurare la consistenza dell'\autoref{eq:ctbnc-inference-3} si assume che $P(\set{x}^{J+1}\,\arrowvert\,\set{x}^J,\setel{Y})=1$.
+%FIXME: collegarsi ai concetti delle CIM/parametri delle CTBN e.g. Al fine di computare i succitati termini sfruttiamo le informazioni incorporate da un modello \acs{CTBN}: in particolare la CIM che a sua volta incorpora 2 distribuzioni bla bla (parametri) bla bla
+
+Il termine $P(\set{x}^j\,\arrowvert\,\setel{Y})$ può essere scritto come segue:
+\begin{equation}\label{eq:ctbnc-inference-4}
+P(\set{x}^j\,\arrowvert\,\setel{Y})=\prod_{n=1}^N exp\Big(-q_{\setel{x}_n}^{pa_j(\setel{x}_n)}\:(t_j - t_{j-1})\Big)\text{,}
+\end{equation}
+dove $q_{\setel{x}_n}^{pa_j(\setel{x}_n)}$ è il valore del parametro della \emph{distribuzione esponenziale} quando la variabile casuale $\setel{X}_n$ è nello stato $\setel{x}_n^j$, l'intervallo temporale è il $j$-esimo (\ie{} $[\,t_{j-1},\,t_j)$) e contemporaneamente l'istanziazione dei genitori di $\setel{X}_n$ è $pa_j(\setel{x}_n)$.
+
+In tale configurazione, anche il termine $P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})$ può essere scritto come segue:
+\begin{equation}\label{eq:ctbnc-inference-5}
+P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})=\prod_{n=1}^N P(\setel{x}^{j+1}\,\arrowvert\,\setel{x}^j,\setel{Y})\text{,}
+\end{equation}
+dove
+\begin{equation}\label{eq:ctbnc-inference-6}
+P(\setel{x}^{j+1}\,\arrowvert\,\setel{x}^j,\setel{Y})=
+\begin{cases}
+q_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}, & \text{se } \setel{x}_n^j \neq \setel{x}_n^{j+1} \\
+1, & \text{altrimenti}
+\end{cases}\text{.}
+\end{equation}
+Il termine $q_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$ dell'\autoref{eq:ctbnc-inference-6} è il valore della \acf{CIM} associato alla transizione della variabile casuale $\setel{X}_n$ dallo stato $\setel{x}_n^j$ allo stato $\setel{x}_n^{j+1}$, data l'istanziazione $pa_j(\setel{x})$ dei suoi nodi genitori, durante il $j$-esimo intervallo temporale.
+
+Combinando l'\autoref{eq:ctbnc-inference-4} e l'\autoref{eq:ctbnc-inference-5} è possibile scrivere:
+\begin{equation}\label{eq:ctbnc-inference-7}
+P(\set{x}^j\,\arrowvert\,\setel{Y})\:P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})=\prod_{n=1}^N exp\Big(-q_{\setel{x}_n}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}^{j+1}\,\arrowvert\,\setel{x}^j,\setel{Y})
+\end{equation}
+\begin{equation}\label{eq:ctbnc-inference-8}
+todo
+\end{equation}
+\omissis{}
 
 Si presenta di seguito l'\autoref{lst:ctbnc-inference}, il quale permette di compiere inferenza esatta su un qualsiasi classificatore \acs{CTBN}.
 \begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
