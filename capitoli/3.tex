@@ -136,7 +136,7 @@ function ctnbclearn(data, classes, graph) {
 }
 \end{lstlisting}
 
-L'algoritmo di apprendimento presentato (\autoref{lst:ctnbc-learning}) consiste nella stima delle \cim{} (\acs{CIM}) di ogni variabile casuale di $\conceptsym{N}$ per ogni classe $\setel{y}_i \in \setel{Y}$. Più in dettaglio, esso è composto da tre fasi consecutive:
+L'algoritmo (\ref{lst:ctnbc-learning}) di apprendimento appena presentato consiste nella stima delle \cim{} (\acs{CIM}) di ogni variabile casuale di $\conceptsym{N}$ per ogni classe $\setel{y}_i \in \setel{Y}$. Più in dettaglio, esso è composto da tre fasi consecutive:
 \begin{enumerate}
     \item da \autoref{lst:start-prior-computation} a \autoref{lst:end-prior-computation} viene calcolata la \emph{probabilità a priori} della variabile classe $\setel{Y}$ in base alla frequenza di ogni sua istanziazione $\setel{y}_i \in\setel{Y}$ in $\conceptsym{D}$
     \item da \autoref{lst:start-ss-computation} a \autoref{lst:end-ss-computation} vengono calcolate le \emph{statistiche sufficienti} di ogni nodo attributo $\setel{X}_i$, con $i=1,2,\,\dotsc\,,N$, sull'insieme di dati di apprendimento (anche detto \emph{\keywordsub[classificazione]{training set}}) $\conceptsym{D}$
@@ -270,24 +270,33 @@ Di conseguenza, dato un classificatore \acs{CTBN} $\conceptsym{C}=\{\,\conceptsy
 \begin{equation}\label{eq:ctbnc-inference-10}
 \setel{y}^*= \argmax_{\setel{y}\in val(\setel{Y})}P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
 \end{equation}
-Si presenta di seguito l'algoritmo per l'inferenza esatta su un classificatore \acs{CTBN}.
+Si presenta di seguito l'algoritmo per l'inferenza esatta di un flusso di evidenze completamente osservato rispetto a un classificatore \acs{CTBN}.
+
+Tuttavia si osservi che tale algoritmo rappresenta le probabilità come \emph{log-probabilità}\footnote{La \emph{log-probabilità} è un modalità di rappresentazione della probabilità che porta con sè alcuni vantaggi computazionali. Ad esempio, l'utilizzo della \emph{log-probabilità} generalmente comporta una maggior velocità dovuta alla trasformazione delle moltiplicazioni, più computazionalmente costose, in addizioni. In informatica è molto comune l'utilizzo della sua variante negativa, la quale codifica un valore di probabilità $\setel{x} \in [0\,,\,1]$ come $\setel{x}^{\prime}=-\log(\setel{x}) \in \R$.} per motivi computazionali. Ciò significa che l'\autoref{lst:ctbnc-inference} implementa la probabilità a posteriori della classe dato un flusso di evidenze (\autoref{eq:ctbnc-inference-9}) come segue:
+\small
+\begin{equation}\label{eq:ctbnc-inference-11}
+\ell_{P(\setel{Y}|\omissis{})} = \log (P(\setel{Y})) \sum_{j=1}^{J}\sum_{n=1}^N-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1}) + \log (P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y}))\text{\normalsize .}
+\end{equation}
+\normalsize
+Si noti, inoltre, che nel caso in cui non avvenga alcun cambio di stato ad un determinato istante di tempo $t_j$, la quantità $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ in \ref{eq:ctbnc-inference-11} sarà pari a $1$ (si veda l'\autoref{eq:ctbnc-inference-6}), il cui logaritmo è pari a $0$. Ciò spiega la struttura di controllo condizionale alla \autoref{lst:inference-transition-qty}.
 \begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
-function infer(ctbnc, evidencestream) {
-    var logp[len(classes)]
-    for (k in index(classes)) {
-        logp[k] = log(classes[k])
+function infer(ctbnc, timeseg, stream) {
+    var priors = ctbnc.priors
+    var logp[len(priors)]
+    for (k in index(priors)) {
+        logp[k] = log(priors[k])
     }
-    for (k in index(classes)) {
-        for (j in index(timeseg)) {
-            for (n in 1:N) {
-                logp[k] = logp[k] - <ls>$q_{x_{n_j}}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
-                if (<ls>$x_{n_j}$<le> != <ls>$x_{n_{j+1}}$<le>) {
-                    logp[k] = logp[k] + log(<ls>$q_{x_{n_j}\,x_{n_{j+1}}}^{pa_j(\setel{x_n})}$<le>)
+    <ls>\label{lst:inference-classes-for}<le>for (k in index(priors)) {
+        <ls>\label{lst:inference-stream-for}<le>for (j in index(timeseg)) {
+            <ls>\label{lst:inference-nodes-for}<le>for (n in index(ctbnc.graph.nodes)) {
+                logp[k] = logp[k] - <ls>$q_{x_n^j}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
+                <ls>\label{lst:inference-transition-qty}<le>if (<ls>$x_{n_j}$<le> != <ls>$x_{n_{j+1}}$<le>) {
+                    logp[k] = logp[k] + log(<ls>$q_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$<le>)
                 }
             }
         }
     }
-    return max(logp)
+    return which(max(logp))
 }
 \end{lstlisting}
 
