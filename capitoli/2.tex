@@ -258,16 +258,27 @@ q_{\setel{x}_k\setel{x}_1}^{pa_i(\setel{x})} & q_{\setel{x}_k\setel{x}_2}^{pa_i(
 \end{definizione}
 Di seguito si presenta un breve esempio finalizzato alla comprensione pratica delle \cim{} (\acs{CIM}) e del loro scopo.
 \begin{esempio}\label{ex:cim}\hfill\\
-Date due variabili causali, $\setel{E}(t)$ e $\setel{H}(t)$, delle quali la prima modella l'eventualità che un individuo stia mangiando o meno (se $\setel{e}=2$ allora l'individuo sta mangiando, viceversa se $\setel{e}=1$) mentre la seconda modella l'eventualità che lo stesso individuo abbia fame o meno (se $\setel{h}=2$ allora l'individuo è affamato, viceversa se $\setel{h}=1$) e la \cim*{} $\cimsign{\setel{E}}{\setel{H}}$, che è un insieme composto dalle seguenti \im{}:
+Date due variabili causali, $\setel{E}(t)$ e $\setel{H}(t)$, delle quali la prima modella l'eventualità che un individuo stia mangiando o meno (se $\setel{e}=2$ allora l'individuo sta mangiando, viceversa se $\setel{e}=1$) mentre la seconda modella l'eventualità che lo stesso individuo abbia fame o meno (se $\setel{h}=2$ allora l'individuo è affamato, viceversa se $\setel{h}=1$) e la \cim*{} $\cimsign{\setel{E}}{\setel{H}}$, che è un insieme composto dalle \im{} $\cimsign{\setel{E}}{h=1}$ e $\cimsign{\setel{E}}{h=2}$, è possibile calcolare la probabilità degli eventi della variabile casuale $\setel{E}$ condizionatamente all'evidenza che si possiede sulla variabile casuale $\setel{H}$.
+% \[
+% \cimsign{\setel{E}}{h=1}=\begin{bmatrix}-0.01 & 0.01 \\ 10 & -10\end{bmatrix}
+% \hspace*{30pt}
+% \cimsign{\setel{E}}{h=2}=\begin{bmatrix}-2 & 2 \\ 0.01 & -0.01\end{bmatrix}
+% \text{.}
+% \]
 \[
-\cimsign{\setel{E}}{h=1}=\begin{bmatrix}-0.01 & 0.01 \\ 10 & -10\end{bmatrix}
-\hspace*{30pt}
-\cimsign{\setel{E}}{h=2}=\begin{bmatrix}-2 & 2 \\ 0.01 & -0.01\end{bmatrix}
-\text{,}
+\cimsign{\setel{E}}{h=1}=\kbordermatrix{
+\text{} &   1   &   2\cr
+1       &  -.01 & .01\cr
+2       & 10    & -10
+}
+\hspace*{25pt}
+\cimsign{\setel{E}}{h=2}=\kbordermatrix{
+\text{} &   1   &   2\cr
+1       &  -2   &   2\cr
+2       &   .01 & -.01
+}\text{.}\\
 \]
-è possibile calcolare la probabilità degli eventi della variabile casuale $\setel{E}$ condizionatamente all'evidenza che si possiede sulla variabile casuale $\setel{H}$.
-
-Ad esempio, ipotizzando che l'unità temporale corrisponda a una ora:
+Ipotizzando che l'unità temporale corrisponda a un'ora:
 \begin{itemize}
     \item un individuo affamato ($\setel{h}=2$) che non sta mangiando ($\setel{e}=1$) inizierà a mangiare in 30 minuti poiché \[\frac{1}{q_{\setel{e}=1\,\arrowvert\,\setel{h}=2}}=\frac{1}{2}\:\text{,}\]
     \item un individuo non affamato ($\setel{h}=1$) che sta mangiando ($\setel{e}=2$) smetterà di mangiare ($\setel{e}=1$) entro 6 minuti poiché \[\frac{1}{q_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{1}{10}\:\text{;}\] si osservi che la\emph{\virgolette{probabilità istantanea}} di transizione da $\setel{e}=2$ a $\setel{e}=1$, come già evidenziato dall'\autoref{oss:squared-im}, è \[\theta_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}=\frac{q_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}}{q_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{10}{10}=1\text{.}\]
