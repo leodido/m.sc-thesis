@@ -76,7 +76,7 @@ Un \acf{CTTANBC} è un \acl{CTBNC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\
     \]
 \end{itemize}
 \end{definizione}
-Come mostrato dalla figura~\ref{fig:cttanbc} un classificatore \acs{CTTANB} è un estensione del classificatore \acs{CTNB}: tutti i nodi attributo della rete $\conceptsym{N}$ sono vincolati ad avere come genitore, oltre al nodo radice, al massimo un altro nodo attributo. Ciò comporta che tutti i nodi attributo fanno parte del \emph{Markov blanket}\cref{note:markov-blanket} del nodo radice associato con la variabile classe $\setel{Y}$.
+Come mostrato dalla figura~\ref{fig:cttanbc} un classificatore \acs{CTTANB} è un estensione del classificatore \acs{CTNB}: tutti i nodi attributo della rete $\conceptsym{N}$ sono vincolati ad avere come genitore, oltre al nodo radice, al massimo un altro nodo attributo. Ciò comporta che tutti i nodi attributo facciano parte del \emph{Markov blanket}\cref{note:markov-blanket} del nodo radice associato con la variabile classe $\setel{Y}$.
 
 \begin{figure}
 \centering
@@ -253,18 +253,22 @@ P(\set{x}^j\,\arrowvert\,\setel{Y})\:P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\set
 \end{equation}
 \normalsize
 Utilizzando l'\autoref{eq:ctbnc-inference-7} appena ricavata è possibile riformulare l'equazione della \emph{likelihood temporale} (\ref{eq:ctbnc-inference-3}) nel seguente modo:
-\footnotesize
 \begin{equation}\label{eq:ctbnc-inference-8}
-P(\evidencestream{J}\,\arrowvert\,\setel{Y})=\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
+\resizebox{.89\hsize}{!}{$P(\evidencestream{J}\,\arrowvert\,\setel{Y})=\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$}\text{.}
 \end{equation}
-\normalsize
-Invece, sostituendo l'equazione appena scritta (\ref{eq:ctbnc-inference-8}) nell'\autoref{eq:ctbnc-inference-2} si può riscrivere la probabilità a posteriori della variabile classe $\setel{Y}$ dato un \emph{flusso di evidenze}:
+Sostituendo infine l'equazione appena scritta (\ref{eq:ctbnc-inference-8}) nell'\autoref{eq:ctbnc-inference-2} si formula definitivamente la probabilità a posteriori della variabile classe $\setel{Y}$ dato un flusso di evidenze:
+% \begin{equation}\label{eq:ctbnc-inference-9}
+% P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
+% \end{equation}
 \begin{equation}\label{eq:ctbnc-inference-9}
-P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
+\begin{split}
+P(\setel{Y}\,\arrowvert\,\evidencestream{J}) &\propto P(\setel{Y}) \cdot \prod_{j=1}^{J}\prod_{n=1}^N\bigg[exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big) \cdot \\
+& \quad \cdot P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})\bigg]
+\end{split}
 \end{equation}
 Di conseguenza, dato un classificatore \acs{CTBN} $\conceptsym{C}=\{\,\conceptsym{N}\,,\,P(\setel{Y})\,\}$ e un flusso di evidenze completamente osservato $\evidencestream{J}$, la regola \acs{MAP} seleziona la classe $\setel{y}^* \in val(\setel{Y})$ massimizzando l'\autoref{eq:ctbnc-inference-9}:
 \begin{equation}\label{eq:ctbnc-inference-10}
-\setel{y}^*=arg\,max_{\setel{y}\in val(\setel{Y})}P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
+\setel{y}^*= \argmax_{\setel{y}\in val(\setel{Y})}P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
 \end{equation}
 Si presenta di seguito l'algoritmo per l'inferenza esatta su un classificatore \acs{CTBN}.
 \begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
