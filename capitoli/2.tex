@@ -413,11 +413,10 @@ Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singo
 \begin{equation}
 \label{eq:ctbn-data-hmp-likelihood}
 \begin{split}
-L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\Big(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(q:d) \Big)\Big(\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\theta:d)\Big) \\
-&=\Big(\prod_{x}q_x^{\mstat{x}}\exp(-q_x\tstat{x})\Big)\Big(\prod_{x}\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}}^{\mstat[x]{x^\prime}}\Big)\text{.}
+L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\bigg[\prod_{d\in\conceptsym{D}}L_{\setel{X}}(q:d)\bigg]\bigg[\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\theta:d)\bigg]\\[5pt]
+&=\Big[\prod_{x}q_x^{\mstat{x}}\exp(-q_x\tstat{x})\Big]\Big[\prod_{x}\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}}^{\mstat[x]{x^\prime}}\Big]\text{.}
 \end{split}
 \end{equation}
-
 Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni nodo $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $Pa(\setel{X_i})$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $Pa(\setel{X_i})$, allora, per ogni istante di tempo $t$, si conosce quale \im*{} $\cimsign{\setel{X_i}}{pa_i(\setel{x})}\,$, con $pa_i(\setel{x})\in Pa(\setel{X_i})\,$, governi la dinamica di $\setel{X_i}$.
 
 Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è il prodotto delle likelihood di ogni variabile $\setel{X_i}$:
@@ -434,12 +433,14 @@ L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\p
 
 Per quanto riguarda il calcolo di $L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso da $X$ in uno determinato stato $x$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $Pa(\setel{X})$). \`E quindi necessario considerare la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $Pa(\setel{X})$ non effettuano alcuna transizione di stato~\citep[si veda][3]{Nodelman2002}. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione esponenziale (\autoref{eq:im-distrib}):
 \[
-1-F(t)=\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})} \cdot t)\text{.}
+1-F(t)=\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})} t)\text{.}
 \]
 Perciò la likelihood delle quantità di tempo trascorse in ogni stato è:
+\small
 \[
-\resizebox{0.994\hsize}{!}{$L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})$}\text{.}
+L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\text{\normalsize .}
 \]
+\normalsize
 La likelihood di $\conceptsym{N}$ è quindi:
 % \begin{equation}
 % \label{eq:ctbn-likelihood}
@@ -450,10 +451,11 @@ La likelihood di $\conceptsym{N}$ è quindi:
 \begin{equation}\label{eq:ctbn-likelihood}
 \begin{split}
 L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D}) &= \prod_{pa_i(\setel{x})}\prod_{x}\Big(q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\:\cdot \\
-& \quad \cdot \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\Big)\text{.}
+& \quad \cdot \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\Big)\text{\normalsize .}
 \end{split}
 \end{equation}
 }
+\normalsize
 Mentre, scrivendola come \emph{log-likelihood}, si ottiene:
 % \begin{equation}
 % \label{eq:ctbn-log-likelihood}
@@ -464,10 +466,11 @@ Mentre, scrivendola come \emph{log-likelihood}, si ottiene:
 \begin{equation}\label{eq:ctbn-log-likelihood}
 \begin{split}
 \ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D}) &= \sum_{pa_i(\setel{x})}\sum_{x}\Big(\mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(q_{x\,\arrowvert\,pa_i(\setel{x})})- q_{x\,\arrowvert\,pa_i(\setel{x})}\tstat{x\,\arrowvert\,pa_i(\setel{x})}\:+ \\
-& \quad  + \sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})})\Big)\text{.}
+& \quad  + \sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})})\Big)\text{\normalsize .}
 \end{split}
 \end{equation}
 }
+\normalsize
 In questa sezione si è presentato come computare la likelihood di un modello di una \acs{CTBN} rispetto a un dataset completo.
 
 Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è necessario stimarli. Nella prossima sezione viene affrontato esattamente questo argomento.
