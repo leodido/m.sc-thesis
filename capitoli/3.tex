@@ -99,7 +99,7 @@ Esso richiede in input un \emph{dataset completo} $\conceptsym{D}=\{\,\delta_1\,
 Per completezza si osservi (in base alla \autoref{defn:dataset-completo}) che ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un flusso di evidenze $\evidencestream{J_i}$ (a tal riguardo si veda la \autoref{defn:j-evidence-stream}).
 
 Il risultato dell'applicazione dell'\autoref{lst:ctnbc-learning} è un \acl{CTNBC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$.
-\begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTNB}, label=lst:ctnbc-learning]
+\begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTNB}, label=lst:ctnbc-learning, language=pseudo]
 function ctnbclearn(data, classes, graph) {
     <ls>\label{lst:start-prior-computation}<le>var h = len(data)
     var klass = unique(classes)
@@ -134,8 +134,7 @@ function ctnbclearn(data, classes, graph) {
     var ctbn = new ctbn(graph, q, thet)
     return (priors, ctbn)
 }
-\end{lstlisting}
-
+\end{lstlisting}\vspace*{8pt}
 L'algoritmo (\ref{lst:ctnbc-learning}) di apprendimento appena presentato consiste nella stima delle \cim{} (\acs{CIM}) di ogni variabile casuale di $\conceptsym{N}$ per ogni classe $\setel{y}_i \in \setel{Y}$. Più in dettaglio, esso è composto da tre fasi consecutive:
 \begin{enumerate}
     \item da \autoref{lst:start-prior-computation} a \autoref{lst:end-prior-computation} viene calcolata la \emph{probabilità a priori} della variabile classe $\setel{Y}$ in base alla frequenza di ogni sua istanziazione $\setel{y}_i \in\setel{Y}$ in $\conceptsym{D}$
@@ -152,7 +151,7 @@ Nello specifico:
     \item la stima dei parametri \acl{MLE} (\acs{MLE}) di ogni noto attributo $\setel{X}_i$ va eseguita in base a ogni istanziazione del suo insieme di nodi genitori $Pa(\setel{X}_i)$; perciò a \autoref{lst:general-params-computation} si itera in base a ogni valore (\ie{} variabile \lstinline[]|p|) assunto da $Pa(\setel{X}_i)$ (\ie{} $val(Pa(\setel{X}_i))$) mentre l'iterazione per classe non è più coerente e di conseguenza rimossa.
 \end{enumerate}
 Si riporta di seguito l'\autoref{lst:ctbnc-learning}, il quale include le succitate modifiche finalizzate alla creazione di un algoritmo di apprendimento generale per i \acs{CTBNC}.
-\begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTBN}, label=lst:ctbnc-learning]
+\begin{lstlisting}[caption=Apprendimento di un classificatore \acs{CTBN}, label=lst:ctbnc-learning, language=pseudo]
 function learn(data, classes, graph) {
     var h = len(data)
     var klass = unique(classes)
@@ -187,7 +186,7 @@ function learn(data, classes, graph) {
     var ctbn = new ctbn(graph, q, thet)
     return (priors, ctbn)
 }
-\end{lstlisting}
+\end{lstlisting}\vspace*{8pt}
 
 \section{Inferenza}\label{sec:inference-ctbnc}
 In questa sezione si affronta il problema della \emph{\keyword{classificazione}} di un \emph{flusso di evidenze completamente osservato}, indicato con $\evidencestream{J}$ (si veda la \autoref{defn:j-evidence-stream}), rispetto a un classificatore \acs{CTBN} (\acs{CTBNC}). L'argomento di questa sezione è quindi il processo di \emph{classificazione supervisionata} (\ie{} è necessario un \acs{CTBNC} appreso da un \emph{training set}), di cui si presentano in primis le basi teoriche e successivamente l'implementazione algoritmica che ne consegue.
@@ -270,22 +269,22 @@ Di conseguenza, dato un classificatore \acs{CTBN} $\conceptsym{C}=\{\,\conceptsy
 \begin{equation}\label{eq:ctbnc-inference-10}
 \setel{y}^*= \argmax_{\setel{y}\in val(\setel{Y})}P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
 \end{equation}
-Si presenta di seguito l'algoritmo per l'inferenza esatta di un flusso di evidenze completamente osservato rispetto a un classificatore \acs{CTBN}.
+Si presenta di seguito l'algoritmo per l'\emph{\keywordsub[classificazione]{inferenza} esatta}) di un flusso di evidenze completamente osservato rispetto a un classificatore \acs{CTBN}.
 
 Tuttavia si osservi che tale algoritmo rappresenta le probabilità come \emph{log-probabilità}\footnote{La \emph{log-probabilità} è un modalità di rappresentazione della probabilità che porta con sè alcuni vantaggi computazionali. Ad esempio, l'utilizzo della \emph{log-probabilità} generalmente comporta una maggior velocità dovuta alla trasformazione delle moltiplicazioni, più computazionalmente costose, in addizioni. In informatica è molto comune l'utilizzo della sua variante negativa, la quale codifica un valore di probabilità $\setel{x} \in [0\,,\,1]$ come $\setel{x}^{\prime}=-\log(\setel{x}) \in \R$.} per motivi computazionali. Ciò significa che l'\autoref{lst:ctbnc-inference} implementa la probabilità a posteriori della classe dato un flusso di evidenze (\autoref{eq:ctbnc-inference-9}) come segue:
 \small
 \begin{equation}\label{eq:ctbnc-inference-11}
-\ell_{P(\setel{Y}|\omissis{})} = \log (P(\setel{Y})) \sum_{j=1}^{J}\sum_{n=1}^N-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1}) + \log (P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y}))\text{\normalsize .}
+\ell_{P(\setel{Y}|\omissis{})} = \log (P(\setel{Y})) + \sum_{j=1}^{J}\sum_{n=1}^N-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1}) + \log (P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y}))\text{\normalsize .}
 \end{equation}
 \normalsize
-Si noti, inoltre, che nel caso in cui non avvenga alcun cambio di stato ad un determinato istante di tempo $t_j$, la quantità $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ in \ref{eq:ctbnc-inference-11} sarà pari a $1$ (si veda l'\autoref{eq:ctbnc-inference-6}), il cui logaritmo è pari a $0$. Ciò spiega la struttura di controllo condizionale alla \autoref{lst:inference-transition-qty}.
-\begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference]
+A tal proposito si noti che, nel caso in cui non avvenga alcun cambio di stato durante un determinato istante di tempo $t_j$, la quantità $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ in \ref{eq:ctbnc-inference-11} sarà pari a $1$ (si veda l'\autoref{eq:ctbnc-inference-6}), il cui logaritmo è pari a $0$. Ciò spiega la struttura di controllo condizionale alla \autoref{lst:inference-transition-qty}.
+\begin{lstlisting}[caption=Inferenza su un classificatore \acs{CTBN},label=lst:ctbnc-inference, language=pseudo]
 function infer(ctbnc, timeseg, stream) {
-    var priors = ctbnc.priors
+    <ls>\label{lst:inference-priors-start}<le>var priors = ctbnc.priors
     var logp[len(priors)]
     for (k in index(priors)) {
         logp[k] = log(priors[k])
-    }
+    <ls>\label{lst:inference-priors-end}<le>}
     <ls>\label{lst:inference-classes-for}<le>for (k in index(priors)) {
         <ls>\label{lst:inference-stream-for}<le>for (j in index(timeseg)) {
             <ls>\label{lst:inference-nodes-for}<le>for (n in index(ctbnc.graph.nodes)) {
@@ -295,14 +294,13 @@ function infer(ctbnc, timeseg, stream) {
                 }
             }
         }
-    }
-    return which(max(logp))
+    <ls>\label{lst:inference-logprob-end}<le>}
+    <ls>\label{lst:inference-end}<le>return which(max(logp))
 }
-\end{lstlisting}
+\end{lstlisting}\vspace*{8pt}
+L'\autoref{lst:ctbnc-inference} di inferenza esatta appena presentato è composto principalmente da due fasi corrispondenti ai due termini principali dell'\autoref{eq:ctbnc-inference-11}: da \autoref{lst:inference-priors-start} a \autoref{lst:inference-priors-end} converte la distribuzione della variabile classe $\setel{Y}$ del classificatore \acs{CTBN} in forma logaritmica; da \autoref{lst:inference-classes-for} a \autoref{lst:inference-logprob-end} aggiorna, incrementandola o decrementandola, il valore di \emph{log-probabilità} relativo a ogni classe (si veda il ciclo \lstinline[]|for| alla \autoref{lst:inference-classes-for}) del classificatore \acs{CTBN} iterando il flusso di evidenze per ogni segmento temporale cui sono associate le sue istanze (\ie{} variable \lstinline[]|timeseg|, che si assume venga fornita in input; si veda il ciclo \lstinline[]|for| alla linea \autoref{lst:inference-stream-for}), infine iterando sui nodi del grafo $\conceptsym{N}$ del \acs{CTBNC} (ciclo \lstinline[]|for| a \autoref{lst:inference-nodes-for}). Il passo finale dell'algoritmo, corrispondente alla linea finale (\ie{} \autoref{lst:inference-end}), consiste nella restituzione della classe la cui \emph{log-probabilità} è maggiore di quella delle restanti classi, implementando così l'\autoref{eq:ctbnc-inference-10}.
 
-\emph{\keywordsub[classificazione]{inferenza} esatta})
-
-% timeseg è il fully observed j-time-segment (si considera già calcolato)
+Si osservi infine che l'algoritmo in esame implementa una conversione delle probabilità in forma logaritmica non negativa (\ie{} $\setel{x} \in [0\,,\,1]$ rappresentato come $\setel{x}^{\prime}=\log(\setel{x})$). Ne consegue che l'applicazione della regola \acs{MAP} non varia.
 
 % ...
 % oss.: ottimo trade-off fra complessità computazionale e performance di
