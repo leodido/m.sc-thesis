@@ -189,9 +189,9 @@ function learn(data, classes, graph) {
 \end{lstlisting}\vspace*{8pt}
 
 \section{Inferenza}\label{sec:inference-ctbnc}
-In questa sezione si affronta il problema della \emph{\keyword{classificazione}} di un \emph{flusso di evidenze completamente osservato}, indicato con $\evidencestream{J}$ (si veda la \autoref{defn:j-evidence-stream}), rispetto a un classificatore \acs{CTBN} (\acs{CTBNC}). L'argomento di questa sezione è quindi il processo di \emph{classificazione supervisionata} (\ie{} è necessario un \acs{CTBNC} appreso da un \emph{training set}), di cui si presentano in primis le basi teoriche e successivamente l'implementazione algoritmica che ne consegue.
+In questa sezione si affronta il problema della \emph{\keyword{classificazione}} di un \emph{flusso di evidenze completamente osservato}, indicato con $\evidencestream{J}$ (si veda la \autoref{defn:j-evidence-stream}), rispetto a un classificatore \acs{CTBN} (\acs{CTBNC}). Si osservi che, in tale situazione (\ie{} \emph{\keywordsub[classificazione]{dati completi}}), l'unica variabile casuale non osservata è la variabile classe, perciò è possibile sfruttare le relazioni di indipendenza fra variabili casuali così come si fa per le \acl{BN}. L'argomento di questa sezione è quindi il processo di \emph{classificazione supervisionata} (\ie{} è necessario un \acs{CTBNC} appreso da un \emph{training set}), di cui si presentano in primis le basi teoriche e successivamente l'implementazione algoritmica che ne consegue.
 
-Il processo di classificazione di un flusso di evidenze è effettuato in base alla regola \emph{\acl{MAP}}\footnote{\ACF{MAP}, \omissis} (\acs{MAP})~\citep[si veda][]{Stella2012}: un flusso di evidenze completamente osservato viene classificato assegnandogli la classe la cui probabilità a posteriori (rispetto al flusso di evidenze stesso) è massima. A tale scopo è necessario calcolare la probabilità a posteriori della variabile classe $\setel{Y}$ del \acs{CTBNC}, rispetto al flusso di evidenze in input, per tutti i suoi possibili stati (\ie{} classi, o etichette).
+Il processo di classificazione di un flusso di evidenze è effettuato in base alla regola \emph{\keywordsub[classificazione]{\acl{MAP}}}\footnote{La stima della probabilità \acf{MAP} è una moda della distribuzione a posteriori che può essere usata per ottenere una stima puntuale di una quantità inosservata sulla base di dati empirici. Può essere vista come una regolarizzazione della stima \acf{MLE} poiché è strettamente correlata ad essa; vi differisce perché impiega un obiettivo di massimizzazione incrementato che incorpora una distribuzione a priori sopra la quantità che si vuole stimare.} (\acs{MAP})~\citep[si veda][]{Stella2012}: un flusso di evidenze completamente osservato viene classificato assegnandogli la classe la cui probabilità a posteriori (rispetto al flusso di evidenze stesso) è massima. A tale scopo è necessario calcolare la probabilità a posteriori della variabile classe $\setel{Y}$ del \acs{CTBNC}, rispetto al flusso di evidenze in input, per tutti i suoi possibili stati (\ie{} classi, o etichette).
 
 Il classificatore \acs{CTBN} classifica quindi il flusso di evidenze massimizzando la seguente probabilità a posteriori, ricavata applicando la \emph{\keywordsub[classificazione]{regola di Bayes}}:
 \begin{equation}\label{eq:ctbnc-inference-1}
@@ -302,13 +302,7 @@ L'\autoref{lst:ctbnc-inference} di inferenza esatta appena presentato è compost
 
 Si osservi infine che l'algoritmo in esame implementa una conversione delle probabilità in forma logaritmica non negativa (\ie{} $\setel{x} \in [0\,,\,1]$ rappresentato come $\setel{x}^{\prime}=\log(\setel{x})$). Ne consegue che l'applicazione della regola \acs{MAP} non varia.
 
-% ...
-% oss.: ottimo trade-off fra complessità computazionale e performance di
-% classificazione
+Anche l'algoritmo di inferenza esatta presentato in questa sezione è, così come l'algoritmo di apprendimento, computazionalmente efficiente.
 
-% oss.: Y è l'unica variabile non osservata in caso di classificazione su
-% dati completi
-% oss.: possibile sfruttare l'indipendenza condizionale come nelle BNs
-
-% TODO
-% They implement a trade-off between computational complexity and classification accuracy.
+% \section{Considerazioni}\label{sec:considerations-ctbnc}
+% In questo capitolo si è quindi definita la classe dei \acf{CTBNC}, una classe di modelli grafico probabilistici finalizzati alla classificazione supervisionata, caratterizzati dalla capacità di modellare direttamente la variabile temporale. Per tale classe sono stati presentati un processo di apprendimento e uno di inferenza esatta. Entrambi gli algoritmi correlati a tali processi sono inoltre computazionalmente efficienti.
