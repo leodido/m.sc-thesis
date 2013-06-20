@@ -476,15 +476,15 @@ In questa sezione si è presentato come computare la likelihood di un modello di
 Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è necessario stimarli. Nella prossima sezione viene affrontato esattamente questo argomento.
 
 \subsection{Stima dei parametri}\label{sec:ctbn-params}
-Si affronta ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}. La stima dei parametri non è un processo fine a sè stesso in quanto, oltre a essere necessaria per la creazione delle \cim{}, come vedremo in seguito nel \autoref{cap:ctbn-structural-learning}, è un componente chiave del processo di apprendimento strutturale.
+Si affronta ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
+ % in quanto, oltre a essere necessaria per la creazione delle \cim{}, è, come vedremo in seguito nel \autoref{cap:ctbn-structural-learning}, fondamentale per il processo di apprendimento strutturale.
 
-Dai\graffito{Come costruire una \acs{CIM} dai parametri.} parametri è quindi possibile costruire le \cim{} (\acs{CIM}) di ogni nodo. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}).
-
-Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,pa_i(\setel{x})}$ e ricavando i valori non sulla diagonale (\ie{} la \emph{<<probabilità istantanea>>} di transizione fra due stati; si veda a riguardo la \autoref{defn:im}) dalla relazione fra i parametri $q$ e $\theta$:
+La stima dei parametri non è un processo fine a sè stesso, in quanto, \graffito{Come costruire una \acs{CIM} dai parametri.} da essi è possibile costruire le \cim{} (\acs{CIM}) di ogni nodo della \acs{CTBN}. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}). Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,pa_i(\setel{x})}$ e ricavando i valori non sulla diagonale (\ie{} la \emph{\virgolette{probabilità istantanea}} di transizione fra due stati; si veda a riguardo la \autoref{defn:im}) dalla relazione fra i parametri $q$ e $\theta$:
 \begin{equation}
 \label{eq:ctbn-params-rel}
 q_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}=\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})} \cdot q_{x\,\arrowvert\,pa_i(\setel{x})}\text{.}
 \end{equation}
+Infine, come vedremo in seguito nel \autoref{cap:ctbn-structural-learning}, i parametri sono un componente chiave del processo di apprendimento strutturale.
 
 \subsubsection{Stima \acl{MLE}}\label{sec:ctbn-mle-params}
 In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\ref{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \autoref{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} con parametro $q_{x\,\arrowvert\,pa_i(\setel{x})}$, che esprime il tempo trascorso in uno stato $x$ da un nodo $\setel{X}$ data una istanziazione $pa_i(\setel{x})$ per i nodi genitori $Pa(\setel{X})$, e una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} con parametro $\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
@@ -541,7 +541,7 @@ Invece, in base all'\emph{indipendenza locale dei parametri} possiamo scrivere:
 \begin{equation}\label{eq:ctbn-bayesian-params-localind}
 P(q_{\setel{X}\,\arrowvert\,Pa(\setel{X})}\,,\,\theta_{\setel{X}\,\arrowvert\,Pa(\setel{X})}) = \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(q_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg] \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\theta_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg]\text{\normalsize .}
 \end{equation}\normalsize
-Se tale distribuzione a priori soddisfa le assunzioni di indipendenza allora anche la distribuzioni a posteriori, essendovi coniugata e perciò appartenente alla stessa famiglia parametrica, le soddisferà. In tal caso è possibile mantenere la distribuzione parametrica in forma chiusa e aggiornarla usando le \emph{statistiche sufficienti}:
+Se tale distribuzione a priori soddisfa le assunzioni di indipendenza allora anche la distribuzione a posteriori, essendovi coniugata e perciò appartenente alla stessa famiglia parametrica, le soddisferà. In tal caso è possibile mantenere la distribuzione parametrica in forma chiusa e aggiornarla usando le \emph{statistiche sufficienti}:
 \begin{itemize}
 \item $\mstat[x]{\setel{x^\prime}\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $\theta_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$
 \item $\mstat{x\,\arrowvert\,pa_i(\setel{x})}$ e $\tstat{x\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $q_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$.
