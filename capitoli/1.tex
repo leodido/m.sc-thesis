@@ -484,9 +484,10 @@ La stima dei parametri non è un processo fine a sè stesso, in quanto, \graffit
 \label{eq:ctbn-params-rel}
 q_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}=\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})} \cdot q_{x\,\arrowvert\,pa_i(\setel{x})}\text{.}
 \end{equation}
-Infine, come vedremo in seguito nel \autoref{cap:ctbn-structural-learning}, i parametri sono un componente chiave del processo di apprendimento strutturale.
+Infine, come vedremo in seguito nel \autoref{cap:structurallearning}, i parametri sono un componente chiave del processo di apprendimento strutturale.
 
-\subsubsection{Stima \acl{MLE}}\label{sec:ctbn-mle-params}
+\subsubsection{Stima \acl{MLE}}
+\label{sec:ctbn-mle-params}
 In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\ref{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \autoref{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} con parametro $q_{x\,\arrowvert\,pa_i(\setel{x})}$, che esprime il tempo trascorso in uno stato $x$ da un nodo $\setel{X}$ data una istanziazione $pa_i(\setel{x})$ per i nodi genitori $Pa(\setel{X})$, e una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} con parametro $\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
 La media della distribuzione \keywordsub[distribuzione]{esponenziale} in questione è pari a $1/q_{x\,\arrowvert\,pa_i(\setel{x})}$. Questa quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$, fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $pa_i(\setel{x})$. Poiché il tempo medio si calcola rapportando il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,pa_i(\setel{x})}$, rispetto al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,pa_i(\setel{x})}$, si ottiene:
@@ -511,7 +512,8 @@ q_{x\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat{x\,\arrowvert\,pa_i(\setel{x})}
 \end{teorema}
 Si noti che, in questo caso (\emph{dataset completo}), $q_{x\,\arrowvert\,pa_i(\setel{x})}$ e $\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}$ sono delle \emph{\keyword{stime esatte}}. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
-\subsubsection{Stima bayesiana}\label{sec:ctbn-bayesian-params}
+\subsubsection{Stima bayesiana}
+\label{sec:ctbn-bayesian-estimate}
 Un approccio alternativo alla stima dei parametri è la stima bayesiana~\citep[si veda][sezione 5.1.1]{Nodelman2007}.
 
 A tal fine è necessario definire una distribuzione a priori sui parametri di una \acs{CTBN}. Come si è soliti fare in situazioni di questo tipo, per tale distribuzione si sceglie di usare una \emph{distribuzione a \keywordsub[distribuzione]{priori coniugata}}\footnote{\label{note:conjugate-prior}In teoria della probabilità bayesiana, se le distribuzioni a posteriori $P(\theta|\setel{x})$ sono nella stessa famiglia della distribuzione a priori $P(\theta)$, le due distribuzioni sono definite coniugate, e la distribuzione a priori è chiamata \emph{distribuzione a priori coniugata} per la verosimiglianza (\emph{likelihood}). Una distribuzione a priori coniugata è conveniente dal punto di vista algebrico in quanto fornisce una espressione in forma chiusa per la distribuzione a posteriori e perché può fornire delle intuizioni circa il modo con cui la funzione di verosimiglianza aggiorna la distribuzione.} poiché ciò risulta conveniente dal punto di vista algebrico (e quindi computazionale). Infatti, una distribuzione a priori coniugata fornisce un'espressione in forma chiusa per la distribuzione a posteriori (alternativamente potrebbe risultare necessario il calcolo di un integrale numerico).
