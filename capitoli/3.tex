@@ -10,13 +10,29 @@
 \omissis{}
 % TODO: 5.2 da Nodelman2007, paper Nodelman2002
 
-% Several considerations concerning the exploitation of the structure of the graph G of the CTBNC in the case where the classification task is performed on a fully observed J-evidence-stream can be made. In such an evidential setting, the only unobserved random variable is the class variable Y; thus it is possible to fruitfully and conditionally exploit independence relationships between random variables as it happens in ordinary BNs
+% We address the problem of learning parameters and structure of a CTBN from fully observed data.
+% We define a conju- gate prior for CTBNs and show how it can be used both for Bayesian parameter estimation and as the ba- sis of a Bayesian score for structure learning.
+% Because acyclicity is not a constraint in CTBNs, we can show that the structure learning problem is significantly eas- ier, both in theory and in practice, than structure learn- ing for dynamic Bayesian networks (DBNs). Further- more, as CTBNs can tailor the parameters and depen- dency structure to the different time granularities of the evolution of different variables, they can provide a better fit to continuous-time processes than DBNs with a fixed time granularity.
 
+% We first consider the problem of estimating the parameters of a CTBN with a fixed structure G. As usual, this problem is not only useful on its own, but also as a key component in the structure learning task.
+
+% What is structural learning?
+
+% Since we have the means to represent and manipulate independence assertions, the obvious question follows: can we induce better classifiers by learning unrestricted Bayesian networks? Learning Bayesian networks from data is a rapidly growing field of research that has seen
+% a great deal of activity in recent years, includingwork by Buntine (1991, 1996), Cooper and Herskovits (1992), Friedman and Goldszmidt (1996c), Lam and Bacchus (1994), Hecker- man(1995), and Heckerman, Geiger, and Chickering (1995).
 % This is a form of unsupervised learning, in the sense that the learner does not distinguish the class variable from the attribute
 % variables in the data. The objective is to induce a network (or a set of networks) that “best describes” the probability distribution over the training data. This optimization process is implemented in practice by using heuristic search techniques to find the best candidate over the space of possible networks. The search process relies on a scoring function that assesses the merits of each candidate network.
 
 % TODO: vedi Friedman1997, poi spiega il perché è così -> formula MDL -> mettere solo se anche il nostro score ha lo stesso problema
 % This approach is justified by the asymptotic correctness of the Bayesian learning pro- cedure. Given a large data set, the learned network will be a close approximation for the probability distribution governing the domain (assuming that instances are sampled inde- pendently from a fixed distribution). Although this argument provides us with a sound theoretical basis, in practice we may encounter cases where the learning process returns a network with a relatively good MDL score that performs poorly as a classifier. To understand the possible discrepancy between good predictive accuracy and
+
+% la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all’apprendimento della struttura di una CTBN dai dati.
+
+
+% The problem of learning a Bayesian network can be informally stated as: Given a training
+% set D = {u1,..., uN} of instances of U, find a network B that best matches D. The common approach to this problem is to introduce a scoring function that evaluates each
+% network with respect to the training data, and then to search for the best network according to this function. In general, this optimization problem is intractable (Chickering, 1995). Yet, for certain restricted classes of networks, there are efficient algorithms requiring polynomial time in the number of variables in the network. We indeed take advantage of these efficient algorithms in Section 4.1, where we propose a particular extension to naive Bayes.
+% The two main scoring functions commonly used to learn Bayesian networks are the Bayesian scoring function (Cooper & Herskovits, 1992; Heckerman et al., 1995), and the function based on the principle of minimal description length (MDL) (Lam & Bacchus, 1994; Suzuki, 1993); see also Friedman and Goldszmidt (1996c) for a more recent account of this scoring function. These scoring functions are asymptotically equivalent as the sample size increases; furthermore, they are both asymptotically correct: with probability equal to one the learned distribution converges to the underlying distribution as the number of samples increases (Heckerman, 1995; Bouckaert, 1994; Geiger et al., 1996). An in-depth discussion of the pros and cons of each scoring function is beyond the scope of this paper. Henceforth, we concentrate on the MDL scoring function.
 
 \section{Funzione di scoring}\label{sec:ctbn-score}
 \omissis{}
@@ -26,3 +42,11 @@
 
 \subsection{Hill Climbing}\label{sec:hc}
 \omissis{}
+
+
+% Accordingly, we limit our attention to a class of network structures that are based on the structure of naive Bayes, requiring that the class variable be a parent of every attribute.
+% This ensures that, in the learned network, the probability Pr(C|A1,...,An), the main term determining the classification, will take every attribute into account. Unlike the naive Bayesian classifier, however, our classifier allows additional edges between attributes that capture correlations among them. This extension incurs additional computational costs. While the induction of the naive Bayesian classifier requires only simple bookkeeping, the induction of Bayesian networks requires searching the space of all possible networks— that is, the space of all possible combinations of edges.
+
+
+% SEM leaves unspecified the issue of how many greedy
+% search steps one takes before recomputing the expected sufficient statistics and parameters. Nodelman et al. (2003) showed that, for CTBNs, structure search for a fixed num- ber of parents per node can be done in polynomial time. Thus, it is possible, in this setting, to find the globally optimal structure given the current parametrization in the structure modification step. If one does this, SEM for CTBNs becomes an iterated optimization algorithm with a full maximization step for both structure and parameters.
