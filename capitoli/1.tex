@@ -442,30 +442,18 @@ L_{\setel{X}}(\param{q}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})
 \]
 \normalsize
 La likelihood di $\conceptsym{N}$ è quindi:
-% \begin{equation}
-% \label{eq:ctbn-likelihood}
-% \resizebox{.92\hsize}{!}{$L_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}\Big(\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\,\prod_{x\neq x^{\prime}}\param{$\theta$}_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\Big)$}\text{.}
-% \end{equation}
-{
 \footnotesize
-\begin{equation}\label{eq:ctbn-likelihood}
-\begin{split}
-L_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D}) &= \prod_{pa_i(\setel{x})}\prod_{\setel{x}}\bigg[\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\:\cdot \\
-& \quad \cdot \prod_{\setel{x}\neq \setel{x}^{\prime}}\param{$\theta$}_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\bigg]\text{\normalsize .}
-\end{split}
-\end{equation}
-}
+\begin{align}\label{eq:ctbn-likelihood}
+L_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D}) &= \prod_{pa_i(\setel{x})}\prod_{\setel{x}} \bigg[ \param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})}) \cdot \bigg.\nonumber\\
+& \qquad \bigg.{} \qquad \qquad \cdot \prod_{\setel{x}\neq \setel{x}^{\prime}}\param{$\theta$}_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}} \bigg] \text{\normalsize .}
+\end{align}
 \normalsize
 Mentre, scrivendola come \emph{log-likelihood}, si ottiene:
-{
 \footnotesize
-\begin{equation}\label{eq:ctbn-log-likelihood}
-\begin{split}
-\ell_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D}) &= \sum_{pa_i(\setel{x})}\sum_{\setel{x}}\bigg[\mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(\param{q}_{x\,\arrowvert\,pa_i(\setel{x})})- \param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\:+ \\
-& \quad  + \sum_{\setel{x}\neq \setel{x}^{\prime}}\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\param{$\theta$}_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})})\bigg]\text{\normalsize .}
-\end{split}
-\end{equation}
-}
+\begin{align}\label{eq:ctbn-log-likelihood}
+\ell_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D}) &= \sum_{pa_i(\setel{x})}\sum_{\setel{x}} \bigg[ \mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(\param{q}_{x\,\arrowvert\,pa_i(\setel{x})})- \param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \bigg.\nonumber\\
+& \qquad \bigg.{} \qquad \qquad + \sum_{\setel{x}\neq \setel{x}^{\prime}}\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\param{$\theta$}_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}) \bigg] \text{\normalsize .}
+\end{align}
 \normalsize
 In questa sezione si è presentato come computare la likelihood di un modello di una \acs{CTBN} rispetto a un dataset completo.
 
