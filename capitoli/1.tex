@@ -34,14 +34,14 @@ Di seguito si fornisce la definizione formale delle \acl{BN} e si introducono i 
 
 \begin{definizione}[\acl{BN}]
 \label{defn:bn}
-Una \acl{BN} $\conceptsym{B}$ è una coppia $\conceptsym{B}=(\conceptsym{G},\theta_{\conceptsym{G}})$ costituita da:
+Una \acl{BN} $\conceptsym{B}$ è una coppia $\conceptsym{B}=(\conceptsym{G},\param{$\theta$}_{\conceptsym{G}})$ costituita da:
 \begin{itemize}
     \item $\conceptsym{G}=(\set{V}(\conceptsym{G}),\set{A}(\conceptsym{G}))$, un \acl{DAG} dove:
     \begin{itemize}
         \item $\set{V}(\conceptsym{G})=\{\setel{V_1}, \dotsc, \setel{V_n}\}$ è l'insieme dei nodi, ognuno dei quali è associato ad una \acf{CPD}\footnote{Nel caso di variabili causali discrete, le \acs{CPD} sono rappresentabili come delle tabelle che contengono i valori di probabilità di un nodo in funzione di tutte le possibili configurazioni dei nodi genitori (cioè l'insieme dei nodi da cui parte un arco che punta al nodo di interesse). Tali tabelle sono spesso chiamate \acf{CPT}.}
         \item $\set{A}(\conceptsym{G})\subseteq\set{V}(\conceptsym{G})\times\set{V}(\conceptsym{G})$ è l'insieme degli archi fra i nodi $\set{V}(\conceptsym{G})$
     \end{itemize}
-    \item $\theta_{\conceptsym{G}}$, insieme delle \acs{CPD} dei nodi che specifica $\set{P}_{\conceptsym{B}}$, la distribuzione di probabilità congiunta delle variabili casuali $\set{X}_{\set{V}(\conceptsym{G})}$ a cui corrispondono i nodi $\set{V}(\conceptsym{G})$.
+    \item $\param{$\theta$}_{\conceptsym{G}}$, insieme delle \acs{CPD} dei nodi che specifica $\set{P}_{\conceptsym{B}}$, la distribuzione di probabilità congiunta delle variabili casuali $\set{X}_{\set{V}(\conceptsym{G})}$ a cui corrispondono i nodi $\set{V}(\conceptsym{G})$.
 \end{itemize}
 \end{definizione}
 \begin{osservazione}\label{oss:bn-markov-assumption}
@@ -128,7 +128,7 @@ Gli \emph{algoritmi basati su vincoli} sono basati sull'algoritmo \acf{IC} di~\c
     \item Impostare la direzione degli archi fra i nodi rimanenti affinché il vincolo di aciclicità sia rispettato.
 \end{itemize}
 
-Gli \emph{algoritmi basati su punteggio} sono invece delle applicazioni dei vari algoritmi di ricerca euristica (\eg{} \emph{hill climbing}, \emph{tabu search}, \emph{best first search}, \emph{simulated annealing}) che utilizzano una funzione di \emph{scoring}. Solitamente la funzione di \emph{scoring} utilizza la probabilità a posteriori della struttura in esame, dato l'insieme dei dati di apprendimento (\ie{} training set), ed è \emph{score-equivalent}, affinché reti che definiscono la stessa distribuzione di probabilità abbiano lo stesso score~\citep{Chickering2013}. Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili~\citep[][]{Heckerman1995}.
+Gli \emph{algoritmi basati su punteggio} sono invece delle applicazioni dei vari algoritmi di ricerca euristica (\eg{} \emph{hill climbing}, \emph{tabu search}, \emph{best first search}, \emph{simulated annealing}) che utilizzano una funzione di \emph{scoring}. Solitamente la funzione di \emph{scoring} utilizza la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{} training set), data la struttura in esame, ed è \emph{score-equivalent}, affinché reti che definiscono la stessa distribuzione di probabilità abbiano lo stesso score~\citep{Chickering2013}. Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili~\citep[][]{Heckerman1995}.
 
 \subsection{Processi di Markov}
 \label{sec:mps}
@@ -185,10 +185,10 @@ Una \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}:
 \[
 \imsign{\setel{X}}=
 \begin{bmatrix}
-    -q_{\setel{x}_1}    & q_{\setel{x}_1\setel{x}_2}& \cdots & q_{\setel{x}_1\setel{x}_k}   \\[0.5em]
-    q_{\setel{x}_2\setel{x}_1}  & -q_{\setel{x}_2}  & \cdots & q_{\setel{x}_2\setel{x}_k}   \\[0.5em]
+    -\param{q}_{\setel{x}_1}    & \param{q}_{\setel{x}_1\setel{x}_2}& \cdots & \param{q}_{\setel{x}_1\setel{x}_k}   \\[0.5em]
+    \param{q}_{\setel{x}_2\setel{x}_1}  & -\param{q}_{\setel{x}_2}  & \cdots & \param{q}_{\setel{x}_2\setel{x}_k}   \\[0.5em]
     \vdots      & \vdots    & \ddots & \vdots       \\[0.5em]
-    q_{\setel{x}_k\setel{x}_1}  & q_{\setel{x}_k\setel{x}_2}& \cdots & -q_{\setel{x}_k}
+    \param{q}_{\setel{x}_k\setel{x}_1}  & \param{q}_{\setel{x}_k\setel{x}_2}& \cdots & -\param{q}_{\setel{x}_k}
 \end{bmatrix}\text{.}
 \]
 Lo scopo di un \im*{} è descrivere il comportamento transiente di $\setel{X}$, un \mprocess*{} \omog*{}.
@@ -196,30 +196,30 @@ Lo scopo di un \im*{} è descrivere il comportamento transiente di $\setel{X}$, 
 
 Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$:
 \[
-q_{\setel{x}_i}=\sum_{i \neq j}q_{\setel{x}_i\setel{x}_j}\quad\text{con}\quad q_{\setel{x}_i}\,,\,q_{\setel{x}_i\setel{x}_j}>0\text{.}
+\param{q}_{\setel{x}_i}=\sum_{i \neq j}\param{q}_{\setel{x}_i\setel{x}_j}\quad\text{con}\quad \param{q}_{\setel{x}_i}\,,\,\param{q}_{\setel{x}_i\setel{x}_j}>0\text{.}
 \]
 
-Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=\setel{x}_i$ allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $\setel{x}_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $q_{\setel{x}_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $X$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $x$ la probabilità che $X$ assuma valori minori o uguali ad $x$.} $F$ sono:
+Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=\setel{x}_i$ allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $\setel{x}_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $\param{q}_{\setel{x}_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $\setel{X}$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $\setel{x}$ la probabilità che $\setel{X}$ assuma valori minori o uguali ad $\setel{x}$.} $F$ sono:
 \begin{equation}
 \label{eq:im-distrib}
 \begin{split}
-f(t) &= q_{\setel{x}_i}\,\exp(-q_{\setel{x}_i}\,t)\,,\quad t>0 \\
-F(t) &= 1-\exp(-q_{\setel{x}_i}\,t)\,,\quad t\geq0\text{.}
+f(t) &= \param{q}_{\setel{x}_i}\,\exp(-\param{q}_{\setel{x}_i}\,t)\,,\quad t>0 \\
+F(t) &= 1-\exp(-\param{q}_{\setel{x}_i}\,t)\,,\quad t\geq0\text{.}
 \end{split}
 \end{equation}
 
-Mentre gli elementi sulla diagonale, $q_{\setel{x}_i}$, codificano una quantità che può essere interpretata come la \emph{\virgolette{probabilità istantanea}} che $\setel{X}$ abbandoni lo stato $\setel{x}_i$, gli elementi non sulla diagonale, $q_{\setel{x}_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$.
+Mentre gli elementi sulla diagonale, $\param{q}_{\setel{x}_i}$, codificano una quantità che può essere interpretata come la \emph{\virgolette{probabilità istantanea}} che $\setel{X}$ abbandoni lo stato $\setel{x}_i$, gli elementi non sulla diagonale, $\param{q}_{\setel{x}_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$.
 
 Possiamo quindi calcolare:
 \begin{itemize}
-    \item il \emph{tempo atteso} di una transizione uscente dallo stato $\setel{x}_i$ \[1/q_{\setel{x}_i}\]
-    \item la \emph{\virgolette{probabilità istantanea}} di transizione dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$ \[\theta_{\setel{x}_i\setel{x}_j}=q_{\setel{x}_i\setel{x}_j}/q_{\setel{x}_i}\text{.}\]
+    \item il \emph{tempo atteso} di una transizione uscente dallo stato $\setel{x}_i$ \[1/\param{q}_{\setel{x}_i}\]
+    \item la \emph{\virgolette{probabilità istantanea}} di transizione dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$ \[\param{$\theta$}_{\setel{x}_i\setel{x}_j}=\param{q}_{\setel{x}_i\setel{x}_j}/\param{q}_{\setel{x}_i}\text{.}\]
 \end{itemize}
 
 Quindi una \im*{} induce una distribuzione di probabilità locale fattorizzata in due parti:
 \begin{itemize}
-    \item $q_{\setel{x}_i}$, che esprime quando avvengono le transizioni attraverso una \emph{distribuzione di probabilità \keywordsub[distribuzione]{esponenziale}}
-    \item $\theta_{\setel{x}_{ij}}$, che esprime la \emph{distribuzione di probabilità \keywordsub[distribuzione]{multinomiale}} tra coppie di stati $i \neq j$.
+    \item $\param{q}_{\setel{x}_i}$, che esprime quando avvengono le transizioni attraverso una \emph{distribuzione di probabilità \keywordsub[distribuzione]{esponenziale}}
+    \item $\param{$\theta$}_{\setel{x}_{ij}}$, che esprime la \emph{distribuzione di probabilità \keywordsub[distribuzione]{multinomiale}} tra coppie di stati $i \neq j$.
 \end{itemize}
 La matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (vale l'\autoref{eq:homogeneus-markov-process}).
 \begin{osservazione}
@@ -242,16 +242,16 @@ Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbia
 \label{defn:cim}
 Dato un insieme di processi di Markov $Pa(\setel{X})$, una \im*{} \cond*{} $\cimsign{\setel{X}}{Pa(\setel{X})}$ è costituita da un insieme di \im{} $\cimsign{\setel{X}}{pa_i(\setel{x})}$, una per ogni diversa istanziazione $pa_i(\setel{x})$ di $Pa(\setel{X})$~\citep{Stella2012}:
 \[
-\cimsign{\setel{X}}{Pa(\setel{X})}=\big\{\,\cimsign{\setel{X}}{pa_1(x)}\,,\,\cimsign{\setel{X}}{pa_2(x)}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{pa_n(x)}\,\big\}\text{.}
+\cimsign{\setel{X}}{Pa(\setel{X})}=\big\{\,\cimsign{\setel{X}}{pa_1(\setel{x})}\,,\,\cimsign{\setel{X}}{pa_2(\setel{x})}\,,\,\dotsc\,,\,\cimsign{\setel{X}}{pa_n(\setel{x})}\,\big\}\text{.}
 \]
 Ogni matrice di intensità di $\cimsign{\setel{X}}{Pa(\setel{X})}$ è del seguente tipo:\\
 \[
 \cimsign{\setel{X}}{pa_i(\setel{x})}=
 \begin{bmatrix}
--q_{\setel{x}_1}^{pa_i(\setel{x})}   & q_{\setel{x}_1\setel{x}_2}^{pa_i(\setel{x})} & \cdots & q_{\setel{x}_1\setel{x}_k}^{pa_i(\setel{x})}\\[0.5em]
-q_{\setel{x}_2\setel{x}_1}^{pa_i(\setel{x})} & -q_{\setel{x}_2}^{pa_i(\setel{x})}   & \cdots & q_{\setel{x}_2\setel{x}_k}^{pa_i(\setel{x})}\\[0.5em]
+-\param{q}_{\setel{x}_1}^{pa_i(\setel{x})}   & \param{q}_{\setel{x}_1\setel{x}_2}^{pa_i(\setel{x})} & \cdots & \param{q}_{\setel{x}_1\setel{x}_k}^{pa_i(\setel{x})}\\[0.5em]
+\param{q}_{\setel{x}_2\setel{x}_1}^{pa_i(\setel{x})} & -\param{q}_{\setel{x}_2}^{pa_i(\setel{x})}   & \cdots & \param{q}_{\setel{x}_2\setel{x}_k}^{pa_i(\setel{x})}\\[0.5em]
 \vdots           & \vdots           & \ddots & \vdots\\[0.5em]
-q_{\setel{x}_k\setel{x}_1}^{pa_i(\setel{x})} & q_{\setel{x}_k\setel{x}_2}^{pa_i(\setel{x})} & \cdots & -q_{\setel{x}_k}^{pa_i(\setel{x})}
+\param{q}_{\setel{x}_k\setel{x}_1}^{pa_i(\setel{x})} & \param{q}_{\setel{x}_k\setel{x}_2}^{pa_i(\setel{x})} & \cdots & -\param{q}_{\setel{x}_k}^{pa_i(\setel{x})}
 \end{bmatrix}
 \text{.}
 \]
@@ -280,8 +280,8 @@ Date due variabili causali, $\setel{E}(t)$ e $\setel{H}(t)$, delle quali la prim
 \]
 Ipotizzando che l'unità temporale corrisponda a un'ora:
 \begin{itemize}
-    \item un individuo affamato ($\setel{h}=2$) che non sta mangiando ($\setel{e}=1$) inizierà a mangiare in 30 minuti poiché \[\frac{1}{q_{\setel{e}=1\,\arrowvert\,\setel{h}=2}}=\frac{1}{2}\:\text{,}\]
-    \item un individuo non affamato ($\setel{h}=1$) che sta mangiando ($\setel{e}=2$) smetterà di mangiare ($\setel{e}=1$) entro 6 minuti poiché \[\frac{1}{q_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{1}{10}\:\text{;}\] si osservi che la\emph{\virgolette{probabilità istantanea}} di transizione da $\setel{e}=2$ a $\setel{e}=1$, come già evidenziato dall'\autoref{oss:squared-im}, è \[\theta_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}=\frac{q_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}}{q_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{10}{10}=1\text{.}\]
+    \item un individuo affamato ($\setel{h}=2$) che non sta mangiando ($\setel{e}=1$) inizierà a mangiare in 30 minuti poiché \[\frac{1}{\param{q}_{\setel{e}=1\,\arrowvert\,\setel{h}=2}}=\frac{1}{2}\:\text{,}\]
+    \item un individuo non affamato ($\setel{h}=1$) che sta mangiando ($\setel{e}=2$) smetterà di mangiare ($\setel{e}=1$) entro 6 minuti poiché \[\frac{1}{\param{q}_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{1}{10}\:\text{;}\] si osservi che la\emph{\virgolette{probabilità istantanea}} di transizione da $\setel{e}=2$ a $\setel{e}=1$, come già evidenziato dall'\autoref{oss:squared-im}, è \[\param{$\theta$}_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}=\frac{\param{q}_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}}{\param{q}_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{10}{10}=1\text{.}\]
 \end{itemize}
 \end{esempio}
 
@@ -372,18 +372,18 @@ Dato un insieme di variabili casuali, un insieme di dati $\conceptsym{D}=\{\,\de
 \label{sec:ctbn-sufficient-stats}
 Le \emph{\stats{}} per un singolo \mprocess*{} \omog*{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva con:
 \begin{itemize}
-    \item $\tstat{x}$: la quantità di tempo trascorsa nello stato $x$
-    \item $\mstat[x]{x^\prime}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$.
+    \item $\tstat{x}$: la quantità di tempo trascorsa nello stato $\setel{x}$
+    \item $\mstat[x]{\setel{x}^\prime}$: il numero di transizioni dallo stato $\setel{x}$ allo stato $\setel{x}^\prime$.
 \end{itemize}
 
-Il numero totale di transizioni uscenti da uno stato $x$ è:
+Il numero totale di transizioni uscenti da uno stato $\setel{x}$ è:
 \[
-\mstat{x}=\sum_{x^\prime}\mstat[x]{x^\prime}\text{.}
+\mstat{x}=\sum_{\setel{x}^\prime}\mstat[x]{\setel{x}^\prime}\text{.}
 \]
 Nel caso di un \mprocess*{} \cond*{} è invece necessario considerare anche l'istanziazione dell'insieme $Pa(\setel{X})$ dei nodi genitori:
 \begin{itemize}
-    \item $\tstat{x\,\arrowvert\,pa_i(\setel{x})}$: la quantità di tempo trascorsa nello stato $x$ quando $Pa(\setel{X})=pa_i(\setel{x})$
-    \item $\mstat[x]{x^\prime\,\arrowvert\,pa_i(\setel{x})}$: il numero di transizioni dallo stato $x$ allo stato $x^\prime$ quando $Pa(\setel{X})=pa_i(\setel{x})$.
+    \item $\tstat{x\,\arrowvert\,pa_i(\setel{x})}$: la quantità di tempo trascorsa nello stato $\setel{x}$ quando $Pa(\setel{X})=pa_i(\setel{x})$
+    \item $\mstat[x]{\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}$: il numero di transizioni dallo stato $\setel{x}$ allo stato $\setel{x}^\prime$ quando $Pa(\setel{X})=pa_i(\setel{x})$.
 \end{itemize}
 Chiaramente, il numero totale di transizioni si calcola come sopra.
 
@@ -397,10 +397,10 @@ Data una tripla $d=\langle \,\setel{x}_{d}\,,\,t_d\,,\,\setel{x}_{d^{\prime}}\,\
 \begin{equation}
 \label{eq:ctbn-trans-hmm-likelihood}
 \begin{split}
-L_{\setel{X}}(q\,,\,\theta:d) &= L_{\setel{X}}(q:d)\,L_{\setel{X}}(\theta:d) \\
-&= q_{\setel{x}_d}\,\exp(-q_{\setel{x}_d}\,t_d)\,(\theta_{\setel{x}_{d}\setel{x}_{d^{\prime}}})\text{.}
-% &= q_{\setel{x}_d}\,\exp(-q_{\setel{x}_d}\,t_d)\,\Big(\frac{q_{\setel{x}_{d}\setel{x}_{d^{\prime}}}}{q_{\setel{x}_d}}\Big) \\
-% &= \exp(-q_{\setel{x}_d}\,t_d)\,q_{\setel{x}_{d}\setel{x}_{d^{\prime}}}
+L_{\setel{X}}(\param{q}\,,\,\param{$\theta$}:d) &= L_{\setel{X}}(\param{q}:d)\,L_{\setel{X}}(\param{$\theta$}:d) \\
+&= \param{q}_{\setel{x}_d}\,\exp(-\param{q}_{\setel{x}_d}\,t_d)\,(\param{$\theta$}_{\setel{x}_{d}\setel{x}_{d^{\prime}}})\text{.}
+% &= \param{q}_{\setel{x}_d}\,\exp(-\param{q}_{\setel{x}_d}\,t_d)\,\Big(\frac{\param{q}_{\setel{x}_{d}\setel{x}_{d^{\prime}}}}{\param{q}_{\setel{x}_d}}\Big) \\
+% &= \exp(-\param{q}_{\setel{x}_d}\,t_d)\,\param{q}_{\setel{x}_{d}\setel{x}_{d^{\prime}}}
 \end{split}
 \end{equation}
 Si noti che l'\autoref{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando la \emph{funzione di distribuzione di probabilità} di $\setel{X}(t)$ (\autoref{eq:im-distrib}) per la \emph{\virgolette{probabilità istantanea}} di transizione (si veda la \autoref{defn:im}).
@@ -413,8 +413,8 @@ Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singo
 \begin{equation}
 \label{eq:ctbn-data-hmp-likelihood}
 \begin{split}
-L_{\setel{X}}(q\,,\,\theta:\conceptsym{D})&=\bigg[\prod_{d\in\conceptsym{D}}L_{\setel{X}}(q:d)\bigg]\bigg[\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\theta:d)\bigg]\\[5pt]
-&=\Big[\prod_{x}q_x^{\mstat{x}}\exp(-q_x\tstat{x})\Big]\Big[\prod_{x}\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}}^{\mstat[x]{x^\prime}}\Big]\text{.}
+L_{\setel{X}}(\param{q}\,,\,\param{$\theta$}:\conceptsym{D})&=\bigg[\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\param{q}:d)\bigg]\bigg[\prod_{d\in\conceptsym{D}}L_{\setel{X}}(\param{$\theta$}:d)\bigg]\\[5pt]
+&=\Big[\prod_{\setel{x}}\param{q}_{\setel{x}}^{\mstat{x}}\exp(-\param{q}_{\setel{x}}\tstat{x})\Big]\Big[\prod_{x}\prod_{x\neq x^{\prime}}\param{$\theta$}_{\setel{x}\setel{x}^{\prime}}^{\mstat[x]{\setel{x}^\prime}}\Big]\text{.}
 \end{split}
 \end{equation}
 Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ con $N$ nodi: per ogni nodo $\setel{X_i}$, con $i=1\,,\,\dotsc\,N$ è necessario considerare tutte le transizioni contestualmente all'istanziazione dell'insieme $Pa(\setel{X_i})$ dei suoi nodi genitori. Poiché, nel caso di \emph{dati completi}, si conosce sempre l'istanziazione di $Pa(\setel{X_i})$, allora, per ogni istante di tempo $t$, si conosce quale \im*{} $\cimsign{\setel{X_i}}{pa_i(\setel{x})}\,$, con $pa_i(\setel{x})\in Pa(\setel{X_i})\,$, governi la dinamica di $\setel{X_i}$.
@@ -422,51 +422,47 @@ Si supponga ora di traslare questo concetto a una \acl{CTBN} $\conceptsym{N}$ co
 Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è il prodotto delle likelihood di ogni variabile $\setel{X_i}$:
 \begin{equation}
 \begin{split}
-L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})&=\prod_{\setel{X}_i\in\set{X}}L_{\setel{X}_i}(q_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,,\,\theta_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \\
-&=\prod_{\setel{X}_i\in\set{X}}L_{\setel{X}_i}(q_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D})\,L_{\setel{X}_i}(\theta_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D})\text{.}
+L_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D})&=\prod_{\setel{X}_i\in\set{X}}L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,,\,\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \\
+&=\prod_{\setel{X}_i\in\set{X}}L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D})\,L_{\setel{X}_i}(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D})\text{.}
 \end{split}
 \end{equation}
-Il termine $L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori~\citep[si veda][3]{Nodelman2002}. Quindi, usando le \emph{\stats{}} si può scrivere:
+Il termine $L_{\setel{X}}(\param{$\theta$}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori~\citep[si veda][3]{Nodelman2002}. Quindi, usando le \emph{\stats{}} si può scrivere:
 \[
-L_{\setel{X}}(\theta_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})} \prod_{x} \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
+L_{\setel{X}}(\param{$\theta$}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})} \prod_{x} \prod_{x\neq x^{\prime}}\param{$\theta$}_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \]
 
-Per quanto riguarda il calcolo di $L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso da $X$ in uno determinato stato $x$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $Pa(\setel{X})$). \`E quindi necessario considerare la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $Pa(\setel{X})$ non effettuano alcuna transizione di stato~\citep[si veda][3]{Nodelman2002}. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione \keywordsub[distribuzione]{esponenziale} (\autoref{eq:im-distrib}):
+Per quanto riguarda il calcolo di $L_{\setel{X}}(\param{q}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ va considerato il caso in cui il tempo trascorso da $X$ in uno determinato stato $\setel{x}$ termini non a causa di una sua transizione bensì a causa di una transizione di uno o più nodi appartenenti all'insieme dei suoi nodi genitori (\ie{} una nuova istanziazione per l'insieme dei genitori $Pa(\setel{X})$). \`E quindi necessario considerare la probabilità che il nodo $X$ rimanga in $x$ una quantità di tempo \emph{almeno pari} a $t$ mentre i suoi nodi genitori $Pa(\setel{X})$ non effettuano alcuna transizione di stato~\citep[si veda][3]{Nodelman2002}. Tale quantità si ricava dalla funzione di distribuzione cumulativa di una distribuzione \keywordsub[distribuzione]{esponenziale} (\autoref{eq:im-distrib}):
 \[
-1-F(t)=\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})} t)\text{.}
+1-F(t)=\exp(-\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})} t)\text{.}
 \]
 Perciò la likelihood delle quantità di tempo trascorse in ogni stato è:
 \small
 \[
-L_{\setel{X}}(q_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\text{\normalsize .}
+L_{\setel{X}}(\param{q}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\,\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})})\text{\normalsize .}
 \]
 \normalsize
 La likelihood di $\conceptsym{N}$ è quindi:
 % \begin{equation}
 % \label{eq:ctbn-likelihood}
-% \resizebox{.92\hsize}{!}{$L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}\Big(q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\,\prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\Big)$}\text{.}
+% \resizebox{.92\hsize}{!}{$L_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}\Big(\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\,\prod_{x\neq x^{\prime}}\param{$\theta$}_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\Big)$}\text{.}
 % \end{equation}
 {
 \footnotesize
 \begin{equation}\label{eq:ctbn-likelihood}
 \begin{split}
-L_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D}) &= \prod_{pa_i(\setel{x})}\prod_{x}\Big(q_{x\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-q_{x\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\:\cdot \\
-& \quad \cdot \prod_{x\neq x^{\prime}}\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\Big)\text{\normalsize .}
+L_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D}) &= \prod_{pa_i(\setel{x})}\prod_{\setel{x}}\bigg[\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\exp(-\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\,\tstat{x\,\arrowvert\,pa_i(\setel{x})})\:\cdot \\
+& \quad \cdot \prod_{\setel{x}\neq \setel{x}^{\prime}}\param{$\theta$}_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}^{\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\bigg]\text{\normalsize .}
 \end{split}
 \end{equation}
 }
 \normalsize
 Mentre, scrivendola come \emph{log-likelihood}, si ottiene:
-% \begin{equation}
-% \label{eq:ctbn-log-likelihood}
-% \resizebox{.90\hsize}{!}{$\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D})=\sum_{pa_i(\setel{x})}\sum_{x}\Big(\mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(q_{x\,\arrowvert\,pa_i(\setel{x})})-q_{x\,\arrowvert\,pa_i(\setel{x})}\tstat{x\,\arrowvert\,pa_i(\setel{x})}+\sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})})\Big)$}\text{.}
-% \end{equation}
 {
 \footnotesize
 \begin{equation}\label{eq:ctbn-log-likelihood}
 \begin{split}
-\ell_{\conceptsym{N}}(q\,,\,\theta\,:\conceptsym{D}) &= \sum_{pa_i(\setel{x})}\sum_{x}\Big(\mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(q_{x\,\arrowvert\,pa_i(\setel{x})})- q_{x\,\arrowvert\,pa_i(\setel{x})}\tstat{x\,\arrowvert\,pa_i(\setel{x})}\:+ \\
-& \quad  + \sum_{x\neq x^{\prime}}\mstat[x]{x^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\theta_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})})\Big)\text{\normalsize .}
+\ell_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D}) &= \sum_{pa_i(\setel{x})}\sum_{\setel{x}}\bigg[\mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(\param{q}_{x\,\arrowvert\,pa_i(\setel{x})})- \param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\:+ \\
+& \quad  + \sum_{\setel{x}\neq \setel{x}^{\prime}}\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\param{$\theta$}_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})})\bigg]\text{\normalsize .}
 \end{split}
 \end{equation}
 }
@@ -479,81 +475,82 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 Si affronta ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
  % in quanto, oltre a essere necessaria per la creazione delle \cim{}, è, come vedremo in seguito nel \autoref{cap:ctbn-structural-learning}, fondamentale per il processo di apprendimento strutturale.
 
-La stima dei parametri non è un processo fine a sè stesso, in quanto, \graffito{Come costruire una \acs{CIM} dai parametri.} da essi è possibile costruire le \cim{} (\acs{CIM}) di ogni nodo della \acs{CTBN}. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}). Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $q_{x\,\arrowvert\,pa_i(\setel{x})}$ e ricavando i valori non sulla diagonale (\ie{} la \emph{\virgolette{probabilità istantanea}} di transizione fra due stati; si veda a riguardo la \autoref{defn:im}) dalla relazione fra i parametri $q$ e $\theta$:
+La stima dei parametri non è un processo fine a sè stesso, in quanto, \graffito{Come costruire una \acs{CIM} dai parametri.} da essi è possibile costruire le \cim{} (\acs{CIM}) di ogni nodo della \acs{CTBN}. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}). Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}$ e ricavando i valori non sulla diagonale (\ie{} la \emph{\virgolette{probabilità istantanea}} di transizione fra due stati; si veda a riguardo la \autoref{defn:im}) dalla relazione fra i parametri $\param{q}$ e $\param{$\theta$}$:
 \begin{equation}
 \label{eq:ctbn-params-rel}
-q_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}=\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})} \cdot q_{x\,\arrowvert\,pa_i(\setel{x})}\text{.}
+\param{q}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}=\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})} \cdot \param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\text{.}
 \end{equation}
 Infine, come vedremo in seguito nel \autoref{cap:structurallearning}, i parametri sono un componente chiave del processo di apprendimento strutturale.
 
 \subsubsection{Stima \acl{MLE}}
 \label{sec:ctbn-mle-params}
-In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\ref{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \autoref{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} con parametro $q_{x\,\arrowvert\,pa_i(\setel{x})}$, che esprime il tempo trascorso in uno stato $x$ da un nodo $\setel{X}$ data una istanziazione $pa_i(\setel{x})$ per i nodi genitori $Pa(\setel{X})$, e una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} con parametro $\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}$, che esprime il numero di transizioni uscenti da uno stato $x$ verso $x^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
+In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\ref{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \autoref{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} con parametro $\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}$, che esprime il tempo trascorso in uno stato $\setel{x}$ da un nodo $\setel{X}$ data una istanziazione $pa_i(\setel{x})$ per i nodi genitori $Pa(\setel{X})$, e una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} con parametro $\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}$, che esprime il numero di transizioni uscenti da uno stato $\setel{x}$ verso $\setel{x}^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
-La media della distribuzione \keywordsub[distribuzione]{esponenziale} in questione è pari a $1/q_{x\,\arrowvert\,pa_i(\setel{x})}$. Questa quantità esprime il tempo medio delle transizioni uscenti da uno stato $x$, fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $pa_i(\setel{x})$. Poiché il tempo medio si calcola rapportando il tempo totale trascorso in $x$, $\tstat{x\,\arrowvert\,pa_i(\setel{x})}$, rispetto al numero totale di transizioni uscenti da $x$, $\mstat{x\,\arrowvert\,pa_i(\setel{x})}$, si ottiene:
+La media della distribuzione \keywordsub[distribuzione]{esponenziale} in questione è pari a $1/\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$. Questa quantità esprime il tempo medio delle transizioni uscenti da uno stato $\setel{x}$, fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $pa_i(\setel{x})$. Poiché il tempo medio si calcola rapportando il tempo totale trascorso in $\setel{x}$, $\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$, rispetto al numero totale di transizioni uscenti da $\setel{x}$, $\mstat{x\,\arrowvert\,pa_i(\setel{x})}$, si ottiene:
 \[
-\frac{1}{q_{x\,\arrowvert\,pa_i(\setel{x})}}=\frac{\tstat{x\,\arrowvert\,pa_i(\setel{x})}}{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\text{.}
+\frac{1}{\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}}=\frac{\tstat{x\,\arrowvert\,pa_i(\setel{x})}}{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \]
 
-Invece, la probabilità di transizione da uno stato $x$ verso $x^\prime$ è data dal rapporto tra il numero totale di transizioni da $x$ a $x^\prime$ diviso il numero totale di transizioni uscenti da $x$; cioè:
+Invece, la probabilità di transizione da uno stato $\setel{x}$ verso $\setel{x}^\prime$ è data dal rapporto tra il numero totale di transizioni da $\setel{x}$ a $\setel{x}^\prime$ diviso il numero totale di transizioni uscenti da $\setel{x}$; cioè:
 \[
-\mstat[x]{x^\prime\,\arrowvert\,pa_i(\setel{x})}/\mstat{x\,\arrowvert\,pa_i(\setel{x})}\text{.}
+\frac{\mstat[x]{\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}}{\mstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \]
 
 \begin{teorema}{Parametri \ac{MLE}.}
 I parametri che massimizzano la likelihood (\autoref{eq:ctbn-log-likelihood}) di una \acl{CTBN} sono funzione delle \stats{}:
 \begin{equation}
-\label{eq:ctbn-params}
+\label{eq:ctbn-params}\normalfont
 \begin{split}
-q_{x\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}{\tstat{x\,\arrowvert\,pa_i(\setel{x})}} \\
-\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat[x]{x^\prime\,\arrowvert\,pa_i(\setel{x})}}{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\text{.}
+\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}{\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}} \\
+\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat[x]{\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}}{\mstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \end{split}
 \end{equation}
 \end{teorema}
-Si noti che, in questo caso (\emph{dataset completo}), $q_{x\,\arrowvert\,pa_i(\setel{x})}$ e $\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}$ sono delle \emph{\keyword{stime esatte}}. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
+\normalfont
+Si noti che, in questo caso (\emph{dataset completo}), $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$ e $\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}$ sono delle \emph{\keyword{stime esatte}}. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
 \subsubsection{Stima bayesiana}
 \label{sec:ctbn-bayesian-estimate}
 Un approccio alternativo alla stima dei parametri è la stima bayesiana~\citep[si veda][sezione 5.1.1]{Nodelman2007}.
 
-A tal fine è necessario definire una distribuzione a priori sui parametri di una \acs{CTBN}. Come si è soliti fare in situazioni di questo tipo, per tale distribuzione si sceglie di usare una \emph{distribuzione a \keywordsub[distribuzione]{priori coniugata}}\footnote{\label{note:conjugate-prior}In teoria della probabilità bayesiana, se le distribuzioni a posteriori $P(\theta|\setel{x})$ sono nella stessa famiglia della distribuzione a priori $P(\theta)$, le due distribuzioni sono definite coniugate, e la distribuzione a priori è chiamata \emph{distribuzione a priori coniugata} per la verosimiglianza (\emph{likelihood}). Una distribuzione a priori coniugata è conveniente dal punto di vista algebrico in quanto fornisce una espressione in forma chiusa per la distribuzione a posteriori e perché può fornire delle intuizioni circa il modo con cui la funzione di verosimiglianza aggiorna la distribuzione.} poiché ciò risulta conveniente dal punto di vista algebrico (e quindi computazionale). Infatti, una distribuzione a priori coniugata fornisce un'espressione in forma chiusa per la distribuzione a posteriori (alternativamente potrebbe risultare necessario il calcolo di un integrale numerico).
+A tal fine è necessario definire una distribuzione a priori sui parametri di una \acs{CTBN}. Come si è soliti fare in situazioni di questo tipo, per tale distribuzione si sceglie di usare una \emph{distribuzione a \keywordsub[distribuzione]{priori coniugata}}\footnote{\label{note:conjugate-prior}In teoria della probabilità bayesiana, se le distribuzioni a posteriori $P(\param{$\theta$}|\setel{x})$ sono nella stessa famiglia della distribuzione a priori $P(\param{$\theta$})$, le due distribuzioni sono definite coniugate, e la distribuzione a priori è chiamata \emph{distribuzione a priori coniugata} per la verosimiglianza (\emph{likelihood}). Una distribuzione a priori coniugata è conveniente dal punto di vista algebrico in quanto fornisce una espressione in forma chiusa per la distribuzione a posteriori e perché può fornire delle intuizioni circa il modo con cui la funzione di verosimiglianza aggiorna la distribuzione.} poiché ciò risulta conveniente dal punto di vista algebrico (e quindi computazionale). Infatti, una distribuzione a priori coniugata fornisce un'espressione in forma chiusa per la distribuzione a posteriori (alternativamente potrebbe risultare necessario il calcolo di un integrale numerico).
 
-Consideriamo innanzitutto un singolo \mprocess*{}. Si ricorda (si veda a tal riguardo la \autoref{defn:im}) che un \mprocess*{} ha due insiemi di parametri: una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} parametrizzata dal parametro $\theta$ e una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} parametrizzata dal parametro $q$.
+Consideriamo innanzitutto un singolo \mprocess*{}. Si ricorda (si veda a tal riguardo la \autoref{defn:im}) che un \mprocess*{} ha due insiemi di parametri: una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} parametrizzata dal parametro $\param{$\theta$}$ e una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} parametrizzata dal parametro $\param{q}$.
 
-Una distribuzione a priori coniugata per il parametro $q$ è la \emph{distribuzione \keywordsub[distribuzione]{Gamma}} $P(q)=Gamma(\alpha,\,\tau)$. Perciò la distribuzione a priori coniugata su $q$ è:
+Una distribuzione a priori coniugata per il parametro $\param{q}$ è la \emph{distribuzione \keywordsub[distribuzione]{Gamma}} $P(\param{q})=Gamma(\alpha,\,\tau)$. Perciò la distribuzione a priori coniugata su $\param{q}$ è:
 \begin{equation}\label{eq:ctbn-bayesian-params-gamma}
-P(q)=\frac{\tau^{\,\alpha}}{\Gamma(\alpha)} \, q^{\alpha-1} \, exp(-q \, \tau) \text{.}
+P(\param{q})=\frac{\tau^{\,\alpha}}{\Gamma(\alpha)} \, q^{\alpha-1} \, exp(-\param{q} \, \tau) \text{.}
 \end{equation}
-Invece, per la distribuzione \keywordsub[distribuzione]{multinomiale} si sceglie come priori coniugata la \emph{distribuzione di \keywordsub[distribuzione]{Dirichlet}} $P(\theta)=Dir(\alpha_{\setel{x}\setel{x}_1},\,\dotsc\,,\alpha_{\setel{x}\setel{x}_k})$~\citep[si veda][]{Heckerman1996,Heckerman1995}.
+Invece, per la distribuzione \keywordsub[distribuzione]{multinomiale} si sceglie come priori coniugata la \emph{distribuzione di \keywordsub[distribuzione]{Dirichlet}} $P(\param{$\theta$})=Dir(\alpha_{\setel{x}\setel{x}_1},\,\dotsc\,,\alpha_{\setel{x}\setel{x}_k})$~\citep[si veda][]{Heckerman1996,Heckerman1995}.
 
-Se si assume che i parametri sono stocasticamente indipendenti (\ie{} $P(\theta,q)=P(\theta)\,P(q)$) allora le distribuzioni a posteriori (\ie{} condizionate sui dati) dei parametri $q$ e $\theta$ sono:
+Se si assume che i parametri sono stocasticamente indipendenti, cioè che $P(\param{$\theta$},\param{q})=P(\param{$\theta$})\,P(\param{q})$, allora le distribuzioni a posteriori (\ie{} condizionate sui dati) dei parametri $\param{q}$ e $\param{$\theta$}$ sono:
 \begin{equation}\label{eq:ctbn-bayesian-params-posteriors}
 \begin{aligned}
-P(q\,\arrowvert\,\conceptsym{D})&=Gamma(\alpha+\mstat{x},\,\tau+\tstat{x}) \\
-P(\theta\,\arrowvert\,\conceptsym{D})&=Dir(\alpha_{\setel{x}\setel{x}_1}+\mstat[x]{x_1},\,\dotsc\,,\alpha_{\setel{x}\setel{x}_k}+\mstat[x]{x_k})\text{.}
+P(\param{q}\,\arrowvert\,\conceptsym{D})&=Gamma(\alpha+\mstat{x},\,\tau+\tstat{x}) \\
+P(\param{$\theta$}\,\arrowvert\,\conceptsym{D})&=Dir(\alpha_{\setel{x}\setel{x}_1}+\mstat[x]{\setel{x}_1},\,\dotsc\,,\alpha_{\setel{x}\setel{x}_k}+\mstat[x]{\setel{x}_k})\text{.}
 \end{aligned}
 \end{equation}
 
 Al fine di generalizzare quest'idea e ottenere una distribuzione a priori coniugata per un'intera \acs{CTBN} è necessario che essa soddisfi due assunzioni (comuni per le distribuzioni a priori nelle \acl{BN}, si veda~\citet{Heckerman1996}): l'indipendenza globale e locale dei parametri. In base all'\emph{indipendenza globale dei parametri} possiamo scrivere:
 \begin{equation}\label{eq:ctbn-bayesian-params-globalind}
-P(q\,,\,\theta)=\prod_{\setel{X}_i\in\set{X}}\,P(q_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,,\,\theta_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)})\text{.}
+P(\param{q}\,,\,\param{$\theta$})=\prod_{\setel{X}_i\in\set{X}}\,P(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,,\,\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)})\text{.}
 \end{equation}
 Invece, in base all'\emph{indipendenza locale dei parametri} possiamo scrivere:
 \footnotesize
 \begin{equation}\label{eq:ctbn-bayesian-params-localind}
-P(q_{\setel{X}\,\arrowvert\,Pa(\setel{X})}\,,\,\theta_{\setel{X}\,\arrowvert\,Pa(\setel{X})}) = \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(q_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg] \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\theta_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg]\text{\normalsize .}
+P(\param{q}_{\setel{X}\,\arrowvert\,Pa(\setel{X})}\,,\,\param{$\theta$}_{\setel{X}\,\arrowvert\,Pa(\setel{X})}) = \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg] \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\param{$\theta$}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg]\text{\normalsize .}
 \end{equation}\normalsize
 Se tale distribuzione a priori soddisfa le assunzioni di indipendenza allora anche la distribuzione a posteriori, essendovi coniugata e perciò appartenente alla stessa famiglia parametrica, le soddisferà. In tal caso è possibile mantenere la distribuzione parametrica in forma chiusa e aggiornarla usando le \emph{statistiche sufficienti}:
 \begin{itemize}
-\item $\mstat[x]{\setel{x^\prime}\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $\theta_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$
-\item $\mstat{x\,\arrowvert\,pa_i(\setel{x})}$ e $\tstat{x\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $q_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$.
+\item $\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $\param{$\theta$}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$
+\item $\mstat{x\,\arrowvert\,pa_i(\setel{x})}$ e $\tstat{x\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$.
 \end{itemize}
 Data una distribuzione sui parametri è possibile usarla per predire il prossimo evento, mediando la sua probabilità sull'insieme dei possibili valori dei parametri. Questo tipo di previsione è equivalente all'utilizzo dei valori \emph{\virgolette{attesi}} dei parametri, i quali hanno la stessa forma dei parametri \acl{MLE} ma considerano i \emph{\keyword{conteggi immaginari}} degli iper-parametri:
 \begin{equation}
 \label{eq:ctbn-imaginary-params}
 \begin{split}
-q_{x\,\arrowvert\,pa_i(\setel{x})}&=\frac{\alpha_{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \mstat{x\,\arrowvert\,pa_i(\setel{x})}}{\tau_{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \tstat{x\,\arrowvert\,pa_i(\setel{x})}} \\
-\theta_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}&=\frac{\alpha_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}+\mstat[x]{x^\prime\,\arrowvert\,pa_i(\setel{x})}}{\alpha_{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \mstat{x\,\arrowvert\,pa_i(\setel{x})}}\text{.}
+\paramhat{q}_{x\,\arrowvert\,pa_i(\setel{x})}&=\frac{\alpha_{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \mstat{x\,\arrowvert\,pa_i(\setel{x})}}{\tau_{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \tstat{x\,\arrowvert\,pa_i(\setel{x})}} \\
+\paramhat{$\theta$}_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}&=\frac{\alpha_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}+\mstat[x]{x^\prime\,\arrowvert\,pa_i(\setel{x})}}{\alpha_{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \mstat{x\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \end{split}
 \end{equation}
 Si osservi che questi parametri sono, teoricamente, validi solo per predire una singola transizione, dopo la quale la distribuzione dei parametri andrebbe aggiornata di conseguenza. Tuttavia, com'è spesso fatto in situazioni di questo tipo, si approssima la stima bayesiana congelando i parametri ai succitati parametri \emph{\virgolette{attesi}}, usandoli per la predizione di una intera traiettoria (\ie{} la distribuzione dei parametri non viene aggiornata ad ogni singola transizione).

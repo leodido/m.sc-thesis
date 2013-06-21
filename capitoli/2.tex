@@ -188,6 +188,7 @@ function learn(data, classes, graph) {
 }
 \end{lstlisting}\vspace*{8pt}
 
+\cleardoublepage
 \section{Inferenza}\label{sec:inference-ctbnc}
 In questa sezione si affronta il problema della \emph{\keyword{classificazione}} di un \emph{flusso di evidenze completamente osservato}, indicato con $\evidencestream{J}$ (si veda la \autoref{defn:j-evidence-stream}), rispetto a un classificatore \acs{CTBN} (\acs{CTBNC}). Si osservi che, in tale situazione (\ie{} \emph{\keywordsub[classificazione]{dati completi}}), l'unica variabile casuale non osservata è la variabile classe, perciò è possibile sfruttare le relazioni di indipendenza fra variabili casuali così come si fa per le \acl{BN}. L'argomento di questa sezione è quindi il processo di \emph{classificazione supervisionata} (\ie{} è necessario un \acs{CTBNC} appreso da un \emph{training set}), di cui si presentano in primis le basi teoriche e successivamente l'implementazione algoritmica che ne consegue.
 
@@ -218,13 +219,13 @@ dove:
 \end{itemize}
 Inoltre, al fine di assicurare la consistenza dell'\autoref{eq:ctbnc-inference-3} si assume che $P(\set{x}^{J+1}\,\arrowvert\,\set{x}^J,\setel{Y})=1$.
 
-Il passo successivo consiste nel calcolo dei due termini da cui è composta l'\autoref{eq:ctbnc-inference-3}. A tal fine si utilizzano le distribuzioni di probabilità locali associate ad ogni nodo del \acs{CTBN} su cui è costruito il classificatore. Come già descritto nella \autoref{sec:mps}, tali modelli di probabilità sono espressi tramite le \cim{} e quindi tramite i parametri $q$ e $\theta$.
+Il passo successivo consiste nel calcolo dei due termini da cui è composta l'\autoref{eq:ctbnc-inference-3}. A tal fine si utilizzano le distribuzioni di probabilità locali associate ad ogni nodo del \acs{CTBN} su cui è costruito il classificatore. Come già descritto nella \autoref{sec:mps}, tali modelli di probabilità sono espressi tramite le \cim{} e quindi tramite i parametri $\param{q}$ e $\param{$\theta$}$.
 
 In tale contesto è quindi possibile calcolare il termine $P(\set{x}^j\,\arrowvert\,\setel{Y})$ come segue:
 \begin{equation}\label{eq:ctbnc-inference-4}
-P(\set{x}^j\,\arrowvert\,\setel{Y})=\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\:(t_j - t_{j-1})\Big)\text{,}
+P(\set{x}^j\,\arrowvert\,\setel{Y})=\prod_{n=1}^N exp\Big(-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\:(t_j - t_{j-1})\Big)\text{,}
 \end{equation}
-dove $q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}$ è il valore del parametro della \emph{distribuzione esponenziale} quando la variabile casuale $\setel{X}_n$ è nello stato $\setel{x}_n$ durante il $j$-esimo intervallo temporale $[\,t_{j-1},\,t_j)$ e contemporaneamente l'istanziazione dei genitori di $\setel{X}_n$ è $pa_j(\setel{x}_n)$.
+dove $\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}$ è il valore del parametro della \emph{distribuzione esponenziale} quando la variabile casuale $\setel{X}_n$ è nello stato $\setel{x}_n$ durante il $j$-esimo intervallo temporale $[\,t_{j-1},\,t_j)$ e contemporaneamente l'istanziazione dei genitori di $\setel{X}_n$ è $pa_j(\setel{x}_n)$.
 
 Ugualmente, il termine $P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})$ è così calcolabile:
 \begin{equation}\label{eq:ctbnc-inference-5}
@@ -234,7 +235,7 @@ dove
 \begin{equation}\label{eq:ctbnc-inference-6}
 P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})=
 \begin{cases}
-q_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}, & \text{se } \setel{x}_n^j \neq \setel{x}_n^{j+1} \\
+\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}, & \text{se } \setel{x}_n^j \neq \setel{x}_n^{j+1} \\
 1, & \text{altrimenti}
 \end{cases}\text{.}
 \end{equation}
@@ -243,38 +244,38 @@ Il termine $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ rappresen
 %TODO: sta roba di una transizione alla volta va detta nel capitolo 2, in "rappresentazione", o simili, poi ripresa qui (e linkata)
 Poiché il modello \acs{CTBN} implica che, ad ogni istante $t_j$, solo un componente $\setel{X}_n$ del vettore aleatorio $\set{X}$ può essere soggetto a transizione, allora $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ rappresenta la probabilità che la variabile casuale $\setel{X}_n$ effettui una transizione da $\setel{x}_n^j$ a $\setel{x}_n^{j+1}$ mentre tutti gli altri componenti del \keywordsub[classificazione]{vettore aleatorio} $\set{X}$ (\ie{} $\setel{X}_i$ con $i \neq n$) non cambiano il proprio stato.
 
-Perciò, come specificato dall'\autoref{eq:ctbnc-inference-6}, nel caso in cui avvenga un cambio di stato di $\setel{X}_n$, il termine $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ equivale alla quantità $q_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$, ricavata dall'\autoref{eq:ctbn-params-rel}, moltiplicando la \emph{\virgolette{probabilità istantanea}} di transizione da $\setel{x}_n^j$ a $\setel{x}_n^{j+1}$ e il tempo atteso di transizione uscente dallo stato $\setel{x}_n^j$. Tale quantità rappresenta il parametro associato alla transizione da $\setel{x}_n^j$, stato in cui la variabile casuale $\setel{X}_n$ si trovava durante il $j$-esimo intervallo temporale $[\,t_{j-1},\,t_j)$, a $\setel{x}_n^{j+1}$, stato in cui $\setel{X}_n$ si troverà durante il successivo intervallo temporale $[\,t_j,\,t_{j+1})$; data l'istanziazione $pa_j(\setel{x}_n)$ dei genitori di $\setel{X}_n$ durante il $j$-esimo intervallo temporale.
+Perciò, come specificato dall'\autoref{eq:ctbnc-inference-6}, nel caso in cui avvenga un cambio di stato di $\setel{X}_n$, il termine $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ equivale alla quantità $\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$, ricavata dall'\autoref{eq:ctbn-params-rel}, moltiplicando la \emph{\virgolette{probabilità istantanea}} di transizione da $\setel{x}_n^j$ a $\setel{x}_n^{j+1}$ e il tempo atteso di transizione uscente dallo stato $\setel{x}_n^j$. Tale quantità rappresenta il parametro associato alla transizione da $\setel{x}_n^j$, stato in cui la variabile casuale $\setel{X}_n$ si trovava durante il $j$-esimo intervallo temporale $[\,t_{j-1},\,t_j)$, a $\setel{x}_n^{j+1}$, stato in cui $\setel{X}_n$ si troverà durante il successivo intervallo temporale $[\,t_j,\,t_{j+1})$; data l'istanziazione $pa_j(\setel{x}_n)$ dei genitori di $\setel{X}_n$ durante il $j$-esimo intervallo temporale.
 
 Combinando l'\autoref{eq:ctbnc-inference-4} e l'\autoref{eq:ctbnc-inference-5} si ottiene:
 \footnotesize
 \begin{equation}\label{eq:ctbnc-inference-7}
-P(\set{x}^j\,\arrowvert\,\setel{Y})\:P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})=\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})\text{\normalsize .}
+P(\set{x}^j\,\arrowvert\,\setel{Y})\:P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})=\prod_{n=1}^N exp\Big(-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})\text{\normalsize .}
 \end{equation}
 \normalsize
 Utilizzando l'\autoref{eq:ctbnc-inference-7} appena ricavata è possibile riformulare l'equazione della \emph{likelihood temporale} (\ref{eq:ctbnc-inference-3}) nel seguente modo:
 \begin{equation}\label{eq:ctbnc-inference-8}
-\resizebox{.89\hsize}{!}{$P(\evidencestream{J}\,\arrowvert\,\setel{Y})=\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$}\text{.}
+\resizebox{.89\hsize}{!}{$P(\evidencestream{J}\,\arrowvert\,\setel{Y})=\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$}\text{.}
 \end{equation}
 Sostituendo infine l'equazione appena scritta (\ref{eq:ctbnc-inference-8}) nell'\autoref{eq:ctbnc-inference-2} si formula definitivamente la probabilità a posteriori della variabile classe $\setel{Y}$ dato un flusso di evidenze:
 % \begin{equation}\label{eq:ctbnc-inference-9}
-% P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
+% P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
 % \end{equation}
 \begin{equation}\label{eq:ctbnc-inference-9}
 \begin{split}
-P(\setel{Y}\,\arrowvert\,\evidencestream{J}) &\propto P(\setel{Y}) \cdot \prod_{j=1}^{J}\prod_{n=1}^N\bigg[exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big) \cdot \\
+P(\setel{Y}\,\arrowvert\,\evidencestream{J}) &\propto P(\setel{Y}) \cdot \prod_{j=1}^{J}\prod_{n=1}^N\bigg[exp\Big(-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big) \cdot \\
 & \quad \cdot P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})\bigg]
 \end{split}
 \end{equation}
 Di conseguenza, dato un classificatore \acs{CTBN} $\conceptsym{C}=\{\,\conceptsym{N}\,,\,P(\setel{Y})\,\}$ e un flusso di evidenze completamente osservato $\evidencestream{J}$, la regola \acs{MAP} seleziona la classe $\setel{y}^* \in val(\setel{Y})$ massimizzando l'\autoref{eq:ctbnc-inference-9}:
 \begin{equation}\label{eq:ctbnc-inference-10}
-\setel{y}^*= \argmax_{\setel{y}\in val(\setel{Y})}P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
+\setel{y}^*= \argmax_{\setel{y}\in val(\setel{Y})}P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
 \end{equation}
 Si presenta di seguito l'algoritmo per l'\emph{\keywordsub[classificazione]{inferenza} esatta}) di un flusso di evidenze completamente osservato rispetto a un classificatore \acs{CTBN}.
 
 Tuttavia si osservi che tale algoritmo rappresenta le probabilità come \emph{log-probabilità}\footnote{La \emph{log-probabilità} è un modalità di rappresentazione della probabilità che porta con sè alcuni vantaggi computazionali. Ad esempio, l'utilizzo della \emph{log-probabilità} generalmente comporta una maggior velocità dovuta alla trasformazione delle moltiplicazioni, più computazionalmente costose, in addizioni. In informatica è molto comune l'utilizzo della sua variante negativa, la quale codifica un valore di probabilità $\setel{x} \in [0\,,\,1]$ come $\setel{x}^{\prime}=-\log(\setel{x}) \in \R$.} per motivi computazionali. Ciò significa che l'\autoref{lst:ctbnc-inference} implementa la probabilità a posteriori della classe dato un flusso di evidenze (\autoref{eq:ctbnc-inference-9}) come segue:
 \small
 \begin{equation}\label{eq:ctbnc-inference-11}
-\ell_{P(\setel{Y}|\omissis{})} = \log (P(\setel{Y})) + \sum_{j=1}^{J}\sum_{n=1}^N-q_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1}) + \log (P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y}))\text{\normalsize .}
+\ell_{P(\setel{Y}|\omissis{})} = \log (P(\setel{Y})) + \sum_{j=1}^{J}\sum_{n=1}^N-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1}) + \log (P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y}))\text{\normalsize .}
 \end{equation}
 \normalsize
 A tal proposito si noti che, nel caso in cui non avvenga alcun cambio di stato durante un determinato istante di tempo $t_j$, la quantità $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ in \ref{eq:ctbnc-inference-11} sarà pari a $1$ (si veda l'\autoref{eq:ctbnc-inference-6}), il cui logaritmo è pari a $0$. Ciò spiega la struttura di controllo condizionale alla \autoref{lst:inference-transition-qty}.
@@ -288,9 +289,9 @@ function infer(ctbnc, timeseg, stream) {
     <ls>\label{lst:inference-classes-for}<le>for (k in index(priors)) {
         <ls>\label{lst:inference-stream-for}<le>for (j in index(timeseg)) {
             <ls>\label{lst:inference-nodes-for}<le>for (n in index(ctbnc.graph.nodes)) {
-                logp[k] = logp[k] - <ls>$q_{x_n^j}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
+                logp[k] = logp[k] - <ls>$\param{q}_{x_n^j}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
                 <ls>\label{lst:inference-transition-qty}<le>if (<ls>$x_{n_j}$<le> != <ls>$x_{n_{j+1}}$<le>) {
-                    logp[k] = logp[k] + log(<ls>$q_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$<le>)
+                    logp[k] = logp[k] + log(<ls>$\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$<le>)
                 }
             }
         }

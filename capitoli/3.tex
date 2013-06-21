@@ -18,12 +18,14 @@ L'approccio che si presenta in questo capitolo è quindi un approccio basato sul
 
 Si osservi che l'apprendimento dei parametri (si veda la \virgolette{\nameref{sec:ctbn-bayesian-estimate}}, \autoref{sec:ctbn-params}) è propedeutico per tale obiettivo poiché essi costituiscono la base dello \keywordsub[apprendimento]{score bayesiano}.
 
-\section{Funzione di scoring}\label{sec:ctbn-score}
-\omissis{}
-
+\cleardoublepage
+\section{Funzione di scoring}\label{sec:ctbn-structurallearning-score}
+Lo score bayesiano sul grafo $\conceptsym{G}$ di una \acs{CTBN} è definito nel seguente modo:
 \begin{equation}\label{eq:structurallearning-score}
 score_B(\conceptsym{G}:\conceptsym{D})=\ln{P(\conceptsym{D}\,\arrowvert\,\conceptsym{G})} + \ln{P(\conceptsym{G})}
 \end{equation}
+Come mostra l'\autoref{eq:structurallearning-score} la funzione di scoring utilizza la probabilità a posteriori dell’insieme dei dati di apprendimento (\ie{} il training set $\conceptsym{D}$) data la struttura candidata (\ie{} $\conceptsym{G}$).
+
 
 \section{Ricerca della struttura}\label{sec:structurallearning-search}
 \omissis{}
