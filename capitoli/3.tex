@@ -12,7 +12,7 @@ Il problema dell'\emph{apprendimento \keywordsub[apprendimento]{strutturale}} da
 
 Generalmente, questo problema può essere informalmente descritto nel seguente modo: dato un \keywordsub[apprendimento]{training set} composto da istanze di un insieme di variabili casuali si trovi un grafo che rappresenti tali dati e le relazioni fra le variabili casuali. Si noti come tale problema possa essere catalogato come una forma di apprendimento non supervisionato; nel senso che il processo di apprendimento non distingue la variabile classe dalle variabili attributo nei dati. L'obiettivo è quindi indurre una struttura (\ie{} grafo) che descriva nel miglior modo possibile la distribuzione di probabilità sui dati (\ie{} \emph{\keywordsub[apprendimento]{training set}}). Si osservi, inoltre, che questo problema di ottimizzazione è solitamente intrattabile per le \acl{BN}~\citep{Chickering1994}. Tuttavia, imponendo alcuni vincoli sulle strutture delle \acs{BN} da includere nello spazio di ricerca, esistono algoritmi efficienti che risolvono tale problema in un tempo polinomiale rispetto al numero di variabili casuali rappresentate dalla struttura.
 
-Per quanto riguarda invece il caso delle \acl{CTBN} (\acs{CTBN}), \citet{Nodelman2002} hanno dimostrato che, grazie alla mancanza del vincolo di aciclicità, come già accennato nella \autoref{sec:ctbn-rappresentazione}), il problema dell'apprendimento strutturale di una \acs{CTBN} è significatibamente più facile, sia teoricamente che in pratica, rispetto all'apprendimento strutturale di una \acl{BN}, o di modelli da esse derivanti, \eg{} le \acf{DBN}. Inoltre, nel caso si vincoli la procedura di ricerca a strutture con un numero massimo di genitori per nodo, questo problema può essere risolto in tempo polinomiale.
+Per quanto riguarda invece il caso delle \acl{CTBN} (\acs{CTBN}), \citet{Nodelman2002} hanno dimostrato che, grazie alla mancanza del vincolo di aciclicità, come già accennato nella \autoref{sec:ctbn-rappresentazione}), il problema dell'apprendimento strutturale di una \acs{CTBN} è significativamente più facile, sia teoricamente che in pratica, rispetto all'apprendimento strutturale di una \acl{BN}, o di modelli da esse derivanti, \eg{} le \acf{DBN}. Inoltre, nel caso si vincoli la procedura di ricerca a strutture con un numero massimo di genitori per nodo, questo problema può essere risolto in tempo polinomiale.
 
 L'approccio che si presenta in questo capitolo è quindi un approccio basato sul punteggio: si definisce una funzione che computa uno \emph{\keywordsub[apprendimento]{score bayesiano}} finalizzato alla valutazione di ogni struttura rispetto ai dati di addestramento e si usa una tecnica di ricerca euristica (ad esempio, la ricerca \emph{\keyword{hill climbing}}) per cercare nello spazio delle strutture candidate quella che esibisce il maggior punteggio.
 
@@ -24,8 +24,28 @@ Lo score bayesiano sul grafo $\conceptsym{G}$ di una \acs{CTBN} è definito nel 
 \begin{equation}\label{eq:structurallearning-score}
 score_B(\conceptsym{G}:\conceptsym{D})=\ln{P(\conceptsym{D}\,\arrowvert\,\conceptsym{G})} + \ln{P(\conceptsym{G})}
 \end{equation}
-Come mostra l'\autoref{eq:structurallearning-score} la funzione di scoring utilizza la probabilità a posteriori dell’insieme dei dati di apprendimento (\ie{} il training set $\conceptsym{D}$) data la struttura candidata (\ie{} $\conceptsym{G}$).
+Come mostra l'\autoref{eq:structurallearning-score} la funzione di scoring utilizza la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{} il training set $\conceptsym{D}$) data la struttura candidata (\ie{} $\conceptsym{G}$), oltre alla probabilità a priori della struttura stessa.
 
+\`E possibile aumentare in modo significativo l'efficienza dell'algoritmo di ricerca che si affronta nella prossima sezione qualora si facciano determinate assunzioni. Nello specifico, se si assume che la probabilità a priori della struttura, $P(\conceptsym{G})$, soddisfi la \emph{modularità strutturale}, ne consegue:
+\begin{equation}\label{eq:structurallearning-prior-modularity}
+P(\conceptsym{G})=\prod_{i} P(Pa(\setel{X}_i) = Pa_{\conceptsym{G}}(\setel{X}_i))\text{.}
+\end{equation}
+Se si assume, inoltre, che la probabilità a priori dei parametri soddisfi la \emph{modularità dei parametri}, allora per ogni due strutture $\conceptsym{G}$ e $\conceptsym{G}^\prime$ tali che $Pa_{\conceptsym{G}}(\setel{X}) = Pa_{\conceptsym{G}^\prime}(\setel{X})$ risulta:
+\begin{equation}\label{eq:structurallearning-params-modularity}
+P(\param{q}_{\setel{X}}\,,\param{$\theta$}_{\setel{X}}\,\arrowvert\,\conceptsym{G}) = P(\param{q}_{\setel{X}}\,,\param{$\theta$}_{\setel{X}}\,\arrowvert\,\conceptsym{G}^\prime)\text{.}
+\end{equation}
+Combinando l'assunzione di \emph{indipendenza dei parametri} discussa in \virgolette{\nameref{sec:ctbn-bayesian-estimate}} (\autoref{sec:ctbn-params}) con l'\autoref{eq:structurallearning-params-modularity} derivante dalla \emph{modularità dei parametri}, si ottiene:
+\begin{equation}\label{eq:structurallearning-params-posterior}
+\begin{split}
+P(\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}\,\arrowvert\,\conceptsym{G})&=\prod_{\setel{X}_i}P\Big(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,\arrowvert\,Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i)\Big) \cdot \\
+& \quad \cdot P\Big(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,\arrowvert\,Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i)\Big)\text{\normalsize.}
+\end{split}
+\end{equation}
+Si osservi che, poiché $P(\conceptsym{G})$ è indipendente dalla quantità dei dati, il termine significativo dell'\autoref{eq:structurallearning-score} è la \emph{likelihood marginale}, $P(\conceptsym{D}\,\arrowvert\,\conceptsym{G})$. Tale termine, infatti, codifica l'incertezza sui parametri integrando su tutti i possibili valori che essi possono assumere:
+
+\begin{equation}\label{eq:structurallearning-prob-data-posterior}
+P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) = \int_{\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}} P(\conceptsym{D}\,\arrowvert\,\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}) \, P(\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}\,\arrowvert\,\conceptsym{G}) \, d\param{q}_{\conceptsym{G}} d\param{$\theta$}_{\conceptsym{G}}\text{.}
+\end{equation}
 
 \section{Ricerca della struttura}\label{sec:structurallearning-search}
 \omissis{}
