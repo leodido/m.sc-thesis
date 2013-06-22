@@ -110,6 +110,20 @@
 % comandi per le lettere greche
 % ...
 
+% reference for equation terms. use \underbrace{equation}_{\myterm{termA}}
+\newcounter{term}
+\renewcommand*{\theterm}{\alph{term}}
+\AtBeginDocument{%
+  \let\mylabel\label
+}
+\newcommand{\myterm}[1]{%
+  \begingroup % keep the effects of \refstepcounter local
+    \refstepcounter{term}%
+    \mylabel{#1}%
+    \text{\theterm}%
+  \endgroup
+}
+
 %*********************************************************************************
 % Nuovi ambienti: definizioni, teoremi etc. etc.
 %*********************************************************************************
@@ -314,6 +328,7 @@
 \newcommand{\osservazioneautorefname}{osservazione}
 \newcommand{\notabeneautorefname}{nota}
 \newcommand{\esempioautorefname}{esempio}
+\newcommand{\termautorefname}{termine}
 
 %*********************************************************************************
 % Set footnote's continuos numbering and linking capabilities (using cleveref and chngcntr packages)
@@ -384,6 +399,7 @@
 }
 \newcommand{\param}[1]{\boldsymbol{\textbf{\text{#1}}}}
 \newcommand{\paramhat}[1]{\boldsymbol{\hat{\textbf{#1}}}}
+\newcommand{\greekhat}[1]{\boldsymbol{\skew{-.5}\hat#1}}
 \newcommand{\evidencestream}[1]{(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^{#1})}
 
 %*********************************************************************************

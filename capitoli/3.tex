@@ -12,19 +12,19 @@ Il problema dell'\emph{apprendimento \keywordsub[apprendimento]{strutturale}} da
 
 Generalmente, questo problema può essere informalmente descritto nel seguente modo: dato un \keywordsub[apprendimento]{training set} composto da istanze di un insieme di variabili casuali si trovi un grafo che rappresenti tali dati e le relazioni fra le variabili casuali. Si noti come tale problema possa essere catalogato come una forma di apprendimento non supervisionato; nel senso che il processo di apprendimento non distingue la variabile classe dalle variabili attributo nei dati. L'obiettivo è quindi indurre una struttura (\ie{} grafo) che descriva nel miglior modo possibile la distribuzione di probabilità sui dati (\ie{} \emph{\keywordsub[apprendimento]{training set}}). Si osservi, inoltre, che questo problema di ottimizzazione è solitamente intrattabile per le \acl{BN}~\citep{Chickering1994}. Tuttavia, imponendo alcuni vincoli sulle strutture delle \acs{BN} da includere nello spazio di ricerca, esistono algoritmi efficienti che risolvono tale problema in un tempo polinomiale rispetto al numero di variabili casuali rappresentate dalla struttura.
 
-Per quanto riguarda invece il caso delle \acl{CTBN} (\acs{CTBN}), \citet{Nodelman2002} hanno dimostrato che, grazie alla mancanza del vincolo di aciclicità, come già accennato nella \autoref{sec:ctbn-rappresentazione}), il problema dell'apprendimento strutturale di una \acs{CTBN} è significativamente più facile, sia teoricamente che in pratica, rispetto all'apprendimento strutturale di una \acl{BN}, o di modelli da esse derivanti, \eg{} le \acf{DBN}. Inoltre, nel caso si vincoli la procedura di ricerca a strutture con un numero massimo di genitori per nodo, questo problema può essere risolto in tempo polinomiale.
+Per quanto riguarda invece il caso delle \acl{CTBN} (\acs{CTBN}), \citet{Nodelman2002} hanno dimostrato che, grazie alla mancanza del vincolo di \keywordsub[apprendimento]{aciclicità}, come già accennato nella \autoref{sec:ctbn-rappresentazione}), il problema dell'apprendimento strutturale di una \acs{CTBN} è significativamente più facile, sia teoricamente che in pratica, rispetto all'apprendimento strutturale di una \acl{BN}, o di modelli da esse derivanti, \eg{} le \acf{DBN}. Inoltre, nel caso si vincoli la procedura di ricerca a strutture con un numero massimo di genitori per nodo, questo problema può essere risolto in tempo polinomiale.
 
-L'approccio che si presenta in questo capitolo è quindi un approccio basato sul punteggio: si definisce una funzione che computa uno \emph{\keywordsub[apprendimento]{score bayesiano}} finalizzato alla valutazione di ogni struttura rispetto ai dati di addestramento e si usa una tecnica di ricerca euristica (ad esempio, la ricerca \emph{\keyword{hill climbing}}) per cercare nello spazio delle strutture candidate quella che esibisce il maggior punteggio.
+L'approccio che si presenta in questo capitolo è quindi un approccio basato sul \keywordsub[apprendimento]{punteggio}: si definisce una funzione che computa uno \emph{\keywordsub[apprendimento]{score bayesiano}} finalizzato alla valutazione di ogni struttura rispetto ai \keywordsub[apprendimento]{dati di addestramento} e si usa una tecnica di \keywordsub[apprendimento]{ricerca euristica} (ad esempio, la ricerca \emph{\keywordsub[apprendimento]{hill climbing}}) per cercare nello spazio delle strutture candidate quella che esibisce il maggior punteggio.
 
-Si osservi che l'apprendimento dei parametri (si veda la \virgolette{\nameref{sec:ctbn-bayesian-estimate}}, \autoref{sec:ctbn-params}) è propedeutico per tale obiettivo poiché essi costituiscono la base dello \keywordsub[apprendimento]{score bayesiano}.
+Si osservi che l'apprendimento dei \keywordsub[apprendimento]{parametri} (si veda la \virgolette{\nameref{sec:ctbn-bayesian-estimate}}, \autoref{sec:ctbn-params}) è propedeutico per tale obiettivo poiché essi costituiscono la base dello \keywordsub[apprendimento]{score bayesiano}.
 
 \cleardoublepage
 \section{Funzione di scoring}\label{sec:ctbn-structurallearning-score}
-Qualsiasi processo di apprendimento strutturale basato su punteggio è costituito da due componenti: una \emph{\keywordsub[apprendimento]{funzione di scoring}} e una procedura di ottimizzazione.
+Qualsiasi processo di apprendimento strutturale basato su \keywordsub[apprendimento]{punteggio} è costituito da due componenti: una \emph{\keywordsub[apprendimento]{funzione di scoring}} e una procedura di ottimizzazione.
 
-L'obiettivo di questa sezione è quindi presentare una funzione di scoring per l'apprendimento strutturale delle \acl{CTBN} (\acs{CTBN}). Lo scopo di tale funzione è calcolare il punteggio (\ie{} lo \emph{score}) di una struttura relativamente al \emph{training set} $\conceptsym{D}$ fornito.
+L'obiettivo di questa sezione è quindi presentare una funzione di scoring per l'apprendimento \keywordsub[apprendimento]{strutturale} delle \acl{CTBN} (\acs{CTBN}). Lo scopo di tale funzione è calcolare il punteggio (\ie{} lo \emph{score}) di una \keywordsub[apprendimento]{struttura} relativamente al \emph{\keywordsub[apprendimento]{training set}} $\conceptsym{D}$ fornito.
 
-Si definisce lo \emph{\keywordsub[apprendimento]{score bayesiano}} sul grafo $\conceptsym{G}$ di una \acs{CTBN} nel seguente modo:
+Si definisce lo \emph{\keywordsub[apprendimento]{score bayesiano}} sul \keywordsub[apprendimento]{grafo} $\conceptsym{G}$ di una \acs{CTBN} nel seguente modo:
 \begin{equation}\label{eq:structurallearning-score}
 score_B(\conceptsym{G}:\conceptsym{D})=\ln{P(\conceptsym{D}\,\arrowvert\,\conceptsym{G})} + \ln{P(\conceptsym{G})}
 \end{equation}
@@ -57,15 +57,20 @@ P(\conceptsym{D}\,\arrowvert\,\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\co
 \end{split}
 \end{equation}
 Combinando l'\emph{indipendenza globale dei parametri} e la decomposizione ottenuta dall'\autoref{eq:structurallearning-marglikelihood-decomp} si può riformulare la likelihood marginale (\autoref{eq:structurallearning-marglikelihood}) nel seguente modo:
-\begin{equation}
-\begin{split}
-P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) &= \int_{\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}} L(\param{q}_{\conceptsym{G}}:\conceptsym{D}) L(\param{$\theta$}_{\conceptsym{G}}:\conceptsym{D}) P(\param{q}_{\conceptsym{G}}) P(\param{$\theta$}_{\conceptsym{G}}) \, d\param{q}_{\conceptsym{G}} d\param{$\theta$}_{\conceptsym{G}} \nonumber \\
-&= \text{.}
-\end{split}
-\end{equation}
+\begin{align}\label{eq:structurallearning-marglikelihood-decomp-2}
+P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) &= \int_{\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}} L(\param{q}_{\conceptsym{G}}:\conceptsym{D}) L(\param{$\theta$}_{\conceptsym{G}}:\conceptsym{D}) P(\param{q}_{\conceptsym{G}}) P(\param{$\theta$}_{\conceptsym{G}}) \, d\param{q}_{\conceptsym{G}} d\param{$\theta$}_{\conceptsym{G}} \nonumber\\
+&= \underbrace{\bigg[ \int_{\param{q}_{\conceptsym{G}}} L(\param{q}_{\conceptsym{G}}:\conceptsym{D}) P(\param{q}_{\conceptsym{G}}) \, d\param{q}_{\conceptsym{G}} \bigg]}_{\myterm{termQ}} \cdot \underbrace{\bigg[ \int_{\param{$\theta$}_{\conceptsym{G}}} L(\param{$\theta$}_{\conceptsym{G}}:\conceptsym{D}) P(\param{$\theta$}_{\conceptsym{G}}) \, d\param{$\theta$}_{\conceptsym{G}} \bigg]}_{\myterm{termT}} \text{.}
+\end{align}
+Ottenuta tale equazione, si affronta di seguito l'analisi e la decomposizione dei due termini che la compongono.
+
+Utilizzando l'assunzione di \emph{indipendenza locale dei parametri}, il termine \autoref{termQ} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è decomponibile nel seguente modo:
+\omissis{}
+Invece, poiché le distribuzioni sui parametri $\param{$\theta$}$ sono di \emph{\keywordsub[distribuzione]{Dirichlet}} l'analisi del \autoref{termT} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è analoga a quella che tradizionale per le \acl{BN}. Ne consegue che il \autoref{termT} si semplifica:
+\omissis{}
+
 
 \section{Ricerca della struttura}\label{sec:structurallearning-search}
-In questa sezione si affronta il secondo componente del processo di apprendimento strutturale: l'utilizzo di una procedura di ottimizzazione finalizzata a ricercare fra le strutture candidate quella che è caratterizzata dal massimo \emph{score bayesiano}.
+In questa sezione si affronta il secondo componente del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keywordsub[apprendimento]{ottimizzazione}} finalizzata a ricercare fra le strutture candidate quella che è caratterizzata dal massimo \emph{\keywordsub[apprendimento]{score bayesiano}}.
 
 \subsection{Hill Climbing}\label{sec:structurallearning-hc}
 \omissis{}
