@@ -48,7 +48,7 @@ Una \acl{BN} $\conceptsym{B}$ è una coppia $\conceptsym{B}=(\conceptsym{G},\par
 Ogni nodo di una \acs{BN} è condizionalmente indipendente (si veda \autoref{defn:ic}) dai suoi non--discendenti dati i suoi nodi genitori.
 \end{osservazione}
 
-La \acs{CPD} di ogni variabile casuale $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$ esprime i suoi valori di probabilità in funzione dei valori assunti da $Pa(\setel{X_i})$, notazione con cui denotiamo l'\emph{insieme dei nodi genitori} per ogni nodo o variabile casuale.
+La \acs{CPD} di ogni variabile casuale $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$ esprime i suoi valori di probabilità in funzione dei valori assunti da $Pa(\setel{X_i})$, notazione con cui si denota l'\emph{insieme dei nodi genitori} per ogni nodo o variabile casuale.
 
 Un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta una dipendenza diretta fra le corrispettive variabili casuali~\citep[si veda][sezione 14.1]{Russel2003}. I nodi non direttamente connessi rappresentano variabili casuali condizionalmente indipendenti dagli altri nodi (per quanto riguarda il concetto di \emph{indipendenza \cond*{}} si rimanda alla \autoref{defn:ic}).
 
@@ -68,13 +68,13 @@ Ripetendo tale processo per ogni termine finale si ottiene:
 \set{P}\big(\bigcap_{k=1}^{n}\setel{A_k}\big)=\prod_{k=1}^{n}\set{P}\big(\setel{A_k}\,\arrowvert\,\bigcap_{j=1}^{k-1}\setel{A_j}\big)\text{.}
 \end{equation}
 
-Applicando l'\autoref{eq:chain-rule} alle \acl{BN} diciamo che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
+Applicando l'\autoref{eq:chain-rule} alle \acl{BN} si dice che la distribuzione di probabilità congiunta $\set{P}_{\conceptsym{B}}$ si \emph{fattorizza} rispetto al grafo $\conceptsym{G}$ se è possibile scrivere:
 \begin{equation}\label{eq:bn-chain-rule}
 \set{P}_{\conceptsym{B}}(\setel{X_1}, \dotsc, \setel{X_n})=\prod_{i=1}^{n}\set{P}(\setel{X_i}\,\arrowvert\,Pa(\setel{X_i}))\text{.}
 \end{equation}
 L'\autoref{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazione} della distribuzione congiunta del modello grafico, detta \emph{distribuzione di probabilità globale}, ed è ciò che permette di descriverla efficientemente in funzione delle distribuzioni condizionali dei nodi~\citep[][sezione 14.2]{Russel2003}, dette \emph{distribuzioni di probabilità locali}. Questa proprietà contiene in sè il concetto di \emph{proprietà di Markov} (si veda la \autoref{defn:markov-assumption}), il quale attesta che ogni nodo di una \acl{BN} dipende solo ed esclusivamente dai suoi nodi genitori~\citep[][sezione 2.2.4]{Korb2011}. Si noti inoltre, che le \acl{BN} richiedono (\acs{DAG}, \autoref{defn:bn}) che la loro componente $\conceptsym{G}$ non contenga cicli  affinché possano rispettare tale proprietà~\citep[][sezione 14.1]{Russel2003}.
 
-Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi genitori, è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito introduciamo tale concetto formalmente.
+Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi genitori, è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito si introduce tale concetto formalmente.
 \begin{definizione}[Indipendenza \cond*{}]\label{defn:ic}
 Un evento $\setel{A}$ è \emph{condizionalmente indipendente} da un evento $\setel{B}$, data l'evidenza su un evento $\setel{C}$, qualora la conoscenza di $\setel{B}$ non apporta alcuna variazione alla probabilità di $\setel{A}$ rispetto a quella conseguente alla conoscenza di $\setel{C}$.
 Formalmente, ciò significa che:
@@ -210,7 +210,7 @@ F(t) &= 1-e^{-\param{q}_{\setel{x}_i}t}\,,\quad t\geq0\text{.}
 
 Mentre gli elementi sulla diagonale, $\param{q}_{\setel{x}_i}$, codificano una quantità che può essere interpretata come la \emph{\virgolette{probabilità istantanea}} che $\setel{X}$ abbandoni lo stato $\setel{x}_i$, gli elementi non sulla diagonale, $\param{q}_{\setel{x}_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$.
 
-Possiamo quindi calcolare:
+Si può quindi calcolare:
 \begin{itemize}
     \item il \emph{tempo atteso} di una transizione uscente dallo stato $\setel{x}_i$ \[1/\param{q}_{\setel{x}_i}\]
     \item la \emph{\virgolette{probabilità istantanea}} di transizione dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$ \[\param{$\theta$}_{\setel{x}_i\setel{x}_j}=\param{q}_{\setel{x}_i\setel{x}_j}/\param{q}_{\setel{x}_i}\text{.}\]
@@ -233,9 +233,9 @@ Nel caso in cui $k=2$, la \im*{} $\imsign{\setel{X}}$ è quindi una matrice $2\t
 \label{defn:conditional-markov-process}
 Un \mprocess*{} le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess*{} \cond*{} (o \mprocess*{} non \omog*{}).
 
-Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $Pa(\setel{X})$, anch'esse dei processi di Markov, possiamo definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{Pa(\setel{X})}$.
+Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $Pa(\setel{X})$, anch'esse dei processi di Markov, è possibile definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{Pa(\setel{X})}$.
 
-Se specifichiamo una distribuzione di probabilità iniziale su $\setel{X}$ abbiamo così definito un \mprocess*{} il cui comportamento dipende dalle istanziazioni dei valori di $Pa(\setel{X})$.
+Specificando una distribuzione di probabilità iniziale su $\setel{X}$ si definisce quindi un \mprocess*{} il cui comportamento dipende dalle istanziazioni dei valori di $Pa(\setel{X})$.
 \end{definizione}
 
 \begin{definizione}[Matrice di intensità \cond*{}]
@@ -503,7 +503,7 @@ Un approccio alternativo alla stima dei parametri è la stima bayesiana~\citep[s
 
 A tal fine è necessario definire una distribuzione a priori sui parametri di una \acs{CTBN}. Come si è soliti fare in situazioni di questo tipo, per tale distribuzione si sceglie di usare una \emph{distribuzione a \keywordsub[distribuzione]{priori coniugata}}\footnote{\label{note:conjugate-prior}In teoria della probabilità bayesiana, se le distribuzioni a posteriori $P(\param{$\theta$}|\setel{x})$ sono nella stessa famiglia della distribuzione a priori $P(\param{$\theta$})$, le due distribuzioni sono definite coniugate, e la distribuzione a priori è chiamata \emph{distribuzione a priori coniugata} per la verosimiglianza (\emph{likelihood}). Una distribuzione a priori coniugata è conveniente dal punto di vista algebrico in quanto fornisce una espressione in forma chiusa per la distribuzione a posteriori e perché può fornire delle intuizioni circa il modo con cui la funzione di verosimiglianza aggiorna la distribuzione.} poiché ciò risulta conveniente dal punto di vista algebrico (e quindi computazionale). Infatti, una distribuzione a priori coniugata fornisce un'espressione in forma chiusa per la distribuzione a posteriori (alternativamente potrebbe risultare necessario il calcolo di un integrale numerico).
 
-Consideriamo innanzitutto un singolo \mprocess*{}. Si ricorda (si veda a tal riguardo la \autoref{defn:im}) che un \mprocess*{} ha due insiemi di parametri: una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} parametrizzata dal parametro $\param{$\theta$}$ e una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} parametrizzata dal parametro $\param{q}$.
+Si consideri innanzitutto un singolo \mprocess*{}. Si ricorda (si veda a tal riguardo la \autoref{defn:im}) che un \mprocess*{} ha due insiemi di parametri: una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} parametrizzata dal parametro $\param{$\theta$}$ e una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} parametrizzata dal parametro $\param{q}$.
 
 Una distribuzione a priori coniugata per il parametro $\param{q}$ è la \emph{distribuzione \keywordsub[distribuzione]{Gamma}} $P(\param{q})=Gamma(\alpha,\,\tau)$. Perciò la distribuzione a priori coniugata su $\param{q}$ è:
 \begin{equation}\label{eq:ctbn-bayesian-params-gamma}
@@ -519,11 +519,11 @@ P(\param{$\theta$}\,\arrowvert\,\conceptsym{D})&=Dir(\alpha_{\setel{x}\setel{x}_
 \end{aligned}
 \end{equation}
 
-Al fine di generalizzare quest'idea e ottenere una distribuzione a priori coniugata per un'intera \acs{CTBN} è necessario che essa soddisfi due assunzioni (comuni per le distribuzioni a priori nelle \acl{BN}, si veda~\citet{Heckerman1996}): l'indipendenza globale e locale dei parametri. In base all'\emph{indipendenza globale dei parametri} possiamo scrivere:
+Al fine di generalizzare quest'idea e ottenere una distribuzione a priori coniugata per un'intera \acs{CTBN} è necessario che essa soddisfi due assunzioni (comuni per le distribuzioni a priori nelle \acl{BN}, si veda~\citet{Heckerman1996}): l'indipendenza globale e locale dei parametri. In base all'\emph{indipendenza globale dei parametri} si può scrivere:
 \begin{equation}\label{eq:ctbn-bayesian-params-globalind}
 P(\param{q}\,,\param{$\theta$})=\prod_{\setel{X}_i\in\set{X}}\,P(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,,\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)})\text{.}
 \end{equation}
-Invece, in base all'\emph{indipendenza locale dei parametri} possiamo scrivere:
+Invece, dall'\emph{indipendenza locale dei parametri} consegue che è possibile scrivere:
 \footnotesize
 \begin{equation}\label{eq:ctbn-bayesian-params-localind}
 P(\param{q}_{\setel{X}\,\arrowvert\,Pa(\setel{X})}\,,\,\param{$\theta$}_{\setel{X}\,\arrowvert\,Pa(\setel{X})}) = \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg] \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\param{$\theta$}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg]\text{\normalsize .}

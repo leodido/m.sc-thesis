@@ -75,10 +75,14 @@ Sostituendo a tale termine la distribuzione a priori coniugata su $\param{q}$ (s
 \normalsize
 Semplificando:
 \[
-\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1} \cdot (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+\mstat{x\arrowvert\setel{u}}}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1}) \cdot e^{\param{q}_{\setel{x}\arrowvert\setel{u}}(\tau_{\setel{x}\arrowvert\setel{u}}+\tstat{\setel{x}\arrowvert\setel{u}})}}  \, d\param{q}_{\setel{x}\arrowvert\setel{u}} \tag*{\ref{termQ}} \text{\normalsize .}
+\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1} \cdot (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+\mstat{x\arrowvert\setel{u}}}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1}) \cdot e^{\param{q}_{\setel{x}\arrowvert\setel{u}}(\tau_{\setel{x}\arrowvert\setel{u}}+\tstat{\setel{x}\arrowvert\setel{u}})}}  \, d\param{q}_{\setel{x}\arrowvert\setel{u}} \tag*{\ref{termQ}} \text{.}
+\]
+Perciò, risolvendo l'integrale, si ottiene:
+\[
+\prod_{\setel{X}_i} \underbrace{\prod_{\setel{u}} \prod_{\setel{x}} \frac{\Gamma(\alpha_{\setel{x}\arrowvert\setel{u}}+\mstat{x\arrowvert\setel{u}}+1)(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1}}{\Gamma(\alpha_{\setel{x}\arrowvert\setel{u}}+1)(\tau_{\setel{x}\arrowvert\setel{u}}+\tstat{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+\mstat{x\arrowvert\setel{u}}+1}}}_\text{$MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$} \tag*{\ref{termQ}} \text{.}
 \]
 
-\omissis{}
+% \omissis{} $MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$
 
 Invece, poiché le distribuzioni sui parametri $\param{$\theta$}$ sono di \emph{\keywordsub[distribuzione]{Dirichlet}} l'analisi del \autoref{termT} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è analoga a quella che tradizionale per le \acl{BN}. Ne consegue che il \autoref{termT} si semplifica:
 \begin{align}\label{eq:marglike-int-theta}
@@ -87,7 +91,7 @@ todo
 Svi
 
 \section{Ricerca della struttura}\label{sec:structurallearning-search}
-In questa sezione si affronta il secondo componente del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keywordsub[apprendimento]{ottimizzazione}} finalizzata a ricercare fra le strutture candidate quella che è caratterizzata dal massimo \emph{\keywordsub[apprendimento]{score bayesiano}}.
+In questa sezione si affronta il secondo componente del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keywordsub[apprendimento]{ottimizzazione}} finalizzata alla ricerca fra le possibili strutture di una \acs{CTBN} di quella che massimizza \emph{\keywordsub[apprendimento]{score bayesiano}}.
 
 \subsection{Hill Climbing}\label{sec:structurallearning-hc}
 \omissis{}
