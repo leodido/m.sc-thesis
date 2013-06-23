@@ -70,25 +70,35 @@ Utilizzando l'assunzione di \emph{indipendenza locale dei parametri}, il \autore
 Sostituendo a tale termine la distribuzione a priori coniugata su $\param{q}$ (si veda l'\autoref{eq:ctbn-bayesian-params-gamma}) e la likelihood delle quantità di tempo trascorse in ogni stato (si veda l'\autoref{eq:like-time-spent-in-each-state}) si ottiene:
 \footnotesize
 \[
-\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1})} (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tau_{\setel{x}\arrowvert\setel{u}}} \cdot (\param{q}_{x\arrowvert\setel{u}})^{\mstat{x\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tstat{\setel{x}\arrowvert\setel{u}}} \, d\param{q}_{\setel{x}\arrowvert\setel{u}} \tag*{\ref{termQ}} \text{\normalsize .}
+\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1})} (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tau_{\setel{x}\arrowvert\setel{u}}} \cdot (\param{q}_{x\arrowvert\setel{u}})^{\mstat{x\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tstat{\setel{x}\arrowvert\setel{u}}} d\param{q}_{\setel{x}\arrowvert\setel{u}} \tag*{\ref{termQ}} \text{\normalsize .}
 \]
 \normalsize
-Semplificando:
+Si procede semplificando:
 \[
-\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1} \cdot (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+\mstat{x\arrowvert\setel{u}}}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1}) \cdot e^{\param{q}_{\setel{x}\arrowvert\setel{u}}(\tau_{\setel{x}\arrowvert\setel{u}}+\tstat{\setel{x}\arrowvert\setel{u}})}}  \, d\param{q}_{\setel{x}\arrowvert\setel{u}} \tag*{\ref{termQ}} \text{.}
+\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\,\arrowvert\,\setel{u}})^{\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+1} \cdot (\param{q}_{\setel{x}\,\arrowvert\,\setel{u}})^{\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+\mstat{x\,\arrowvert\,\setel{u}}}}{\Gamma({\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+1}) \cdot e^{\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}(\tau_{\setel{x}\,\arrowvert\,\setel{u}}+\tstat{\setel{x}\,\arrowvert\,\setel{u}})}}  \, d\param{q}_{\setel{x}\,\arrowvert\,\setel{u}} \tag*{\ref{termQ}} \text{.}
 \]
-Perciò, risolvendo l'integrale, si ottiene:
+E infine, risolvendo l'integrale, si ottiene:
 \[
-\prod_{\setel{X}_i} \underbrace{\prod_{\setel{u}} \prod_{\setel{x}} \frac{\Gamma(\alpha_{\setel{x}\arrowvert\setel{u}}+\mstat{x\arrowvert\setel{u}}+1)(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1}}{\Gamma(\alpha_{\setel{x}\arrowvert\setel{u}}+1)(\tau_{\setel{x}\arrowvert\setel{u}}+\tstat{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+\mstat{x\arrowvert\setel{u}}+1}}}_\text{$MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$} \tag*{\ref{termQ}} \text{.}
+\prod_{\setel{X}_i} \underbrace{\prod_{\setel{u}} \prod_{\setel{x}} \frac{\Gamma(\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+\mstat{x\,\arrowvert\,\setel{u}}+1)(\tau_{\setel{x}\,\arrowvert\,\setel{u}})^{\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+1}}{\Gamma(\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+1)(\tau_{\setel{x}\,\arrowvert\,\setel{u}}+\tstat{\setel{x}\,\arrowvert\,\setel{u}})^{\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+\mstat{x\,\arrowvert\,\setel{u}}+1}}}_\text{$MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$} \tag*{\ref{termQ}} \text{.}
 \]
+Relativamente all'analisi del \autoref{termT} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} si osservi che, poiché le distribuzioni sui parametri $\param{$\theta$}$ sono di \emph{\keywordsub[distribuzione]{Dirichlet}}, tale operazione è analoga a quella comune per le \acl{BN}.
 
-% \omissis{} $MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$
-
-Invece, poiché le distribuzioni sui parametri $\param{$\theta$}$ sono di \emph{\keywordsub[distribuzione]{Dirichlet}} l'analisi del \autoref{termT} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è analoga a quella che tradizionale per le \acl{BN}. Ne consegue che il \autoref{termT} si semplifica:
-\begin{align}\label{eq:marglike-int-theta}
-todo
+Ne consegue che il \autoref{termT} si semplifica:
+\[
+\prod_{\setel{X}_i} \underbrace{\prod_{\setel{u}} \prod_{\setel{x}} \frac{\Gamma(\alpha_{\setel{x}\,\arrowvert\,\setel{u}})}{\Gamma(\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+\mstat{x\,\arrowvert\,\setel{u}})} \cdot \prod_{\setel{x}\neq\setel{x}^\prime} \frac{\Gamma(\alpha_{\setel{x}\setel{x}^\prime\,\arrowvert\,\setel{u}}+\mstat[x]{\setel{x}^\prime\,\arrowvert\,\setel{u}})}{\Gamma(\alpha_{\setel{x}\setel{x}^\prime\,\arrowvert\,\setel{u}})}}_\text{$MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$} \tag*{\ref{termT}} \text{.}
+\]
+Quindi si può riformulare la likelihood marginale:
+\begin{equation}\label{eq:data-given-graph}
+P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) = \prod_{\setel{X}_i} MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \cdot MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \text{.}
+\end{equation}
+Infine, assumendo la \emph{modularità della struttura}, è possibile sviluppare lo score bayesiano (\autoref{eq:structurallearning-score}) utilizzando l'\autoref{eq:data-given-graph} e l'\autoref{eq:structurallearning-prior-modularity}:
+\begin{align}\label{eq:bayesian-score}
+score_B(\conceptsym{G}:\conceptsym{D}) &= \sum_{\setel{X}_i} \bigg[ \ln{P(Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i))} + \bigg.\nonumber\\
+& \qquad \quad \> \bigg.{} + \ln{MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})} + \bigg.\nonumber\\
+& \qquad \quad \> \bigg.{} + \ln{MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})} \bigg] = \nonumber\\
+&= \sum_{\setel{X}_i} famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})) \text{.}
 \end{align}
-Svi
+Si è quindi definita la funzione di scoring come una somma di score bayesiani, $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}))$, relativi ai nodi del grafo $\conceptsym{G}$. Ognuno di tali score bayesiani misura la qualità di $Pa_{\conceptsym{G}}(\setel{X}_i)$ come insieme dei nodi genitori di $\setel{X}_i$, dato l'insieme dei dati di apprendimento $\conceptsym{D}$.
 
 \section{Ricerca della struttura}\label{sec:structurallearning-search}
 In questa sezione si affronta il secondo componente del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keywordsub[apprendimento]{ottimizzazione}} finalizzata alla ricerca fra le possibili strutture di una \acs{CTBN} di quella che massimizza \emph{\keywordsub[apprendimento]{score bayesiano}}.
