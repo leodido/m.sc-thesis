@@ -56,17 +56,35 @@ P(\conceptsym{D}\,\arrowvert\,\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\co
 &= \underbrace{\bigg[\prod_{\setel{X}_i} L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \bigg]}_{L(\param{q}:\conceptsym{D})} \underbrace{\bigg[\prod_{\setel{X}_i} L_{\setel{X}_i}(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \bigg]}_{L(\param{$\theta$}:\conceptsym{D})} \text{.}
 \end{split}
 \end{equation}
-Combinando l'\emph{indipendenza globale dei parametri} e la decomposizione ottenuta dall'\autoref{eq:structurallearning-marglikelihood-decomp} si può riformulare la likelihood marginale (\autoref{eq:structurallearning-marglikelihood}) nel seguente modo:
+Combinando tale decomposizione con l'\emph{indipendenza dei parametri} si può riformulare la likelihood marginale (\autoref{eq:structurallearning-marglikelihood}) nel seguente modo:
 \begin{align}\label{eq:structurallearning-marglikelihood-decomp-2}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) &= \int_{\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}} L(\param{q}_{\conceptsym{G}}:\conceptsym{D}) L(\param{$\theta$}_{\conceptsym{G}}:\conceptsym{D}) P(\param{q}_{\conceptsym{G}}) P(\param{$\theta$}_{\conceptsym{G}}) \, d\param{q}_{\conceptsym{G}} d\param{$\theta$}_{\conceptsym{G}} \nonumber\\
 &= \underbrace{\bigg[ \int_{\param{q}_{\conceptsym{G}}} L(\param{q}_{\conceptsym{G}}:\conceptsym{D}) P(\param{q}_{\conceptsym{G}}) \, d\param{q}_{\conceptsym{G}} \bigg]}_{\myterm{termQ}} \cdot \underbrace{\bigg[ \int_{\param{$\theta$}_{\conceptsym{G}}} L(\param{$\theta$}_{\conceptsym{G}}:\conceptsym{D}) P(\param{$\theta$}_{\conceptsym{G}}) \, d\param{$\theta$}_{\conceptsym{G}} \bigg]}_{\myterm{termT}} \text{.}
 \end{align}
 Ottenuta tale equazione, si affronta di seguito l'analisi e la decomposizione dei due termini che la compongono.
 
-Utilizzando l'assunzione di \emph{indipendenza locale dei parametri}, il termine \autoref{termQ} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è decomponibile nel seguente modo:
+Utilizzando l'assunzione di \emph{indipendenza locale dei parametri}, il \autoref{termQ} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è decomponibile nel seguente modo. Si noti che per brevità si pone $\setel{u}=pa_i(\setel{x})$.
+\[
+\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty P(\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}) \cdot L_{\setel{X}_i}(\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}:\conceptsym{D}) \, d\param{q}_{\setel{x}\,\arrowvert\,\setel{u}} \tag*{\ref{termQ}} \text{.}
+\]
+Sostituendo a tale termine la distribuzione a priori coniugata su $\param{q}$ (si veda l'\autoref{eq:ctbn-bayesian-params-gamma}) e la likelihood delle quantità di tempo trascorse in ogni stato (si veda l'\autoref{eq:like-time-spent-in-each-state}) si ottiene:
+\footnotesize
+\[
+\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1})} (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tau_{\setel{x}\arrowvert\setel{u}}} \cdot (\param{q}_{x\arrowvert\setel{u}})^{\mstat{x\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tstat{\setel{x}\arrowvert\setel{u}}} \, d\param{q}_{\setel{x}\arrowvert\setel{u}} \tag*{\ref{termQ}} \text{\normalsize .}
+\]
+\normalsize
+Semplificando:
+\[
+\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1} \cdot (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+\mstat{x\arrowvert\setel{u}}}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1}) \cdot e^{\param{q}_{\setel{x}\arrowvert\setel{u}}(\tau_{\setel{x}\arrowvert\setel{u}}+\tstat{\setel{x}\arrowvert\setel{u}})}}  \, d\param{q}_{\setel{x}\arrowvert\setel{u}} \tag*{\ref{termQ}} \text{\normalsize .}
+\]
+
 \omissis{}
+
 Invece, poiché le distribuzioni sui parametri $\param{$\theta$}$ sono di \emph{\keywordsub[distribuzione]{Dirichlet}} l'analisi del \autoref{termT} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è analoga a quella che tradizionale per le \acl{BN}. Ne consegue che il \autoref{termT} si semplifica:
-\omissis{}
+\begin{align}\label{eq:marglike-int-theta}
+todo
+\end{align}
+Svi
 
 \section{Ricerca della struttura}\label{sec:structurallearning-search}
 In questa sezione si affronta il secondo componente del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keywordsub[apprendimento]{ottimizzazione}} finalizzata a ricercare fra le strutture candidate quella che è caratterizzata dal massimo \emph{\keywordsub[apprendimento]{score bayesiano}}.

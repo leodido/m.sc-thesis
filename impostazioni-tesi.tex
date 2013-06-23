@@ -112,7 +112,7 @@
 
 % reference for equation terms. use \underbrace{equation}_{\myterm{termA}}
 \newcounter{term}
-\renewcommand*{\theterm}{\alph{term}}
+\renewcommand*{\theterm}{(\alph{term})}
 \AtBeginDocument{%
   \let\mylabel\label
 }
