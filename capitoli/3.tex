@@ -8,11 +8,11 @@
 %************************************************
 Uno dei casi principali che costituisce il problema dell'\emph{apprendimento} di modelli grafico probabilistici è l'apprendimento della struttura incognita sottostante ogni modello.
 
-Il problema dell'\emph{apprendimento \keywordsub[apprendimento]{strutturale}} da \emph{\keywordsub[apprendimento]{dati completi}} di una \acs{CTBN} è quindi l'argomento trattato in questo capitolo.
+Il problema dell'\emph{apprendimento \keywordsub[apprendimento]{struttura}le} da \emph{\keywordsub[apprendimento]{dati completi}} di una \acl{CTBN} (\acs{CTBN}) è quindi l'argomento trattato in questo capitolo.
 
-Generalmente, questo problema può essere informalmente descritto nel seguente modo: dato un \keywordsub[apprendimento]{training set} composto da istanze di un insieme di variabili casuali si trovi un grafo che rappresenti tali dati e le relazioni fra le variabili casuali. Si noti come tale problema possa essere catalogato come una forma di apprendimento non supervisionato; nel senso che il processo di apprendimento non distingue la variabile classe dalle variabili attributo nei dati. L'obiettivo è quindi indurre una struttura (\ie{} grafo) che descriva nel miglior modo possibile la distribuzione di probabilità sui dati (\ie{} \emph{\keywordsub[apprendimento]{training set}}). Si osservi, inoltre, che questo problema di ottimizzazione è solitamente intrattabile per le \acl{BN}~\citep{Chickering1994}. Tuttavia, imponendo alcuni vincoli sulle strutture delle \acs{BN} da includere nello spazio di ricerca, esistono algoritmi efficienti che risolvono tale problema in un tempo polinomiale rispetto al numero di variabili casuali rappresentate dalla struttura.
+Generalmente, questo problema può essere informalmente descritto nel seguente modo: dato un \keywordsub[apprendimento]{training set} composto da istanze di un insieme di variabili casuali si trovi un \keywordsub[apprendimento]{grafo} che rappresenti tali dati e le relazioni fra le variabili casuali. Si noti come tale problema possa essere catalogato come una forma di apprendimento non supervisionato; nel senso che il processo di apprendimento non distingue la variabile classe dalle variabili attributo nei dati. L'obiettivo è quindi indurre una struttura (\ie{} \keywordsub[apprendimento]{grafo}) che descriva nel miglior modo possibile la distribuzione di probabilità sui dati (\ie{} \emph{\keywordsub[apprendimento]{training set}}). Si osservi, inoltre, che questo problema di \keywordsub[apprendimento]{ottimizzazione} è solitamente intrattabile per le \acl{BN}~\citep{Chickering1994,Chickering2004}, anche qualora si restringa la cardinalità massima dell'insieme dei genitori di ogni nodo.
 
-Per quanto riguarda invece il caso delle \acl{CTBN} (\acs{CTBN}), \citet{Nodelman2002} hanno dimostrato che, grazie alla mancanza del vincolo di \keywordsub[apprendimento]{aciclicità}, come già accennato nella \autoref{sec:ctbn-rappresentazione}), il problema dell'apprendimento strutturale di una \acs{CTBN} è significativamente più facile, sia teoricamente che in pratica, rispetto all'apprendimento strutturale di una \acl{BN}, o di modelli da esse derivanti, \eg{} le \acf{DBN}. Inoltre, nel caso si vincoli la procedura di ricerca a strutture con un numero massimo di genitori per nodo, questo problema può essere risolto in tempo polinomiale.
+Per quanto riguarda invece il caso delle \acs{CTBN}, \citet{Nodelman2002} hanno dimostrato che, grazie alla mancanza del vincolo di \keywordsub[apprendimento]{aciclicità}, come già accennato nella \autoref{sec:ctbn-rappresentazione}), il problema dell'apprendimento strutturale di una \acs{CTBN} è significativamente più facile, sia teoricamente che in pratica, rispetto all'apprendimento strutturale di una \acl{BN}, o di modelli da esse derivanti, \eg{} le \acf{DBN}. Inoltre, nel caso si vincoli la procedura di ricerca a strutture con un numero massimo di genitori per nodo, questo problema può essere risolto in tempo \keywordsub[apprendimento]{polinomiale}.
 
 L'approccio che si presenta in questo capitolo è quindi un approccio basato sul \keywordsub[apprendimento]{punteggio}: si definisce una funzione che computa uno \emph{\keywordsub[apprendimento]{score bayesiano}} finalizzato alla valutazione di ogni struttura rispetto ai \keywordsub[apprendimento]{dati di addestramento} e si usa una tecnica di \keywordsub[apprendimento]{ricerca euristica} (ad esempio, la ricerca \emph{\keywordsub[apprendimento]{hill climbing}}) per cercare nello spazio delle strutture candidate quella che esibisce il maggior punteggio.
 
@@ -20,9 +20,9 @@ Si osservi che l'apprendimento dei \keywordsub[apprendimento]{parametri} (si ved
 
 \cleardoublepage
 \section{Funzione di scoring}\label{sec:ctbn-structurallearning-score}
-Qualsiasi processo di apprendimento strutturale basato su \keywordsub[apprendimento]{punteggio} è costituito da due componenti: una \emph{\keywordsub[apprendimento]{funzione di scoring}} e una procedura di ottimizzazione.
+Qualsiasi processo di apprendimento strutturale basato su \keywordsub[apprendimento]{punteggio} è costituito da due componenti: una \emph{\keywordsub[apprendimento]{funzione di scoring}} e una procedura di \keywordsub[apprendimento]{ottimizzazione}.
 
-L'obiettivo di questa sezione è quindi presentare una funzione di scoring per l'apprendimento \keywordsub[apprendimento]{strutturale} delle \acl{CTBN} (\acs{CTBN}). Lo scopo di tale funzione è calcolare il punteggio (\ie{} lo \emph{score}) di una \keywordsub[apprendimento]{struttura} relativamente al \emph{\keywordsub[apprendimento]{training set}} $\conceptsym{D}$ fornito.
+L'obiettivo di questa sezione è quindi presentare una funzione di scoring per l'apprendimento strutturale delle \acl{CTBN} (\acs{CTBN}). Lo scopo di tale funzione è calcolare il \keywordsub[apprendimento]{punteggio} (\ie{} lo \emph{score}) di una \keywordsub[apprendimento]{struttura} relativamente al \emph{\keywordsub[apprendimento]{training set}} $\conceptsym{D}$ fornito.
 
 Si definisce lo \emph{\keywordsub[apprendimento]{score bayesiano}} sul \keywordsub[apprendimento]{grafo} $\conceptsym{G}$ di una \acs{CTBN} nel seguente modo:
 \begin{equation}\label{eq:structurallearning-score}
@@ -30,44 +30,44 @@ score_B(\conceptsym{G}:\conceptsym{D})=\ln{P(\conceptsym{D}\,\arrowvert\,\concep
 \end{equation}
 Come mostra l'\autoref{eq:structurallearning-score} la funzione di scoring utilizza la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{} il training set $\conceptsym{D}$) data la struttura candidata (\ie{} $\conceptsym{G}$), oltre alla probabilità a priori della struttura stessa.
 
-\`E possibile aumentare in modo significativo l'efficienza dell'algoritmo di ricerca che si affronta nella prossima sezione qualora si facciano determinate assunzioni. Nello specifico, se si assume che la probabilità a priori della struttura, $P(\conceptsym{G})$, soddisfi la \emph{modularità strutturale}, ne consegue:
+\`E possibile aumentare in modo significativo l'efficienza dell'algoritmo di ricerca che si affronta nella prossima sezione qualora si facciano determinate assunzioni. Nello specifico, se si assume che la probabilità a priori della struttura, $P(\conceptsym{G})$, soddisfi la \emph{\keywordsub[apprendimento]{modularità della struttura}}, ne consegue:
 \begin{equation}\label{eq:structurallearning-prior-modularity}
 P(\conceptsym{G})=\prod_{\setel{X}_i} P(Pa(\setel{X}_i) = Pa_{\conceptsym{G}}(\setel{X}_i))\text{.}
 \end{equation}
-Se si assume, inoltre, che la probabilità a priori dei parametri soddisfi la \emph{modularità dei parametri}, allora per ogni due strutture $\conceptsym{G}$ e $\conceptsym{G}^\prime$ tali che $Pa_{\conceptsym{G}}(\setel{X}) = Pa_{\conceptsym{G}^\prime}(\setel{X})$ risulta:
+Se si assume, inoltre, che la probabilità a priori dei parametri soddisfi la \emph{\keywordsub[apprendimento]{modularità dei parametri}}, allora per ogni due strutture $\conceptsym{G}$ e $\conceptsym{G}^\prime$ tali che $Pa_{\conceptsym{G}}(\setel{X}) = Pa_{\conceptsym{G}^\prime}(\setel{X})$ risulta:
 \begin{equation}\label{eq:structurallearning-params-modularity}
 P(\param{q}_{\setel{X}}\,,\param{$\theta$}_{\setel{X}}\,\arrowvert\,\conceptsym{G}) = P(\param{q}_{\setel{X}}\,,\param{$\theta$}_{\setel{X}}\,\arrowvert\,\conceptsym{G}^\prime)\text{.}
 \end{equation}
-Combinando l'assunzione di \emph{indipendenza dei parametri} con l'\autoref{eq:structurallearning-params-modularity} derivante dalla \emph{modularità dei parametri}, si ottiene:
+Combinando l'assunzione di \emph{indipendenza dei parametri} con l'\autoref{eq:structurallearning-params-modularity} derivante dalla \emph{\keywordsub[apprendimento]{modularità dei parametri}}, si ottiene:
 \begin{align}\label{eq:structurallearning-params-posterior}
 P(\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}\,\arrowvert\,\conceptsym{G}) &= \prod_{\setel{X}_i} \bigg[ P\Big(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,\arrowvert\,Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i)\Big) \cdot \bigg.\nonumber\\
 & \quad \bigg.{} \qquad \cdot P\Big(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,\arrowvert\,Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i)\Big) \bigg]\text{.}
 \end{align}
-Si osservi che, poiché la \emph{penalità del grafo}, corrispondente al termine $P(Pa(\setel{X}_i) = Pa_{\conceptsym{G}}(\setel{X}_i))$ dell'\autoref{eq:structurallearning-prior-modularity}, è legata alla dimensione del grafo ma indipendente dalla quantità dei dati, è possibile ignorare il termine $P(\conceptsym{G})$ della funzione di scoring (\autoref{eq:structurallearning-score}).
+Si osservi che, poiché la \emph{\keywordsub[apprendimento]{penalità del grafo}}, corrispondente al termine $P(Pa(\setel{X}_i) = Pa_{\conceptsym{G}}(\setel{X}_i))$ dell'\autoref{eq:structurallearning-prior-modularity}, è legata alla dimensione del \keywordsub[apprendimento]{grafo} ma indipendente dalla quantità dei dati, è possibile ignorare il termine $P(\conceptsym{G})$ della funzione di scoring (\autoref{eq:structurallearning-score}).
 
-Di conseguenza l'unico termine significativo dell'\autoref{eq:structurallearning-score} è la \emph{likelihood marginale}, $P(\conceptsym{D}\,\arrowvert\,\conceptsym{G})$. Tale termine, infatti, codifica l'incertezza sui parametri integrando su tutti i possibili valori che essi possono assumere:
+Di conseguenza l'unico termine significativo dell'\autoref{eq:structurallearning-score} è la \emph{\keywordsub[apprendimento]{likelihood marginale}}, $P(\conceptsym{D}\,\arrowvert\,\conceptsym{G})$. Tale termine, infatti, codifica l'incertezza sui parametri integrando su tutti i possibili valori che essi possono assumere:
 \begin{equation}\label{eq:structurallearning-marglikelihood}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) = \int_{\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}} P(\conceptsym{D}\,\arrowvert\,\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}) \, P(\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}\,\arrowvert\,\conceptsym{G}) \, d\param{q}_{\conceptsym{G}} d\param{$\theta$}_{\conceptsym{G}}\text{.}
 \end{equation}
-Come per l'\autoref{eq:ctbn-likelihood}, la likelihood marginale può essere decomposta come un prodotto di likelihood:
+Come per l'\autoref{eq:ctbn-likelihood}, la \keywordsub[apprendimento]{likelihood marginale} può essere decomposta come un prodotto di likelihood:
 \begin{equation}\label{eq:structurallearning-marglikelihood-decomp}
 \begin{split}
 P(\conceptsym{D}\,\arrowvert\,\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}) &= \prod_{\setel{X}_i} L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \, L_{\setel{X}_i}(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D})\\
 &= \underbrace{\bigg[\prod_{\setel{X}_i} L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \bigg]}_{L(\param{q}:\conceptsym{D})} \underbrace{\bigg[\prod_{\setel{X}_i} L_{\setel{X}_i}(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \bigg]}_{L(\param{$\theta$}:\conceptsym{D})} \text{.}
 \end{split}
 \end{equation}
-Combinando tale decomposizione con l'\emph{indipendenza dei parametri} si può riformulare la likelihood marginale (\autoref{eq:structurallearning-marglikelihood}) nel seguente modo:
+Combinando tale decomposizione con l'\emph{\keywordsub[apprendimento]{indipendenza dei parametri}} si può riformulare la \keywordsub[apprendimento]{likelihood marginale} (\autoref{eq:structurallearning-marglikelihood}) nel seguente modo:
 \begin{align}\label{eq:structurallearning-marglikelihood-decomp-2}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) &= \int_{\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}} L(\param{q}_{\conceptsym{G}}:\conceptsym{D}) L(\param{$\theta$}_{\conceptsym{G}}:\conceptsym{D}) P(\param{q}_{\conceptsym{G}}) P(\param{$\theta$}_{\conceptsym{G}}) \, d\param{q}_{\conceptsym{G}} d\param{$\theta$}_{\conceptsym{G}} \nonumber\\
 &= \underbrace{\bigg[ \int_{\param{q}_{\conceptsym{G}}} L(\param{q}_{\conceptsym{G}}:\conceptsym{D}) P(\param{q}_{\conceptsym{G}}) \, d\param{q}_{\conceptsym{G}} \bigg]}_{\myterm{termQ}} \cdot \underbrace{\bigg[ \int_{\param{$\theta$}_{\conceptsym{G}}} L(\param{$\theta$}_{\conceptsym{G}}:\conceptsym{D}) P(\param{$\theta$}_{\conceptsym{G}}) \, d\param{$\theta$}_{\conceptsym{G}} \bigg]}_{\myterm{termT}} \text{.}
 \end{align}
 Ottenuta tale equazione, si affronta di seguito l'analisi e la decomposizione dei due termini che la compongono.
 
-Utilizzando l'assunzione di \emph{indipendenza locale dei parametri}, il \autoref{termQ} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è decomponibile nel seguente modo. Si noti che per brevità si pone $\setel{u}=pa_i(\setel{x})$.
+Utilizzando l'assunzione di \emph{\keywordsub[apprendimento]{indipendenza locale} dei parametri}, il \autoref{termQ} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è decomponibile nel seguente modo. Si noti che per brevità si pone $\setel{u}=pa_i(\setel{x})$.
 \[
 \prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty P(\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}) \cdot L_{\setel{X}_i}(\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}:\conceptsym{D}) \, d\param{q}_{\setel{x}\,\arrowvert\,\setel{u}} \tag*{\ref{termQ}} \text{.}
 \]
-Sostituendo a tale termine la distribuzione a priori coniugata su $\param{q}$ (si veda l'\autoref{eq:ctbn-bayesian-params-gamma}) e la likelihood delle quantità di tempo trascorse in ogni stato (si veda l'\autoref{eq:like-time-spent-in-each-state}) si ottiene:
+Sostituendo a tale termine la distribuzione a \keywordsub[apprendimento]{priori coniugata} su $\param{q}$ (si veda l'\autoref{eq:ctbn-bayesian-params-gamma}) e la likelihood delle quantità di tempo trascorse in ogni stato (si veda l'\autoref{eq:like-time-spent-in-each-state}) si ottiene:
 \footnotesize
 \[
 \prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1})} (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tau_{\setel{x}\arrowvert\setel{u}}} \cdot (\param{q}_{x\arrowvert\setel{u}})^{\mstat{x\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tstat{\setel{x}\arrowvert\setel{u}}} d\param{q}_{\setel{x}\arrowvert\setel{u}} \tag*{\ref{termQ}} \text{\normalsize .}
@@ -87,37 +87,51 @@ Ne consegue che il \autoref{termT} si semplifica:
 \[
 \prod_{\setel{X}_i} \underbrace{\prod_{\setel{u}} \prod_{\setel{x}} \frac{\Gamma(\alpha_{\setel{x}\,\arrowvert\,\setel{u}})}{\Gamma(\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+\mstat{x\,\arrowvert\,\setel{u}})} \cdot \prod_{\setel{x}\neq\setel{x}^\prime} \frac{\Gamma(\alpha_{\setel{x}\setel{x}^\prime\,\arrowvert\,\setel{u}}+\mstat[x]{\setel{x}^\prime\,\arrowvert\,\setel{u}})}{\Gamma(\alpha_{\setel{x}\setel{x}^\prime\,\arrowvert\,\setel{u}})}}_\text{$MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$} \tag*{\ref{termT}} \text{.}
 \]
-Quindi si può riformulare la likelihood marginale:
+Quindi si può riformulare la \keywordsub[apprendimento]{likelihood marginale}:
 \begin{equation}\label{eq:data-given-graph}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) = \prod_{\setel{X}_i} MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \cdot MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \text{.}
 \end{equation}
-Infine, assumendo la \emph{modularità della struttura}, è possibile sviluppare lo score bayesiano (\autoref{eq:structurallearning-score}) utilizzando l'\autoref{eq:data-given-graph} e l'\autoref{eq:structurallearning-prior-modularity}:
+Al fine di derivare la probabilità a priori della struttura (\autoref{eq:structurallearning-prior-modularity}) si è già assunto in precedenza che l'ipotesi di modularità della struttura sussista. Perciò, sfruttando tale assunzione, l'equazione (\ref{eq:structurallearning-prior-modularity}) della probabilità a priori della struttura, e l'\autoref{eq:data-given-graph}) della \keywordsub[apprendimento]{likelihood marginale}:
 \begin{align}\label{eq:bayesian-score}
 score_B(\conceptsym{G}:\conceptsym{D}) &= \sum_{\setel{X}_i} \bigg[ \ln{P(Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i))} + \bigg.\nonumber\\
 & \qquad \quad \> \bigg.{} + \ln{MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})} + \bigg.\nonumber\\
 & \qquad \quad \> \bigg.{} + \ln{MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})} \bigg] = \nonumber\\
-&= \sum_{\setel{X}_i} famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})) \text{.}
+&= \sum_{\setel{X}_i} famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \text{.}
 \end{align}
-Si è quindi definita la funzione di scoring come una somma di score bayesiani, $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}))$, relativi ai nodi del grafo $\conceptsym{G}$. Ognuno di tali score bayesiani misura la qualità di $Pa_{\conceptsym{G}}(\setel{X}_i)$ come insieme dei nodi genitori di $\setel{X}_i$, dato l'insieme dei dati di apprendimento $\conceptsym{D}$.
+Si è quindi definita la \keywordsub[apprendimento]{funzione di scoring} come una somma di score bayesiani, $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$, relativi ai nodi del \keywordsub[apprendimento]{grafo} $\conceptsym{G}$. Ognuno di tali score bayesiani misura la qualità di $Pa_{\conceptsym{G}}(\setel{X}_i)$ come insieme dei nodi genitori di $\setel{X}_i$, dato l'insieme dei dati di apprendimento $\conceptsym{D}$.
 
 \section{Ricerca della struttura}\label{sec:structurallearning-search}
-In questa sezione si affronta il secondo componente del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keywordsub[apprendimento]{ottimizzazione}} finalizzata alla ricerca fra le possibili strutture di una \acs{CTBN} di quella che massimizza \emph{\keywordsub[apprendimento]{score bayesiano}}.
+In questa sezione si affronta il secondo componente del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keywordsub[apprendimento]{ottimizzazione}} finalizzata alla ricerca di una struttura che massimizzi lo \emph{\keywordsub[apprendimento]{score bayesiano}}.
+
+~\citet{Chickering1994} ha mostrato come il problema di apprendere la \keywordsub[apprendimento]{struttura} ottimale di una \acl{BN}, detto problema \emph{\keywordsub[apprendimento]{k-learn}}, dove $k$ è il numero massimo di genitori per ogni variabile casuale, sia un problema \emph{\keywordsub[apprendimento]{NP-arduo}} anche qualora si imponga $k=2$. La ragione di tale complessità è dovuta al vincolo di \keywordsub[apprendimento]{aciclicità} delle \acs{BN} (\ie{} il grafo di una \acs{BN}, come da \autoref{defn:bn}, deve essere un \acs{DAG}\cref{note:DAG}): non è perciò possibile determinare l'insieme ottimale dei genitori di ogni nodo di una \acs{BN} individualmente; poiché la scelta di un insieme di genitori per un nodo restringe la possibilità di scelta relativa ai nodi restanti.
+
+Come già accennato ed intuibile dalla composizione dello score bayesiano (si veda la funzione $famscore_{\conceptsym{B}}$, \autoref{eq:bayesian-score}), la ricerca della \keywordsub[apprendimento]{struttura} ottimale di un modello \acl{CTBN} (\acs{CTBN}) è invece notevolmente più semplice rispetto a quello relativo alle \acs{BN} (o alle \acs{DBN}). La motivazione di tale vantaggio risiede nel fatto che, poiché gli archi fra i nodi del grado $\conceptsym{G}$ di una \acs{CTBN} rappresentano l'effetto del valore attuale della variabile casuale padre sul valore successivo della variabile casuale figlia, non esiste un vincolo di \keywordsub[apprendimento]{aciclicità} ed è di conseguenza possibile ottimizzare l'insieme dei nodi genitori di un qualsiasi nodo separatamente dagli altri.
+
+Inoltre, qualora si restringa il massimo numero di genitori a un valore $k$, per ogni variabile casuale $\setel{X}_i$ di una \acs{CTBN}, con $i=1,\,\dotsc\,,N$, si può semplicemente enumerare ogni suo possibile insieme di nodi genitori $Pa(\setel{X}_i)$ tale che $\arrowvert Pa(\setel{X}_i) \arrowvert \leq k$ e calcolare il rispettivo \keywordsub[apprendimento]{punteggio} $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa(\setel{X}_i;\conceptsym{D})$. Quindi scegliere come insieme dei nodi genitori di $\setel{X}_i$ quello con \keywordsub[apprendimento]{punteggio} massimo.
+
+Si osservi che, fissato $k$, questa procedura di ricerca è \keywordsub[apprendimento]{polinomiale} rispetto a $N$. Si definisce perciò il seguente teorema~\citep{Nodelman2002}.
+\begin{teorema}
+Il problema \textbf{k-learn} per le \acl{CTBN}, fissato $k$, può essere risolto in tempo \keywordsub[apprendimento]{polinomiale} rispetto al numero di variabili casuali $N$ e alla dimensione dell'insieme di dati $\conceptsym{D}$.
+\end{teorema}
+
+Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. Di conseguenza è possibile utilizzare un algoritmo di ricerca euristica di tipo \emph{\keywordsub[apprendimento]{greedy}} (\ie{} goloso) per esplorare lo spazio di ricerca. Nel seguito si presenta perciò l'algoritmo utilizzato, il cui nome è \emph{\keywordsub[apprendimento]{hill climbing}}.
 
 \subsection{Hill Climbing}\label{sec:structurallearning-hc}
 \omissis{}
+%listato
+%commento
+%spiegazione parametri (e.g. grafo di partenza (*), caso: apprendere un classificatore CTBN)
 
-% TODO: 5.2 da Nodelman2007, paper Nodelman2002
 
-% la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all’apprendimento della struttura di una CTBN dai dati.
+%--------------
+% Learning the structure of a Bayesian network can be considered a specific example of the general problem of selecting a probabilistic model that explains a given set of data. Although this is a difficult task, it is generally considered an appealing option, as constructing a structure by hand might be hard or even impossible if the dependent variables are not known by domain experts. Because of this problem, a wealth of literature has been produced that seeks to understand and provide methods of learning structure from data. A fine example of an overview on the area was given by Buntine (1994, 1996), which although slightly dated now, is a good reference in dealing with most of the issues that arise in the area. Heckerman (1995b) gives a more tutorial like introduction to the task, and for a gradual introduction to the area, the recent book by Neapolitan (2004) has a good look at the theory behind a lot of the techniques used. To begin with, this section will start by examining the theory and complexity of learning Bayesian network structures and then move on to how the challenges have been addressed.
 
+%-----------
 % We argued above that the performance of a Bayesian network as a classifier may improve if the learning procedure takes into account the special status of the class variable. An easy way to ensure this is to bias the structure of the network, as in the naive Bayesian classifier, such that there is an edge from the class variable to each attribute. This ensures that, in the
-% learned network, the probability P(C|A1,...,An) will take all attributes into account.
+% learned network, the probability P(C|A1,...,An) will take all attributes into account. (*)
 
 % Accordingly, we limit our attention to a class of network structures that are based on the structure of naive Bayes, requiring that the class variable be a parent of every attribute.
 % This ensures that, in the learned network, the probability Pr(C|A1,...,An), the main term determining the classification, will take every attribute into account. Unlike the naive Bayesian classifier, however, our classifier allows additional edges between attributes that capture correlations among them. This extension incurs additional computational costs. While the induction of the naive Bayesian classifier requires only simple bookkeeping, the induction of Bayesian networks requires searching the space of all possible networks— that is, the space of all possible combinations of edges.
 
 % SEM leaves unspecified the issue of how many greedy
 % search steps one takes before recomputing the expected sufficient statistics and parameters. Nodelman et al. (2003) showed that, for CTBNs, structure search for a fixed number of parents per node can be done in polynomial time. Thus, it is possible, in this setting, to find the globally optimal structure given the current parametrization in the structure modification step. If one does this, SEM for CTBNs becomes an iterated optimization algorithm with a full maximization step for both structure and parameters.
-
-% TODO: vedi Friedman1997, poi spiega il perché è così -> formula MDL -> mettere solo se anche il nostro score ha lo stesso problema
-% This approach is justified by the asymptotic correctness of the Bayesian learning pro- cedure. Given a large data set, the learned network will be a close approximation for the probability distribution governing the domain (assuming that instances are sampled inde- pendently from a fixed distribution). Although this argument provides us with a sound theoretical basis, in practice we may encounter cases where the learning process returns a network with a relatively good MDL score that performs poorly as a classifier. To understand the possible discrepancy between good predictive accuracy and
