@@ -49,7 +49,7 @@ Di conseguenza l'unico termine significativo dell'\autoref{eq:structurallearning
 \begin{equation}\label{eq:structurallearning-marglikelihood}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) = \int_{\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}} P(\conceptsym{D}\,\arrowvert\,\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}) \, P(\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}\,\arrowvert\,\conceptsym{G}) \, d\param{q}_{\conceptsym{G}} d\param{$\theta$}_{\conceptsym{G}}\text{.}
 \end{equation}
-Come per l'\autoref{eq:ctbn-likelihood}, la \keywordsub[apprendimento]{likelihood marginale} può essere decomposta come un prodotto di likelihood:
+Come per l'\autoref{eq:ctbn-likelihood-decomp}, la \keywordsub[apprendimento]{likelihood marginale} può essere decomposta come un prodotto di likelihood:
 \begin{equation}\label{eq:structurallearning-marglikelihood-decomp}
 \begin{split}
 P(\conceptsym{D}\,\arrowvert\,\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}) &= \prod_{\setel{X}_i} L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \, L_{\setel{X}_i}(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D})\\
