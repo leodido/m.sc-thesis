@@ -185,21 +185,26 @@ Una \acf{IM}, rappresenta un \emph{modello di transizione Markoviano}:
 \[
 \imsign{\setel{X}}=
 \begin{bmatrix}
-    -\param{q}_{\setel{x}_1}    & \param{q}_{\setel{x}_1\setel{x}_2}& \cdots & \param{q}_{\setel{x}_1\setel{x}_k}   \\[0.5em]
-    \param{q}_{\setel{x}_2\setel{x}_1}  & -\param{q}_{\setel{x}_2}  & \cdots & \param{q}_{\setel{x}_2\setel{x}_k}   \\[0.5em]
-    \vdots      & \vdots    & \ddots & \vdots       \\[0.5em]
-    \param{q}_{\setel{x}_k\setel{x}_1}  & \param{q}_{\setel{x}_k\setel{x}_2}& \cdots & -\param{q}_{\setel{x}_k}
+    -\param{q}_{\setel{x}_1}            & \param{q}_{\setel{x}_1\setel{x}_2}    & \cdots & \param{q}_{\setel{x}_1\setel{x}_K}   \\[0.5em]
+    \param{q}_{\setel{x}_2\setel{x}_1}  & -\param{q}_{\setel{x}_2}              & \cdots & \param{q}_{\setel{x}_2\setel{x}_K}   \\[0.5em]
+    \vdots                              & \vdots                                & \ddots & \vdots                               \\[0.5em]
+    \param{q}_{\setel{x}_K\setel{x}_1}  & \param{q}_{\setel{x}_K\setel{x}_2}    & \cdots & -\param{q}_{\setel{x}_K}
 \end{bmatrix}\text{.}
 \]
 Lo scopo di un \im*{} è descrivere il comportamento transiente di $\setel{X}$, un \mprocess*{} \omog*{}.
 \end{definizione}
-
+\begin{osservazione}
+L'\emph{ordine} di una matrice di intensità corrisponde a $K=|val(\setel{X})|\,$, la cardinalità dell'insieme dei valori assunti da $\setel{X}$.
+\end{osservazione}
+% \begin{osservazione}\label{oss:squared-im}
+% Nel caso in cui $k=2$, la \im*{} $\imsign{\setel{X}}$ è quindi una matrice $2\times2$. Di conseguenza, poiché ogni riga di $\imsign{\setel{X}}$ somma a $0$ per definizione, le \emph{\virgolette{probabilità istantanee}} di transizione fra gli stati di $\setel{X}$ sono sempre pari a $1$.
+% \end{osservazione}
 Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve sommare a $0$:
 \[
 \param{q}_{\setel{x}_i}=\sum_{i \neq j}\param{q}_{\setel{x}_i\setel{x}_j}\quad\text{con}\quad \param{q}_{\setel{x}_i}\,,\,\param{q}_{\setel{x}_i\setel{x}_j}>0\text{.}
 \]
 
-Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=\setel{x}_i$ allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $\setel{x}_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $\param{q}_{\setel{x}_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $\setel{X}$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $\setel{x}$ la probabilità che $\setel{X}$ assuma valori minori o uguali ad $\setel{x}$.} $F$ sono:
+Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=\setel{x}_i$, allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $\setel{x}_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $\param{q}_{\setel{x}_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $\setel{X}$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $\setel{x}$ la probabilità che $\setel{X}$ assuma valori minori o uguali ad $\setel{x}$.} $F$ sono:
 \begin{equation}
 \label{eq:im-distrib}
 \begin{split}
@@ -208,26 +213,56 @@ F(t) &= 1-e^{-\param{q}_{\setel{x}_i}t}\,,\quad t\geq0\text{.}
 \end{split}
 \end{equation}
 
-Mentre gli elementi sulla diagonale, $\param{q}_{\setel{x}_i}$, codificano una quantità che può essere interpretata come la \emph{\virgolette{probabilità istantanea}} che $\setel{X}$ abbandoni lo stato $\setel{x}_i$, gli elementi non sulla diagonale, $\param{q}_{\setel{x}_{ij}}$, esprimono l'\emph{intensità di transizione} dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$.
+Quando un modello di transizione è definito esclusivamente tramite una \im*{} $\imsign{\setel{X}}$ si dice che esso usa una \emph{parametrizzazione \keywordsub[parametrizzazione]{pura}} delle intensità. In tal caso i parametri per un \mprocess*{} \omog*{} con $K$ stati sono $\{\,\param{q}_{\setel{x}_i}\,,\param{q}_{\setel{x}_i\setel{x}_j} : 1 \leq i\,,j \leq K\,,i \neq j\,\}$.
 
-Si può quindi calcolare:
+Mentre gli elementi sulla diagonale di una \im*{}, $\param{q}_{\setel{x}_i}$, codificano una quantità che può essere interpretata come la \emph{\virgolette{probabilità istantanea}} che $\setel{X}$ abbandoni lo stato $\setel{x}_i$, gli elementi non sulla diagonale, $\param{q}_{\setel{x}_i\setel{x}_j}$, esprimono l'\emph{intensità di transizione} dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$.
+
+Tuttavia, questa non è l'unica parametrizzazione possibile per un \mprocess*{} \omog*{}. Si noti infatti che la distribuzione di probabilità locale sulle transizioni di $\setel{X}$ è fattorizzata in due parti.
+\begin{definizione}[Parametrizzazione mista delle intensità]
+La \emph{parametrizzazione \keywordsub[parametrizzazione]{mista}} delle intensità per un \mprocess*{} \omog*{} $\setel{X}$ con $K$ stati è composta da due insiemi di parametri:
+\begin{equation}
+\begin{split}
+\param{q}_{\setel{X}} &= \{\, \param{q}_{\setel{x}_i} : 1 \leq i \leq K \,\} \text{,} \nonumber\\
+\param{$\theta$}_{\setel{X}} &= \{\, \param{$\theta$}_{\setel{x}_i\setel{x}_j} : 1 \leq i\,,j \leq K\,,i \neq j \,\} \text{.}
+\end{split}
+\end{equation}
+La semantica di tali insiemi di parametri è la seguente:
+\begin{itemize}
+    \item $\param{q}_{\setel{X}}$ è un insieme di intensità $\param{q}_{\setel{x}_i}$ che parametrizzano una \emph{distribuzione di probabilità \keywordsub[distribuzione]{esponenziale}} ed esprimono quando avvengono le transizioni
+    \item $\param{$\theta$}_{\setel{X}}$ è un insieme di probabilità $\param{$\theta$}_{\setel{x}_i\setel{x}_j}$ che esprimono la \emph{distribuzione di probabilità \keywordsub[distribuzione]{multinomiale}} tra coppie di stati differenti $i \neq j$.
+\end{itemize}
+\end{definizione}
+% Perciò:
+% \begin{itemize}
+%     \item $\param{q}_{\setel{x}_i}$, che esprime quando avvengono le transizioni attraverso una \emph{distribuzione di probabilità \keywordsub[distribuzione]{esponenziale}}
+%     \item $\param{$\theta$}_{\setel{x}_{ij}}$, che esprime la \emph{distribuzione di probabilità \keywordsub[distribuzione]{multinomiale}} tra coppie di stati $i \neq j$.
+% \end{itemize}
+\begin{osservazione}
+Si osservi che, aldilà del tipo di parametrizzazione con cui si sceglie di definire un modello di transizione, il numero di parametri necessari è pari a $K^2$ sebbene il numero di parametri liberi sia solo $K^2-K$~\citep{Nodelman2007}.
+\end{osservazione}
+\begin{osservazione}
+Si noti, inoltre, che una parametrizzazione può essere più conveniente dell'altra a seconda del processo in cui si è coinvolti, di conseguenza nel prosieguo le si utilizzerà entrambe in modo intercambiabile.
+\end{osservazione}
+Al fine di correlare questi due tipi di parametrizzazione dei modelli di transizione si riporta il seguente teorema~\citep{Nodelman2007}.
+\begin{teorema}\label{th:rel-params}
+Dati $\setel{X}$ e $\setel{Y}$, due \mprocess{} \omog{} con lo stesso spazio degli stati e la stessa distribuzione di probabilità iniziale, se il modello di transizione di $\setel{X}$ è definito tramite la \im*{} $\imsign{\setel{X}}$ e quello di $\setel{Y}$ è definito tramite la parametrizzazione \keywordsub[parametrizzazione]{mista} $\param{q}_{\setel{Y}}$, $\param{$\theta$}_{\setel{Y}}$, allora $\setel{X}$ e $\setel{Y}$ sono stocasticamente equivalenti\footnote{Due \mprocess{} sono detti \emph{stocasticamente equivalenti} se posseggono lo stesso spazio degli stati e le stesse probabilità di transizione~\citep{Gihman1973}.} solo se:
+\[
+\param{q}_{\setel{y}_i} = \param{q}_{\setel{x}_i}
+\]
+e
+\[
+\param{$\theta$}_{\setel{y}_i\setel{y}_j} = \frac{\param{q}_{\setel{x}_i\setel{x}_j}}{\param{q}_{\setel{x}_i}}\text{.}
+\]
+\end{teorema}
+\begin{osservazione}
+Si osservi che il \autoref{th:rel-params} formalizza la relazione che sussiste fra i parametri $\param{q}$ e $\param{$\theta$}$.
+\end{osservazione}
+Quindi, qualsiasi sia la parametrizzazione utilizzata per rappresentare il modello di transizione di un \mprocess*{} \omog*{} $\setel{X}$, è possibile calcolare:
 \begin{itemize}
     \item il \emph{tempo atteso} di una transizione uscente dallo stato $\setel{x}_i$ \[1/\param{q}_{\setel{x}_i}\]
     \item la \emph{\virgolette{probabilità istantanea}} di transizione dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$ \[\param{$\theta$}_{\setel{x}_i\setel{x}_j}=\param{q}_{\setel{x}_i\setel{x}_j}/\param{q}_{\setel{x}_i}\text{.}\]
 \end{itemize}
-
-Quindi una \im*{} induce una distribuzione di probabilità locale fattorizzata in due parti:
-\begin{itemize}
-    \item $\param{q}_{\setel{x}_i}$, che esprime quando avvengono le transizioni attraverso una \emph{distribuzione di probabilità \keywordsub[distribuzione]{esponenziale}}
-    \item $\param{$\theta$}_{\setel{x}_{ij}}$, che esprime la \emph{distribuzione di probabilità \keywordsub[distribuzione]{multinomiale}} tra coppie di stati $i \neq j$.
-\end{itemize}
-La matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (vale l'\autoref{eq:homogeneus-markov-process}).
-\begin{osservazione}
-L'\emph{ordine} di una matrice di intensità corrisponde a $k=|val(\setel{X})|\,$, la cardinalità dell'insieme dei valori assunti da $\setel{X}$.
-\end{osservazione}
-\begin{osservazione}\label{oss:squared-im}
-Nel caso in cui $k=2$, la \im*{} $\imsign{\setel{X}}$ è quindi una matrice $2\times2$. Di conseguenza, poiché ogni riga di $\imsign{\setel{X}}$ somma a $0$ per definizione, le \emph{\virgolette{probabilità istantanee}} di transizione fra gli stati di $\setel{X}$ sono sempre pari a $1$.
-\end{osservazione}
+Infine, si noti che la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (vale l'\autoref{eq:homogeneus-markov-process}).
 
 \begin{definizione}[\upcase\mprocess*{} \cond*{}]
 \label{defn:conditional-markov-process}
@@ -248,10 +283,10 @@ Ogni matrice di intensità di $\cimsign{\setel{X}}{Pa(\setel{X})}$ è del seguen
 \[
 \cimsign{\setel{X}}{pa_i(\setel{x})}=
 \begin{bmatrix}
--\param{q}_{\setel{x}_1}^{pa_i(\setel{x})}   & \param{q}_{\setel{x}_1\setel{x}_2}^{pa_i(\setel{x})} & \cdots & \param{q}_{\setel{x}_1\setel{x}_k}^{pa_i(\setel{x})}\\[0.5em]
-\param{q}_{\setel{x}_2\setel{x}_1}^{pa_i(\setel{x})} & -\param{q}_{\setel{x}_2}^{pa_i(\setel{x})}   & \cdots & \param{q}_{\setel{x}_2\setel{x}_k}^{pa_i(\setel{x})}\\[0.5em]
+-\param{q}_{\setel{x}_1}^{pa_i(\setel{x})}   & \param{q}_{\setel{x}_1\setel{x}_2}^{pa_i(\setel{x})} & \cdots & \param{q}_{\setel{x}_1\setel{x}_K}^{pa_i(\setel{x})}\\[0.5em]
+\param{q}_{\setel{x}_2\setel{x}_1}^{pa_i(\setel{x})} & -\param{q}_{\setel{x}_2}^{pa_i(\setel{x})}   & \cdots & \param{q}_{\setel{x}_2\setel{x}_K}^{pa_i(\setel{x})}\\[0.5em]
 \vdots           & \vdots           & \ddots & \vdots\\[0.5em]
-\param{q}_{\setel{x}_k\setel{x}_1}^{pa_i(\setel{x})} & \param{q}_{\setel{x}_k\setel{x}_2}^{pa_i(\setel{x})} & \cdots & -\param{q}_{\setel{x}_k}^{pa_i(\setel{x})}
+\param{q}_{\setel{x}_K\setel{x}_1}^{pa_i(\setel{x})} & \param{q}_{\setel{x}_K\setel{x}_2}^{pa_i(\setel{x})} & \cdots & -\param{q}_{\setel{x}_K}^{pa_i(\setel{x})}
 \end{bmatrix}
 \text{.}
 \]
@@ -259,12 +294,6 @@ Ogni matrice di intensità di $\cimsign{\setel{X}}{Pa(\setel{X})}$ è del seguen
 Di seguito si presenta un breve esempio finalizzato alla comprensione pratica delle \cim{} (\acs{CIM}) e del loro scopo.
 \begin{esempio}\label{ex:cim}\hfill\\
 Date due variabili causali, $\setel{E}(t)$ e $\setel{H}(t)$, delle quali la prima modella l'eventualità che un individuo stia mangiando o meno (se $\setel{e}=2$ allora l'individuo sta mangiando, viceversa se $\setel{e}=1$) mentre la seconda modella l'eventualità che lo stesso individuo abbia fame o meno (se $\setel{h}=2$ allora l'individuo è affamato, viceversa se $\setel{h}=1$) e la \cim*{} $\cimsign{\setel{E}}{\setel{H}}$, che è un insieme composto dalle \im{} $\cimsign{\setel{E}}{h=1}$ e $\cimsign{\setel{E}}{h=2}$, è possibile calcolare la probabilità degli eventi della variabile casuale $\setel{E}$ condizionatamente all'evidenza che si possiede sulla variabile casuale $\setel{H}$.
-% \[
-% \cimsign{\setel{E}}{h=1}=\begin{bmatrix}-0.01 & 0.01 \\ 10 & -10\end{bmatrix}
-% \hspace*{30pt}
-% \cimsign{\setel{E}}{h=2}=\begin{bmatrix}-2 & 2 \\ 0.01 & -0.01\end{bmatrix}
-% \text{.}
-% \]
 \[
 \cimsign{\setel{E}}{h=1}=\kbordermatrix{
 \text{} &   1   &   2\cr
@@ -281,7 +310,8 @@ Date due variabili causali, $\setel{E}(t)$ e $\setel{H}(t)$, delle quali la prim
 Ipotizzando che l'unità temporale corrisponda a un'ora:
 \begin{itemize}
     \item un individuo affamato ($\setel{h}=2$) che non sta mangiando ($\setel{e}=1$) inizierà a mangiare in 30 minuti poiché \[\frac{1}{\param{q}_{\setel{e}=1\,\arrowvert\,\setel{h}=2}}=\frac{1}{2}\:\text{,}\]
-    \item un individuo non affamato ($\setel{h}=1$) che sta mangiando ($\setel{e}=2$) smetterà di mangiare ($\setel{e}=1$) entro 6 minuti poiché \[\frac{1}{\param{q}_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{1}{10}\:\text{;}\] si osservi che la\emph{\virgolette{probabilità istantanea}} di transizione da $\setel{e}=2$ a $\setel{e}=1$, come già evidenziato dall'\autoref{oss:squared-im}, è \[\param{$\theta$}_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}=\frac{\param{q}_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}}{\param{q}_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{10}{10}=1\text{.}\]
+    \item un individuo non affamato ($\setel{h}=1$) che sta mangiando ($\setel{e}=2$) smetterà di mangiare ($\setel{e}=1$) entro 6 minuti poiché \[\frac{1}{\param{q}_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{1}{10}\:\text{;}\] si osservi che la\emph{\virgolette{probabilità istantanea}} di transizione da $\setel{e}=2$ a $\setel{e}=1$ è \[\param{$\theta$}_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}=\frac{\param{q}_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}}{\param{q}_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{10}{10}=1\text{,}\]
+    ciò poiché $val(\setel{E})=2$, il ché implica che le \im{} sono matrici $2 \times 2$ e, dovendo ogni loro riga sommare a $0$, gli elementi sulla diagonale sono uguali al rispettivo (stessa riga) e unico elemento non sulla diagonale.
 \end{itemize}
 \end{esempio}
 
@@ -315,7 +345,7 @@ Partizionamento di un intervallo temporale $[\,0,\,T)$ in $J$ intervalli chiusi 
 \`E possibile riferirsi a tale concetto anche tramite l'espressione \emph{\virgolette{insieme dei \keywordsub[definizione]{segmenti temporali}}}.
 \end{notabene}
 \begin{definizione}[$J$-evidence-stream]\label{defn:j-evidence-stream}
-Dato un insieme di segmenti temporali composto da $J$ intervalli e una \pv{} $\set{X}$ composta da $N$ variabili casuali, un \emph{$J$-evidence-stream} è l'insieme delle istanziazioni comuni $\set{X}=\set{x}$ associate ad ogni intervallo temporale per ogni sottoinsieme delle variabili casuali~\citep{Stella2012}. \`E denotato con $(\set{X}^1=\set{x}^1\,,\,\set{X}^2=\set{x}^2\,,\,\dotsc\,,\,\set{X}^J=\set{x}^J)$, o più concisamente $\evidencestream{J}$.
+Data una \pv{} $\set{X}$ composta da $N$ variabili casuali e un insieme di segmenti temporali composto da $J$ intervalli, un \emph{$J$-evidence-stream} è l'insieme delle istanziazioni comuni $\set{X}=\set{x}$ associate ad ogni intervallo temporale per ogni sottoinsieme delle variabili casuali~\citep{Stella2012}. \`E denotato con $(\set{X}^1=\set{x}^1\,,\,\set{X}^2=\set{x}^2\,,\,\dotsc\,,\,\set{X}^J=\set{x}^J)$, o più concisamente con $\evidencestream{J}$.
 \end{definizione}
 \begin{notabene}
 \`E possibile riferirsi a tale concetto anche tramite l'espressione \emph{\virgolette{flusso di evidenze}}.
@@ -451,7 +481,7 @@ Si noti che, dal punto di vista computazionale, è conveniente riformulare l'\au
 & \qquad \bigg.{} \qquad \qquad + \sum_{\setel{x}\neq \setel{x}^{\prime}}\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}\ln(\param{$\theta$}_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}) \bigg] \text{\normalsize .}
 \end{align}
 \normalsize
-Possiamo perciò riformulare l'\autoref{eq:ctbn-likelihood-decomp}, che esprime la likelihood di $\conceptsym{N}$, nel seguente modo:
+\`E ora possibile asserire che la \emph{log-likelihood} di $\conceptsym{N}$ (dall'\autoref{eq:ctbn-likelihood-decomp}) è:
 \begin{equation}\label{eq:ctbn-log-likelihood}
 \ell_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D})=\sum_{\setel{X}_i \in \, \set{X}} \ell_{\setel{X}_i}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D}) \text{.}
 \end{equation}
@@ -462,14 +492,13 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 
 \subsection{Stima dei parametri}\label{sec:ctbn-params}
 Si affronta ora il problema dell'apprendimento dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
- % in quanto, oltre a essere necessaria per la creazione delle \cim{}, è, come vedremo in seguito nel \autoref{cap:ctbn-structural-learning}, fondamentale per il processo di apprendimento strutturale.
 
-La stima dei parametri non è un processo fine a sè stesso, in quanto, \graffito{Come costruire una \acs{CIM} dai parametri.} da essi è possibile costruire le \cim{} (\acs{CIM}) di ogni nodo della \acs{CTBN}. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}). Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il suo vettore dei parametri $\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}$ e ricavando i valori non sulla diagonale (\ie{} la \emph{\virgolette{probabilità istantanea}} di transizione fra due stati; si veda a riguardo la \autoref{defn:im}) dalla relazione fra i parametri $\param{q}$ e $\param{$\theta$}$:
+La stima dei parametri non è un processo fine a se stesso, in quanto, \graffito{Come costruire una \acs{CIM} dai parametri.} da essi è possibile costruire le \cim{} (\acs{CIM}) di ogni nodo della \acs{CTBN}. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}). Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il rispettivo vettore dei parametri $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$ e ricavando i valori non sulla diagonale dalla relazione (si veda il \autoref{th:rel-params}) fra i parametri $\param{q}$ e $\param{$\theta$}$:
 \begin{equation}
 \label{eq:ctbn-params-rel}
 \param{q}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}=\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})} \cdot \param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\text{.}
 \end{equation}
-Infine, come vedremo in seguito nel \autoref{cap:structurallearning}, i parametri sono un componente chiave del processo di apprendimento strutturale.
+Infine, come vedremo in seguito nel \autoref{cap:structurallearning}, i parametri sono anche un componente chiave del processo di apprendimento strutturale.
 
 \subsubsection{Stima \acl{MLE}}
 \label{sec:ctbn-mle-params}
@@ -543,3 +572,5 @@ Data una distribuzione sui parametri è possibile usarla per predire il prossimo
 \end{split}
 \end{equation}
 Si osservi che questi parametri sono, teoricamente, validi solo per predire una singola transizione, dopo la quale la distribuzione dei parametri andrebbe aggiornata di conseguenza. Tuttavia, com'è spesso fatto in situazioni di questo tipo, si approssima la stima bayesiana congelando i parametri ai succitati \emph{\keywordsub[apprendimento]{valori attesi}}, usandoli per la predizione di una intera traiettoria (\ie{} la distribuzione dei parametri non viene aggiornata ad ogni singola transizione).
+
+% A multinomial variable is a variable that can take on one of a finite number of possible values. Any data corresponding to a multinomial variable is known as multinomial data. When dealing with multinomial data, there are choices that can be made as to how the learning is to proceed. Perhaps one of the simplest methods is to estimate the parameters of the model using a maximum likelihood approach. However, this has a problem with sparse data, in that some probabilities — perhaps most of them — can be undefined if a case does not come up in the database. This can cause problems later with inference. To counteract this, some form of prior distribution is normally placed on the variables, which is then updated from the data. An example of this would be a distribution that said all values of a particular variable were of an equal prior probability to begin with, but changed quickly to reflect the observed data. Heckerman and Geiger (1995) and Buntine (1996) discuss this more. In addition, under certain reasonable assumptions—that the parameters of the network are independent of each other and the density function characterizing each parameter is strictly positive—Geiger andHeckerman (1995, 1997) showed that this distribution must be Dirichlet. The Dirichlet distribution is the multivalued generalization of the Beta distribution and is a conjugate prior of the multinomial; that is, when updated with new information, the updated distribution is again Dirichlet.

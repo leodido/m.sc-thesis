@@ -110,7 +110,7 @@ Come già accennato ed intuibile dalla composizione dello score bayesiano (si ve
 Inoltre, qualora si restringa il massimo numero di genitori a un valore $k$, per ogni variabile casuale $\setel{X}_i$ di una \acs{CTBN}, con $i=1,\,\dotsc\,,N$, si può semplicemente enumerare ogni suo possibile insieme di nodi genitori $Pa(\setel{X}_i)$ tale che $\arrowvert Pa(\setel{X}_i) \arrowvert \leq k$ e calcolare il rispettivo \keywordsub[apprendimento]{punteggio} $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa(\setel{X}_i;\conceptsym{D})$. Quindi scegliere come insieme dei nodi genitori di $\setel{X}_i$ quello con \keywordsub[apprendimento]{punteggio} massimo.
 
 Si osservi che, fissato $k$, questa procedura di ricerca è \keywordsub[apprendimento]{polinomiale} rispetto a $N$. Si definisce perciò il seguente teorema~\citep{Nodelman2002}.
-\begin{teorema}
+\begin{teorema}[Problema k-learn]
 Il problema \textbf{k-learn} per le \acl{CTBN}, fissato $k$, può essere risolto in tempo \keywordsub[apprendimento]{polinomiale} rispetto al numero di variabili casuali $N$ e alla dimensione dell'insieme di dati $\conceptsym{D}$.
 \end{teorema}
 

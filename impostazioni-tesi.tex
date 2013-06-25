@@ -172,7 +172,8 @@
 % (normalmente viene lasciata vuota)
 
 \theoremstyle{plain}
-\newtheorem{teorema}{Teorema}
+\newtheorem{teorema}{Teorema}[chapter]
+\newtheorem*{teorema*}{Teorema}
 \newtheorem{cor}[teorema]{Corollario}
 \newtheorem{lem}[teorema]{Lemma}
 \newtheorem{prop}[teorema]{Proposizione}
@@ -329,6 +330,7 @@
 \newcommand{\notabeneautorefname}{nota}
 \newcommand{\esempioautorefname}{esempio}
 \newcommand{\termautorefname}{termine}
+\newcommand{\teoremaautorefname}{teorema}
 
 %*********************************************************************************
 % Set footnote's continuos numbering and linking capabilities (using cleveref and chngcntr packages)
@@ -405,6 +407,6 @@
 %*********************************************************************************
 % Eccezioni all'algoritmo di sillabazione
 %*********************************************************************************
-\hyphenation{Fortran ma-cro-istru-zio-ne nitro-idrossil-amminico}
+\hyphenation{Fortran ma-cro-istru-zio-ne nitro-idrossil-amminico tem-po-ra-li}
 
 
