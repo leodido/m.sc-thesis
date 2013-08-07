@@ -3,9 +3,12 @@
 *.alg
 *.aux
 *.bbl
+*.bcf
 *.blg
 *.dvi
 *.fdb_latexmk
+*.fls
+*-frn.tex
 *.glg
 *.glo
 *.gls
@@ -31,8 +34,8 @@
 *.vrb
 *.xdy
 *.tdo
-*.sublime-project~
+*.sublime-project
 *.sublime-workspace
-*.sublime-workspace~
 *.run.xml
 *-blx.bib
+*~

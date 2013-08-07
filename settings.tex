@@ -1,27 +1,27 @@
-% !TEX encoding = UTF-8
+% !TEX encoding = UTF-8 Unicode
 % !TEX TS-program = pdflatex
-% !TEX root = tesi.tex
+% !TEX root = arsclassica.tex
 % !TEX spellcheck = it-IT
 
-% impostazioni-tesi.tex
-% file che contiene le impostazioni della tesi
+%*********************************************************************************
+% Preamble
 %*********************************************************************************
 
 %*********************************************************************************
-% Stile TOC
+% TOC settings
 %*********************************************************************************
 % \setcounter{secnumdepth}{5}
 % \setcounter{tocdepth}{5}
 
 %*********************************************************************************
-% Stile capitoli
+% Chapters style
 %*********************************************************************************
-% Stile numero capitolo (on = stesso font corpo, off = eulerchapternumbers)
+% Chapter number style: decomment if you want it with the same corpus font
 % \renewcommand{\chapterNumber}{%
 % \fontsize{70}{70}\usefont{\encodingdefault}{\sfdefault}{b}{n}%
 % }%
 
-% Workaround per titoli multi-riga
+% Workaround: multi-line titles
 \renewcommand\formatchapter[1]{%
 \begin{minipage}[b]{0.15\linewidth}
 \chapterNumber
@@ -32,11 +32,11 @@
 }
 
 %*********************************************************************************
-% Indice analitico
+% Analytical index
 %*********************************************************************************
 \makeindex
 
-% Bilanciamento delle colonne dell’ultima pagina dell’indice analitico
+% Balance columns of the last page
 % \let\orgtheindex\theindex
 % \let\orgendtheindex\endtheindex
 % \def\theindex{%
@@ -50,34 +50,18 @@
 % \orgendtheindex
 % }
 
-% Comandi per l'indicizzazione dei termini
-\newcommand*{\keyword}[2][]{#2\index{#2@#2#1}}% semplice keyword da incizzare
-\newcommand{\keywordsub}[2][]{#2\index{#1!#2}}% termine con genitore/categoria
-\newcommand{\keywordpagb}[1]{\keyword[|textbf]{#1}}% pagina in grassetto
-\newcommand{\keywordpagi}[1]{\keyword[|textit]{#1}}% pagina in corsivo
-\newcommand{\keywordbold}[1]{#1\index{#1@\textbf{#1}}}% termine in grassetto
-\newcommand{\keyworditalic}[1]{#1\index{#1@\textsl{#1}}}% termine in corsivo
-
-%*********************************************************************************
-% Comandi personali
-%*********************************************************************************
-\newcommand{\myName}{Leonardo~Di~Donato}% autore
-\newcommand{\myTitle}{Continuos Time Bayesian Networks Classifiers}% titolo
-\newcommand{\myDegree}{Tesi di Laurea}% tipo di tesi
-\newcommand{\myUni}{Università degli Studi di Milano--Bicocca}% università
-\newcommand{\myFaculty}{Facoltà di Scienze Matematiche, Fisiche e Naturali}% facoltà
-\newcommand{\myDepartment}{Dipartimento di Informatica, Sistemistica e Comunicazione}% dipartimento
-\newcommand{\myProf}{Prof.~F.~Antonio~Stella}% relatore
-\newcommand{\myOtherProf}{Dott.~Daniele~Codecasa}% correlatore
-\newcommand{\myLocation}{Milano}% dove
-\newcommand{\myTime}{Settembre 2013}% quando
-\newcommand{\mySubject}{Continuos time Bayesian Networks}
-\newcommand{\myKeywords}{Classification, Continuos time Bayesian Network, CTBN, Continuos time Bayesian Newtork Classifier, CTBNC}
+% Indexing commands
+\newcommand*{\keyword}[2][]{#2\index{#2@#2#1}}% as simple keyword
+\newcommand{\keywordsub}[2][]{#2\index{#1!#2}}% as categorized keyword
+\newcommand{\keywordpagb}[1]{\keyword[|textbf]{#1}}% as simple keyword with bold page number
+\newcommand{\keywordpagi}[1]{\keyword[|textit]{#1}}% as simple keyword with italic page number
+\newcommand{\keywordbold}[1]{#1\index{#1@\textbf{#1}}}% as bold keyword
+\newcommand{\keyworditalic}[1]{#1\index{#1@\textsl{#1}}}% as italic keyword
 
 %*********************************************************************************
 % Impostazioni di amsmath, amssymb, amsthm
 %*********************************************************************************
-% force the equation numbers to be always the same size
+% Force the equation numbers to be always the same size
 \makeatletter
 \renewcommand{\maketag@@@}[1]{\hbox{\m@th\normalsize\normalfont#1}}%
 \makeatother
@@ -263,7 +247,7 @@
 %*********************************************************************************
 \hypersetup{%
     % hyperfootnotes=false,pdfpagelabels,
-    %draft,	% = elimina tutti i link (utile per stampe in bianco e nero)
+    %draft, % = elimina tutti i link (utile per stampe in bianco e nero)
     colorlinks=true, linktocpage=true, pdfstartpage=1, pdfstartview=FitV,%
     % decommenta la riga seguente per avere link in nero (per esempio per la stampa in bianco e nero)
     % colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=1, pdfstartview=FitV,%
@@ -272,10 +256,10 @@
     hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
     urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen, %pagecolor=RoyalBlue,%
     urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
-    pdftitle={\myTitle},%
-    pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},%
-    pdfsubject={\mySubject},%
-    pdfkeywords={\myKeywords},%
+    pdftitle={\mytitle},%
+    pdfauthor={\textcopyright\ \myname, \myuni, \myfaculty},%
+    pdfsubject={\mysubject},%
+    pdfkeywords={\mykeywords},%
     pdfcreator={pdfLaTeX},%
     pdfproducer={LaTeX with hyperref, classicthesis and arsclassica}%
 }
@@ -283,17 +267,17 @@
 %*********************************************************************************
 % Impostazioni di graphicx
 %*********************************************************************************
-\graphicspath{{immagini/}} % cartella dove sono riposte le immagini
+\graphicspath{{images/}} % cartella dove sono riposte le immagini
 
 %*********************************************************************************
-% Margini ottimizzati per l'A4
+% A4 optimized margins
 %*********************************************************************************
 \areaset[current]{336pt}{750pt}
 \setlength{\marginparwidth}{7em}
 \setlength{\marginparsep}{2em}%
 
 %*********************************************************************************
-% Utility
+% Utilities
 %*********************************************************************************
 % make first letter uppercase
 \makeatletter
@@ -325,6 +309,14 @@
 \addto\extrasitalian{%
   \def\subsubsectionautorefname{sottosezione}%
 }
+\addto\captionsitalian{%
+    \renewcommand{\lstlistingname}{Algoritmo}%
+}
+\addto\captionsitalian{%
+    \renewcommand{\lstlistlistingname}{Elenco degli algoritmi}%
+}
+\providecommand*{\lstlistingautorefname}{algoritmo}
+\providecommand*{\lstnumberautorefname}{linea}
 
 %*********************************************************************************
 % Custom references for \autoref
@@ -343,14 +335,12 @@
 \crefformat{footnote}{#2\footnotemark[#1]#3}
 
 %*********************************************************************************
-% Altro
+% Define your commands here
 %*********************************************************************************
 % ...
 \newcommand{\omissis}{\dots\negthinspace}
 \newcommand{\virgolette}[1]{``#1''}
 \newcommand{\caporali}[1]{«#1»}
-
-%
 \newcommand{\ie}{i.\,e.}
 \newcommand{\Ie}{I.\,e.}
 \newcommand{\eg}{e.\,g.}
@@ -409,7 +399,7 @@
 \newcommand{\evidencestream}[1]{(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^{#1})}
 
 %*********************************************************************************
-% Eccezioni all'algoritmo di sillabazione
+% Hypenation exceptions
 %*********************************************************************************
 \hyphenation{Fortran ma-cro-istru-zio-ne nitro-idrossil-amminico tem-po-ra-li}
 
