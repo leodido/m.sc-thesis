@@ -27,6 +27,8 @@ L'architettura modulare con cui \acs{TSIS} è realizzato permette, in caso di ne
 
 Di seguito si introducono brevemente i concetti relativi a \acs{TSIS} utilizzati nel prosieguo di questo lavoro di tesi.
 
+Tuttavia si osservi che, poiché lo scopo di questo capitolo non consiste nel documentare \acs{TSIS}, la trattazione dei suoi dettagli tecnici (\eg{}, significato e lista dei tipi di dati rappresentabili) è omessa. A tale fine si rimanda invece alla documentazione ufficiale del software in questione.
+
 \begin{definizione}[Progetto \acs{TSIS}]\label{defn:tsis-proj}
 Un progetto \acs{TSIS} è un insieme di modelli di simulazione per una specifica rete stradale.
 \end{definizione}
@@ -38,22 +40,48 @@ Un modello di simulazione è costituito da un input (\eg{}, variazioni dei fluss
 Un modello di simulazione può anche prevedere che la sua esecuzione sia eseguita più volte. Finché il seme dei numeri casuali non è modificato, esso è sempre considerato un singolo modello di simulazione.
 \end{osservazione}
 
+\begin{definizione}[Formato \acs{TRF}]\label{defn:trf-format}
+\acs{TRF}\footnote{\acf{TRF}} è il formato dei file accettati dal simulatore di \acs{TSIS}. Esso codifica e rappresenta una rete stradale specificandone i vari componenti tramite l'utilizzo dei rispettivi \acs{RT}\footnote{\acf{RT}}, cioè delle righe di testo contenenti un codice identificativo numerico e i valori per i rispettivi campi accettati nell'ordine prestabilito. Allo stesso modo, tale formato incorpora il modello di simulazione della rete stradale che descrive.
+\end{definizione}
+\begin{osservazione}
+Il formato \acs{TRF} è equivalente al formato \acs{TRAF}\footnote{\acf{TRAF}}.
+\end{osservazione}
+
+\subsection{Caratteristiche}
+% TODO: panoramica features
+
 \subsection{Componenti}
 
 In questa sezione si elencano gli strumenti che costituiscono l'ambiente di sviluppo \acs{TSIS}.
 
 \begin{description}
+\item[CORSIM] \hfill \\
+\acs{CORSIM}\footnote{\acf{CORSIM}} costituisce il componente principale dell'insieme di strumenti denominato \acs{TSIS}. È un simulatore il cui obiettivo è permettere la creazione e l'esecuzione di modelli di simulazione \acs{TSIS}. È composto da due simulatori integrati che rappresentano l'intero sistema di traffico come funzione del tempo: \acs{NETSIM}\footnote{\acf{NETSIM}} e \acs{FREESIM}\footnote{\acf{FREESIM}}. Tali simulatori integrati rappresentano, rispettivamente, il traffico sulle strade urbane e non. La simulazione effettuata da tali strumenti è di tipo microscopico: essi modellano individualmente il comportamento di ogni singolo veicolo, prendendo in considerazione per ognuno di essi una serie di variabili, anche di tipo stocastico (\eg{}, tipologia di guidatore). Per tale motivo \acs{CORSIM} è dotato di molte possibili opzioni di configurazione e permette lo studio di modelli molto complessi e dettagliati.
 \item[TRAFED] \hfill \\
 \acs{TRAFED}\footnote{\acf{TRAFED}} è una \acs{GUI} il cui scopo è permettere la creazione e la modifica di reti stradali e di modelli di simulazione per \acs{CORSIM}.
+\item[TShell] \hfill \\
+\acs{TShell}\footnote{\acf{TShell}} è la \acs{GUI} di \acs{TSIS}. Funge da contenitore degli strumenti (preconfigurati, o creati dall'utente) di questo ambiente di sviluppo integrato e permette la gestione dei progetti \acs{TSIS}.
+\item[TRAFVU] \hfill \\
+\acs{TRAFVU}\footnote{\acf{TRAFVU}} è una \acs{GUI} finalizzata alla visualizzazione dei modelli di simulazione simulati con \acs{CORSIM}. Essa permette sia di visualizzare in modo animato l'evoluzione del traffico nella rete stradale con una qualsiasi granularità temporale, sia di visualizzare una serie di misure di interesse relative alla simulazione.
+\item[TSIS Text Editor] \hfill \\
+\acs{TSIS} Text Editor è uno strumento il cui scopo è facilitare la modifica manuale dei file \acs{TRF}. A tale scopo esso visualizza per ogni \acs{RT} che si intende modificare sia la sua descrizione sia l'insieme dei campi supportati.
+\item[TSIS Script Tool] \hfill \\
+\acs{TSIS} Script Tool
+\item[TSIS Translator] \hfill \\
+\acs{TSIS} Translator
+\item[TSIS Output Processor] \hfill \\
+\acs{TSIS} Output Processor
+\item[CORSIM RTE] \hfill \\
+
 \end{description}
 
-\subsubsection{TShell}
+This editor is a standard text editor that has the additional capability of understanding the CORSIM TRF file
+format. When editing a TRF file with this editor, the TShell output window displays text describing the entry field
+and record type at the current cursor position. Clicking a specific field description in the output window highlights
+the corresponding entry field in the displayed TRF file. This makes manual editing of the text file much easier than
+with previous text editors. See the TSIS Text Editor User's Guide for additional details.
 
-TShell è la \acs{GUI} per 
-
-is the graphical user interface for the TSIS integrated development environment. It provides a Project view
-that enables you to manage your TSIS projects. It is also the container for the pre-configured tools and any tools
-that you add to the suite. See the TShell User's Guide for additional details.
+%\item[TSIS Next] \hfill \\
 
 \subsubsection{TSIS Next}
 
@@ -61,34 +89,6 @@ TSIS Next contains the same type of functionality that can be seen in the TShell
 component programs. TSIS Next is a “quicker-and-easier” version of TSIS that contains specific advantages and
 disadvantages. Many CORSIM projects will continue to require TShell, TRAFED, and TRAFVU. By having
 access to both TSIS and TSIS Next on the same computer, you can choose whichever functionality you prefer.
-
-\subsubsection{CORSIM}
-
-\acf{CORSIM} costituisce il componente principale dell'insieme di strumenti denominato \acs{TSIS}. È un simulatore il cui obiettivo è permettere la creazione e l'esecuzione di modelli di simulazione. 
-
-Esso è composto da due simulatori integrati che rappresentano l'intero sistema di traffico come funzione del tempo: \acf{NETSIM} e \acf{FREESIM}.
-
-The CORSIM simulation consists of an integrated set of two microscopic simulation models (NETSIM and
-FRESIM) that represent the entire traffic environment as a function of time. NETSIM represents surface-street
-traffic and FRESIM represents freeway traffic. Microscopic simulations model the movements of individual
-vehicles, which include the influences of driver behavior. Thus, the effects of very detailed strategies, such as
-relocating bus stations or changing parking restrictions, can be studied with such models. CORSIM provides its
-own interface in TSIS 6 that enables you to control the simulation and the accumulation of traffic measures of
-effectiveness. See the CORSIM User's Guide for additional details.
-
-\subsubsection{TRAFVU}
-
-TRAFVU (TRAF Visualization Utility) is a graphics post-processor for FHWA’s CORSIM microscopic traffic
-simulation system. TRAFVU displays traffic networks, animates simulated traffic flow operations, animates and displays simulation output measures of effectiveness, and displays user-specified input parameters for simulated
-network objects. See the TRAFVU User's Guide for additional details.
-
-\subsubsection{TSIS Text Editor}
-
-This editor is a standard text editor that has the additional capability of understanding the CORSIM TRF file
-format. When editing a TRF file with this editor, the TShell output window displays text describing the entry field
-and record type at the current cursor position. Clicking a specific field description in the output window highlights
-the corresponding entry field in the displayed TRF file. This makes manual editing of the text file much easier than
-with previous text editors. See the TSIS Text Editor User's Guide for additional details.
 
 \subsubsection{TSIS Script Tool}
 
@@ -121,9 +121,6 @@ can interface directly with CORSIM simulation. This type of application has beco
 extension (RTE). Run-time extensions can be built to replace existing logic in CORSIM, or to supplement the
 logic. The original run-time extensions were tailored for signal timing studies. However, the concept has been
 expanded to support freeway monitoring, incident detection and ramp metering run-time extension packages.
-
-\subsection{Features}
-% TODO: panoramica features
 
 \subsection{Estendere TSIS}
 % panoramica sviluppo RTE
