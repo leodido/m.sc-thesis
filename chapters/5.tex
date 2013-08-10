@@ -11,7 +11,7 @@ Al fine di valutare le prestazioni degli algoritmi di apprendimento e classifica
 
 Come già specificato in precedenza, le \acs{CTBN} sono un modello stocastico dedito alla rappresentazione dell'evoluzione di sistemi dinamici, cioè di fenomeni cangianti nel tempo (non necessariamente o esclusivamente in base ad esso) rappresentabili come insiemi di traiettorie multi-variate. Si è quindi scelto di generare dei dataset che rappresentassero un tipico sistema cangiante: il traffico automobilistico su rete stradale.
 
-Tali dataset, costituiti da un insieme di documenti rappresentanti la presenza (durante l'evolvere del tempo) di veicoli sui sensori di una rete stradale, sono stati generati con l'ausilio di un software commerciale, \acf{TSIS}, versione 6.3, e di una sua \acl{RTE} appositamente sviluppata al fine di monitorare e tracciare il passaggio dei veicoli. 
+Tali dataset, costituiti da un insieme di documenti rappresentanti la presenza (durante l'evolvere del tempo) di veicoli sui sensori di una rete stradale, sono stati generati con l'ausilio di un software commerciale, \acf{TSIS} (versione $\geq$ 6.2) e di una sua \acl{RTE} appositamente sviluppata al fine di monitorare e tracciare il passaggio dei veicoli. 
 
 In questo capitolo si presentano sia i succitati strumenti utilizzati per la creazione di reti stradali e relativi modelli di simulazione, sia lo strumento creato per la creazione di dataset relativi al traffico.
 
@@ -74,12 +74,6 @@ In questa sezione si elencano gli strumenti che costituiscono l'ambiente di svil
 \item[CORSIM RTE] \hfill \\
 
 \end{description}
-
-This editor is a standard text editor that has the additional capability of understanding the CORSIM TRF file
-format. When editing a TRF file with this editor, the TShell output window displays text describing the entry field
-and record type at the current cursor position. Clicking a specific field description in the output window highlights
-the corresponding entry field in the displayed TRF file. This makes manual editing of the text file much easier than
-with previous text editors. See the TSIS Text Editor User's Guide for additional details.
 
 %\item[TSIS Next] \hfill \\
 
