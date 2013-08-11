@@ -92,7 +92,7 @@ Quindi si può riformulare la \keywordsub[apprendimento]{likelihood marginale}:
 \begin{equation}\label{eq:data-given-graph}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) = \prod_{\setel{X}_i} MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \cdot MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \text{.}
 \end{equation}
-Al fine di derivare la probabilità a priori della struttura (\autoref{eq:structurallearning-prior-modularity}) si è già assunto in precedenza che l'ipotesi di modularità della struttura sussista. Perciò, sfruttando tale assunzione, l'equazione (\ref{eq:structurallearning-prior-modularity}) della probabilità a priori della struttura, e l'\autoref{eq:data-given-graph}) della \keywordsub[apprendimento]{likelihood marginale}:
+Al fine di derivare la probabilità a priori della struttura (\autoref{eq:structurallearning-prior-modularity}) si è già assunto in precedenza che l'ipotesi di modularità della struttura sussista. Perciò, sfruttando tale assunzione, l'\autoref{eq:structurallearning-prior-modularity} della probabilità a priori della struttura, e l'\autoref{eq:data-given-graph} della \keywordsub[apprendimento]{likelihood marginale}:
 \begin{align}\label{eq:bayesian-score}
 score_B(\conceptsym{G}:\conceptsym{D}) &= \sum_{\setel{X}_i} \bigg[ \ln{P(Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i))} + \bigg.\nonumber\\
 & \qquad \quad \> \bigg.{} + \ln{MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})} + \bigg.\nonumber\\

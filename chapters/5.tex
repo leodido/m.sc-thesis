@@ -21,7 +21,7 @@ Relativamente, invece, al processo pratico di creazione dei dataset si rimanda a
 \label{sec:tsis}
 \acf{TSIS} è un \acl{IDE}\footnote{Un \acl{IDE}, comunemente chiamato anche \ACF{IDE}, è un insieme di programmi finalizzati a supportare il processo di sviluppo dei software. Generalmente, un \acs{IDE} è costituito da uno strumento per la creazione e modifica del codice sorgente, un compilatore o un interprete, strumenti per l'automazione dello sviluppo e la qualità del codice sorgente.}, distribuito commercialmente da McTrans\footnote{McTrans Moving Technology: \url{http://mctrans.ce.ufl.edu}} e supportato dalla \acf{FWHA}\footnote{Agenzia del Dipartimento dei Trasporti degli Stati Uniti d'America: \\ \url{www.fhwa.dot.gov}}, il cui scopo ultimo è permettere la simulazione e l'analisi di modelli di reti stradali.
 
-\acs{TSIS} è costituito da insieme di strumenti dedicati alla creazione di reti stradali e relativi modelli di simulazione, all'esecuzione, e eventualmente alla visualizzazione, di tali modelli, così come all'interpretazione dei risultati ottenuti. Tale insieme di strumenti è reso accessibile tramite delle interfaccie grafiche\footnote{Un'interfaccia grafica, nota anche come \acf{GUI}, ...}.
+\acs{TSIS} è costituito da insieme di strumenti dedicati alla creazione di reti stradali e relativi modelli di simulazione, all'esecuzione, e eventualmente alla visualizzazione, di tali modelli, così come all'interpretazione dei risultati ottenuti. Tale insieme di strumenti è reso accessibile tramite delle interfaccie grafiche\footnote{Un'interfaccia grafica, nota anche come \acf{GUI}, è un tipo di interfaccia utente il cui fine è permettere all'utente di interagire con il software manipolando oggetti grafici convenzionali.}.
 
 L'architettura modulare con cui \acs{TSIS} è realizzato permette, in caso di necessità, di estendere tale ambiente creando degli ulteriori strumenti.
 
@@ -52,7 +52,8 @@ Il formato \acs{TRF} è equivalente al formato \acs{TRAF}\footnote{\acf{TRAF}}.
 \end{definizione}
 
 \subsection{Caratteristiche}
-% TODO: panoramica features
+% TODO: panoramica features (se si trova una lista già fatta solo da inserire)
+% TODO: spiegare per grandi linee come funziona TSIS/CORSIM (time periods, time intervals etc.)
 
 \subsection{Componenti}
 
@@ -86,6 +87,51 @@ In questa sezione si elencano gli strumenti che costituiscono l'ambiente di svil
 % in questa sezione presentaimo il funzionamento dell'interfacciamento tra CORSIM e strumenti esterni (CORSIM RTE) più dettagliatamente perché ci interessano al fine di ...
 % presentiamo le API fornite dall'ambiente di sviluppo di TSIS
 % mettere immagine di pulsante sensors in TSIS? far vedere come si aggiunge una RTE all'ambiente di TSIS (piccola sezione)
+
+The FHWA's Traffic Software Integrated System (TSIS) is an integrated development environment that enables
+users to conduct traffic operations analysis. Built using component architecture, TSIS is a toolbox that contains
+tools that allow the user to define and manage traffic analysis projects, define traffic networks and create inputs for
+traffic simulation analysis, execute traffic simulation models, and interpret the results of those models.
+Although TSIS comes pre-configured with a set of tools, the component architecture is open and users can add their
+own tools to the TSIS environment. Additionally, a user can provide extensions to the CORSIM simulation (part of
+the TSIS package) using the run-time extension (RTE) interface described in this document. Run-time extensions
+can be built to replace existing logic in CORSIM or to supplement its logic.
+
+TSIS provides a mechanism by which an external application can interface directly with the CORSIM simulation
+tool. This type of application has become known as a CORSIM run-time extension (RTE). The original run-time
+extensions were tailored for signal timing studies. However, the concept has been expanded to support freeway
+monitoring, incident detection, ramp metering and signal preemption.
+The RTE capability enables CORSIM to operate with actual hardware in the loop. Some examples of these
+hardware-in-the-loop experiments include using 170, NEMA, and 2070 controllers to control the signal states at
+certain intersections in the simulation. In these experiments, the controller is interfaced to the simulation using a
+Controller Interface Device (CID) that connects to the serial interface of the computer that hosts the simulation.
+Another experiment involved using an advanced camera sensor and image processing software to estimate the queue
+state of simulated vehicles as they approach an intersection. The queue states for the approaches to the intersection
+are used by an adaptive control algorithm to make intelligent decisions about what the optimal signal state should
+be. Run-time extensions can also be used to test adaptive signal control algorithms for effectiveness before they are
+implemented in the field. With the rapid evolution of technology, these types of experiments are necessary, not only
+to assess the benefits of advanced ITS applications, but to verify their operational capability before field
+deployment.
+This document describes how to construct a run-time extension and how to interface it with CORSIM and the TSIS
+graphical user interface, known as TShell. It also describes in detail each of the interfaces that TSIS provides to
+support RTE operation. Finally, the document presents a sample RTE.
+
+\subsubsection{CORSIM}
+The following figure illustrates the operation of CORSIM within the TSIS 6 architecture including the interfaces
+that support the operation of run-time extensions. In the figure, the block arrows represent Component Object
+Model (COM) interfaces and the thin arrows represent standard dynamic-link library (DLL) interfaces. In this
+model, the CORSIM Driver Component is the TSIS tool that runs the CORSIM simulation and interfaces to the
+TShell user interface. This component enables the user to control CORSIM execution and output processing, and
+manages all user-supplied RTEs. Although the entire CORSIM architecture is shown for completeness, this
+document will concentrate on describing the RTE interfaces marked 1, 2, 3, and 4 in the diagram.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\columnwidth]{tsis-corsim-architecture}
+\caption[L'architettura di \acs{CORSIM}]{Architettura modulare.}
+\label{fig:tsis-corsim-arch}
+\end{figure}
+
 
 \subsubsection{CORWIN}
 

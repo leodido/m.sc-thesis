@@ -292,8 +292,11 @@
 \makeatother
 
 %*********************************************************************************
-% References
+% References for autoref
 %*********************************************************************************
+\addto\extrasitalian{%
+  \def\figureautorefname{figura}%
+}
 \addto\extrasitalian{%
   \def\equationautorefname{equazione}%
 }
@@ -319,7 +322,7 @@
 \providecommand*{\lstnumberautorefname}{linea}
 
 %*********************************************************************************
-% Custom references for \autoref
+% Custom references for autoref
 %*********************************************************************************
 \newcommand{\definizioneautorefname}{definizione}
 \newcommand{\osservazioneautorefname}{osservazione}
@@ -327,6 +330,19 @@
 \newcommand{\esempioautorefname}{esempio}
 \newcommand{\termautorefname}{termine}
 \newcommand{\teoremaautorefname}{teorema}
+
+%*********************************************************************************
+% Custom references for varioref
+%*********************************************************************************
+\makeatletter
+\vref@addto\extrasitalian{\def\reftextfaraway#1{a pagina~\pageref{#1}}}
+\makeatother
+
+%*********************************************************************************
+% Custom references for cref
+%*********************************************************************************
+\crefname{definizione}{definizione}{definizioni}
+\crefname{lstlisting}{algoritmo}{algoritmi}
 
 %*********************************************************************************
 % Set footnote's continuos numbering and linking capabilities (using cleveref and chngcntr packages)
