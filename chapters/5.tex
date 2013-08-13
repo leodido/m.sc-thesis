@@ -55,6 +55,10 @@ Il formato \acs{TRF} è equivalente al formato \acs{TRAF}\footnote{\acf{TRAF}.}.
 Un \acf{RT} rappresenta il blocco informativo minimo su cui è costruita una rete stradale e il suo modello di simulazione. Nel concreto esso consiste in una singola riga di testo nei file \acs{TRF} contenente un codice identificativo numerico e dei valori per i rispettivi campi accettati nell'ordine prestabilito. Allo stesso modo, tale formato descrive anche il modello di simulazione della rete stradale.
 \end{definizione}
 
+\begin{definizione}[\acs{RTE}]\label{defn:rte}
+Una \ACF{RTE}, \acl{RTE}, è un'applicazione in grado di comunicare a tempo d'esecuzione con un'altra applicazione esterna. Una \acs{RTE}, in ambiente \emph{Microsoft Windows}, è solitamente compilata separatamente sotto forma di \acs{DLL}\footnote{Una \acf{DLL} è una libreria software che viene caricata dinamicamente in fase di esecuzione, invece di essere collegata staticamente a un eseguibile in fase di compilazione. Queste librerie sono anche chiamate \ACF{DLL}. L'acronimo \acs{DLL} corrisponde all'estensione che tali oggetti hanno in ambiente \emph{Microsoft Windows}. Tuttavia esse sono spesso chiamate più genericamente con il termine librerie condivise (da \emph{shared library}). Nei sistemi \emph{Linux}, esse sono anche note come oggetti \emph{shared object}.} e deve rispettare una determinata interfaccia: deve perciò implementare e esportare determinate funzioni che l'applicazione oggetto della comunicazione chiama a tempo d'esecuzione. Per la comunicazione in ingresso, invece, una \acs{RTE} deve essere collegata alle librerie dell'applicazione con cui intende interfacciarsi, avendo così accesso alle strutture dati e alle funzioni che questa esporta.
+\end{definizione}
+
 \subsection{Componenti}
 In questa sezione si elencano gli strumenti che costituiscono l'ambiente di sviluppo \acs{TSIS}.
 
@@ -148,18 +152,12 @@ La gestione del tempo che \acs{CORSIM} attua implica quindi alcune limitazioni:
     \item i dati raccolti dalla simulazione sono sempre aggregati in base alla durata dell'intervallo temporale cui si riferiscono.
 \end{itemize}
 
-\subsection{Estendere TSIS}
-% panoramica sviluppo RTE
-% TODO: descrizione delle varie API fornite da TSIS
-% in questa sezione presentaimo il funzionamento dell'interfacciamento tra CORSIM e strumenti esterni (CORSIM RTE) più dettagliatamente perché ci interessano al fine di ...
-% presentiamo le API fornite dall'ambiente di sviluppo di TSIS
-% mettere immagine di pulsante sensors in TSIS? far vedere come si aggiunge una RTE all'ambiente di TSIS (piccola sezione)
-
+\section{Creazione di estensioni TSIS}
 Come accennato, \acs{TSIS} espone un meccanismo finalizzato all'estensione delle sue funzionalità tramite la creazione, da parte dell'utente, di altri strumenti da integrare nell'ambiente di sviluppo. Tali strumenti, interfacciandosi direttamente con \acs{CORSIM}, possono modificarne o aumentarne la logica di simulazione, collezionare dati o monitorare eventi speciali (\eg{}, indicenti).
 
-In questa sottosezione si presenta dapprima il funzionamento dei meccanismi di interfacciamento tra \acs{CORSIM} e strumenti esterni, a cui ci si riferirà da questo momento in poi con il termine \acs{CORSIM} \acs{RTE}\footnote{\ACF{RTE}.}. La discussione, in seguito, verterà sulle modalità di creazione delle \acs{CORSIM} \acs{RTE} sviluppata per la creazione dei dataset.
+In questa sottosezione si presenta dapprima il funzionamento dei meccanismi di interfacciamento tra \acs{CORSIM} e strumenti esterni, a cui ci si riferirà da questo momento in poi con il termine \acs{CORSIM} \acs{RTE}\footnote{\ACF{RTE}.}. La discussione, in seguito, verterà sulla creazione delle \acs{CORSIM} \acs{RTE} sviluppata per la creazione dei dataset.
 
-La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} e il suo funzionamento all'interno dell'ambiente di sviluppo \acs{TSIS}. Si osservi che i componenti che costituiscono \acs{CORSIM} sono di due tipi: \acf{DLL}\footnote{Le \acf{DLL}, dette anche \ACF{DLL}, \omissis{}} e moduli \acs{COM}\footnote{Il \acf{COM} è uno standard per componenti software ideato da \emph{Microsoft}. Il suo fine consiste nel permettere la comunicazione fra processi e la creazione dinamica di oggetti. Una interfaccia \acs{COM} è una collezione di funzioni, incapsulata in un componente software binario e neutrale rispetto al linguaggio.}. Il \acs{CORSIM} \acsfont{Driver Component}, ad esempio, è il modulo \acs{COM} di \acs{TSIS} preposto a interfacciare \acs{CORSIM} e \acs{TShell}, permettendo così il controllo e l'esecuzione di \acs{CORSIM}, delle \acs{RTE} create dall'utente e degli altri strumenti (\eg{}, \acs{TSIS} \acsfont{Output Processor}) di \acs{TSIS} tramite \acs{GUI}.
+La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} e il suo funzionamento all'interno dell'ambiente di sviluppo \acs{TSIS}. Si osservi che i componenti che costituiscono \acs{CORSIM} sono di due tipi: librerie \acs{DLL} e moduli \acs{COM}\footnote{Il \acf{COM} è uno standard per componenti software ideato da \emph{Microsoft}. Il suo fine consiste nel permettere la comunicazione fra processi e la creazione dinamica di oggetti. Una interfaccia \acs{COM} è una collezione di funzioni, incapsulata in un componente software binario e neutrale rispetto al linguaggio.}. Il \acs{CORSIM} \acsfont{Driver Component}, ad esempio, è il modulo \acs{COM} di \acs{TSIS} preposto a interfacciare \acs{CORSIM} e \acs{TShell}, permettendo così il controllo e l'esecuzione di \acs{CORSIM}, delle \acs{RTE} create dall'utente e degli altri strumenti (\eg{}, \acs{TSIS} \acsfont{Output Processor}) di \acs{TSIS} tramite \acs{GUI}.
 
 \begin{sidewaysfigure}
 \centering
@@ -170,14 +168,40 @@ La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} 
 
 Anche se la~\vref{fig:tsis-corsim-arch} mostra per completezza l'intera architettura di \acs{CORSIM}, si procede con la descrizione delle interfacce di \acs{CORSIM} preposte alla comunicazione con \acs{RTE} sviluppate dall'utente, identificate dalle frecce tratteggiate.
 
-\subsubsection{CORWIN}
+Per ogni passo temporale di simulazione, il \acs{CORSIM} \acsfont{Server} chiama una serie di funzioni di \acs{CORSIM} finalizzate a guidare l'andamento della simulazione. Quando una \acs{RTE} viene inserita nell'ambiente di sviluppo integrato, il \acs{CORSIM} \acsfont{Server} chiama anche le funzioni che la \acs{RTE} esporta in base ai messaggi che riceve da \acs{CORSIM} durante la sua esecuzione.
+%The server also calls the RTE's initialization function during CORSIM initialization and the
+%RTE's exit function at the end of the simulation. This interface is illustrated in the figure by the path marked 1.
 
-\subsubsection{CORSIM API}
+%TSIS also provides an interface (CORWin) that enables an RTE to send messages to the CORSIM Server and to
+%send text messages to be displayed by the CORSIM Driver. This interface is illustrated in the figure by the path
+%marked 2.
+%Additionally, the RTE can directly access many of the data structures in CORSIM because they have been exported
+%%as shared memory. The shared memory not only allows the RTE to extract information from the simulation but also
+%%enables the RTE to control different aspects of the simulation. The shared memory interface is illustrated in the
+%figure by the path marked 3.
+%%As this architecture evolves, the CORSIM shared memory interface is being replaced by APIs. Use of APIs rather
+%than the shared-memory mechanism reduces the coupling between a user’s run-time extension and the underlying
+%CORSIM data structures. With APIs, CORSIM developers can modify those data structures to maintain and
+%enhance CORSIM without causing users to re-write their run-time extensions.%
+%Finally, the RTE may directly call exported CORSIM functions via the control API (e.g., to abort the simulation)
+%and the actuated control API. These interfaces are illustrated in the figure by the path marked 4.
+%Section 3 provides a detailed description of each of these four interfaces.
 
-Required Tools
-This section describes the tools needed for successful compilation of a CORSIM run-time extension. Building a
-CORSIM RTE requires a suitable compiler such as Microsoft Visual C++ or FORTRAN and the TSIS package,
-which includes all of the components shown in the previous figure (except for the RTE).
+Si osservi che, anche se la~\vref{fig:tsis-corsim-arch} non evidenzia tale possibilità, l'architettura di \acs{CORSIM} supporta l'utilizzo di più \acs{RTE} contemporaneamente.
+
+\subsection{CORWIN}
+
+\subsection{CORSIM API}
+
+\subsection{Requisiti}
+Al fine di sviluppare e compilare con successo una \acs{CORSIM} \acs{RTE} è necessario disporre di un compilatore come quello in dote alla piattaforma \emph{Microsoft Visual C++} e del pachetto software di \acs{TSIS} che include tutti i componenti mostrati dalla~\vref{fig:tsis-corsim-arch} (ad eccezione, chiaramente, del componente \acs{RTE}).
+
+%corsim execution time line?
+% panoramica sviluppo RTE
+% TODO: descrizione delle varie API fornite da TSIS
+% in questa sezione presentaimo il funzionamento dell'interfacciamento tra CORSIM e strumenti esterni (CORSIM RTE) più dettagliatamente perché ci interessano al fine di ...
+% presentiamo le API fornite dall'ambiente di sviluppo di TSIS
+% mettere immagine di pulsante sensors in TSIS? far vedere come si aggiunge una RTE all'ambiente di TSIS (piccola sezione)
 
 \section{Estensione}
 % TODO: introduzione, problema che deve risolvere
