@@ -298,6 +298,9 @@
   \def\figureautorefname{figura}%
 }
 \addto\extrasitalian{%
+  \def\tableautorefname{tabella}%
+}
+\addto\extrasitalian{%
   \def\equationautorefname{equazione}%
 }
 \addto\extrasitalian{%
@@ -349,6 +352,21 @@
 %*********************************************************************************
 \counterwithout{footnote}{chapter}
 \crefformat{footnote}{#2\footnotemark[#1]#3}
+
+%*********************************************************************************
+% Table customizations
+%*********************************************************************************
+
+% command for line below the heading of the tables has always thickness equal to \toprule and \bottomrule but it is vertically centered with respect to the row above and below (which is typical of the lines \midrule)
+\newcommand{\otoprule}{\midrule[\heavyrulewidth]}
+
+% new columns types: add + on the left of first column defition and ^ on the right of every other column definition (except the last one)
+% insert \rowstyle command at the beginning of a row to format its cells. e.g. \rowstyle{\bfseries}
+\newcolumntype{+}{>{\global\let\currentrowstyle\relax}}
+\newcolumntype{^}{>{\currentrowstyle}}
+\newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
+#1\ignorespaces
+}
 
 %*********************************************************************************
 % Define your commands here

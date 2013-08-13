@@ -83,58 +83,83 @@ Segue una panoramica il cui scopo è presentare sia le principali capacità, sia
 \acs{TSIS}, tramite \acs{CORSIM}, permette la modellazione di reti stradali con le seguenti caratteristiche:
 
 \begin{itemize}
-	\item reti stradali urbane, non urbane o miste
-	\item controllo quantitativo (\ie{}, quantità di veicoli per intervallo temporale, distribuita secondo una distribuzione statistica) e qualitativo (\ie{}, tipo di veicoli) dei flussi di veicoli in ingresso nella rete stradale
-	\item controllo completo del flusso di traffico (\ie{}, percentuali di svolta dei veicoli variabile nel tempo)
-	\item supporto per strade con più corsie (massimo $9$)
-	\item supporto dei segnali stradali
-	\item supporto per gli attraversamenti pedonali
-	\item intersezioni non controllate
-	\item intersezioni controllate da semafori
-	\item canalizzazione delle corsie
-	\item piani semaforici predefiniti, dinamici (\eg{}, priorità ai veicoli di emergenza) o guidati da algoritmi (\eg{}, attivazione del semaforo in base alle rilevazioni effettuate dai sensori)
-	\item sensori per la rilevazione del passaggio o della presenza di veicoli
-	\item supporto per i mezzi di trasporto pubblico (\ie{}, autobus, taxi)
-	\item rilevamento di incidenti
-	\item supporto per i sistemi di guida anglosassoni
-	\item simulazione guidata all'analisi delle code
-	\item simulazione guidata allo studio del grado di occupazione della rete stradale
-	\item output di dati di interesse aggregati
-	\item output di dati statistici collezionati
+    \item reti stradali urbane, non urbane o miste
+    \item controllo quantitativo (\ie{}, quantità di veicoli per intervallo temporale, distribuita secondo una distribuzione statistica) e qualitativo (\ie{}, tipo di veicoli) dei flussi di veicoli in ingresso nella rete stradale
+    \item controllo completo del flusso di traffico (\ie{}, percentuali di svolta dei veicoli variabile nel tempo)
+    \item supporto per strade con più corsie (massimo $9$)
+    \item supporto dei segnali stradali
+    \item supporto per gli attraversamenti pedonali
+    \item intersezioni non controllate
+    \item intersezioni controllate da semafori
+    \item canalizzazione delle corsie
+    \item piani semaforici predefiniti, dinamici (\eg{}, priorità ai veicoli di emergenza) o guidati da algoritmi (\eg{}, attivazione del semaforo in base alle rilevazioni effettuate dai sensori)
+    \item sensori per la rilevazione del passaggio o della presenza di veicoli
+    \item supporto per i mezzi di trasporto pubblico (\ie{}, autobus, taxi)
+    \item rilevamento di incidenti
+    \item supporto per i sistemi di guida anglosassoni
+    \item simulazione guidata all'analisi delle code
+    \item simulazione guidata allo studio del grado di occupazione della rete stradale
+    \item output di dati di interesse aggregati
+    \item output di dati statistici collezionati
 \end{itemize}
 
-Poiché un modello di simulazione del traffico è caratterizzato dal cambiamento di un insieme di condizioni (\eg{}, volumi di traffico, canalizzazione delle corsie, percentuali di svolta dei veicoli) della rete stradale, esso deve specificare, oltre alla natura stessa dei cambiamenti, anche i fattori in base a cui essi avvengono. Il fattore principale che viene preso in considerazione è il tempo. Ne consegue perciò che un modello di simulazione del traffico deve specificare l'intervallo temporale in cui specifici cambiamenti di determinate condizioni avvengono.
+Poiché un modello di simulazione del traffico è caratterizzato dal cambiamento di un insieme di condizioni (\eg{}, volumi di traffico, canalizzazione delle corsie, percentuali di svolta dei veicoli) della rete stradale, esso deve specificare, oltre alla natura stessa dei cambiamenti, anche i fattori in base a cui essi avvengono. Il fattore primario che viene preso in considerazione è il tempo. Ne consegue perciò che un modello di simulazione del traffico deve specificare l'intervallo temporale in cui specifici cambiamenti di determinate condizioni avvengono.
 
-\acs{CORSIM} affronta questo problema permettendo di partizionare il tempo totale di simulazione in una serie di periodi temporali (\ie{}, \emph{time period}) di durata variabile. Ogni periodo temporale possiede perciò un insieme di dati di input che non variano per tutta la sua durata. Inoltre, i periodi temporali sono a loro volta suddivisi in intervalli temporali (\ie{}, \emph{time interval}), anch'essi suddivisi in passi temporali (\ie{}, \emph{time step}). 
+\acs{CORSIM} affronta questo problema permettendo di partizionare il tempo totale di simulazione in una serie di periodi temporali (\ie{}, \emph{time period}) di durata variabile. Ogni periodo temporale possiede perciò un insieme di dati di input che non variano per tutta la sua durata. Inoltre, i periodi temporali sono a loro volta suddivisi in intervalli temporali (\ie{}, \emph{time interval}), anch'essi suddivisi in passi temporali (\ie{}, \emph{time step}).
 
-La granularità massima con cui \acs{CORSIM} e \acs{TSIS} \acsfont{Output Processor} sono in grado di raccogliere dati e computare statistiche cumulative è collegata ...
+Le principali limitazioni di \acs{TSIS} derivano dalle modalità con cui \acs{CORSIM} implementa la gestione del tempo: la lista dei periodi temporali è rappresentata internamente tramite un array statico di dimensione prefissata. Nello specifico, un modello \acs{CORSIM} può essere costituito da un massimo di $19$ periodi temporali, ognuno dei quali viene specificato tramite il \acs{RT} $03$, e può avere una durata compresa tra i $10$ e i $9999$ secondi. Ognuno di tali periodi temporali è suddiviso in intervalli (specificati tramite dei \acs{RT} $04$) la cui durata, compresa tra $1$ e $200$ secondi, deve essere un sottomultiplo della durata del periodo temporale cui appartiene. Infine, ogni intervallo temporale è partizionato in passi temporali: \acs{NETSIM} utilizza un passo temporale fisso di $1$ secondo mentre \acs{FREESIM} opera in base al passo temporale specificato dall'utente. Poiché i due modelli di simulazione microscopica che costituiscono \acs{CORSIM} operano in modo sincronizzato, la durata del passo temporale di \acs{FREESIM}, anche se compresa nell'intervallo $[0.1,1]$ secondi, non può essere specificata liberamente dall'utente. All'utente è permesso specificare solo il numero di passi temporali di \acs{FREESIM} (tramite il campo $1$, \acs{RT} $04$) che devono essere eseguiti per ogni secondo di simulazione. Tale approccio permette perciò di utilizzare dei passi temporali di durata minore per il simulatore \acs{FREESIM} mantenendo la sincronizzazione con il simulatore \acs{NETSIM}. La~\vref{tab:fresim-time-steps} mostra la corrispondenza tra il numero di passi temporali di \acs{FREESIM} e la reale durata che verrà loro assegnata.
 
-Tuttavia, le principali limitazioni di \acs{TSIS} derivano esattamente dalle modalità con cui \acs{CORSIM} implementa la gestione del tempo: la lista dei periodi temporali è rappresentata internamente tramite un array statico di dimensione prefissata. Nello specifico, un modello \acs{CORSIM} può essere costituito da un massimo di $19$ periodi temporali, ognuno dei quali con una durata compresa tra i $10$ e i $9999$ secondi: ciò implica che non è possibile eseguire modelli di simulazione che si protraggono oltre un tempo di circa $52$ ore.
+\begin{table}[h]%
+\centering%
+\begin{tabular}{+c^c}
+\toprule\rowstyle{\bfseries}%
+Valore del campo $1$    & Durata del passo temporale in \acs{FREESIM}   \\
+                        & (sec)                                         \\\otoprule%
+1                       & 1.0                                           \\
+2                       & 0.5                                           \\
+3                       & 0.333333                                      \\
+4                       & 0.25                                          \\
+5                       & 0.2                                           \\
+6                       & 0.166667                                      \\
+7                       & 0.142857                                      \\
+8                       & 0.125                                         \\
+9                       & 0.111111                                      \\
+10                      & 0.1                                           \\\bottomrule
+\end{tabular}
+\caption[Durata dei passi temporali in \acs{FREESIM}]{Relazione tra numero di passi temporali per ogni secondo di simulazione e durata effettiva del passo temporale in \acs{FREESIM}.}
+\label{tab:fresim-time-steps}
+\end{table}
 
-%Each time period is subdivided into a sequence of time intervals. The output of cumulative simulation statistics is
-%only available on a time interval basis (see Record Type 05). The time interval duration is typically set to the most
-%common signal cycle length in a study network. The duration of each time period must be at least one time interval,
-%as specified on Record Type 04. Furthermore, the duration of each time period must be an integer multiple of the
-%time interval duration. The program will automatically guarantee this requirement by truncating each time period
-%%duration to the nearest integer multiple of the time interval duration. (See the following figure for the relationship
-%between the time period, the time interval, and the time step.)
+La~\vref{fig:corsim-time} mostra, tramite un esempio, quanto appena descritto relativamente alla rappresentazione del tempo in \acs{CORSIM}.
 
-%RT 04, campo 1
-%This entry specifies the number of FRESIM time steps per second.
-%NETSIM was designed to operate at a fixed 1-second time step, while FRESIM was designed to operate at a user-
-%specified time step duration in the range 0.1 to 1.0 seconds. However, to keep both NETSIM and FRESIM
-%synchronized, the duration of the FRESIM time step cannot be arbitrarily set to any value in the range [0.1, 1.0].
-%Rather than specifying the duration of the FRESIM time step, this entry is used to specify the number of FRESIM
-%time steps that are executed for every second of simulation time. Using this approach, smaller duration time steps
-%can be applied to FRESIM while keeping both NETSIM and FRESIM properly synchronized. The following table
-%provides the equivalent FRESIM time step duration for each valid value for this entry.
-
-\begin{figure}
+\begin{figure}[ht]
 \centering
 \includegraphics[width=1\columnwidth]{corsim-time}
-\caption[Gestione del tempo in \acs{CORSIM}]{Esempio di suddivisione gerarchica delle unità temporali in \acs{CORSIM}. Un \emph{time period} della durata di $420$ secondi è suddiviso in $7$ \emph{time interval}, ciascuno della durata di $60$ secondi.}
+\caption[Gestione del tempo in \acs{CORSIM}]{Esempio di suddivisione gerarchica delle unità temporali in \acs{CORSIM}. Un \emph{time period} della durata di $420$ secondi è suddiviso in $7$ \emph{time interval}, ciascuno della durata di $60$ secondi. Ogni \emph{time interval} verrà poi diviso in $60$ }
 \label{fig:corsim-time}
 \end{figure}
+
+% collegarsi all'immagine
+% parlare delle statistiche (quando vengono raccolte)
+% tabella
+% La~\vref{tab:} mostra l'equivalenza fra la durata dei passi temporali di \acs{FREESIM} e ...
+
+La gestione del tempo che \acs{CORSIM} attua implica quindi alcuni vincoli:
+\begin{itemize}
+    \item non è possibile eseguire modelli di simulazione che si protraggono oltre un tempo di circa $52$ ore
+    \item la massima granularità con cui è possibile raccogliere informazioni è di $1$ secondo, impostando a tale valore la durata degli intervalli temporali
+\end{itemize}
+
+%The output of cumulative simulation statistics is
+%only available on a time interval basis (see Record Type 05). The time interval duration is typically set to the most
+%common signal cycle length in a study network. The duration of each time period must be at least one time interval,
+%as specified on Record Type 04. 
+
+%RT 04, campo 1
+%The following table
+%provides the equivalent FRESIM time step duration for each valid value for this entry.
+
+
 
 %inserire riferimenti alla documentazione, # RT
 
