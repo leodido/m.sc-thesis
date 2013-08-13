@@ -52,11 +52,10 @@ Il formato \acs{TRF} è equivalente al formato \acs{TRAF}\footnote{\acf{TRAF}.}.
 \end{definizione}
 
 \begin{definizione}[\acl{RT}]\label{defn:tsis-rt}
-Un \acf{RT}\footnote{\acf{RT}.} rappresenta il blocco informativo minimo su cui è costruito \acs{CORSIM}. È una singola riga di testo dei file \acs{TRF} contenente un codice identificativo numerico e i valori per i rispettivi campi accettati nell'ordine prestabilito. Allo stesso modo, tale formato descrive anche il modello di simulazione della rete stradale.
+Un \acf{RT} rappresenta il blocco informativo minimo su cui è costruita una rete stradale e il suo modello di simulazione. Nel concreto esso consiste in una singola riga di testo nei file \acs{TRF} contenente un codice identificativo numerico e dei valori per i rispettivi campi accettati nell'ordine prestabilito. Allo stesso modo, tale formato descrive anche il modello di simulazione della rete stradale.
 \end{definizione}
 
 \subsection{Componenti}
-
 In questa sezione si elencano gli strumenti che costituiscono l'ambiente di sviluppo \acs{TSIS}.
 
 \begin{description}
@@ -129,6 +128,13 @@ Tuttavia, le principali limitazioni di \acs{TSIS} derivano esattamente dalle mod
 %time steps that are executed for every second of simulation time. Using this approach, smaller duration time steps
 %can be applied to FRESIM while keeping both NETSIM and FRESIM properly synchronized. The following table
 %provides the equivalent FRESIM time step duration for each valid value for this entry.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\columnwidth]{corsim-time}
+\caption[Gestione del tempo in \acs{CORSIM}]{Esempio di suddivisione gerarchica delle unità temporali in \acs{CORSIM}. Un \emph{time period} della durata di $420$ secondi è suddiviso in $7$ \emph{time interval}, ciascuno della durata di $60$ secondi.}
+\label{fig:corsim-time}
+\end{figure}
 
 %inserire riferimenti alla documentazione, # RT
 
