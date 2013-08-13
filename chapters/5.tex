@@ -132,6 +132,8 @@ Valore del campo $1$    & Durata del passo temporale in \acs{FREESIM}   \\
 
 La~\vref{fig:corsim-time} mostra, tramite un esempio, quanto appena descritto relativamente alla rappresentazione del tempo in \acs{CORSIM}.
 
+Si osservi, inoltre, che la granularità temporale massima con cui è possibile ottenere statistiche cumulative, e, in generale, dati relativi alla simulazione, corrisponde alla durata scelta per gli intervalli temporali (si veda a tal riguarda la documentazione relativa al tipo \acs{RT} $05$). Si consideri ad esempio la~\vref{fig:corsim-time}: in tal caso non sarà possibile ottenere dati cumulati relativi a un intervallo di tempo minore di $60$ secondi.
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1\columnwidth]{corsim-time}
@@ -139,29 +141,12 @@ La~\vref{fig:corsim-time} mostra, tramite un esempio, quanto appena descritto re
 \label{fig:corsim-time}
 \end{figure}
 
-% collegarsi all'immagine
-% parlare delle statistiche (quando vengono raccolte)
-% tabella
-% La~\vref{tab:} mostra l'equivalenza fra la durata dei passi temporali di \acs{FREESIM} e ...
-
-La gestione del tempo che \acs{CORSIM} attua implica quindi alcuni vincoli:
+La gestione del tempo che \acs{CORSIM} attua implica quindi alcune limitazioni:
 \begin{itemize}
     \item non è possibile eseguire modelli di simulazione che si protraggono oltre un tempo di circa $52$ ore
     \item la massima granularità con cui è possibile raccogliere informazioni è di $1$ secondo, impostando a tale valore la durata degli intervalli temporali
+    \item i dati raccolti dalla simulazione sono sempre aggregati in base alla durata dell'intervallo temporale cui si riferiscono.
 \end{itemize}
-
-%The output of cumulative simulation statistics is
-%only available on a time interval basis (see Record Type 05). The time interval duration is typically set to the most
-%common signal cycle length in a study network. The duration of each time period must be at least one time interval,
-%as specified on Record Type 04. 
-
-%RT 04, campo 1
-%The following table
-%provides the equivalent FRESIM time step duration for each valid value for this entry.
-
-
-
-%inserire riferimenti alla documentazione, # RT
 
 \subsection{Estendere TSIS}
 % panoramica sviluppo RTE
