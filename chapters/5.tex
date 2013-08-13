@@ -155,7 +155,18 @@ La gestione del tempo che \acs{CORSIM} attua implica quindi alcune limitazioni:
 \section{Creazione di estensioni TSIS}
 Come accennato, \acs{TSIS} espone un meccanismo finalizzato all'estensione delle sue funzionalità tramite la creazione, da parte dell'utente, di altri strumenti da integrare nell'ambiente di sviluppo. Tali strumenti, interfacciandosi direttamente con \acs{CORSIM}, possono modificarne o aumentarne la logica di simulazione, collezionare dati o monitorare eventi speciali (\eg{}, indicenti).
 
-In questa sottosezione si presenta dapprima il funzionamento dei meccanismi di interfacciamento tra \acs{CORSIM} e strumenti esterni, a cui ci si riferirà da questo momento in poi con il termine \acs{CORSIM} \acs{RTE}\footnote{\ACF{RTE}.}. La discussione, in seguito, verterà sulla creazione delle \acs{CORSIM} \acs{RTE} sviluppata per la creazione dei dataset.
+In questa sottosezione si presenta dapprima il funzionamento dei meccanismi di interfacciamento (\ie{}, più brevemente detti \acs{API}\footnote{Con il termine
+\acf{API} si indica un insieme di procedure rese disponibili all’esterno, di solito raggruppate a formare un insieme di strumenti specifici per l'espletamento di un determinato compito all'interno di un programma.}) tra \acs{CORSIM} e strumenti esterni, a cui ci si riferirà da questo momento in poi con il termine \acs{CORSIM} \acs{RTE}. La discussione, in seguito, verterà sulla creazione delle \acs{CORSIM} \acs{RTE} sviluppata per la creazione dei dataset.
+
+\subsection{Requisiti}
+Al fine di sviluppare e compilare con successo una \acs{CORSIM} \acs{RTE} in \lstinline[]|C++| è necessario disporre dei seguenti strumenti:
+\begin{itemize}
+    \item il compilatore della piattaforma \emph{Microsoft Visual C++}
+    \item il pacchetto software di \acs{TSIS}, il quale include di default tutti i componenti necessari mostrati dalla~\vref{fig:tsis-corsim-arch} (ad eccezione, chiaramente, del componente \acs{RTE}).
+\end{itemize}
+Si osservi, inoltre, che è possibile sviluppare una \acs{CORSIM} \acs{RTE} anche in linguaggio \lstinline[]|C| o \lstinline[]|FORTRAN|.
+
+\subsection{Architettura di CORSIM}
 
 La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} e il suo funzionamento all'interno dell'ambiente di sviluppo \acs{TSIS}. Si osservi che i componenti che costituiscono \acs{CORSIM} sono di due tipi: librerie \acs{DLL} e moduli \acs{COM}\footnote{Il \acf{COM} è uno standard per componenti software ideato da \emph{Microsoft}. Il suo fine consiste nel permettere la comunicazione fra processi e la creazione dinamica di oggetti. Una interfaccia \acs{COM} è una collezione di funzioni, incapsulata in un componente software binario e neutrale rispetto al linguaggio.}. Il \acs{CORSIM} \acsfont{Driver Component}, ad esempio, è il modulo \acs{COM} di \acs{TSIS} preposto a interfacciare \acs{CORSIM} e \acs{TShell}, permettendo così il controllo e l'esecuzione di \acs{CORSIM}, delle \acs{RTE} create dall'utente e degli altri strumenti (\eg{}, \acs{TSIS} \acsfont{Output Processor}) di \acs{TSIS} tramite \acs{GUI}.
 
@@ -166,35 +177,64 @@ La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} 
 \label{fig:tsis-corsim-arch}
 \end{sidewaysfigure}
 
-Anche se la~\vref{fig:tsis-corsim-arch} mostra per completezza l'intera architettura di \acs{CORSIM}, si procede con la descrizione delle interfacce di \acs{CORSIM} preposte alla comunicazione con \acs{RTE} sviluppate dall'utente, identificate dalle frecce tratteggiate.
+Anche se la~\vref{fig:tsis-corsim-arch} mostra per completezza l'intera architettura di \acs{CORSIM}, si procede con la descrizione delle interfacce di \acs{CORSIM} preposte alla comunicazione con \acs{RTE} sviluppate dall'utente, identificate dalle frecce tratteggiate e numerate.
 
-Per ogni passo temporale di simulazione, il \acs{CORSIM} \acsfont{Server} chiama una serie di funzioni di \acs{CORSIM} finalizzate a guidare l'andamento della simulazione. Quando una \acs{RTE} viene inserita nell'ambiente di sviluppo integrato, il \acs{CORSIM} \acsfont{Server} chiama anche le funzioni che la \acs{RTE} esporta in base ai messaggi che riceve da \acs{CORSIM} durante la sua esecuzione.
-%The server also calls the RTE's initialization function during CORSIM initialization and the
-%RTE's exit function at the end of the simulation. This interface is illustrated in the figure by the path marked 1.
+Per ogni passo temporale di simulazione, il \acs{CORSIM} \acsfont{Server} chiama una serie di funzioni di \acs{CORSIM} finalizzate a guidare l'andamento della simulazione. Quando una \acs{RTE} viene inserita nell'ambiente di sviluppo integrato, il \acs{CORSIM} \acsfont{Server} chiama anche le funzioni che la \acs{RTE} esporta in base ai messaggi che riceve da \acs{CORSIM} durante la sua esecuzione. Questa interfaccia è rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}; la~\vref{sec:corsim-lifecycle} riporta maggiori dettagli sulle funzioni che \acs{CORSIM} espone.
 
-%TSIS also provides an interface (CORWin) that enables an RTE to send messages to the CORSIM Server and to
-%send text messages to be displayed by the CORSIM Driver. This interface is illustrated in the figure by the path
-%marked 2.
-%Additionally, the RTE can directly access many of the data structures in CORSIM because they have been exported
-%%as shared memory. The shared memory not only allows the RTE to extract information from the simulation but also
-%%enables the RTE to control different aspects of the simulation. The shared memory interface is illustrated in the
-%figure by the path marked 3.
-%%As this architecture evolves, the CORSIM shared memory interface is being replaced by APIs. Use of APIs rather
-%than the shared-memory mechanism reduces the coupling between a user’s run-time extension and the underlying
-%CORSIM data structures. With APIs, CORSIM developers can modify those data structures to maintain and
-%enhance CORSIM without causing users to re-write their run-time extensions.%
-%Finally, the RTE may directly call exported CORSIM functions via the control API (e.g., to abort the simulation)
-%and the actuated control API. These interfaces are illustrated in the figure by the path marked 4.
-%Section 3 provides a detailed description of each of these four interfaces.
+\acs{TSIS} fornisce inoltre una \acs{API}, identificata dalla freccia $2$ nella~\vref{fig:tsis-corsim-arch}, chiamata \acsfont{CORWIN}, che permette alle \acs{RTE} di inviare messaggi al modulo \acs{CORSIM} \acsfont{Server} affinché essi siano visualizzati in \acs{TShell} dal \acs{CORSIM} \acsfont{Driver Component}.
+
+Infine, una \acs{RTE} può accedere direttamente a una serie di funzioni e strutture dati esportate da \acs{CORSIM} nella memoria condivisa. Anche se non è possibile riferirsi a questo meccanismo di comunicazione come una \acs{API}, nel prosieguo, ci riferiremo ad esso con il termine \acs{CORSIM} \acs{API} al fine di semplificare la discussione. Perciò, la \acs{CORSIM} \acs{API}, rappresentata dalla freccia $3$ della~\vref{fig:tsis-corsim-arch}, oltre a permettere l'estrazione di informazioni relative alla simulazione, permette alla \acs{RTE} di controllare, eventualmente, molti aspetti della simulazione operata da \acs{CORSIM} (\eg{}, aborto della simulazione). 
 
 Si osservi che, anche se la~\vref{fig:tsis-corsim-arch} non evidenzia tale possibilità, l'architettura di \acs{CORSIM} supporta l'utilizzo di più \acs{RTE} contemporaneamente.
 
-\subsection{CORWIN}
+\begin{nota}
+Un attento osservatore noterà come \acs{CORSIM}, la libreria finalizzata al processo di simulazione, sia a sua volta una \acs{RTE} automaticamente collegata ai moduli \acs{CORSIM} \acsfont{Server} e \acsfont{CORWIN}.
+\end{nota}
+
+\subsection{Ciclo di vita di CORSIM}\label{sec:corsim-lifecycle}
+Di seguito si presenta il ciclo di vita di \acs{CORSIM} descrivendo i punti di chiamata che esso esporta tramite apposite funzioni affinché una \acs{RTE}, implementando ed esportando una funzione per almeno uno di essi, possa interfacciarsi con il processo di simulazione.
+
+La~\vref{tab:corsim-lifecycle} identifica e descrive tali punti di chiamata relativi alla linea di esecuzione temporale di \acs{CORSIM}.
+\clearpage
+\begin{table}[h]%
+\begin{tabularx}{\columnwidth}{+l^>{\small}X}
+\toprule\rowstyle{\bfseries}%
+Punto di chiamata                   & Descrizione                                   \\
+\otoprule%
+\lstinline[]|Initialize|            & Chiamato all'inizio della simulazione prima della fase di inizializzazione \acs{CORSIM} ma dopo la lettura del file \acs{TRF} di input.                                                                     \\
+\lstinline[]|PostVehicleEmit|       & Chiamato ad ogni \emph{time step} dopo che i veicoli sono stati immessi nella rete stradale.                                                                           \\
+\lstinline[]|PreNetsimVehicle|      & Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{NETSIM}.                                                                                   \\
+\lstinline[]|PreNetsimSignal|       & Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{}, semafori) del sotto-modello \acs{NETSIM} vengano impostati.                                                                          \\
+\lstinline[]|PostNetsimTimestep|    & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{NETSIM} e prima che \acs{FREESIM} inizi a simulare il suo relativo sotto-modello.                        \\
+\lstinline[]|PreFresimVehicle|      & Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{FREESIM}.                                                                                   \\
+\lstinline[]|PostFresimSignal|      & Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{}, semafori) del sotto-modello \acs{FREESIM} vengano impostati.                                                                          \\
+\lstinline[]|PostFresimTimestep|    & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{FREESIM}.
+                                                                                    \\
+\lstinline[]|BeginSimulation|       & Chiamato dopo l'inizializzazione di \acs{CORSIM} (\ie{}, rete stradale piena) in corrispondenza dell'inizio della simulazione.                                                                        \\
+\lstinline[]|TimeStepComplete|      & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step}.                                                                                   \\
+\lstinline[]|TimeIntervalComplete|  & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time interval}.                                                                                   \\
+\lstinline[]|TimePeriodComplete|    & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time period}.                                                                                   \\
+\lstinline[]|TimePeriodValidated|   & Chiamato in corrispondenza della fine del processo di lettura e validazione del file di input relativo a ogni \emph{time period}, prima dell'inizializzazione e dell'effettivo inizio del processo di simulazione di ogni \emph{time period}.                                                                                   \\
+\lstinline[]|SimulationComplete|    & Chiamato in corrispondenza della fine della simulazione e prima della completa terminazione del processo.                                                                           \\
+\lstinline[]|Shutdown|              & Chiamato appena prima che l'esecuzione di \acs{CORSIM} termini.
+                                                                                    \\
+\lstinline[]|Exit|                  & Chiamato in corrispondenza della fine dell'intero processo di simulazione.
+                                                                                   \\\bottomrule
+\end{tabularx}
+\caption[Ciclo di vita di \acs{CORSIM}]{Descrizione di punti di chiamata che \acs{CORSIM} espone all'esterno.}
+\label{tab:corsim-lifecycle}
+\end{table}
+
+\subsection{CORWIN API}
 
 \subsection{CORSIM API}
 
-\subsection{Requisiti}
-Al fine di sviluppare e compilare con successo una \acs{CORSIM} \acs{RTE} è necessario disporre di un compilatore come quello in dote alla piattaforma \emph{Microsoft Visual C++} e del pachetto software di \acs{TSIS} che include tutti i componenti mostrati dalla~\vref{fig:tsis-corsim-arch} (ad eccezione, chiaramente, del componente \acs{RTE}).
+\subsection{Collegare una RTE a TSIS}
+Ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispettiva funzione implementata dalla \acs{RTE}. Questa sottosezione illustra i passi necessari a espletare tale processo di collegamento (\ie{}, \emph{linking}), eseguibili tramite \acs{TShell}.
+
+\omissis{}
+
+
 
 %corsim execution time line?
 % panoramica sviluppo RTE
