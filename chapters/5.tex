@@ -59,7 +59,7 @@ Un \acf{RT} rappresenta il blocco informativo minimo su cui è costruita una ret
 Una \ACF{RTE}, \acl{RTE}, è un'applicazione in grado di comunicare a tempo d'esecuzione con un'altra applicazione esterna. Una \acs{RTE}, in ambiente \emph{Microsoft Windows}, è solitamente compilata separatamente sotto forma di \acs{DLL}\footnote{Una \acf{DLL} è una libreria software che viene caricata dinamicamente in fase di esecuzione, invece di essere collegata staticamente a un eseguibile in fase di compilazione. Queste librerie sono anche chiamate \ACF{DLL}. L'acronimo \acs{DLL} corrisponde all'estensione che tali oggetti hanno in ambiente \emph{Microsoft Windows}. Tuttavia esse sono spesso chiamate più genericamente con il termine librerie condivise (da \emph{shared library}). Nei sistemi \emph{Linux}, esse sono anche note come oggetti \emph{shared object}.} e deve rispettare una determinata interfaccia: deve perciò implementare e esportare determinate funzioni che l'applicazione oggetto della comunicazione chiama a tempo d'esecuzione. Per la comunicazione in ingresso, invece, una \acs{RTE} deve essere collegata alle librerie dell'applicazione con cui intende interfacciarsi, avendo così accesso alle strutture dati e alle funzioni che questa esporta.
 \end{definizione}
 
-\subsection{Componenti}
+\subsection{Componenti}\label{sec:tsis-components}
 In questa sezione si elencano gli strumenti che costituiscono l'ambiente di sviluppo \acs{TSIS}.
 
 \begin{description}
@@ -141,7 +141,7 @@ Si osservi, inoltre, che la granularità temporale massima con cui è possibile 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1\columnwidth]{corsim-time}
-\caption[Gestione del tempo in \acs{CORSIM}]{Esempio di suddivisione gerarchica delle unità temporali in \acs{CORSIM}. Un \emph{time period} della durata di $420$ secondi è suddiviso in $7$ \emph{time interval}, ciascuno della durata di $60$ secondi. Ogni \emph{time interval} verrà poi diviso in $60$ }
+\caption[Gestione del tempo in \acs{CORSIM}]{Esempio di suddivisione gerarchica delle unità temporali in \acs{CORSIM}. Un \emph{time period} della durata di $420$ secondi è suddiviso in $7$ \emph{time interval}, ciascuno della durata di $60$ secondi. Ogni \emph{time interval} verrà poi automaticamente diviso in $60$ \emph{time step} da $1$ secondo ciascuno per \acs{NETSIM}. La durata di tali \emph{time step} di \acs{NETSIM} può o meno coincidere con quella assegnata ai \emph{time step} di \acs{FREESIM} a seconda del valore assegnato al campo $1$ del \acs{RT} $04$.}
 \label{fig:corsim-time}
 \end{figure}
 
@@ -155,8 +155,8 @@ La gestione del tempo che \acs{CORSIM} attua implica quindi alcune limitazioni:
 \section{Creazione di estensioni TSIS}
 Come accennato, \acs{TSIS} espone un meccanismo finalizzato all'estensione delle sue funzionalità tramite la creazione, da parte dell'utente, di altri strumenti da integrare nell'ambiente di sviluppo. Tali strumenti, interfacciandosi direttamente con \acs{CORSIM}, possono modificarne o aumentarne la logica di simulazione, collezionare dati o monitorare eventi speciali (\eg{}, indicenti).
 
-In questa sottosezione si presenta dapprima il funzionamento dei meccanismi di interfacciamento (\ie{}, più brevemente detti \acs{API}\footnote{Con il termine
-\acf{API} si indica un insieme di procedure rese disponibili all’esterno, di solito raggruppate a formare un insieme di strumenti specifici per l'espletamento di un determinato compito all'interno di un programma.}) tra \acs{CORSIM} e strumenti esterni, a cui ci si riferirà da questo momento in poi con il termine \acs{CORSIM} \acs{RTE}. La discussione, in seguito, verterà sulla creazione delle \acs{CORSIM} \acs{RTE} sviluppata per la creazione dei dataset.
+In questa sottosezione si presenta il funzionamento dei meccanismi di interfacciamento (\ie{}, più brevemente detti \acs{API}\footnote{Con il termine
+\acf{API} si indica un insieme di procedure rese disponibili all'esterno, di solito raggruppate a formare un insieme di strumenti specifici per l'espletamento di un determinato compito all'interno di un programma.}) tra \acs{CORSIM} e strumenti esterni, a cui ci si riferirà da questo momento in poi con il termine \acs{CORSIM} \acs{RTE}.
 
 \subsection{Requisiti}
 Al fine di sviluppare e compilare con successo una \acs{CORSIM} \acs{RTE} in \lstinline[]|C++| è necessario disporre dei seguenti strumenti:
@@ -179,24 +179,24 @@ La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} 
 
 Anche se la~\vref{fig:tsis-corsim-arch} mostra per completezza l'intera architettura di \acs{CORSIM}, si procede con la descrizione delle interfacce di \acs{CORSIM} preposte alla comunicazione con \acs{RTE} sviluppate dall'utente, identificate dalle frecce tratteggiate e numerate.
 
-Per ogni passo temporale di simulazione, il \acs{CORSIM} \acsfont{Server} chiama una serie di funzioni di \acs{CORSIM} finalizzate a guidare l'andamento della simulazione. Quando una \acs{RTE} viene inserita nell'ambiente di sviluppo integrato, il \acs{CORSIM} \acsfont{Server} chiama anche le funzioni che la \acs{RTE} esporta in base ai messaggi che riceve da \acs{CORSIM} durante la sua esecuzione. Questa interfaccia è rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}; la~\vref{sec:corsim-lifecycle} riporta maggiori dettagli sulle funzioni che \acs{CORSIM} espone.
+Per ogni passo temporale di simulazione, il \acs{CORSIM} \acsfont{Server} chiama una serie di funzioni di \acs{CORSIM} finalizzate a guidare l'andamento della simulazione. Quando una \acs{RTE} viene inserita nell'ambiente di sviluppo integrato, il \acs{CORSIM} \acsfont{Server} chiama anche le funzioni che la \acs{RTE} esporta in base ai messaggi che riceve da \acs{CORSIM} durante la sua esecuzione. Questa interfaccia è rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}; la~\vref{sec:corsim-lifecycle} riporta maggiori dettagli sui punti di chiamata che \acs{CORSIM} espone.
 
 \acs{TSIS} fornisce inoltre una \acs{API}, identificata dalla freccia $2$ nella~\vref{fig:tsis-corsim-arch}, chiamata \acsfont{CORWIN}, che permette alle \acs{RTE} di inviare messaggi al modulo \acs{CORSIM} \acsfont{Server} affinché essi siano visualizzati in \acs{TShell} dal \acs{CORSIM} \acsfont{Driver Component}.
 
-Infine, una \acs{RTE} può accedere direttamente a una serie di funzioni e strutture dati esportate da \acs{CORSIM} nella memoria condivisa. Anche se non è possibile riferirsi a questo meccanismo di comunicazione come una \acs{API}, nel prosieguo, ci riferiremo ad esso con il termine \acs{CORSIM} \acs{API} al fine di semplificare la discussione. Perciò, la \acs{CORSIM} \acs{API}, rappresentata dalla freccia $3$ della~\vref{fig:tsis-corsim-arch}, oltre a permettere l'estrazione di informazioni relative alla simulazione, permette alla \acs{RTE} di controllare, eventualmente, molti aspetti della simulazione operata da \acs{CORSIM} (\eg{}, aborto della simulazione). 
+Infine, una \acs{RTE} può accedere direttamente a una serie di funzioni e strutture dati esportate da \acs{CORSIM} nella memoria condivisa. Anche se non è possibile riferirsi a questo meccanismo di comunicazione come una \acs{API} vera e propria, nel prosieguo, ci riferiremo ad essa con il termine \acs{CORSIM} \acs{API} al fine di semplificare la discussione. Perciò, la \acs{CORSIM} \acs{API}, rappresentata dalla freccia $3$ della~\vref{fig:tsis-corsim-arch}, oltre a permettere l'estrazione di informazioni relative alla simulazione, permette alla \acs{RTE} di controllare, eventualmente, molti aspetti della simulazione operata da \acs{CORSIM} (\eg{}, aborto della simulazione). 
 
 Si osservi che, anche se la~\vref{fig:tsis-corsim-arch} non evidenzia tale possibilità, l'architettura di \acs{CORSIM} supporta l'utilizzo di più \acs{RTE} contemporaneamente.
 
 \begin{nota}
-Un attento osservatore noterà come \acs{CORSIM}, la libreria finalizzata al processo di simulazione, sia a sua volta una \acs{RTE} automaticamente collegata ai moduli \acs{CORSIM} \acsfont{Server} e \acsfont{CORWIN}.
+Un attento osservatore noterà come \acs{CORSIM}, la libreria finalizzata al processo di simulazione, sia a sua volta una \acs{RTE} automaticamente collegata ai moduli \acs{CORSIM} \acsfont{Server} e \acsfont{CORWIN}. Inoltre, la~\vref{fig:tshell-tool-config-1} fa notare come tutti i componenti (elencati e descritti nella~\vref{sec:tsis-components}) dell'ambiente di sviluppo \acs{TSIS} siano anch'essi dei moduli architetturalmente uguali alle \acs{RTE}.
 \end{nota}
 
 \subsection{Ciclo di vita di CORSIM}\label{sec:corsim-lifecycle}
-Di seguito si presenta il ciclo di vita di \acs{CORSIM} descrivendo i punti di chiamata che esso esporta tramite apposite funzioni affinché una \acs{RTE}, implementando ed esportando una funzione per almeno uno di essi, possa interfacciarsi con il processo di simulazione.
+Di seguito si presenta il ciclo di vita di \acs{CORSIM} descrivendo i punti di chiamata che esso esporta tramite apposite funzioni affinché una \acs{RTE}, implementando ed esportando una funzione per almeno uno di essi, possa interfacciarsi con il processo di simulazione. Tali informazioni sono quindi relative alla \acs{API} rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}.
 
 La~\vref{tab:corsim-lifecycle} identifica e descrive tali punti di chiamata relativi alla linea di esecuzione temporale di \acs{CORSIM}.
-\clearpage
-\begin{table}[h]%
+
+\begin{table}%
 \begin{tabularx}{\columnwidth}{+l^>{\small}X}
 \toprule\rowstyle{\bfseries}%
 Punto di chiamata                   & Descrizione                                   \\
@@ -219,18 +219,63 @@ Punto di chiamata                   & Descrizione                               
 \lstinline[]|Shutdown|              & Chiamato appena prima che l'esecuzione di \acs{CORSIM} termini.
                                                                                     \\
 \lstinline[]|Exit|                  & Chiamato in corrispondenza della fine dell'intero processo di simulazione.
-                                                                                   \\\bottomrule
+                                                                                    \\\bottomrule
 \end{tabularx}
 \caption[Ciclo di vita di \acs{CORSIM}]{Descrizione di punti di chiamata che \acs{CORSIM} espone all'esterno.}
 \label{tab:corsim-lifecycle}
 \end{table}
 
+Una volta compilata la \acs{RTE} e ottenuto il relativo file \acs{DLL}, ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispettiva funzione implementata dalla \acs{RTE} (la~\vref{sec:rte-corsim-linking} descrive tale processo in maggior dettaglio).
+
+\subsection{Collegare una RTE a CORSIM}\label{sec:rte-corsim-linking}
+Questa sottosezione illustra i passi necessari a espletare il processo di collegamento (\ie{}, \emph{linking}) di una \acs{RTE} a \acs{CORSIM}. Tale processo è eseguibili direttamente tramite \acs{TShell}.
+
+A scopo esemplificativo si descrive come aggiungere la \acs{RTE} per il rilevamento e tracciamento del passaggio dei veicoli sui sensori (descritta nella~\vref{sec:sensors-rte}). Tale operazione viene svolta tramite il menù \emph{Tools} di \acs{TShell} scegliendo la voce \emph{Tool Configuration} e cliccando sul pulsante per l'aggiunta (\ie{}, \emph{Add}) di una \acs{RTE}. La~\vref{fig:tshell-tool-config-1} mostra lo strumento di configurazione degli strumenti appartenenti all'ambiente di \acs{TSIS}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1\columnwidth]{tshell-tool-config-1}
+\caption[Aggiunta di una \acs{RTE} a \acs{TSIS}]{Strumento finalizzato all'aggiunta di una \acs{RTE} a \acs{TSIS}.}
+\label{fig:tshell-tool-config-1}
+\end{figure}
+
+Specificato il percorso a cui risiede il file \acs{DLL} della \acs{RTE}, il tipo di \acs{RTE}, il nome e l'icona che si intende assegnare a tale strumento e il tipo di file a cui va associato (\eg{}, \acs{TRF}), la \acs{RTE} è aggiunta a \acs{TSIS}.
+
+Tuttavia, come detto, le funzioni della \acs{RTE} devono essere collegate ai punti di chiamata di \acs{CORSIM} affinché la \acs{RTE} risulti completamente funzionante. Per adempiere tale operazione è necessario utilizzare nuovamente lo strumento di configurazione cliccando sul pulsante per la modifica (\ie{}, \emph{Edit}) di una \acs{RTE}. A questo punto, selezionando la scheda relativa alle \acs{RTE}, è possibile invocare lo strumento per effettuare il succitato collegamento. La~\vref{fig:tshell-tool-config-8} mostra il processo di collegamento tra le funzioni della \acs{RTE} e i punti di chiamata di \acs{CORSIM}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\columnwidth]{tshell-tool-config-8}
+\caption[Collegamento delle funzioni della \acs{RTE} a \acs{CORSIM}]{\omissis{}}
+\label{fig:tshell-tool-config-8}
+\end{figure}
+
+Inoltre, può essere necessario dover configurare la \acs{RTE} aggiunta in base alle sue esigenze, così come modificare alcune funzionalità di \acs{CORSIM} relativamente ad essa. Ad esempio, la \acs{RTE} per il monitoraggio e il tracciamento del passaggio dei veicoli sui sensori non necessita che i file di output di \acs{CORSIM} vengano generati, né che vengano generati i file per la visualizzazione animata della simulazione in \acs{TRAFED}. Inoltre, tale \acs{RTE}, non necessita che la simulazione \acs{CORSIM} sia eseguita più volte.
+
+Le~\vref{fig:tshell-tool-config-3,fig:tshell-tool-config-5} mostrano la configurazione di tali opzioni relative a \acs{CORSIM} per la \acs{RTE} in questione.
+
+% fare come unico float contenente subfigure verticali!
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\columnwidth]{tshell-tool-config-3}
+\caption[Configurazione delle proprietà di \acs{CORSIM}]{Configurazione delle proprietà di \acs{CORSIM} per la \acs{RTE}: disattivazione dell'output di \acs{CORSIM} e della generazione dell'input per \acs{TRAFED}.}
+\label{fig:tshell-tool-config-3}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\columnwidth]{tshell-tool-config-5}
+\caption[Configurazione della simulazione \acs{CORSIM}]{Configurazione della simulazione \acs{CORSIM} per la \acs{RTE}.}
+\label{fig:tshell-tool-config-5}
+\end{figure}
+
 \subsection{CORWIN API}
 
 \subsection{CORSIM API}
 
-\subsection{Collegare una RTE a TSIS}
-Ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispettiva funzione implementata dalla \acs{RTE}. Questa sottosezione illustra i passi necessari a espletare tale processo di collegamento (\ie{}, \emph{linking}), eseguibili tramite \acs{TShell}.
+
+
 
 \omissis{}
 
@@ -243,7 +288,7 @@ Ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispetti
 % presentiamo le API fornite dall'ambiente di sviluppo di TSIS
 % mettere immagine di pulsante sensors in TSIS? far vedere come si aggiunge una RTE all'ambiente di TSIS (piccola sezione)
 
-\section{Estensione}
+\section{Estensione}\label{sec:sensors-rte}
 % TODO: introduzione, problema che deve risolvere
 % massima granularità dell'output dei sensori: 1 secondo . non va bene, quindi estensione Sensors ..
 
