@@ -159,9 +159,9 @@ In questa sottosezione si presenta il funzionamento dei meccanismi di interfacci
 \acf{API} si indica un insieme di procedure rese disponibili all'esterno, di solito raggruppate a formare un insieme di strumenti specifici per l'espletamento di un determinato compito all'interno di un programma.}) tra \acs{CORSIM} e strumenti esterni, a cui ci si riferirà da questo momento in poi con il termine \acs{CORSIM} \acs{RTE}.
 
 \subsection{Requisiti}
-Al fine di sviluppare e compilare con successo una \acs{CORSIM} \acs{RTE} in \lstinline[]|C++| è necessario disporre dei seguenti strumenti:
+Al fine di sviluppare e compilare con successo una \acs{CORSIM} \acs{RTE} in \CC{} è necessario disporre dei seguenti strumenti:
 \begin{itemize}
-    \item il compilatore della piattaforma \emph{Microsoft Visual C++}
+    \item il compilatore della piattaforma \emph{Microsoft Visual \CC{}}
     \item il pacchetto software di \acs{TSIS}, il quale include di default tutti i componenti necessari mostrati dalla~\vref{fig:tsis-corsim-arch} (ad eccezione, chiaramente, del componente \acs{RTE}).
 \end{itemize}
 Si osservi, inoltre, che è possibile sviluppare una \acs{CORSIM} \acs{RTE} anche in linguaggio \lstinline[]|C| o \lstinline[]|FORTRAN|.
@@ -192,102 +192,145 @@ Un attento osservatore noterà come \acs{CORSIM}, la libreria finalizzata al pro
 \end{nota}
 
 \subsection{Ciclo di vita di CORSIM}\label{sec:corsim-lifecycle}
-Di seguito si presenta il ciclo di vita di \acs{CORSIM} descrivendo i punti di chiamata che esso esporta tramite apposite funzioni affinché una \acs{RTE}, implementando ed esportando una funzione per almeno uno di essi, possa interfacciarsi con il processo di simulazione. Tali informazioni sono quindi relative alla \acs{API} rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}.
+Di seguito si presenta il ciclo di vita di \acs{CORSIM} descrivendo i punti di chiamata che esso esporta tramite apposite funzioni affinché una \acs{RTE}, implementando ed esportando una funzione per almeno uno di essi, possa interfacciarsi con il processo di simulazione. Tali informazioni sono quindi relative alla \acs{API} rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}. Le modalità di implementazione e utilizzo in \CC{} di tale \acs{API} sono illustrate nella~\vref{sec:tsis-api-examples}.
 
-La~\vref{tab:corsim-lifecycle} identifica e descrive tali punti di chiamata relativi alla linea di esecuzione temporale di \acs{CORSIM}.
-
-\begin{table}%
-\begin{tabularx}{\columnwidth}{+l^>{\small}X}
+La~\vref{tab:corsim-lifecycle} descrive tutti i punti di chiamata relativi alla linea di esecuzione temporale di \acs{CORSIM}.
+\begin{table}[H]%
+\begin{tabularx}{\columnwidth}{+l^X}
 \toprule\rowstyle{\bfseries}%
 Punto di chiamata                   & Descrizione                                   \\
 \otoprule%
-\lstinline[]|Initialize|            & Chiamato all'inizio della simulazione prima della fase di inizializzazione \acs{CORSIM} ma dopo la lettura del file \acs{TRF} di input.                                                                     \\
-\lstinline[]|PostVehicleEmit|       & Chiamato ad ogni \emph{time step} dopo che i veicoli sono stati immessi nella rete stradale.                                                                           \\
-\lstinline[]|PreNetsimVehicle|      & Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{NETSIM}.                                                                                   \\
-\lstinline[]|PreNetsimSignal|       & Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{}, semafori) del sotto-modello \acs{NETSIM} vengano impostati.                                                                          \\
-\lstinline[]|PostNetsimTimestep|    & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{NETSIM} e prima che \acs{FREESIM} inizi a simulare il suo relativo sotto-modello.                        \\
-\lstinline[]|PreFresimVehicle|      & Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{FREESIM}.                                                                                   \\
-\lstinline[]|PostFresimSignal|      & Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{}, semafori) del sotto-modello \acs{FREESIM} vengano impostati.                                                                          \\
-\lstinline[]|PostFresimTimestep|    & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{FREESIM}.
+\lstinline[]|Initialize|            & \small Chiamato all'inizio della simulazione prima della fase di inizializzazione \acs{CORSIM} ma dopo la lettura del file \acs{TRF} di input.                                                            \\
+\lstinline[]|PostVehicleEmit|       & \small Chiamato ad ogni \emph{time step} dopo che i veicoli sono stati immessi nella rete stradale.                                                                           \\
+\lstinline[]|PreNetsimVehicle|      & \small Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{NETSIM}.                                                                                   \\
+\lstinline[]|PreNetsimSignal|       & \small Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{}, semafori) del sotto-modello \acs{NETSIM} vengano impostati.                                                                  \\
+\lstinline[]|PostNetsimTimestep|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{NETSIM} e prima che \acs{FREESIM} inizi a simulare il suo relativo sotto-modello.             \\
+\lstinline[]|PreFresimVehicle|      & \small Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{FREESIM}.                                                                                   \\
+\lstinline[]|PreFresimSignal|       & \small Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{}, semafori) del sotto-modello \acs{FREESIM} vengano impostati.                                                                  \\
+\lstinline[]|PostFresimTimestep|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{FREESIM}.
                                                                                     \\
-\lstinline[]|BeginSimulation|       & Chiamato dopo l'inizializzazione di \acs{CORSIM} (\ie{}, rete stradale piena) in corrispondenza dell'inizio della simulazione.                                                                        \\
-\lstinline[]|TimeStepComplete|      & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step}.                                                                                   \\
-\lstinline[]|TimeIntervalComplete|  & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time interval}.                                                                                   \\
-\lstinline[]|TimePeriodComplete|    & Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time period}.                                                                                   \\
-\lstinline[]|TimePeriodValidated|   & Chiamato in corrispondenza della fine del processo di lettura e validazione del file di input relativo a ogni \emph{time period}, prima dell'inizializzazione e dell'effettivo inizio del processo di simulazione di ogni \emph{time period}.                                                                                   \\
-\lstinline[]|SimulationComplete|    & Chiamato in corrispondenza della fine della simulazione e prima della completa terminazione del processo.                                                                           \\
-\lstinline[]|Shutdown|              & Chiamato appena prima che l'esecuzione di \acs{CORSIM} termini.
+\lstinline[]|BeginSimulation|       & \small Chiamato dopo l'inizializzazione di \acs{CORSIM} (\ie{}, rete stradale piena) in corrispondenza dell'inizio della simulazione.                                                                  \\
+\lstinline[]|TimeStepComplete|      & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step}.                                                                                   \\
+\lstinline[]|TimeIntervalComplete|  & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time interval}.                                                                                   \\
+\lstinline[]|TimePeriodComplete|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time period}.                                                                                   \\
+\lstinline[]|TimePeriodValidated|   & \small Chiamato in corrispondenza della fine del processo di lettura e validazione del file di input relativo a ogni \emph{time period}, prima dell'inizializzazione e dell'effettivo inizio del processo di simulazione di ogni \emph{time period}.                                                                                   \\
+\lstinline[]|SimulationComplete|    & \small Chiamato in corrispondenza della fine della simulazione e prima della completa terminazione del processo.                                                                           \\
+\lstinline[]|Shutdown|              & \small Chiamato appena prima che l'esecuzione di \acs{CORSIM} termini.
                                                                                     \\
-\lstinline[]|Exit|                  & Chiamato in corrispondenza della fine dell'intero processo di simulazione.
+\lstinline[]|Exit|                  & \small Chiamato in corrispondenza della fine dell'intero processo di simulazione.
                                                                                     \\\bottomrule
 \end{tabularx}
 \caption[Ciclo di vita di \acs{CORSIM}]{Descrizione di punti di chiamata che \acs{CORSIM} espone all'esterno.}
 \label{tab:corsim-lifecycle}
 \end{table}
-
-Una volta compilata la \acs{RTE} e ottenuto il relativo file \acs{DLL}, ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispettiva funzione implementata dalla \acs{RTE} (la~\vref{sec:rte-corsim-linking} descrive tale processo in maggior dettaglio).
+Una volta compilata la \acs{RTE} e ottenuto il relativo file \acs{DLL}, ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispettiva funzione implementata dalla \acs{RTE}. La~\vref{sec:rte-corsim-linking} descrive in maggior dettaglio tale processo.
 
 \subsection{Collegare una RTE a CORSIM}\label{sec:rte-corsim-linking}
-Questa sottosezione illustra i passi necessari a espletare il processo di collegamento (\ie{}, \emph{linking}) di una \acs{RTE} a \acs{CORSIM}. Tale processo è eseguibili direttamente tramite \acs{TShell}.
+Questa sottosezione illustra i passi necessari a espletare il processo di collegamento (\ie{}, \emph{linking}) di una \acs{RTE} a \acs{CORSIM}. Tale processo è eseguibile direttamente tramite \acs{TShell}.
 
 A scopo esemplificativo si descrive come aggiungere la \acs{RTE} per il rilevamento e tracciamento del passaggio dei veicoli sui sensori (descritta nella~\vref{sec:sensors-rte}). Tale operazione viene svolta tramite il menù \emph{Tools} di \acs{TShell} scegliendo la voce \emph{Tool Configuration} e cliccando sul pulsante per l'aggiunta (\ie{}, \emph{Add}) di una \acs{RTE}. La~\vref{fig:tshell-tool-config-1} mostra lo strumento di configurazione degli strumenti appartenenti all'ambiente di \acs{TSIS}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\columnwidth]{tshell-tool-config-1}
 \caption[Aggiunta di una \acs{RTE} a \acs{TSIS}]{Strumento finalizzato all'aggiunta di una \acs{RTE} a \acs{TSIS}.}
 \label{fig:tshell-tool-config-1}
 \end{figure}
-
-Specificato il percorso a cui risiede il file \acs{DLL} della \acs{RTE}, il tipo di \acs{RTE}, il nome e l'icona che si intende assegnare a tale strumento e il tipo di file a cui va associato (\eg{}, \acs{TRF}), la \acs{RTE} è aggiunta a \acs{TSIS}.
+Specificato il percorso a cui risiede il file \acs{DLL} della \acs{RTE}, il tipo di \acs{RTE}, il nome e l'icona che si intende assegnare a tale strumento e il tipo di file a cui va associato (\eg{}, \acs{TRF}), la \acs{RTE} è aggiunta a \acs{TSIS}. La~\vref{fig:tshell-toolbar} mostra la barra degli strumenti di \acs{TShell} quando un file \acs{TRF} viene aperto: essa contiene il pulsante per l'avvio della \acs{RTE} appena aggiunta all'ambiente di sviluppo \acs{TSIS}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\columnwidth]{tshell-toolbar}
+\caption[Barra degli strumenti di \acs{TShell}]{Barra degli strumenti di \acs{TShell} contenente il pulsante per l'invocazione della \acs{RTE} aggiunta all'ambiente di sviluppo \acs{TSIS}.}
+\label{fig:tshell-toolbar}
+\end{figure}
 
 Tuttavia, come detto, le funzioni della \acs{RTE} devono essere collegate ai punti di chiamata di \acs{CORSIM} affinché la \acs{RTE} risulti completamente funzionante. Per adempiere tale operazione è necessario utilizzare nuovamente lo strumento di configurazione cliccando sul pulsante per la modifica (\ie{}, \emph{Edit}) di una \acs{RTE}. A questo punto, selezionando la scheda relativa alle \acs{RTE}, è possibile invocare lo strumento per effettuare il succitato collegamento. La~\vref{fig:tshell-tool-config-8} mostra il processo di collegamento tra le funzioni della \acs{RTE} e i punti di chiamata di \acs{CORSIM}.
-
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\columnwidth]{tshell-tool-config-8}
-\caption[Collegamento delle funzioni della \acs{RTE} a \acs{CORSIM}]{\omissis{}}
+\caption[Collegamento delle funzioni della \acs{RTE} a \acs{CORSIM}]{Collegamento delle funzioni della \acs{RTE} ai rispettivi punti di chiamata di \acs{CORSIM}.}
 \label{fig:tshell-tool-config-8}
 \end{figure}
 
-Inoltre, può essere necessario dover configurare la \acs{RTE} aggiunta in base alle sue esigenze, così come modificare alcune funzionalità di \acs{CORSIM} relativamente ad essa. Ad esempio, la \acs{RTE} per il monitoraggio e il tracciamento del passaggio dei veicoli sui sensori non necessita che i file di output di \acs{CORSIM} vengano generati, né che vengano generati i file per la visualizzazione animata della simulazione in \acs{TRAFED}. Inoltre, tale \acs{RTE}, non necessita che la simulazione \acs{CORSIM} sia eseguita più volte.
-
-Le~\vref{fig:tshell-tool-config-3,fig:tshell-tool-config-5} mostrano la configurazione di tali opzioni relative a \acs{CORSIM} per la \acs{RTE} in questione.
-
-% fare come unico float contenente subfigure verticali!
-
-\begin{figure}[h]
+Inoltre, può essere necessario dover configurare la \acs{RTE} aggiunta in base alle sue esigenze, così come modificare alcune funzionalità di \acs{CORSIM} relativamente ad essa. Ad esempio, la \acs{RTE} per il monitoraggio e il tracciamento del passaggio dei veicoli sui sensori non necessita che i file di output di \acs{CORSIM} vengano generati, né che vengano generati i file per la visualizzazione animata della simulazione in \acs{TRAFED}. Inoltre, tale \acs{RTE}, non necessita che la simulazione \acs{CORSIM} sia eseguita più volte. La~\vref{fig:tshell-tool-config-35} mostra la configurazione di tali opzioni.
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\columnwidth]{tshell-tool-config-3}
-\caption[Configurazione delle proprietà di \acs{CORSIM}]{Configurazione delle proprietà di \acs{CORSIM} per la \acs{RTE}: disattivazione dell'output di \acs{CORSIM} e della generazione dell'input per \acs{TRAFED}.}
-\label{fig:tshell-tool-config-3}
+\subfloat[Proprietà di \acs{CORSIM}.]
+{\includegraphics[width=0.8\columnwidth]{tshell-tool-config-3}} \\
+\subfloat[Impostazioni proprietà d'esecuzione di \acs{CORSIM}.]
+{\label{fig:ipsum}%
+\includegraphics[width=0.8\columnwidth]{tshell-tool-config-5}}
+\caption[Configurazione delle proprietà di \acs{CORSIM}]{Configurazione delle proprietà di \acs{CORSIM} per la \acs{RTE}: disattivazione dell'output di \acs{CORSIM}, della generazione dell'input per \acs{TRAFED} e delle esecuzioni multiple della simulazione.}
+\label{fig:tshell-tool-config-35}
 \end{figure}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\columnwidth]{tshell-tool-config-5}
-\caption[Configurazione della simulazione \acs{CORSIM}]{Configurazione della simulazione \acs{CORSIM} per la \acs{RTE}.}
-\label{fig:tshell-tool-config-5}
-\end{figure}
+\cleardoublepage
+\subsection{Utilizzo delle API}\label{sec:tsis-api-examples}
+Lungi dal volere fornire una documentazione esaustiva delle \acs{API} dell'ambiente di sviluppo \acs{TSIS}, in questa sezione, si intende presentare, tramite esempi, le modalità di utilizzo di tali \acs{API} in linguaggio \CC{}.
 
-\subsection{CORWIN API}
+Ad esempio, il listato~\ref{lst:callpoint-api} mostra il codice di intestazione (\ie{}, file \lstinline[]|h|) necessario a definire ed esportare la funzione \lstinline[]|on_initialize| (listato~\ref{lst:callpoint-impl}), che, come mostrato dalla~\vref{fig:tshell-tool-config-8} viene collegata al punto di chiamata \lstinline[]|Initialize| di \acs{CORSIM}. Si osservi che la scelta del nome di tale funzione non è vincolata ad alcun criterio.
 
-\subsection{CORSIM API}
+\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Costrutto per l'esportazione delle funzioni \acs{RTE}, label=lst:callpoint-api]
+#ifdef __cplusplus
+#define DLL_EXPORT extern "C" __declspec(dllexport)
+#endif // __cplusplus
+\end{lstlisting}
 
+\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Esempio di funzione \acs{RTE} esportata, label=lst:callpoint-impl]
+DLL_EXPORT void __stdcall on_initialize() {
+    // implementation
+}
+\end{lstlisting}
 
+Il listato~\ref{lst:corwin-api} illustra invece come importare una delle funzioni esposte dalla \acsfont{CORWIM} \acs{API} in una \acs{RTE}. Nello specifico, l'esempio in questione, è relativo all'importazione della funzione \lstinline[]|OutputString|, finalizzata all'invio di messaggi di output a \acs{TShell} durante la simulazione \acs{CORSIM}.
+\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Importazione delle \acsfont{CORWIN} \acs{API}, label=lst:corwin-api]
+#ifdef __cplusplus
+#define CORWINAPI extern "C" __declspec(dllimport)
+CORWINAPI void __stdcall OutputString(const char *str, unsigned int size, int msgCode, unsigned long color);
+#endif // __cplusplus
+\end{lstlisting}
 
+Infine, come già detto, \acs{CORSIM} permette l'accesso alla maggior parte dei dati che esso manipola durante la simulazione, esportandoli nella memoria condivisa. Tali dati sono dei seguenti tipi:
+\begin{enumerate}
+    \item variabili scalari (non array)
+    \item array allocati staticamente
+    \item array allocati dinamicamente
+    \item funzioni esposte tramite \acs{API}.
+\end{enumerate}
 
-\omissis{}
+Il listato~\ref{lst:corsim-api-dll-import} mostra il costrutto utilizzabile per l'importazione di dati e funzioni dalla cosiddetta \acs{CORSIM} \acs{API}.
+\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Costrutto per l'importazione delle \acs{CORSIM} \acs{API}, label=lst:corsim-api-dll-import]
+#ifdef __cplusplus
+#define DLL_IMPORT extern "C" __declspec(dllimport)
+#endif // __cplusplus
+\end{lstlisting}
 
+Tale costrutto viene poi utilizzato per l'effettiva importazione di dati e funzioni da \acs{CORSIM}. Il listato~\ref{lst:corsim-api} riporta un esempio di importazione per ogni tipo di dati che le \acs{CORSIM} \acs{API} rendono disponibile:
+\begin{enumerate}
+    \item a~\autoref{lst:netsim-num-dets-import} si importa il numero di sensori presenti sulla rete stradale urbana, esportato da \acs{CORSIM} tramite la variabile scalare \lstinline[]|NETSIM_DETECTORS_mp_NUMDET| e rinominato, a~\autoref{lst:netsim-num-dets-assign}, in \lstinline[]|net_det_num|
+    \item a~\autoref{lst:netsim-nmap-import} si importa la lista statica (\ie{}, di dimensione massima prefissata) dei numeri identificativi assegnati dall'utente ai nodi della rete stradale, \lstinline[]|SIN075.NMAP|; rinominata a~\autoref{lst:netsim-nmap-assign} in \lstinline[]|net_node_num|
+    \item a~\autoref{lst:netsim-dets-id-import} si importa la lista dinamica dei numeri identificativi assegnati dall'utente ai sensori, \lstinline[]|*NETSIM_DETECTORS_mp_DETID|; rinominata, a~\autoref{lst:netsim-dets-id-assign}, in \lstinline[]|net_det_id|
+    \item a~\autoref{lst:netsim-abort-func-import} si importa \lstinline[]|abortcorsim|, una funzione delle \acs{CORSIM} \acs{API} finalizzata al controllo dell'esecuzione della simulazione da parte della \acs{RTE}
+\end{enumerate}
 
+\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Importazione di oggetti delle \acs{CORSIM} \acs{API}, label=lst:corsim-api]
+// netsim scalar non-array variables
+DLL_IMPORT int NETSIM_DETECTORS_mp_NUMDET;<ls>\label{lst:netsim-num-dets-import}<le>
+#define net_det_num NETSIM_DETECTORS_mp_NUMDET<ls>\label{lst:netsim-num-dets-assign}<le>
+// netsim statically allocated arrays
+DLL_IMPORT struct<ls>\label{lst:netsim-nmap-import}<le>
+{
+    int NMAP[8999];
+} SIN075;
+#define net_node_num SIN075.NMAP<ls>\label{lst:netsim-nmap-assign}<le>
+// netsim dinamically allocated arrays
+DLL_IMPORT int *NETSIM_DETECTORS_mp_DETID;<ls>\label{lst:netsim-dets-id-import}<le>
+#define net_det_id NETSIM_DETECTORS_mp_DETID<ls>\label{lst:netsim-dets-id-assign}<le>
+// netsim exported functions
+DLL_IMPORT void __stdcall abortcorsim(void);<ls>\label{lst:netsim-abort-func-import}<le>
+\end{lstlisting}
 
-%corsim execution time line?
-% panoramica sviluppo RTE
-% TODO: descrizione delle varie API fornite da TSIS
-% in questa sezione presentaimo il funzionamento dell'interfacciamento tra CORSIM e strumenti esterni (CORSIM RTE) più dettagliatamente perché ci interessano al fine di ...
-% presentiamo le API fornite dall'ambiente di sviluppo di TSIS
-% mettere immagine di pulsante sensors in TSIS? far vedere come si aggiunge una RTE all'ambiente di TSIS (piccola sezione)
-
+\cleardoublepage
 \section{Estensione}\label{sec:sensors-rte}
 % TODO: introduzione, problema che deve risolvere
 % massima granularità dell'output dei sensori: 1 secondo . non va bene, quindi estensione Sensors ..

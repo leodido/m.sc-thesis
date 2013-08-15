@@ -199,29 +199,22 @@
 {\spacedlowsmallcaps{\bibname}}}}
 
 %*********************************************************************************
-% Definizione di un linguaggio di pseudo-codice
+% Impostazioni di listings
 %*********************************************************************************
+\definecolor{dkgreen}{rgb}{0,0.6,0}
 \lstdefinelanguage{pseudo}{
     morekeywords=%
     {
         for,foreach,return,if,else,ifelse,max,min,in,len,log,index,var,function,seqlen,as,new,while,unique,which
     },
-    morecomment=[l][\color{Green}\ttfamily]{//},
-    morecomment=[s][\color{Green}\ttfamily]{/*}{*/},
-    morestring=[b][\color{Red}\rmfamily]",
-    moredelim=[is][\color{Orange}]{|*}{*|}
+    morecomment=[l][\color{dkgreen}\ttfamily]{//},
+    morecomment=[s][\color{dkgreen}\ttfamily]{/*}{*/},
+    morestring=[b][\color{red}\rmfamily]",
+    moredelim=[is][\color{orange}]{|*}{*|}
 }
-
-%*********************************************************************************
-% Impostazioni di listings
-%*********************************************************************************
 \lstset{
-    %language=pseudo,%[LaTeX]Tex,%C++,
+    language=pseudo,
     basicstyle=\normalsize\ttfamily,
-    % identifierstyle=\color{NavyBlue},
-    % keywordstyle=\bfseries,%\color{RoyalBlue},%\bfseries,
-    % commentstyle=\color{Green}\ttfamily,
-    % stringstyle=\rmfamily,
     numbers=left,%none
     numberstyle=\scriptsize,%\tiny
     stepnumber=1,
@@ -231,7 +224,34 @@
     frameround=ftff,%fttt,%
     frame=TB,%lines,
     tabsize=1,
+    captionpos=b,
     escapeinside={<ls>}{<le>}
+}
+\lstdefinelanguage{cpp}{
+    language=C++,
+    basicstyle=\normalsize\ttfamily,   
+    breakatwhitespace=false,       
+    breaklines=true,               
+    captionpos=b,                   
+    commentstyle=\color{dkgreen},   
+    deletekeywords={...},          
+    escapeinside={<ls>}{<le>},                  
+    keywordstyle=\color{blue},  
+    morekeywords={__stdcall,__declspec,dllimport,dllexport}, 
+    identifierstyle=\color{black},
+    stringstyle=\color{red}, 
+    numbers=left,                
+    numbersep=8pt,                  
+    numberstyle=\scriptsize, 
+    rulecolor=\color{black},        
+    showspaces=false,               
+    showstringspaces=false,        
+    showtabs=false,                
+    stepnumber=1,                   
+    tabsize=2,                     
+    frame=lines,                            
+    title=\lstname 
+    %morecomment=[l][\color{magenta}]{\#}               
 }
 
 % Dichiarazioni utili per l'indice della tesi e le etichette
@@ -431,6 +451,8 @@
 \newcommand{\paramhat}[1]{\boldsymbol{\hat{\textbf{#1}}}}
 \newcommand{\greekhat}[1]{\boldsymbol{\skew{-.5}\hat#1}}
 \newcommand{\evidencestream}[1]{(\set{x}^1\,,\,\set{x}^2\,,\,\dotsc\,,\,\set{x}^{#1})}
+
+\newcommand\CC{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\relsize{-3}{\textbf{++}}}}
 
 %*********************************************************************************
 % Hypenation exceptions
