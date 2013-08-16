@@ -448,7 +448,7 @@ Al fine di automatizzare e facilitare la creazione di dataset relativi al traffi
 
 Di seguito si elencano le operazioni di manipolazione che tali strumenti supportano:
 \begin{enumerate}
-    \item sostituzione 
-    \item
-    \item
+    \item sostituzione (e eventualmente rimozione) della colonna relativa ai periodi temporali con una nuova colonna che rappresenti la classe di un insieme di osservazioni; tale colonna è automaticamente generata in base a un sistema di regole (\eg{}, \emph{matching} tra periodo temporale e classe).
+    \item partizionamento del file di output di \acsfont{Sensors} \acs{DLL} in più file in base a vincoli temporali (\eg{}, divisione del file in blocchi di $60$ secondi ciascuno)
+    \item ottimizzazione del file tramite rimozione delle linee duplicate (\ie{}, linee in cui non è avvenuto alcun cambiamento di stato dei sensori).
 \end{enumerate}
