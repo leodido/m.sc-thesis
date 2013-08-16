@@ -81,7 +81,7 @@ In questa sezione si elencano gli strumenti che costituiscono l'ambiente di svil
 \acs{TSIS} \acsfont{Output Processor} è uno strumento finalizzato alla raccolta e l'aggregazione dei dati da \acs{CORSIM} durante l'esecuzione multipla di modelli di simulazione. La sua caratteristica principale consiste nella computazione automatica di un insieme di statistiche predefinite. Esso permette di scegliere sia le statistiche di interesse sia la granularità temporale della loro computazione.
 \end{description}
 
-\subsection{Caratteristiche}
+\subsection{Caratteristiche}\label{sec:tsis-features}
 Segue una panoramica il cui scopo è presentare sia le principali capacità, sia i vincoli di modellazione, simulazione e analisi di \acs{TSIS}.
 
 \acs{TSIS}, tramite \acs{CORSIM}, permette la modellazione di reti stradali con le seguenti caratteristiche:
@@ -268,7 +268,7 @@ Inoltre, può essere necessario dover configurare la \acs{RTE} aggiunta in base 
 \subsection{Utilizzo delle API}\label{sec:tsis-api-examples}
 Lungi dal volere fornire una documentazione esaustiva delle \acs{API} dell'ambiente di sviluppo \acs{TSIS}, in questa sezione, si intende presentare, tramite esempi, le modalità di utilizzo di tali \acs{API} in linguaggio \CC{}.
 
-Ad esempio, il listato~\ref{lst:callpoint-api} mostra il codice di intestazione (\ie{}, file \lstinline[]|h|) necessario a definire ed esportare la funzione \lstinline[]|on_initialize| (listato~\ref{lst:callpoint-impl}), che, come mostrato dalla~\vref{fig:tshell-tool-config-8} viene collegata al punto di chiamata \lstinline[]|Initialize| di \acs{CORSIM}. Si osservi che la scelta del nome di tale funzione non è vincolata ad alcun criterio.
+Ad esempio, il listato~\ref{lst:callpoint-api} mostra il codice di intestazione necessario a definire ed esportare la funzione \lstinline[]|on_initialize| (listato~\ref{lst:callpoint-impl}), che, come mostrato dalla~\vref{fig:tshell-tool-config-8} viene collegata al punto di chiamata \lstinline[]|Initialize| di \acs{CORSIM}. Si osservi che la scelta del nome di tale funzione non è vincolata ad alcun criterio.
 
 \vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Costrutto per l'esportazione delle funzioni \acs{RTE}, label=lst:callpoint-api]
 #ifdef __cplusplus
@@ -332,14 +332,66 @@ DLL_IMPORT void __stdcall abortcorsim(void);<ls>\label{lst:netsim-abort-func-imp
 
 \cleardoublepage
 \section{Estensione}\label{sec:sensors-rte}
-% TODO: introduzione, problema che deve risolvere
-% massima granularità dell'output dei sensori: 1 secondo . non va bene, quindi estensione Sensors ..
+Avendo presentato l'ambiente di sviluppo \acs{TSIS} e le \acs{API} che esso fornisce per la sua estensione, è ora possibile descrivere l'\acl{RTE} sviluppata al fine di generare i succitati dataset.
 
-\subsection{Analisi}
-% TODO: analisi del problema e del software che si è realizzato
+Come detto nella~\vref{sec:tsis-features}, una delle principali limitazioni di \acs{CORSIM} consiste nell'impossibilità di ottenere dei dati non aggregati dal processo di simulazione. Ciò poiché il minimo intervallo temporale che \acs{CORSIM} permette di utilizzare è pari a $1$ secondo per le reti stradali urbane e al più $0.1$ secondi per le reti stradali extraurbane. Perciò, è emerso il problema di sorpassare tale limitazione. La \acs{RTE} sviluppata, \acsfont{Sensors} \acs{DLL}, risponde a tale necessità monitorando determinati elementi (\ie{}, i sensori) di un qualsiasi tipo di rete stradale e tracciando gli eventi ad essi correlati (\ie{}, passaggio di un veicolo) su un file di output esterno a \acs{TSIS}. Lo scopo di questa sezione consiste nel presentare il funzionamento di \acsfont{Sensors} \acs{DLL}.
 
 \subsection{Sensors DLL}
-% TODO: presentazione della DLL, progetto del software?
+L'obiettivo ultimo di \acsfont{Sensors} \acs{DLL} consiste nella generazione di un file \acs{CSV}\footnote{\acf{CSV} è un formato basato su file di testo utilizzato per l'importazione ed esportazione (ad esempio da fogli elettronici o database) di una tabella di dati.} che rappresenti il passaggio dei veicoli nel tempo sui vari sensori presenti nella rete stradale. Il monitoraggio dei sensori deve essere effettuato con la massima granularità temporale possibile (\ie{}, $0.1$ secondi), anche nel caso di reti stradali urbane.
+
+%leggere file di input ricreando la rete che esso rappresenta
+%utilizzare campo di 10 bit
+%quali punti di chiamata CORSIM utilizzati e a quale scopo?
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.4\textwidth,center]{sensors-class-diagram}
+\caption[Diagramma delle classi di \acsfont{Sensors} \acs{DLL}]{Diagramma delle classi di \acsfont{Sensors} \acs{DLL}.}
+\label{fig:sensors-class-diagram}
+\end{figure}
+
+\subsection{Formato dell'output}
+Di seguito si presenta un esempio di file \acs{CSV} di output generato da \acsfont{Sensors} \acs{DLL}. 
+
+\begin{lstlisting}[nolol=true, language=pseudo, numbers=none, label=lst:sensors-out-format]
+time,tp,D131,D231,D232,D211,D212,D213
+0.10000,1,0,0,0,0,0,0
+0.20000,1,0,0,1,0,0,0
+0.30000,1,0,0,1,0,0,0
+0.40000,1,0,0,0,0,0,0
+0.50000,1,0,0,0,0,1,0
+0.60000,1,0,0,0,0,1,0
+0.70000,1,0,0,0,0,0,0
+0.80000,1,0,0,0,0,0,0
+0.90000,1,0,0,0,0,0,0
+1.00000,1,0,1,0,0,0,0
+1.10000,1,0,1,0,0,0,1
+1.20000,1,0,1,0,0,0,1
+1.30000,1,0,1,0,0,0,0
+1.40000,1,0,0,0,0,0,0
+1.50000,1,0,0,0,0,0,0
+\end{lstlisting}
+
+La~\vref{tab:sensors-output-semantic} illustra il significato di ogni colonna dei dati tabulari restituiti da \acsfont{Sensors} \acs{DLL}.
+\begin{table}[H]%
+\begin{tabularx}{\columnwidth}{+l^X}
+\toprule\rowstyle{\bfseries}%
+Nome colonna            & Descrizione                                                                       \\
+\otoprule%
+time                    & Tempo di simulazione a cui è stato effettuato il monitoraggio dei sensori.        \\
+tp                      & Indice del corrente periodo temporale (\ie{}, \emph{time period}).                \\
+identificatore sensore  & $1$ in caso di passaggio di un veicolo sul rispettivo sensore, $0$ altrimenti.    \\\bottomrule
+\end{tabularx}
+\caption[Semantica dell'output di \acsfont{Sensors} \acs{DLL}]{Descrizione della semantica dei file \acs{CSV} generati da \acsfont{Sensors} \acs{DLL}.}
+\label{tab:sensors-output-semantic}
+\end{table}
+
+% TODO: introduzione, problema che deve risolvere
+% massima granularità dell'output dei sensori: 1 secondo . non va bene, quindi estensione Sensors ..
+% TODO: analisi del problema e del software che si è realizzato
+% TODO: parlare di cosa si intende ottenere!
 
 \section{Applicativi di supporto}
 % TODO: discussione sulle operazioni utili alla creazione di dataset: insieme di file, ognuno dei quali è un insieme di traiettorie multivariate
+% TODO: collegarsi .. dall'output di sensors vogliamo ottenere ..
+% ottimizzazioni (rimozione linee duplicate -> rappresentare solo le transizioni quando avvengono)
