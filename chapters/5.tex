@@ -309,7 +309,7 @@ Tale costrutto viene poi utilizzato per l'effettiva importazione di dati e funzi
 \begin{enumerate}
     \item a~\autoref{lst:netsim-num-dets-import} si importa il numero di sensori presenti sulla rete stradale urbana, esportato da \acs{CORSIM} tramite la variabile scalare \lstinline[]|NETSIM_DETECTORS_mp_NUMDET| e rinominato, a~\autoref{lst:netsim-num-dets-assign}, in \lstinline[]|net_det_num|
     \item a~\autoref{lst:netsim-nmap-import} si importa la lista statica (\ie{}, di dimensione massima prefissata) dei numeri identificativi assegnati dall'utente ai nodi della rete stradale, \lstinline[]|SIN075.NMAP|; rinominata a~\autoref{lst:netsim-nmap-assign} in \lstinline[]|net_node_num|
-    \item a~\autoref{lst:netsim-dets-id-import} si importa la lista dinamica dei numeri identificativi assegnati dall'utente ai sensori, \lstinline[]|*NETSIM_DETECTORS_mp_DETID|; rinominata, a~\autoref{lst:netsim-dets-id-assign}, in \lstinline[]|net_det_id|
+    \item a~\autoref{lst:netsim-dets-mod-import} si importa la lista dinamica delle informazioni sui sensori, \lstinline[]|*NETSIM_DETECTORS_mp_DETMOD|; rinominata, a~\autoref{lst:netsim-dets-mod-assign}, in \lstinline[]|net_det_mod|
     \item a~\autoref{lst:netsim-abort-func-import} si importa \lstinline[]|abortcorsim|, una funzione delle \acs{CORSIM} \acs{API} finalizzata al controllo dell'esecuzione della simulazione da parte della \acs{RTE}
 \end{enumerate}
 
@@ -324,8 +324,8 @@ DLL_IMPORT struct<ls>\label{lst:netsim-nmap-import}<le>
 } SIN075;
 #define net_node_num SIN075.NMAP<ls>\label{lst:netsim-nmap-assign}<le>
 // netsim dinamically allocated arrays
-DLL_IMPORT int *NETSIM_DETECTORS_mp_DETID;<ls>\label{lst:netsim-dets-id-import}<le>
-#define net_det_id NETSIM_DETECTORS_mp_DETID<ls>\label{lst:netsim-dets-id-assign}<le>
+DLL_IMPORT int *NETSIM_DETECTORS_mp_DTMODD;<ls>\label{lst:netsim-dets-mod-import}<le>
+#define net_det_id NETSIM_DETECTORS_mp_DTMOD<ls>\label{lst:netsim-dets-mod-assign}<le>
 // netsim exported functions
 DLL_IMPORT void __stdcall abortcorsim(void);<ls>\label{lst:netsim-abort-func-import}<le>
 \end{lstlisting}
@@ -338,10 +338,6 @@ Come detto nella~\vref{sec:tsis-features}, una delle principali limitazioni di \
 
 \subsection{Sensors DLL}
 L'obiettivo ultimo di \acsfont{Sensors} \acs{DLL} consiste nella generazione di un file \acs{CSV}\footnote{\acf{CSV} è un formato basato su file di testo utilizzato per l'importazione ed esportazione (ad esempio da fogli elettronici o database) di una tabella di dati.} che rappresenti il passaggio dei veicoli nel tempo sui vari sensori presenti nella rete stradale. Il monitoraggio dei sensori deve essere effettuato con la massima granularità temporale possibile (\ie{}, $0.1$ secondi), anche nel caso di reti stradali urbane.
-
-%leggere file di input ricreando la rete che esso rappresenta
-%utilizzare campo di 10 bit
-%quali punti di chiamata CORSIM utilizzati e a quale scopo?
 
 \begin{figure}[H]
 \centering
@@ -386,12 +382,4 @@ identificatore sensore  & $1$ in caso di passaggio di un veicolo sul rispettivo 
 \label{tab:sensors-output-semantic}
 \end{table}
 
-% TODO: introduzione, problema che deve risolvere
-% massima granularità dell'output dei sensori: 1 secondo . non va bene, quindi estensione Sensors ..
-% TODO: analisi del problema e del software che si è realizzato
-% TODO: parlare di cosa si intende ottenere!
-
 \section{Applicativi di supporto}
-% TODO: discussione sulle operazioni utili alla creazione di dataset: insieme di file, ognuno dei quali è un insieme di traiettorie multivariate
-% TODO: collegarsi .. dall'output di sensors vogliamo ottenere ..
-% ottimizzazioni (rimozione linee duplicate -> rappresentare solo le transizioni quando avvengono)
