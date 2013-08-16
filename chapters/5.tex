@@ -351,25 +351,24 @@ Di seguito si presentano le operazioni principali che \acsfont{Sensors} \acs{DLL
 \end{enumerate}
 Le operazioni $1$ e $2$ vengono compiute in corrispondenza dell'inizializzazione di \acs{CORSIM} e quindi della \acs{RTE}. Il risultato di tali operazioni è un insieme di istanze correlate rappresentanti gli elementi della rete stradale di input e le caratteristiche di ognuno di essi. Il diagramma delle classi di \acsfont{Sensors} \acs{DLL}, mostrato in~\vref{fig:sensors-class-diagram}, illustra le relazioni di associazione e aggregazione degli oggetti con cui si è scelto di rappresentare le reti stradali \acs{TSIS}. La classe \lstinline[]|CNetwork| rappresenta la rete stradale, composta da un insieme di intersezioni e strade, elementi rappresentati rispettivamente dalle classi \lstinline[]|CNode| e \lstinline[]|CLink|. Ogni strada può a sua volta essere composta da più corsie, elementi rappresentati tramite la classe \lstinline[]|CLane|, e contenere dei sensori, elementi rappresentati tramite la classe \lstinline[]|CDetector|. Inoltre, poiché è possibile che alcuni sensori siano posti esclusivamente su una corsia piuttosto che su tutta la superficie della strada, sussiste una relazione anche fra la classe rappresentante le corsie e quella rappresentante i sensori. Invece, la classe \lstinline[]|CBinary| non rappresenta alcun elemento concreto della rete stradale: la sua funzione è esclusivamente quella di incapsulare l'intero \lstinline[]|net_det_on| e convertirlo nella corretta sequenza di bit rappresentante il flusso dei veicoli su un sensore. La procedura che effettua tali operazioni di inizializzazione della rete stradale nella \acs{RTE}, chiamata \lstinline[]|on_initialize|, è collegata al punto di chiamata \lstinline[]|Initialize|, così come mostrato dalla~\vref{fig:tshell-tool-config-8}.
 
-Configurata la rete stradale, \acsfont{Sensors} \acs{DLL} può monitorare i sensori di pari passo con l'esecuzione della simulazione da parte di \acs{CORSIM}. Tale operazione viene effettuata ad ogni intervallo temporale di \acs{NETSIM} poiché la procedura che la incorpora, chiamata \lstinline[]|on_net_signal_pre|, è collegata al punto di chiamata \lstinline[]|PreNetsimSignal| di \acs{CORSIM}.
+Configurata la rete stradale, \acsfont{Sensors} \acs{DLL} può monitorare i sensori di pari passo con l'esecuzione della simulazione da parte di \acs{CORSIM}. Tale operazione viene effettuata ad ogni intervallo temporale di \acs{NETSIM} poiché la procedura che la incorpora, chiamata \lstinline[]|on_net_signal_pre|, è collegata al punto di chiamata \lstinline[]|PreNetsimSignal| di \acs{CORSIM}. Il listato~\ref{lst:process-sensors} a pagina~\pageref{lst:process-sensors} illustra una versione semplificata del metodo \CC{} preposto all'esecuzione di tale procedura. Essa consiste nell'iterazione della lista di sensori afferenti ad una strada: per ogni sensore (ciclo a~\autoref{lst:iterate-sensors}), recuperato l'identificatore che \acs{CORSIM} utilizza per rappresentarlo (istruzione a~\autoref{lst:get-sensor-id}), si ottiene il relativo elemento dell'array \lstinline[]|net_det_on| (istruzione a~\autoref{lst:get-sensor-on}), un intero rappresentante il flusso di veicoli sul sensore nell'ultimo secondo di simulazione. Tale intero viene poi convertito nella corretta sequenza di $10$ bit tramite la classe \lstinline[]|CBinary| a~\autoref{lst:get-sensor-bits}. Da~\autoref{lst:get-sensor-state-start} a~\autoref{lst:get-sensor-state-end} si itera in ordine inverso la sequenza di bit al fine di estrapolare e memorizzare lo stato (\ie{}, $1$ in caso di veicolo rilevato, $0$ altrimenti) del sensore in ogni passo temporale minimo (\ie{}, $0.1$ secondi). Quindi questa procedura, ripetuta per tutte le strade presenti nella rete stradale e ad ogni intervallo temporale, memorizza per ogni sensore una lista di valori booleani.
+
+Completata la simulazione e di conseguenza anche la procedura di monitoraggio dei sensori, \acsfont{Sensors} \acs{DLL}, in corrispondenza del punto di chiamata \lstinline[]|SimulationComplete| di \acs{CORSIM}, genera un file \acs{CSV} in cui memorizza il tempo, il \emph{time period} della rilevazione e la dinamica di stato di ogni sensore. La~\vref{sec:sensors-dll-output} si occupa di presentare in maggior dettaglio l'output di \acsfont{Sensors} \acs{DLL}.
 
 \vspace*{8pt}\begin{lstlisting}[caption={[Rilevazione del passaggio dei veicoli sui sensori]Metodo della classe \lstinline[]|CLink| per la rilevazione del passaggio dei veicoli sui sensori}, label=lst:process-sensors, language=cpp]
 void CLink::processDetectors(void) {
-    int det = 0;
-    int new_state = 0;
-    int old_state = 0;
-    POSITION pos = NULL;
+    int det, new_state, old_state  = 0;
+    POSITION pos, pos_i = NULL;
     CDetector *detector = NULL;
-    POSITION pos_i = NULL;
     CInteger *pi = NULL;
     CBinarySequence *sequence = NULL;
     pos = m_detector_list.GetHeadPosition();
-    while (pos != NULL) {
+    while (pos != NULL) {<ls>\label{lst:iterate-sensors}<le>
         detector = m_detector_list.GetNext(pos);
-        int det_num = detector->getCorsimId();
-        det = net_det_on[det_num];
-        sequence = CBinarySequence::convert(det);
-        pos_i = sequence->sequence.GetTailPosition();
+        int det_num = detector->getCorsimId();<ls>\label{lst:get-sensor-id}<le>
+        det = net_det_on[det_num];<ls>\label{lst:get-sensor-on}<le>
+        sequence = CBinarySequence::convert(det);<ls>\label{lst:get-sensor-bits}<le>
+        pos_i = sequence->sequence.GetTailPosition();<ls>\label{lst:get-sensor-state-start}<le>
         old_state = detector->getState() ? 1 : 0;
         for (index = 0; index < 10; index++) {
             pi = sequence->sequence.GetPrev(pos_i);
@@ -388,7 +387,7 @@ void CLink::processDetectors(void) {
                 detector->setState(false, !is_init);
             }
             old_state = new_state;
-        }
+        }<ls>\label{lst:get-sensor-state-end}<le>
         delete sequence;
     }
 }
@@ -401,7 +400,7 @@ void CLink::processDetectors(void) {
 \label{fig:sensors-class-diagram}
 \end{figure}
 
-\subsection{Formato dell'output}
+\subsection{Formato dell'output}\label{sec:sensors-dll-output}
 Di seguito si presenta un esempio di file \acs{CSV} di output generato da \acsfont{Sensors} \acs{DLL}. 
 
 \begin{lstlisting}[nolol=true, language=pseudo, numbers=none, label=lst:sensors-out-format]
@@ -416,14 +415,19 @@ time,tp,D131,D231,D232,D211,D212,D213
 0.80000,1,0,0,0,0,0,0
 0.90000,1,0,0,0,0,0,0
 1.00000,1,0,1,0,0,0,0
-1.10000,1,0,1,0,0,0,1
-1.20000,1,0,1,0,0,0,1
-1.30000,1,0,1,0,0,0,0
-1.40000,1,0,0,0,0,0,0
-1.50000,1,0,0,0,0,0,0
+1.10000,2,0,1,0,0,0,1
+1.20000,2,0,1,0,0,0,1
+1.30000,2,0,1,0,0,0,0
+1.40000,2,0,0,0,0,0,0
+1.50000,2,0,0,1,0,0,0
+1.60000,2,0,0,1,0,0,0
+1.70000,2,0,0,0,0,0,0
+1.80000,2,1,0,0,0,0,0
+1.90000,2,1,0,0,0,0,0
+2.00000,2,1,0,0,0,0,0
 \end{lstlisting}
 
-La~\vref{tab:sensors-output-semantic} illustra il significato di ogni colonna dei dati tabulari restituiti da \acsfont{Sensors} \acs{DLL}.
+La~\vref{tab:sensors-output-semantic} chiarisce il significato di ogni colonna dei dati tabulari restituiti da \acsfont{Sensors} \acs{DLL}.
 \begin{table}[H]%
 \begin{tabularx}{\columnwidth}{+l^X}
 \toprule\rowstyle{\bfseries}%
@@ -431,10 +435,20 @@ Nome colonna            & Descrizione                                           
 \otoprule%
 time                    & Tempo di simulazione a cui è stato effettuato il monitoraggio dei sensori.        \\
 tp                      & Indice del corrente periodo temporale (\ie{}, \emph{time period}).                \\
-identificatore sensore  & $1$ in caso di passaggio di un veicolo sul rispettivo sensore, $0$ altrimenti.    \\\bottomrule
+identificatore sensore  & $1$ in caso di presenza di un veicolo sul rispettivo sensore, $0$ altrimenti.    \\\bottomrule
 \end{tabularx}
 \caption[Semantica dell'output di \acsfont{Sensors} \acs{DLL}]{Descrizione della semantica dei file \acs{CSV} generati da \acsfont{Sensors} \acs{DLL}.}
 \label{tab:sensors-output-semantic}
 \end{table}
 
+Si osservi che, il fatto che il sensore \lstinline[]|D232|, in corrispondenza dell'istante $1.6$ ($5$\textsuperscript{a} colonna) abbia valore $1$ non indica che il veicolo sia stato rilevato esattamente in tale istante, bensì ciò indica che durante l'intervallo temporale $[\,1.5,1.6\,]$ tale sensore è stato attivato dal passaggio di un veicolo.
+
 \section{Applicativi di supporto}
+Al fine di automatizzare e facilitare la creazione di dataset relativi al traffico tramite la \acs{RTE} oggetto del corrente capitolo, si è sviluppato un insieme di strumenti dediti alla manipolazione dei file di output di \acsfont{Sensors} \acs{DLL}.
+
+Di seguito si elencano le operazioni di manipolazione che tali strumenti supportano:
+\begin{enumerate}
+    \item sostituzione 
+    \item
+    \item
+\end{enumerate}
