@@ -339,6 +339,16 @@ Come detto nella~\vref{sec:tsis-features}, una delle principali limitazioni di \
 \subsection{Sensors DLL}
 L'obiettivo ultimo di \acsfont{Sensors} \acs{DLL} consiste nella generazione di un file \acs{CSV}\footnote{\acf{CSV} è un formato basato su file di testo utilizzato per l'importazione ed esportazione (ad esempio da fogli elettronici o database) di una tabella di dati.} che rappresenti il passaggio dei veicoli nel tempo sui vari sensori presenti nella rete stradale. Il monitoraggio dei sensori deve essere effettuato con la massima granularità temporale possibile (\ie{}, $0.1$ secondi), anche nel caso di reti stradali urbane.
 
+
+Di seguito si presentano le operazioni principali che \acsfont{Sensors} \acs{DLL} effettua:
+\begin{enumerate}
+    \item ottenere il nome del file \acs{TRF} di input, rappresentante la rete stradale e il modello di simulazione
+    \item effettuare il \emph{parsing}\footnote{Il \emph{parsing} consiste nel processo atto ad analizzare un input in modo da determinare la sua struttura grammaticale grazie ad una data grammatica formale.} di tale file creando gli oggetti relativi a ogni elemento (\eg{}, intersezioni, strade, sensori) della rete stradale
+    \item rilevare il passaggio dei veicoli su ogni sensore ogni secondo
+    \item ricostruire l'intero flusso di veicoli su ogni sensore durante tutto il tempo di simulazione
+    \item creare un file di output che contenga le informazioni ottenute
+\end{enumerate}
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.4\textwidth,center]{sensors-class-diagram}
