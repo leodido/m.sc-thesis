@@ -17,7 +17,7 @@ Per quanto riguarda invece il caso delle \acs{CTBN}, \citet{Nodelman2002} hanno 
 
 L'approccio che si presenta in questo capitolo è quindi un approccio basato sul \keywordsub[apprendimento]{punteggio}: si definisce una funzione che computa uno \emph{\keywordsub[apprendimento]{score bayesiano}} finalizzato alla valutazione di ogni struttura rispetto ai \keywordsub[apprendimento]{dati di addestramento} e si usa una tecnica di \keywordsub[apprendimento]{ricerca euristica} (ad esempio, la ricerca \emph{\keywordsub[apprendimento]{hill climbing}}) per cercare nello spazio delle strutture candidate quella che esibisce il maggior punteggio.
 
-Si osservi che l'apprendimento dei \keywordsub[apprendimento]{parametri} (si veda la \virgolette{\nameref{sec:ctbn-bayesian-estimate}}, \autoref{sec:ctbn-params}) è propedeutico per tale obiettivo poiché essi costituiscono la base dello \keywordsub[apprendimento]{score bayesiano}.
+Si osservi che l'apprendimento dei \keywordsub[apprendimento]{parametri} (si veda la~\autoref{subsec:ctbn-params}) è propedeutico per tale obiettivo poiché essi costituiscono la base dello \keywordsub[apprendimento]{score bayesiano}.
 
 \cleardoublepage
 \section{Funzione di scoring}\label{sec:ctbn-structurallearning-score}
@@ -117,7 +117,7 @@ Il problema \textbf{k-learn} per le \acl{CTBN}, fissato $k$, può essere risolto
 
 Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. Di conseguenza è possibile utilizzare un algoritmo di ricerca euristica di tipo \emph{\keywordsub[apprendimento]{greedy}} per esplorare lo spazio di ricerca. Nel seguito si presenta perciò l'algoritmo utilizzato, il cui nome è \emph{\keywordsub[apprendimento]{hill climbing}}.
 
-\subsection{Hill Climbing}\label{sec:structurallearning-hc}
+\subsection{Hill Climbing}\label{subsec:structurallearning-hc}
 \omissis{}
 %listato
 %commento

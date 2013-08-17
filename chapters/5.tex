@@ -59,7 +59,7 @@ Un \acf{RT} rappresenta il blocco informativo minimo su cui è costruita una ret
 Una \ACF{RTE}, \acl{RTE}, è un'applicazione in grado di comunicare a tempo d'esecuzione con un'altra applicazione esterna. Una \acs{RTE}, in ambiente \emph{Microsoft Windows}, è solitamente compilata separatamente sotto forma di \acs{DLL}\footnote{Una \acf{DLL} è una libreria software che viene caricata dinamicamente in fase di esecuzione, invece di essere collegata staticamente a un eseguibile in fase di compilazione. Queste librerie sono anche chiamate \ACF{DLL}. L'acronimo \acs{DLL} corrisponde all'estensione che tali oggetti hanno in ambiente \emph{Microsoft Windows}. Tuttavia esse sono spesso chiamate più genericamente con il termine librerie condivise (da \emph{shared library}). Nei sistemi \emph{Linux}, esse sono anche note come oggetti \emph{shared object}.} e deve rispettare una determinata interfaccia: deve perciò implementare e esportare determinate funzioni che l'applicazione oggetto della comunicazione chiama a tempo d'esecuzione. Per la comunicazione in ingresso, invece, una \acs{RTE} deve essere collegata alle librerie dell'applicazione con cui intende interfacciarsi, avendo così accesso alle strutture dati e alle funzioni che questa esporta.
 \end{definizione}
 
-\subsection{Componenti}\label{sec:tsis-components}
+\subsection{Componenti}\label{subsec:tsis-components}
 In questa sezione si elencano gli strumenti che costituiscono l'ambiente di sviluppo \acs{TSIS}.
 
 \begin{description}
@@ -81,7 +81,7 @@ In questa sezione si elencano gli strumenti che costituiscono l'ambiente di svil
 \acs{TSIS} \acsfont{Output Processor} è uno strumento finalizzato alla raccolta e l'aggregazione dei dati da \acs{CORSIM} durante l'esecuzione multipla di modelli di simulazione. La sua caratteristica principale consiste nella computazione automatica di un insieme di statistiche predefinite. Esso permette di scegliere sia le statistiche di interesse sia la granularità temporale della loro computazione.
 \end{description}
 
-\subsection{Caratteristiche}\label{sec:tsis-features}
+\subsection{Caratteristiche}\label{subsec:tsis-features}
 Segue una panoramica il cui scopo è presentare sia le principali capacità, sia i vincoli di modellazione, simulazione e analisi di \acs{TSIS}.
 
 \acs{TSIS}, tramite \acs{CORSIM}, permette la modellazione di reti stradali con le seguenti caratteristiche:
@@ -179,7 +179,7 @@ La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} 
 
 Anche se la~\vref{fig:tsis-corsim-arch} mostra per completezza l'intera architettura di \acs{CORSIM}, si procede con la descrizione delle interfacce di \acs{CORSIM} preposte alla comunicazione con \acs{RTE} sviluppate dall'utente, identificate dalle frecce tratteggiate e numerate.
 
-Per ogni passo temporale di simulazione, il \acs{CORSIM} \acsfont{Server} chiama una serie di funzioni di \acs{CORSIM} finalizzate a guidare l'andamento della simulazione. Quando una \acs{RTE} viene inserita nell'ambiente di sviluppo integrato, il \acs{CORSIM} \acsfont{Server} chiama anche le funzioni che la \acs{RTE} esporta in base ai messaggi che riceve da \acs{CORSIM} durante la sua esecuzione. Questa interfaccia è rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}; la~\vref{sec:corsim-lifecycle} riporta maggiori dettagli sui punti di chiamata che \acs{CORSIM} espone.
+Per ogni passo temporale di simulazione, il \acs{CORSIM} \acsfont{Server} chiama una serie di funzioni di \acs{CORSIM} finalizzate a guidare l'andamento della simulazione. Quando una \acs{RTE} viene inserita nell'ambiente di sviluppo integrato, il \acs{CORSIM} \acsfont{Server} chiama anche le funzioni che la \acs{RTE} esporta in base ai messaggi che riceve da \acs{CORSIM} durante la sua esecuzione. Questa interfaccia è rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}; la~\autoref{subsec:corsim-lifecycle} \vpageref{subsec:corsim-lifecycle} riporta maggiori dettagli sui punti di chiamata che \acs{CORSIM} espone.
 
 \acs{TSIS} fornisce inoltre una \acs{API}, identificata dalla freccia $2$ nella~\vref{fig:tsis-corsim-arch}, chiamata \acsfont{CORWIN}, che permette alle \acs{RTE} di inviare messaggi al modulo \acs{CORSIM} \acsfont{Server} affinché essi siano visualizzati in \acs{TShell} dal \acs{CORSIM} \acsfont{Driver Component}.
 
@@ -188,11 +188,11 @@ Infine, una \acs{RTE} può accedere direttamente a una serie di funzioni e strut
 Si osservi che, anche se la~\vref{fig:tsis-corsim-arch} non evidenzia tale possibilità, l'architettura di \acs{CORSIM} supporta l'utilizzo di più \acs{RTE} contemporaneamente.
 
 \begin{nota}
-Un attento osservatore noterà come \acs{CORSIM}, la libreria finalizzata al processo di simulazione, sia a sua volta una \acs{RTE} automaticamente collegata ai moduli \acs{CORSIM} \acsfont{Server} e \acsfont{CORWIN}. Inoltre, la~\vref{fig:tshell-tool-config-1} fa notare come tutti i componenti (elencati e descritti nella~\vref{sec:tsis-components}) dell'ambiente di sviluppo \acs{TSIS} siano anch'essi dei moduli architetturalmente uguali alle \acs{RTE}.
+Un attento osservatore noterà come \acs{CORSIM}, la libreria finalizzata al processo di simulazione, sia a sua volta una \acs{RTE} automaticamente collegata ai moduli \acs{CORSIM} \acsfont{Server} e \acsfont{CORWIN}. Inoltre, la~\vref{fig:tshell-tool-config-1} fa notare come tutti i componenti (elencati e descritti nella~\autoref{subsec:tsis-components} \vpageref{subsec:tsis-components}) dell'ambiente di sviluppo \acs{TSIS} siano anch'essi dei moduli architetturalmente uguali alle \acs{RTE}.
 \end{nota}
 
-\subsection{Ciclo di vita di CORSIM}\label{sec:corsim-lifecycle}
-Di seguito si presenta il ciclo di vita di \acs{CORSIM} descrivendo i punti di chiamata che esso esporta tramite apposite funzioni affinché una \acs{RTE}, implementando ed esportando una funzione per almeno uno di essi, possa interfacciarsi con il processo di simulazione. Tali informazioni sono quindi relative alla \acs{API} rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}. Le modalità di implementazione e utilizzo in \CC{} di tale \acs{API} sono illustrate nella~\vref{sec:tsis-api-examples}.
+\subsection{Ciclo di vita di CORSIM}\label{subsec:corsim-lifecycle}
+Di seguito si presenta il ciclo di vita di \acs{CORSIM} descrivendo i punti di chiamata che esso esporta tramite apposite funzioni affinché una \acs{RTE}, implementando ed esportando una funzione per almeno uno di essi, possa interfacciarsi con il processo di simulazione. Tali informazioni sono quindi relative alla \acs{API} rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}. Le modalità di implementazione e utilizzo in \CC{} di tale \acs{API} sono illustrate nella~\autoref{subsec:tsis-api-examples} \vpageref{subsec:tsis-api-examples}.
 
 La~\vref{tab:corsim-lifecycle} descrive tutti i punti di chiamata relativi alla linea di esecuzione temporale di \acs{CORSIM}.
 \begin{table}[H]%
@@ -223,9 +223,9 @@ Punto di chiamata                   & Descrizione                               
 \caption[Ciclo di vita di \acs{CORSIM}]{Descrizione di punti di chiamata che \acs{CORSIM} espone all'esterno.}
 \label{tab:corsim-lifecycle}
 \end{table}
-Una volta compilata la \acs{RTE} e ottenuto il relativo file \acs{DLL}, ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispettiva funzione implementata dalla \acs{RTE}. La~\vref{sec:rte-corsim-linking} descrive in maggior dettaglio tale processo.
+Una volta compilata la \acs{RTE} e ottenuto il relativo file \acs{DLL}, ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispettiva funzione implementata dalla \acs{RTE}. La~\autoref{subsec:rte-corsim-linking} \vpageref{subsec:rte-corsim-linking} descrive in maggior dettaglio tale processo.
 
-\subsection{Collegare una RTE a CORSIM}\label{sec:rte-corsim-linking}
+\subsection{Collegare una RTE a CORSIM}\label{subsec:rte-corsim-linking}
 Questa sottosezione illustra i passi necessari a espletare il processo di collegamento (\ie{} \emph{linking}) di una \acs{RTE} a \acs{CORSIM}. Tale processo è eseguibile direttamente tramite \acs{TShell}.
 
 A scopo esemplificativo si descrive come aggiungere la \acs{RTE} per il rilevamento e tracciamento del passaggio dei veicoli sui sensori (descritta nella~\vref{sec:sensors-rte}). Tale operazione viene svolta tramite il menù \emph{Tools} di \acs{TShell} scegliendo la voce \emph{Tool Configuration} e cliccando sul pulsante per l'aggiunta (\ie{} \emph{Add}) di una \acs{RTE}. La~\vref{fig:tshell-tool-config-1} mostra lo strumento di configurazione degli strumenti appartenenti all'ambiente di \acs{TSIS}.
@@ -265,7 +265,7 @@ Inoltre, può essere necessario dover configurare la \acs{RTE} aggiunta in base 
 \end{figure}
 
 \cleardoublepage
-\subsection{Utilizzo delle API}\label{sec:tsis-api-examples}
+\subsection{Utilizzo delle API}\label{subsec:tsis-api-examples}
 Lungi dal volere fornire una documentazione esaustiva delle \acs{API} dell'ambiente di sviluppo \acs{TSIS}, in questa sezione, si intende presentare, tramite esempi, le modalità di utilizzo di tali \acs{API} in linguaggio \CC{}.
 
 Ad esempio, il listato~\ref{lst:callpoint-api} mostra il codice di intestazione necessario a definire ed esportare la funzione \lstinline[]|on_initialize| (listato~\ref{lst:callpoint-impl}), che, come mostrato dalla~\vref{fig:tshell-tool-config-8} viene collegata al punto di chiamata \lstinline[]|Initialize| di \acs{CORSIM}. Si osservi che la scelta del nome di tale funzione non è vincolata ad alcun criterio.
@@ -334,7 +334,7 @@ DLL_IMPORT void __stdcall abortcorsim(void);<ls>\label{lst:netsim-abort-func-imp
 \section{Estensione}\label{sec:sensors-rte}
 Avendo presentato l'ambiente di sviluppo \acs{TSIS} e le \acs{API} che esso fornisce per la sua estensione, è ora possibile descrivere l'\acl{RTE} sviluppata al fine di generare i succitati dataset.
 
-Come detto nella~\vref{sec:tsis-features}, una delle principali limitazioni di \acs{CORSIM} consiste nell'impossibilità di ottenere dei dati non aggregati dal processo di simulazione. Ciò poiché il minimo intervallo temporale che \acs{CORSIM} permette di utilizzare è pari a $1$ secondo per le reti stradali urbane e al più $0.1$ secondi per le reti stradali extraurbane. Perciò, è emerso il problema di sorpassare tale limitazione. La \acs{RTE} sviluppata, \acsfont{Sensors} \acs{DLL}, risponde a tale necessità monitorando determinati elementi (\ie{} i sensori) di un qualsiasi tipo di rete stradale e tracciando gli eventi ad essi correlati (\ie{} passaggio di un veicolo) su un file di output esterno a \acs{TSIS}. Lo scopo di questa sezione consiste nel presentare il funzionamento di \acsfont{Sensors} \acs{DLL}.
+Come detto nella~\autoref{subsec:tsis-features} \vpageref{subsec:tsis-features}, una delle principali limitazioni di \acs{CORSIM} consiste nell'impossibilità di ottenere dei dati non aggregati dal processo di simulazione. Ciò poiché il minimo intervallo temporale che \acs{CORSIM} permette di utilizzare è pari a $1$ secondo per le reti stradali urbane e al più $0.1$ secondi per le reti stradali extraurbane. Perciò, è emerso il problema di sorpassare tale limitazione. La \acs{RTE} sviluppata, \acsfont{Sensors} \acs{DLL}, risponde a tale necessità monitorando determinati elementi (\ie{} i sensori) di un qualsiasi tipo di rete stradale e tracciando gli eventi ad essi correlati (\ie{} passaggio di un veicolo) su un file di output esterno a \acs{TSIS}. Lo scopo di questa sezione consiste nel presentare il funzionamento di \acsfont{Sensors} \acs{DLL}.
 
 \subsection{Sensors DLL}
 L'obiettivo ultimo di \acsfont{Sensors} \acs{DLL} consiste nella generazione di un file \acs{CSV}\footnote{\acf{CSV} è un formato basato su file di testo utilizzato per l'importazione ed esportazione (ad esempio da fogli elettronici o database) di una tabella di dati.} che rappresenti il passaggio dei veicoli sui vari sensori presenti nella rete stradale nel tempo. Il monitoraggio dei sensori deve essere effettuato con la massima granularità temporale possibile (\ie{} $0.1$ secondi), anche nel caso di reti stradali urbane.
@@ -353,7 +353,7 @@ Le operazioni $1$ e $2$ vengono compiute in corrispondenza dell'inizializzazione
 
 Configurata la rete stradale, \acsfont{Sensors} \acs{DLL} può monitorare i sensori di pari passo con l'esecuzione della simulazione da parte di \acs{CORSIM}. Tale operazione viene effettuata ad ogni intervallo temporale di \acs{NETSIM} poiché la procedura che la incorpora, chiamata \lstinline[]|on_net_signal_pre|, è collegata al punto di chiamata \lstinline[]|PreNetsimSignal| di \acs{CORSIM}. Il listato~\ref{lst:process-sensors} a pagina~\pageref{lst:process-sensors} illustra una versione semplificata del metodo \CC{} preposto all'esecuzione di tale procedura. Essa consiste nell'iterazione della lista di sensori afferenti ad una strada: per ogni sensore (ciclo a~\autoref{lst:iterate-sensors}), recuperato l'identificatore che \acs{CORSIM} utilizza per rappresentarlo (istruzione a~\autoref{lst:get-sensor-id}), si ottiene il relativo elemento dell'array \lstinline[]|net_det_on| (istruzione a~\autoref{lst:get-sensor-on}), un intero rappresentante il flusso di veicoli sul sensore nell'ultimo secondo di simulazione. Tale intero viene poi convertito nella corretta sequenza di $10$ bit tramite la classe \lstinline[]|CBinary| a~\autoref{lst:get-sensor-bits}. Da~\autoref{lst:get-sensor-state-start} a~\autoref{lst:get-sensor-state-end} si itera in ordine inverso la sequenza di bit al fine di estrapolare e memorizzare lo stato (\ie{} $1$ in caso di veicolo rilevato, $0$ altrimenti) del sensore in ogni passo temporale minimo (\ie{} $0.1$ secondi). Quindi questa procedura, ripetuta per tutte le strade presenti nella rete stradale e ad ogni intervallo temporale, memorizza per ogni sensore una lista di valori booleani.
 
-Completata la simulazione e di conseguenza anche la procedura di monitoraggio dei sensori, \acsfont{Sensors} \acs{DLL}, in corrispondenza del punto di chiamata \lstinline[]|SimulationComplete| di \acs{CORSIM}, genera un file \acs{CSV} in cui memorizza il tempo, il \emph{time period} della rilevazione e la dinamica di stato di ogni sensore. La~\vref{sec:sensors-dll-output} si occupa di presentare in maggior dettaglio l'output di \acsfont{Sensors} \acs{DLL}.
+Completata la simulazione e di conseguenza anche la procedura di monitoraggio dei sensori, \acsfont{Sensors} \acs{DLL}, in corrispondenza del punto di chiamata \lstinline[]|SimulationComplete| di \acs{CORSIM}, genera un file \acs{CSV} in cui memorizza il tempo, il \emph{time period} della rilevazione e la dinamica di stato di ogni sensore. La~\autoref{subsec:sensors-dll-output} \vpageref{subsec:sensors-dll-output} si occupa di presentare in maggior dettaglio l'output di \acsfont{Sensors} \acs{DLL}.
 
 \vspace*{8pt}\begin{lstlisting}[caption={[Rilevazione del passaggio dei veicoli sui sensori]Metodo della classe \lstinline[]|CLink| per la rilevazione del passaggio dei veicoli sui sensori}, label=lst:process-sensors, language=cpp]
 void CLink::processDetectors(void) {
@@ -400,7 +400,7 @@ void CLink::processDetectors(void) {
 \label{fig:sensors-class-diagram}
 \end{figure}
 
-\subsection{Formato dell'output}\label{sec:sensors-dll-output}
+\subsection{Formato dell'output}\label{subsec:sensors-dll-output}
 Di seguito si presenta un esempio di file \acs{CSV} di output generato da \acsfont{Sensors} \acs{DLL}. 
 
 \begin{lstlisting}[nolol=true, language=pseudo, numbers=none, label=lst:sensors-out-format]

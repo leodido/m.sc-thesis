@@ -284,6 +284,19 @@
     pdfproducer={LaTeX with hyperref, classicthesis and arsclassica}%
 }
 
+% macro per far sì che solo la sezione e il numero di pagina siano un link in varioref
+\makeatletter
+\AtBeginDocument{
+    \def\vr@f#1{%
+      \leavevmode\unskip\vref@space
+      \begingroup
+        \hyperref[{#1}]{\ref*{#1}}%
+          \vpageref[\unskip]{#1}%
+      \endgroup
+    }
+}
+\makeatother
+
 %*********************************************************************************
 % Impostazioni di graphicx
 %*********************************************************************************
