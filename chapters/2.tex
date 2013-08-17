@@ -300,7 +300,7 @@ Si osservi che è possibile implementare l'algoritmo di inferenza anche utilizza
 % Tale approccio può risultare conveniente o meno. Nello specifico, la limitazione di questo approccio si presenta quando le variabili casuali del flusso di evidenza di input effettuano transizioni molto spesso, per giunta tra gli stessi stati: ciò implica che si calcolerà più volte del necessario la stessa intensità di transizione. Tuttavia, prevedendo un meccanismo di memorizzazione delle transizioni per cui si è già computata la rispettiva intensità, questo approccio può rivelarsi più efficiente.
 \end{nota}
 
-Il passo finale dell'algoritmo, corrispondente alla linea finale (\ie{} \autoref{lst:inference-end}), consiste nella restituzione della classe la cui \emph{log-probabilità} è maggiore di quella delle restanti classi. Tale passo completa perciò l'implementazione dell'\autoref{eq:ctbnc-inference-10}.
+Il passo finale dell'algoritmo, corrispondente alla linea~\autoref{lst:inference-end}, consiste nella restituzione della classe la cui \emph{log-probabilità} è maggiore di quella delle restanti classi. Tale passo completa perciò l'implementazione dell'\autoref{eq:ctbnc-inference-10}.
 
 \begin{nota}
 Si noti che l'algoritmo in esame implementa una conversione delle probabilità in forma logaritmica non negativa (\ie{} $\setel{x} \in [0\,,\,1]$ rappresentato come $\setel{x}^{\prime}=\log(\setel{x})$). Ne consegue che l'applicazione della regola \acs{MAP} non varia.
