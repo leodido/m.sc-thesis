@@ -20,12 +20,12 @@ Le \acl{CTBN} utilizzano concetti e idee provenienti da teorie afferenti l'area 
 \item[\bn{}] \hfill \\
 Le \acl{CTBN} utilizzano una rappresentazione strutturata dello spazio degli stati propria della teoria delle \acl{BN}. Ne ereditano perciò gli aspetti chiave (\eg{} indipendenza \cond*{}) nonché l'insieme delle tecniche algoritmiche per l'apprendimento e l'inferenza.
 \item[Processi di Markov]\label{sec:fondamenti-mp}\hfill \\
-Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un \mprocess*{} \omog*{} costituito da un insieme di \mprocess{} \cond{}.
+Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un costituito da un insieme di \mprocess{} \cond{}.
 \end{description}
 
 \subsection{\bn{}}
 \label{sec:bn}
-Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}\footnote{\label{note:DAG}Un grafo aciclico orientato (anche detto grafo aciclico diretto o digrafo aciclico) è un tipo di grafo che non presenta cicli diretti: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.}. I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi evidenziano le dipendenze (e le indipendenze) condizionali fra esse~\citep{Korb2011}.
+Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}\footnote{\label{note:DAG}Un grafo aciclico orientato (anche detto grafo aciclico diretto o digrafo aciclico) è un tipo di grafo che non ammette cicli ed i cui archi sono orientati: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.}. I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi evidenziano le dipendenze (e le indipendenze) condizionali fra esse~\citep{Korb2011}.
 Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità \cond*{} di ognuna di essa (si veda l'\autoref{eq:bn-chain-rule}).
 Le \acs{BN} sono quindi modelli grafico probabilistici con cui è possibile modellare in modo probabilistico le relazioni causali tra variabili. Esse risultano molto utili nella rappresentazione e analisi di domini caratterizzati da incertezza. Sono infatti usate in svariate applicazioni di supporto alle decisioni, bioinformatica, biologia computazionale, data mining, information retrieval e \keyword{classificazione}.
 
@@ -111,14 +111,14 @@ Come detto, per specificare completamente una \acl{BN} è necessario rappresenta
 
 Per l'\emph{apprendimento dei parametri} esistono comunque una varietà di altri approcci possibili~\citep[si veda][]{Heckerman1996} (\eg{} trattare i parametri come variabili casuali sconosciute addizionali) che tuttavia non sono argomento di questo lavoro di tesi.
 
-Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura~\citep[si veda][]{Heckerman1996} sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo clique tree proprogation. Questi metodi, come gli altri presenti in letteratura, dati tutti i possibili alberi di decomposizione del grafo, sono esponenziali rispetto alla larghezza minore rilevata fra essi. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'importance sampling~\citep{Shachter1990} e i metodi \acf{MCMC} (\emph{Gibbs sampling}, \emph{Metropolis sampling}, e \emph{Hybrid Monte Carlo sampling}), basati sul campionamento stocastico~\citep[si veda][]{Geman1984,Gilks1996,MacKay1998}.
+Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura~\citep[si veda][]{Heckerman1996} sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo \emph{clique tree propagation}. Questi metodi, come gli altri presenti in letteratura, sono sempre esponenziali rispetto al \emph{tree-width}\footnote{In teoria dei grafi, il \emph{tree-width} è un numero associato ad un grafo. Esso corrisponde alla lunghezza minima di tutti i possibili alberi di decomposizione del grafo in esame. La lunghezza di un albero di decomposizione corrisponde alla dimensione massima dei suoi nodi, cioè sottoinsiemi dell'insieme dei vertici del grafo, sottratto $1$.} del grafo. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'\emph{importance sampling}~\citep{Shachter1990} e i metodi \acf{MCMC} (\emph{Gibbs sampling}, \emph{Metropolis sampling}, e \emph{Hybrid Monte Carlo sampling}), basati sul campionamento stocastico~\citep[si veda][]{Geman1984,Gilks1996,MacKay1998}.
 
 Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\emph{apprendimento strutturale}. Gli algoritmi per l'apprendimento strutturale delle \acl{BN} possono essere divisi in due famiglie.
 \begin{description}
     \item[Algoritmi basati su vincoli] \hfill \\
-    Algoritmi che apprendono la struttura del grafo analizzando le relazioni probabilistiche derivanti dalla proprietà di Markov tramite test di indipendenza condizionale e costruendo un grafo che soddisfi le proprietà di \emph{d-separazione}\footnote{Concetto di separazione direzionale tra insieme di nodi collegato al concetto di \emph{indipendenza condizionale}. Ad esempio, quando un insieme di nodi $\set{E}$ \emph{d-separa} un insieme di nodi $\set{X}=\{\,\setel{A}\,,\,\setel{B}\,\}$ allora $\setel{A}$ e $\setel{B}$ sono condizionalmente indipendenti dato $\set{E}$.} corrispondenti. I modelli risultanti sono spesso interpretati come \emph{modelli causali}~\citep{Pearl1988}.
+    Algoritmi che apprendono la struttura del grafo analizzando le relazioni probabilistiche derivanti dalla proprietà di Markov tramite test di indipendenza condizionale e costruendo un grafo che soddisfi le proprietà di \emph{d-separazione}\footnote{Concetto di separazione direzionale tra insiemi di nodi collegato al concetto di \emph{indipendenza condizionale}. Ad esempio, quando un insieme di nodi $\set{E}$ \emph{d-separa} un insieme di nodi $\set{X}=\{\,\setel{A}\,,\,\setel{B}\,\}$ allora $\setel{A}$ e $\setel{B}$ sono condizionalmente indipendenti dato $\set{E}$.} corrispondenti. I modelli risultanti sono spesso interpretati come \emph{modelli causali}~\citep{Pearl1988}.
     \item[Algoritmi basati su punteggio] \hfill \\
-    Algoritmi che assegnano un punteggio (tramite una funzione di scoring) a tutte le strutture candidate e utilizzando tecniche di ottimizzazione cercano di raggiungere il punteggio massimo. Gli algoritmi di ricerca \emph{greedy} (\ie{} golosi, aggressivi o avidi a seconda della traduzione preferita dall'inglese) sono la scelta più comune, tuttavia qualsiasi procedura di ricerca può essere usata.
+    Algoritmi che assegnano un punteggio (tramite una funzione di scoring) a tutte le strutture candidate e utilizzando tecniche di ottimizzazione cercano di raggiungere il punteggio massimo. Gli algoritmi di ricerca \emph{greedy} sono la scelta più comune, tuttavia qualsiasi procedura di ricerca può essere usata.
 \end{description}
 
 Gli \emph{algoritmi basati su vincoli} sono basati sull'algoritmo \acf{IC} di~\citet{Verma1991} che fornisce un contesto teorico finalizzato all'apprendimento delle strutture dei modelli causali. L'algoritmo \acs{IC} può essere riassunto nei tre passi successivi.
@@ -128,7 +128,7 @@ Gli \emph{algoritmi basati su vincoli} sono basati sull'algoritmo \acf{IC} di~\c
     \item Impostare la direzione degli archi fra i nodi rimanenti affinché il vincolo di aciclicità sia rispettato.
 \end{itemize}
 
-Gli \emph{algoritmi basati su punteggio} sono invece delle applicazioni dei vari algoritmi di ricerca euristica (\eg{} \emph{hill climbing}, \emph{tabu search}, \emph{best first search}, \emph{simulated annealing}) che utilizzano una funzione di \emph{scoring}. Solitamente la funzione di \emph{scoring} utilizza la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{} training set), data la struttura in esame, ed è \emph{score-equivalent}, affinché reti che definiscono la stessa distribuzione di probabilità abbiano lo stesso score~\citep{Chickering2013}. Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è possibile che l'algoritmo restituisca come risultato un minimo locale (per evitare questa situazione si ricorre spesso a metodi di ricerca globale quali il \acs{MCMC}). Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili~\citep[][]{Heckerman1995}.
+Gli \emph{algoritmi basati su punteggio} sono invece delle applicazioni dei vari algoritmi di ricerca euristica (\eg{} \emph{hill climbing}, \emph{tabu search}, \emph{best first search}, \emph{simulated annealing}) che utilizzano una funzione di \emph{scoring}. Solitamente la funzione di \emph{scoring} è basata sulla \emph{likelihood}, ovvero sulla la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{}, \emph{training set}), data la struttura in esame e i parametri del modello. Tale funzione è spesso \emph{score-equivalent}, affinché reti che definiscono la stessa distribuzione di probabilità abbiano lo stesso score~\citep{Chickering2013}. Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è probabile che l'algoritmo restituisca come risultato un minimo locale. Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili~\citep[][]{Heckerman1995}.
 
 \subsection{Processi di Markov}
 \label{sec:mps}
@@ -167,7 +167,7 @@ Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi forne
 
 \begin{definizione}[\upcase\mprocess*{} \omog*{}]
 \label{defn:homogeneus-markov-process}
-Un \mprocess*{} è detto \emph{\omog*{}} qualora $\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))$ non dipenda dal tempo $t$. Affinché ciò sia vero, ponenedo $t=0$, deve risultare che:
+Un \mprocess*{} è detto \emph{\omog*{}} qualora $\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))$ non dipenda dal tempo $t$. Affinché ciò sia vero deve risultare che:
 \begin{equation}
 \label{eq:homogeneus-markov-process}
 \set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))=\set{P}(\setel{X}(\Delta t)\,\arrowvert\,\setel{X}(0))\text{.}
@@ -204,7 +204,7 @@ Affinché $\imsign{\setel{X}}$ sia una \acl{IM} valida, ogni sua riga deve somma
 \param{q}_{\setel{x}_i}=\sum_{i \neq j}\param{q}_{\setel{x}_i\setel{x}_j}\quad\text{con}\quad \param{q}_{\setel{x}_i}\,,\,\param{q}_{\setel{x}_i\setel{x}_j}>0\text{.}
 \]
 
-Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=\setel{x}_i$, allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $\setel{x}_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $\param{q}_{\setel{x}_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $\setel{X}$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $\setel{x}$ la probabilità che $\setel{X}$ assuma valori minori o uguali ad $\setel{x}$.} $F$ sono:
+Data quindi una \im*{} $\imsign{\setel{X}}$ essa descrive il comportamento transiente di $\setel{X}(t)$. Se $\setel{X}(0)=\setel{x}_i$, allora il \mprocess*{} \omog*{} (e indicizzato dal tempo $t$) $\setel{X}(t)$ rimarrà nello stato $\setel{x}_i$ una quantità di tempo \emph{esponenzialmente distribuita} rispetto al parametro $\param{q}_{\setel{x}_i}$. Di conseguenza la \emph{funzione di densità} $f$ e la corrispondente \emph{funzione di ripartizione}\footnote{Nel calcolo delle probabilità la funzione di ripartizione di una variabile casuale $\setel{X}$ a valori reali, anche nota come funzione di distribuzione cumulativa, è la funzione che associa a ciascun valore $\setel{x}$ la probabilità che $\setel{X}$ assuma valori minori o uguali ad $\setel{x}$ (\ie{} $\set{P}(\setel{X} \le \setel{x})$).} $F$ sono quelle della distribuzione esponenziale:
 \begin{equation}
 \label{eq:im-distrib}
 \begin{split}
@@ -229,7 +229,7 @@ La \emph{parametrizzazione \keywordsub[parametrizzazione]{mista}} delle intensit
 La semantica di tali insiemi di parametri è la seguente:
 \begin{itemize}
     \item $\param{q}_{\setel{X}}$ è un insieme di intensità $\param{q}_{\setel{x}_i}$ che parametrizzano una \emph{distribuzione di probabilità \keywordsub[distribuzione]{esponenziale}} ed esprimono quando avvengono le transizioni
-    \item $\param{$\theta$}_{\setel{X}}$ è un insieme di probabilità $\param{$\theta$}_{\setel{x}_i\setel{x}_j}$ che esprimono la \emph{distribuzione di probabilità \keywordsub[distribuzione]{multinomiale}} tra coppie di stati differenti $i \neq j$.
+    \item $\param{$\theta$}_{\setel{X}}$ è un insieme di probabilità $\param{$\theta$}_{\setel{x}_i\setel{x}_j}$ che rappresentano la \emph{probabilita di transitare} dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$, con $i \neq j$, sapendo che avverrà un salto ad un determinato istante di tempo.
 \end{itemize}
 \end{definizione}
 % Perciò:
@@ -241,7 +241,7 @@ La semantica di tali insiemi di parametri è la seguente:
 Si osservi che, aldilà del tipo di parametrizzazione con cui si sceglie di definire un modello di transizione, il numero di parametri necessari è pari a $K^2$ sebbene il numero di parametri liberi sia solo $K^2-K$~\citep{Nodelman2007}.
 \end{osservazione}
 \begin{osservazione}
-Si noti, inoltre, che una parametrizzazione può essere più conveniente dell'altra a seconda del processo in cui si è coinvolti, di conseguenza nel prosieguo le si utilizzerà entrambe in modo intercambiabile.
+Si noti, inoltre, che una parametrizzazione può essere più chiara dell'altra a seconda del processo in cui si è coinvolti, di conseguenza nel prosieguo le si utilizzerà entrambe in modo intercambiabile.
 \end{osservazione}
 Al fine di correlare questi due tipi di parametrizzazione dei modelli di transizione si riporta il seguente teorema~\citep{Nodelman2007}.
 \begin{teorema}\label{th:rel-params}
@@ -260,7 +260,7 @@ Si osservi che il \autoref{th:rel-params} formalizza la relazione che sussiste f
 Quindi, qualsiasi sia la parametrizzazione utilizzata per rappresentare il modello di transizione di un \mprocess*{} \omog*{} $\setel{X}$, è possibile calcolare:
 \begin{itemize}
     \item il \emph{tempo atteso} di una transizione uscente dallo stato $\setel{x}_i$ \[1/\param{q}_{\setel{x}_i}\]
-    \item la \emph{\virgolette{probabilità istantanea}} di transizione dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$ \[\param{$\theta$}_{\setel{x}_i\setel{x}_j}=\param{q}_{\setel{x}_i\setel{x}_j}/\param{q}_{\setel{x}_i}\text{.}\]
+    \item la \emph{\virgolette{probabilità istantanea}} di transizione dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$ sapendo che avverrà un salto ad un determinato istante di tempo \[\param{$\theta$}_{\setel{x}_i\setel{x}_j}=\param{q}_{\setel{x}_i\setel{x}_j}/\param{q}_{\setel{x}_i}\text{.}\]
 \end{itemize}
 Infine, si noti che la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ soddisfi la proprietà di Markov poiché il comportamento futuro di $\setel{X}$ è definito solamente in base al suo stato attuale (vale l'\autoref{eq:homogeneus-markov-process}).
 
@@ -311,7 +311,7 @@ Ipotizzando che l'unità temporale corrisponda a un'ora:
 \begin{itemize}
     \item un individuo affamato ($\setel{h}=2$) che non sta mangiando ($\setel{e}=1$) inizierà a mangiare in 30 minuti poiché \[\frac{1}{\param{q}_{\setel{e}=1\,\arrowvert\,\setel{h}=2}}=\frac{1}{2}\:\text{,}\]
     \item un individuo non affamato ($\setel{h}=1$) che sta mangiando ($\setel{e}=2$) smetterà di mangiare ($\setel{e}=1$) entro 6 minuti poiché \[\frac{1}{\param{q}_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{1}{10}\:\text{;}\] si osservi che la\emph{\virgolette{probabilità istantanea}} di transizione da $\setel{e}=2$ a $\setel{e}=1$ è \[\param{$\theta$}_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}=\frac{\param{q}_{\setel{e}=2,\setel{e}=1\,\arrowvert\,\setel{h}=1}}{\param{q}_{\setel{e}=2\,\arrowvert\,\setel{h}=1}}=\frac{10}{10}=1\text{,}\]
-    ciò poiché $val(\setel{E})=2$, il ché implica che le \im{} sono matrici $2 \times 2$ e, dovendo ogni loro riga sommare a $0$, gli elementi sulla diagonale sono uguali al rispettivo (stessa riga) e unico elemento non sulla diagonale.
+    ciò poiché le \im{} hanno dimensione $2 \times 2$ e, dovendo ogni loro riga sommare a $0$, gli elementi sulla diagonale sono uguali al rispettivo (stessa riga) e unico elemento non sulla diagonale.
 \end{itemize}
 \end{esempio}
 
@@ -358,12 +358,12 @@ Un flusso di evidenze $\evidencestream{J}$. è detto essere \emph{completamente 
 \section{Rappresentazione}
 \label{sec:ctbn-rappresentazione}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Una \acl{CTBN} è un modello grafico in cui ogni nodo rappresenta una variabile casuale i cui stati evolvono in modo continuo bel tempo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine \virgolette{nodo padre}, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\citep{Stella2012}. Quindi ogni nodo è un \mprocess*{} \cond*{} (si veda la \autoref{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
+Una \acl{CTBN} è un modello grafico in cui ogni nodo rappresenta una variabile casuale i cui stati evolvono in modo continuo bel tempo. Le dinamiche evolutive degli stati dei nodi sono governate e dipendono dal valore che gli stati dei nodi padre\footnote{Con il termine \virgolette{nodo padre}, o \emph{parent node}, si intende un nodo il cui stato condiziona quello di un altro nodo del modello grafico.} assumono~\citep{Nodelman2007}. Quindi ogni nodo è un \mprocess*{} \cond*{} (si veda la \autoref{defn:conditional-markov-process}) a tempo continuo e spazio degli stati discreto.
 
 Una \acs{CTBN} è composta principalmente da due componenti:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale
-    \item le dinamiche che regolano l'evoluzione nel tempo continuo della distribuzione di probabilità
+    \item le componenti che regolano l'evoluzione nel tempo del sistema
 \end{itemize}
 Più formalmente si definisce:
 \begin{definizione}[\acl{CTBN}]
@@ -389,7 +389,7 @@ Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi 
 \section{Apprendimento}
 \label{sec:ctbn-apprendimento}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In questa sezione si argomenta sulla probabilità di un \emph{insieme di dati completo} rispetto a una \acl{CTBN}. A tal fine si mostra come una \acs{CTBN}, essendo un modello esponenziale, possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e espressa in termini di \emph{\stats{}} aggregate.
+In questa sezione si argomenta sulla probabilità di un \emph{insieme di dati completo} rispetto a una \acl{CTBN}. A tal fine si mostra come una \acs{CTBN} possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e espressa in termini di \emph{\stats{}} aggregate.
 
 Si affronta infine il processo di apprendimento dei parametri delle \acl{CTBN} da \emph{dati completi}. I processi di apprendimento relativi a dati non completi sono tralasciati poiché non facenti parte degli argomenti di questo lavoro di tesi.
 
@@ -419,11 +419,11 @@ Chiaramente, il numero totale di transizioni si calcola come sopra.
 
 \subsection{Likelihood}
 \label{sec:ctbn-likelihood}
-Al fine di presentare il calcolo della likelihood\footnote{\label{note:likelihood}La likelihood di un insieme di valori per i parametri, dato un insieme di dati, è uguale alla probabilità dei dati, dati tali valori per i parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \mprocess*{} \omog*{} $\setel{X}(t)$.
+Al fine di presentare il calcolo della likelihood\footnote{\label{note:likelihood}La likelihood di un insieme di valori dei parametri, dato un insieme di dati, corrisponde alla probabilità dell'insieme dei dati, dati tali valori dei parametri.} di una \acs{CTBN} rispetto a un dataset completo $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ è bene procedere per gradi e iniziare presentando dapprima la likelihood di una singola transizione di un singolo \mprocess*{} \omog*{} $\setel{X}(t)$.
 
 \subsubsection{Likelihood di una singola transizione}
 \label{sec:ctbn-likelihood-single-trans-single-hmp}
-Data una tripla $d=\langle \,\setel{x}_{d}\,,\,t_d\,,\,\setel{x}_{d^{\prime}}\,\rangle\in\conceptsym{D}$, la quale esprime una transizione di $\setel{X}(t)$ da $\setel{x}_d$ a $\setel{x}_{d^{\prime}}$ dopo che esso ha trascorso $t_d$ tempo in $\setel{x}_d$, è possibile scrivere la likelihood di questa singola transizione $d$ in funzione dei parametri (\vref{sec:ctbn-params}):
+Data una tripla $d=\langle \,\setel{x}_{d}\,,\,t_d\,,\,\setel{x}_{d^{\prime}}\,\rangle\in\delta$, la quale esprime una transizione di $\setel{X}(t)$ da $\setel{x}_d$ a $\setel{x}_{d^{\prime}}$ dopo che esso ha trascorso $t_d$ tempo in $\setel{x}_d$, è possibile scrivere la likelihood di questa singola transizione $d$ in funzione dei parametri (\vref{sec:ctbn-params}):
 \begin{equation}
 \label{eq:ctbn-trans-hmm-likelihood}
 \begin{split}
@@ -454,7 +454,7 @@ Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è
 L_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D})&=\prod_{\setel{X}_i\in\,\set{X}}L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,,\,\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \nonumber\\
 &=\prod_{\setel{X}_i\in\,\set{X}} L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \, L_{\setel{X}_i}(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D})\text{.}
 \end{align}
-Il termine $L_{\setel{X}}(\param{$\theta$}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Si osservi, inoltre, come il tempo che intercorre fra le transizioni sia trascurato poiché esse dipendono esclusivamente dal valore di nodi genitori~\citep[si veda][3]{Nodelman2002}. Quindi, usando le \emph{\stats{}} si può scrivere:
+Il termine $L_{\setel{X}}(\param{$\theta$}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Tale termine trascura il tempo che intercorre fra le transizioni poiché esse dipendonono esclusivamente dal valore di nodi genitori~\citep[si veda][3]{Nodelman2002}. Quindi, usando le \emph{\stats{}} si può scrivere:
 \begin{equation}\label{eq:like-transitions}
 L_{\setel{X}}(\param{$\theta$}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})} \prod_{x} \prod_{x\neq x^{\prime}}(\param{$\theta$}_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})})^{\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \end{equation}
@@ -474,7 +474,7 @@ L_{\setel{X}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D}) &= \prod_{pa_i(\s
 & \qquad \bigg.{} \qquad \qquad \cdot \prod_{\setel{x}\neq \setel{x}^{\prime}}(\param{$\theta$}_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})})^{\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}} \bigg] \text{\normalsize .}
 \end{align}
 \normalsize
-Si noti che, dal punto di vista computazionale, è conveniente riformulare l'\autoref{eq:ctbn-var-likelihood} come \emph{log-likelihood}:
+Si noti che, dal punto di vista algebrico, è conveniente riformulare l'\autoref{eq:ctbn-var-likelihood} come \emph{log-likelihood}:
 \footnotesize
 \begin{align}\label{eq:ctbn-var-log-likelihood}
 \ell_{\setel{X}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D}) &= \sum_{pa_i(\setel{x})}\sum_{\setel{x}} \bigg[ \mstat{x\,\arrowvert\,pa_i(\setel{x})}\ln(\param{q}_{x\,\arrowvert\,pa_i(\setel{x})})- \param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \bigg.\nonumber\\
@@ -491,7 +491,7 @@ In questa sezione si è presentato come computare la likelihood di un modello di
 Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è necessario stimarli. Nella prossima sezione viene affrontato esattamente questo argomento.
 
 \subsection{Stima dei parametri}\label{sec:ctbn-params}
-Si affronta ora il problema dell'\keywordsub[parametrizzazione]{apprendimento} dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi di tipo \emph{multinomiale}~\citep[si veda][sezione 5.1]{Nodelman2007}.
+Si affronta ora il problema dell'\keywordsub[parametrizzazione]{apprendimento} dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
 
 Quando si tratta con \keywordsub[apprendimento]{dati multinomiali} ci sono principalmente due scelte che è possibile fare. La scelta più semplice consiste nell'effettuare una stima dei parametri del modello tramite un approccio \emph{\acl{MLE}}. Tuttavia, è noto che tale approccio può portare a problemi con l'inferenza quando i dati di input sono sparsi. Per evitare tale limitazione solitamente si effettua una \emph{\keywordsub[apprendimento]{regolarizzazione} bayesiana} dei parametri: si sceglie una distribuzione a priori per i parametri e li si aggiorna in accordo ai dati di input.
 
@@ -504,14 +504,14 @@ Infine, come vedremo in seguito nel \autoref{cap:structurallearning}, i parametr
 
 \subsubsection{Stima \acl{MLE}}
 \label{sec:ctbn-mle-params}
-In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\vref{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \autoref{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} con parametro $\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}$, che esprime il tempo trascorso in uno stato $\setel{x}$ da un nodo $\setel{X}$ data una istanziazione $pa_i(\setel{x})$ per i nodi genitori $Pa(\setel{X})$, e una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} con parametro $\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}$, che esprime il numero di transizioni uscenti da uno stato $\setel{x}$ verso $\setel{x}^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
+In base a quanto attestato dalla definizione stessa delle \acs{CTBN} (\vref{defn:ctbn}), la dinamica evolutiva globale di una \acs{CTBN}, cioè la dinamica di tutti i nodi di $\conceptsym{G}$ (dei \mprocess{} \cond{} indicizzati dal tempo), è espressa tramite un \mprocess*{} \omog*{}. Dalla \autoref{defn:im}, inoltre, si deduce che tale \mprocess*{} induce un modello di probabilità composto da una \emph{distribuzione \keywordsub[distribuzione]{esponenziale}} con parametro $\param{q}_{x\,\arrowvert\,pa_i(\setel{x})}$, che esprime il tempo trascorso in uno stato $\setel{x}$ da un nodo $\setel{X}$ data una istanziazione $pa_i(\setel{x})$ per i nodi genitori $Pa(\setel{X})$, e una \emph{distribuzione \keywordsub[distribuzione]{multinomiale}} con parametro $\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}$, che esprime la probabilità di transizione uscenti dallo stato $\setel{x}$ verso $\setel{x}^\prime$ (sempre fermo restando il condizionamento dato dall'istanziazione dei nodi genitori).
 
 La media della distribuzione \keywordsub[distribuzione]{esponenziale} in questione è pari a $1/\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$. Questa quantità esprime il tempo medio delle transizioni uscenti da uno stato $\setel{x}$, fermo restando che il genitore del nodo in questione abbia istanziazione costante e uguale a $pa_i(\setel{x})$. Poiché il tempo medio si calcola rapportando il tempo totale trascorso in $\setel{x}$, $\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$, rispetto al numero totale di transizioni uscenti da $\setel{x}$, $\mstat{x\,\arrowvert\,pa_i(\setel{x})}$, si ottiene:
 \[
 \frac{1}{\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}}=\frac{\tstat{x\,\arrowvert\,pa_i(\setel{x})}}{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \]
 
-Invece, la probabilità di transizione da uno stato $\setel{x}$ verso $\setel{x}^\prime$ è data dal rapporto tra il numero totale di transizioni da $\setel{x}$ a $\setel{x}^\prime$ diviso il numero totale di transizioni uscenti da $\setel{x}$; cioè:
+Invece, la probabilità di transizione da uno stato $\setel{x}$ verso $\setel{x}^\prime$ sapendo che avverrà una transizione è data dal rapporto tra il numero totale di transizioni da $\setel{x}$ a $\setel{x}^\prime$ diviso il numero totale di transizioni uscenti da $\setel{x}$; cioè:
 \[
 \frac{\mstat[x]{\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}}{\mstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \]
@@ -581,4 +581,4 @@ Data una distribuzione sui parametri è possibile usarla per predire il prossimo
 \greekhat{\theta}_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}&=\frac{\alpha_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}+\mstat[x]{x^\prime\,\arrowvert\,pa_i(\setel{x})}}{\alpha_{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \mstat{x\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \end{split}
 \end{equation}
-Si osservi che questi parametri sono, teoricamente, validi solo per predire una singola transizione, dopo la quale la distribuzione dei parametri andrebbe aggiornata di conseguenza. Tuttavia, com'è spesso fatto in situazioni di questo tipo, si approssima la stima bayesiana congelando i parametri ai succitati \emph{\keywordsub[apprendimento]{valori attesi}}, usandoli per la predizione di una intera traiettoria (\ie{} la distribuzione dei parametri non viene aggiornata ad ogni singola transizione).
+Si osservi che questi parametri sono, teoricamente, validi solo per predire una singola transizione, dopo la quale la distribuzione dei parametri andrebbe aggiornata di conseguenza. Tuttavia, è prassi comune non aggiornare la distribuzione dei parametri utilizzando i succitati \emph{\keywordsub[apprendimento]{valori attesi}} anche per la previsione delle transizioni successive.
