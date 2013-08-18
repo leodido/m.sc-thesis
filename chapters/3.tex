@@ -9,27 +9,27 @@
 %************************************************
 Uno dei casi principali che costituisce il problema dell'\emph{apprendimento} di modelli grafico probabilistici è l'apprendimento della struttura incognita sottostante ogni modello.
 
-Il problema dell'\emph{apprendimento \keywordsub[apprendimento]{struttura}le} da \emph{\keywordsub[apprendimento]{dati completi}} di una \acl{CTBN} (\acs{CTBN}) è quindi l'argomento trattato in questo capitolo.
+Il problema dell'\emph{apprendimento \keywordsub[apprendimento]{struttura}le} da \emph{\keyword{dati completi}} di una \acl{CTBN} (\acs{CTBN}) è quindi l'argomento trattato in questo capitolo.
 
-Generalmente, questo problema può essere informalmente descritto nel seguente modo: dato un \keywordsub[apprendimento]{training set} composto da istanze di un insieme di variabili casuali si trovi un \keywordsub[apprendimento]{grafo} che rappresenti tali dati e le relazioni fra le variabili casuali. Si noti come tale problema possa essere catalogato come una forma di apprendimento non supervisionato; nel senso che il processo di apprendimento non distingue la variabile classe dalle variabili attributo nei dati. L'obiettivo è quindi indurre una struttura (\ie{} \keywordsub[apprendimento]{grafo}) che descriva nel miglior modo possibile la distribuzione di probabilità sui dati (\ie{} \emph{\keywordsub[apprendimento]{training set}}). Si osservi, inoltre, che questo problema di \keywordsub[apprendimento]{ottimizzazione} è solitamente intrattabile per le \acl{BN}~\citep{Chickering1994,Chickering2004}, anche qualora si restringa la cardinalità massima dell'insieme dei genitori di ogni nodo.
+Generalmente, questo problema può essere informalmente descritto nel seguente modo: dato un \emph{\keyword{\trs{}}} composto da istanze di un insieme di variabili casuali si trovi un \keywordsub[apprendimento]{grafo} che rappresenti tali dati e le relazioni fra le variabili casuali. Si noti come tale problema possa essere catalogato come una forma di apprendimento non supervisionato; nel senso che il processo di apprendimento non distingue la variabile classe dalle variabili attributo nei dati. L'obiettivo è quindi indurre una struttura (\ie{} \keyword{grafo}) che descriva nel miglior modo possibile la distribuzione di probabilità sui dati (\ie{} \emph{\keyword{\trs{}}}). Si osservi, inoltre, che questo problema di \keyword{ottimizzazione} è solitamente intrattabile per le \acl{BN}~\citep{Chickering1994,Chickering2004}, anche qualora si restringa la cardinalità massima dell'insieme dei genitori di ogni nodo.
 
-Per quanto riguarda invece il caso delle \acs{CTBN}, \citet{Nodelman2002} hanno dimostrato che, grazie alla mancanza del vincolo di \keywordsub[apprendimento]{aciclicità}, come già accennato nella \autoref{sec:ctbn-rappresentazione}), il problema dell'apprendimento strutturale di una \acs{CTBN} è significativamente più facile, sia teoricamente che in pratica, rispetto all'apprendimento strutturale di una \acl{BN}, o di modelli da esse derivanti, \eg{} le \acf{DBN}. Inoltre, nel caso si vincoli la procedura di ricerca a strutture con un numero massimo di genitori per nodo, questo problema può essere risolto in tempo \keywordsub[apprendimento]{polinomiale}.
+Per quanto riguarda invece il caso delle \acs{CTBN}, \citet{Nodelman2002} hanno dimostrato che, grazie alla mancanza del vincolo di \keyword{aciclicità}, come già accennato nella \autoref{sec:ctbn-rappresentazione}, il problema dell'apprendimento strutturale di una \acs{CTBN} è significativamente più facile, sia teoricamente che in pratica, rispetto all'apprendimento strutturale di una \acl{BN}, o di modelli da esse derivanti (\eg{} le \acf{DBN}). Inoltre, nel caso si vincoli la procedura di ricerca a strutture con un numero massimo di genitori per nodo, questo problema può essere risolto in tempo \keywordsub[apprendimento]{polinomiale}.
 
-L'approccio che si presenta in questo capitolo è quindi un approccio basato sul \keywordsub[apprendimento]{punteggio}: si definisce una funzione che computa uno \emph{\keywordsub[apprendimento]{score bayesiano}} finalizzato alla valutazione di ogni struttura rispetto ai \keywordsub[apprendimento]{dati di addestramento} e si usa una tecnica di \keywordsub[apprendimento]{ricerca euristica} (ad esempio, la ricerca \emph{\keywordsub[apprendimento]{hill climbing}}) per cercare nello spazio delle strutture candidate quella che esibisce il maggior punteggio.
+L'approccio che si presenta in questo capitolo è quindi un approccio basato sul \keywordsub[apprendimento]{punteggio}: si definisce una funzione che computa uno \emph{\keyword{score bayesiano}} finalizzato alla valutazione di ogni struttura rispetto ai \keyword{dati di addestramento} (\ie{} \emph{\keyword{\trs{}}}) e si usa una tecnica di \keyword{ricerca euristica} (\eg{} la ricerca \emph{\keyword{\hc{}}}) per cercare nello spazio delle strutture candidate quella che esibisce il maggior punteggio.
 
-Si osservi che l'apprendimento dei \keywordsub[apprendimento]{parametri} (si veda la~\autoref{subsec:ctbn-params}) è propedeutico per tale obiettivo poiché essi costituiscono la base dello \keywordsub[apprendimento]{score bayesiano}.
+Si osservi che l'apprendimento dei \keyword{parametri} (si veda la~\autoref{subsec:ctbn-params}) è propedeutico per tale obiettivo poiché essi costituiscono la base dello \keyword{score bayesiano}.
 
 \cleardoublepage
 \section{Funzione di scoring}\label{sec:ctbn-structurallearning-score}
 Qualsiasi processo di apprendimento strutturale basato su \keywordsub[apprendimento]{punteggio} è costituito da due componenti: una \emph{\keywordsub[apprendimento]{funzione di scoring}} e una procedura di \keywordsub[apprendimento]{ottimizzazione}.
 
-L'obiettivo di questa sezione è quindi presentare una funzione di scoring per l'apprendimento strutturale delle \acl{CTBN} (\acs{CTBN}). Lo scopo di tale funzione è calcolare il \keywordsub[apprendimento]{punteggio} (\ie{} lo \emph{score}) di una \keywordsub[apprendimento]{struttura} relativamente al \emph{\keywordsub[apprendimento]{training set}} $\conceptsym{D}$ fornito.
+L'obiettivo di questa sezione è quindi presentare una funzione di scoring per l'apprendimento strutturale delle \acl{CTBN} (\acs{CTBN}). Lo scopo di tale funzione è calcolare il \keyword{punteggio} (\ie{} lo \emph{score}) di una \keywordsub[apprendimento]{struttura} relativamente al \emph{\keywordsub[apprendimento]{\trs{}}} $\conceptsym{D}$ fornito.
 
 Si definisce lo \emph{\keywordsub[apprendimento]{score bayesiano}} sul \keywordsub[apprendimento]{grafo} $\conceptsym{G}$ di una \acs{CTBN} nel seguente modo:
 \begin{equation}\label{eq:structurallearning-score}
 score_B(\conceptsym{G}:\conceptsym{D})=\ln{P(\conceptsym{D}\,\arrowvert\,\conceptsym{G})} + \ln{P(\conceptsym{G})}
 \end{equation}
-Come mostra l'\autoref{eq:structurallearning-score} la funzione di scoring utilizza la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{} il training set $\conceptsym{D}$) data la struttura candidata (\ie{} $\conceptsym{G}$), oltre alla probabilità a priori della struttura stessa.
+Come mostra l'\autoref{eq:structurallearning-score} la funzione di scoring utilizza la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{} il \trs{} $\conceptsym{D}$) data la struttura candidata (\ie{} $\conceptsym{G}$), oltre alla probabilità a priori della struttura stessa.
 
 \`E possibile aumentare in modo significativo l'efficienza dell'algoritmo di ricerca che si affronta nella prossima sezione qualora si facciano determinate assunzioni. Nello specifico, se si assume che la probabilità a priori della struttura, $P(\conceptsym{G})$, soddisfi la \emph{\keywordsub[apprendimento]{modularità della struttura}}, ne consegue:
 \begin{equation}\label{eq:structurallearning-prior-modularity}
@@ -102,24 +102,28 @@ score_B(\conceptsym{G}:\conceptsym{D}) &= \sum_{\setel{X}_i} \bigg[ \ln{P(Pa(\se
 Si è quindi definita la \keywordsub[apprendimento]{funzione di scoring} come una somma di score bayesiani, $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$, relativi ai nodi del \keywordsub[apprendimento]{grafo} $\conceptsym{G}$. Ognuno di tali score bayesiani misura la qualità di $Pa_{\conceptsym{G}}(\setel{X}_i)$ come insieme dei nodi genitori di $\setel{X}_i$, dato l'insieme dei dati di apprendimento $\conceptsym{D}$.
 
 \section{Ricerca della struttura}\label{sec:structurallearning-search}
-In questa sezione si affronta il secondo componente del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keywordsub[apprendimento]{ottimizzazione}} finalizzata alla ricerca di una struttura che massimizzi lo \emph{\keywordsub[apprendimento]{score bayesiano}}.
+In questa sezione si affronta il secondo passo del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keywordsub[apprendimento]{ottimizzazione}} finalizzata alla ricerca di una struttura che massimizzi lo \emph{\keywordsub[apprendimento]{score bayesiano}}.
 
 ~\citet{Chickering1994} ha mostrato come il problema di apprendere la \keywordsub[apprendimento]{struttura} ottimale di una \acl{BN}, detto problema \emph{\keywordsub[apprendimento]{k-learn}}, dove $k$ è il numero massimo di genitori per ogni variabile casuale, sia un problema \emph{\keywordsub[apprendimento]{NP-arduo}} anche qualora si imponga $k=2$. La ragione di tale complessità è dovuta al vincolo di \keywordsub[apprendimento]{aciclicità} delle \acs{BN} (\ie{} il grafo di una \acs{BN}, come da \autoref{defn:bn}, deve essere un \acs{DAG}): non è perciò possibile determinare l'insieme ottimale dei genitori di ogni nodo di una \acs{BN} individualmente; poiché la scelta di un insieme di genitori per un nodo restringe la possibilità di scelta relativa ai nodi restanti.
 
 Come già accennato ed intuibile dalla composizione dello score bayesiano (si veda la funzione $famscore_{\conceptsym{B}}$, \autoref{eq:bayesian-score}), la ricerca della \keywordsub[apprendimento]{struttura} ottimale di un modello \acl{CTBN} (\acs{CTBN}) è invece notevolmente più semplice rispetto a quello relativo alle \acs{BN} (o alle \acs{DBN}). La motivazione di tale vantaggio risiede nel fatto che, poiché gli archi fra i nodi del grado $\conceptsym{G}$ di una \acs{CTBN} rappresentano l'effetto del valore attuale della variabile casuale padre sul valore successivo della variabile casuale figlia, non esiste un vincolo di \keywordsub[apprendimento]{aciclicità} ed è di conseguenza possibile ottimizzare l'insieme dei nodi genitori di un qualsiasi nodo separatamente dagli altri.
 
-Inoltre, qualora si restringa il massimo numero di genitori a un valore $k$, per ogni variabile casuale $\setel{X}_i$ di una \acs{CTBN}, con $i=1,\,\dotsc\,,N$, si può semplicemente enumerare ogni suo possibile insieme di nodi genitori $Pa(\setel{X}_i)$ tale che $\arrowvert Pa(\setel{X}_i) \arrowvert \leq k$ e calcolare il rispettivo \keywordsub[apprendimento]{punteggio} $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa(\setel{X}_i;\conceptsym{D})$. Quindi scegliere come insieme dei nodi genitori di $\setel{X}_i$ quello con \keywordsub[apprendimento]{punteggio} massimo.
+Inoltre, qualora si restringa il massimo numero di genitori a un valore $k$, per ogni variabile casuale $\setel{X}_i$ di una \acs{CTBN}, con $i=1,\,\dotsc\,,N$, si può semplicemente enumerare ogni suo possibile insieme di nodi genitori $Pa(\setel{X}_i)$ tale che $\arrowvert Pa(\setel{X}_i) \arrowvert \leq k$ e calcolare il rispettivo \keywordsub[apprendimento]{punteggio} $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa(\setel{X}_i):\conceptsym{D})$. Quindi scegliere come insieme dei nodi genitori di $\setel{X}_i$ quello con \keywordsub[apprendimento]{punteggio} massimo.
 
 Si osservi che, fissato $k$, questa procedura di ricerca è \keywordsub[apprendimento]{polinomiale} rispetto a $N$. Si definisce perciò il seguente teorema~\citep{Nodelman2002}.
 \begin{teorema}[Problema k-learn]
 Il problema \textbf{k-learn} per le \acl{CTBN}, fissato $k$, può essere risolto in tempo \keywordsub[apprendimento]{polinomiale} rispetto al numero di variabili casuali $N$ e alla dimensione dell'insieme di dati $\conceptsym{D}$.
 \end{teorema}
 
-Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. Di conseguenza è possibile utilizzare un algoritmo di ricerca euristica di tipo \emph{\keywordsub[apprendimento]{greedy}} per esplorare lo spazio di ricerca. Nel seguito si presenta perciò l'algoritmo utilizzato, il cui nome è \emph{\keywordsub[apprendimento]{hill climbing}}.
+Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. Di conseguenza è possibile utilizzare un algoritmo di ricerca euristica di tipo \emph{\keywordsub[apprendimento]{greedy}} per esplorare lo spazio di ricerca. Nel seguito si presenta perciò l'algoritmo utilizzato, il cui nome è \emph{\keyword{\hc{}}}.
 
 \subsection{Hill Climbing}\label{subsec:structurallearning-hc}
-\omissis{}
+L'algoritmo \emph{\keywordpagb{\hc{}}}
+
+
+
 %listato
+%definizione generale hill climbing
 %commento
 %spiegazione parametri (e.g. grafo di partenza (*), caso: apprendere un classificatore CTBN)
 
