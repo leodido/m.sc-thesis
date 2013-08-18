@@ -567,7 +567,7 @@ Invece, dall'\emph{\keywordsub[apprendimento]{indipendenza locale} dei parametri
 \begin{equation}\label{eq:ctbn-bayesian-params-localind}
 P(\param{q}_{\setel{X}\,\arrowvert\,Pa(\setel{X})}\,,\,\param{$\theta$}_{\setel{X}\,\arrowvert\,Pa(\setel{X})}) = \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg] \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\param{$\theta$}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg]\text{\normalsize .}
 \end{equation}\normalsize
-Se tale distribuzione a priori soddisfa le assunzioni di indipendenza allora anche la distribuzione a posteriori, essendovi coniugata e perciò appartenente alla stessa famiglia parametrica, le soddisferà. In tal caso è possibile mantenere la distribuzione parametrica in forma chiusa e aggiornarla usando le \emph{\keywordsub[apprendimento]{statistiche sufficienti}}:
+Se tale distribuzione a priori soddisfa le assunzioni di indipendenza allora anche la distribuzione a posteriori, essendovi coniugata e perciò appartenente alla stessa famiglia parametrica, le soddisferà. In tal caso è possibile mantenere la distribuzione parametrica in forma chiusa e aggiornarla usando le \emph{\keywordsub[apprendimento]{stats{}}}:
 \begin{itemize}
 \item $\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $\param{$\theta$}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$
 \item $\mstat{x\,\arrowvert\,pa_i(\setel{x})}$ e $\tstat{x\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$.
