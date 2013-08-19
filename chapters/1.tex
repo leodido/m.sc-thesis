@@ -543,12 +543,12 @@ Invece, avendo assunto l'indipendenza dei parametri e poiché la funzione di den
 \begin{equation}\label{eq:ctbn-bayesian-params-dirichlet}
 P(\param{$\theta$})=\frac{ \Gamma(\alpha_{\setel{x}}) }{ \Gamma(\alpha_{\setel{x}\setel{x}_1}) \cdot \,\dotsc\, \cdot \Gamma(\alpha_{\setel{x}\setel{x}_K}) } \param{$\theta$}_{\setel{x}\setel{x}_k}^{\alpha_{\setel{x}\setel{x}_1}-1} \cdot \,\dotsc\, \cdot \param{$\theta$}_{\setel{x}\setel{x}_1}^{\alpha_{\setel{x}\setel{x}_K}-1} \text{.}
 \end{equation}
-\begin{nota}
+\begin{notas}
 Si noti che l'iper-parametro $\alpha_{\setel{x}}$, detto \emph{dimensione equivalente del campione}, è costituito dalla somma dei \emph{\keyword{conteggi immaginari}} $\alpha_{\setel{x}\setel{x}_1} + \, \dotsc \, + \alpha_{\setel{x}\setel{x}_K}$, chiamati anche \emph{\keyword{pseudo-conteggi}}~\citep{Steck2002}. Esso può essere pensato come un fattore che esprime la \emph{\virgolette{forza}} della distribuzione a priori, in quanto, più esso aumenta, più le stime dei parametri sono regolarizzate, cioè meno estreme. Chiaramente, quando $\alpha_{\setel{x}}$ tende a $0$ le stime dei parametri tendono alle stime \acl{MLE}. In letteratura~\citep[si veda][]{Steck2002} questo processo è anche chiamato \emph{\virgolette{\keyword{smoothing}}}.
-\end{nota}
-\begin{nota}
+\end{notas}
+\begin{notas}
 L'iper-parametro $\tau_{\setel{x}}$, invece, rappresenta una \emph{quantità di tempo immaginaria} che incorpora la credenza della distribuzione a priori sul parametro della distribuzione esponenziale.
-\end{nota}
+\end{notas}
 Quindi, se si assume che i parametri sono \emph{stocasticamente indipendenti}, cioè che $P(\param{$\theta$},\param{q})=P(\param{$\theta$})\,P(\param{q})$, allora le distribuzioni a posteriori (\ie{} condizionate sui dati) dei parametri $\param{q}$ e $\param{$\theta$}$ sono:
 \begin{equation}\label{eq:ctbn-bayesian-params-posteriors}
 \begin{aligned}

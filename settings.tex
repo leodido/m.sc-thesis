@@ -117,6 +117,9 @@
 \theoremstyle{remark}
 \newtheorem{nota}{Nota}[section]
 
+\theoremstyle{remark}
+\newtheorem{notas}{Nota}[subsection]
+
 % teoremi (serve il pacchetto amsthm)
 \newtheoremstyle{classicthm}% Nome
 {12pt}% Spazio che precede l’enunciato
@@ -282,7 +285,7 @@
 %\let\lettergroupDefault\lettergroup
 %\makeatletter
 
-\makeindex[program=texindy]
+\makeindex[program=texindy,options=-L italian -M arsclassica.xdy]
 
 %*********************************************************************************
 % Impostazioni di graphicx
