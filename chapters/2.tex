@@ -7,11 +7,11 @@
 \chapter{Classificazione}
 \label{cap:ctbnc}
 %************************************************
-La classificazione è un argomento centrale nei campi di ricerca relativi all'apprendimento automatico (anche detto \emph{machine learning}) e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione \keywordsub[classificazione]{supervisionata}} quando è necessario indurre un \keywordsub[classificazione]{classificatore} a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati. Nel caso in cui, invece, si voglia individuare dei raggruppamenti intrinseci (\ie{} \emph{cluster}) a un insieme di dati composto da istanze non etichettate, e creare in corrispondenza di tali raggruppamenti le classi (incognite), si parla invece di \emph{classificazione \keywordsub[classificazione]{non supervisionata}}.
+La classificazione è un argomento centrale nei campi di ricerca relativi all'apprendimento automatico (anche detto \emph{machine learning}) e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione \keyword{supervisionata}} quando è necessario indurre un \keyword{classificatore} a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati. Nel caso in cui, invece, si voglia individuare dei raggruppamenti intrinseci (\ie{} \emph{cluster}) a un insieme di dati composto da istanze non etichettate, e creare in corrispondenza di tali raggruppamenti le classi (incognite), si parla invece di \emph{classificazione \keyword{non supervisionata}}.
 
 In questo capitolo viene quindi introdotta una classe di modelli, che prende il nome di \acf{CTBNC}, il cui scopo è la \emph{classificazione supervisionata} di traiettorie multivariate di variabili discrete a \emph{tempo continuo}. Si descrivono due istanze di tale classe: i classificatori \acf{CTNB} e i classificatori \acf{CTTANB}.
 
-Mentre nella \autoref{sec:learning-ctbnc} si affronta il processo di \emph{\keywordsub[classificazione]{apprendimento}} in caso di \emph{dati completi} dei \acs{CTBNC}, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di \emph{\keywordsub[classificazione]{inferenza} esatta} per la classe dei \acs{CTBNC}.
+Mentre nella \autoref{sec:learning-ctbnc} si affronta il processo di \emph{\keyword{apprendimento}} in caso di \emph{dati completi} dei \acs{CTBNC}, nella \autoref{sec:inference-ctbnc}, si presenta un algoritmo di \emph{\keyword{inferenza} esatta} per la classe dei \acs{CTBNC}.
 
 \section{Modello}\label{sec:ctbnc-model}
 Al fine di risolvere il succitato problema della classificazione sono stati proposti numerosi approcci. Ad esempio \lwcase \nb{} \class{}, un classificatore semplice ma robusto proposto da~\citet{DudaHart1973}; rivelatosi essere uno fra i classificatori più performanti~\citep{Langley1992}. Esso apprende dai dati la probabilità condizionale di ogni attributo $\setel{A}_i$ data la classe $\setel{C}$. La classificazione di nuove istanze dei dati è effettuata applicando la \emph{regola di Bayes} al fine di calcolare la probabilità della classe $\setel{C}$ data l'istanziazione di $\setel{A}_i,\,\dotsc\,,\setel{A}_N$ e scegliendo quella con la maggiore probabilità a posteriori. Questo calcolo è reso possibile in modo efficiente grazie ad una forte assunzione: tutti gli attributi $\setel{A}_i$ sono \emph{condizionalmente indipendenti} (si veda la \autoref{defn:ic}) tra di loro data evidenza sulla classe $\setel{C}$.
@@ -105,16 +105,16 @@ function ctnbclearn(data, classes, graph) {
     var klass = unique(classes)
     var nk = len(class)
     var priors[nk]
-    for (i in index(data)) {
-        var k = index(classes[i])
+    for (i in keyword(data)) {
+        var k = keyword(classes[i])
         priors[k] = priors[k] + (1 / h)
     }<ls>\label{lst:end-prior-computation}<le>
     <ls>\label{lst:start-ss-computation}<le>var m(), t()
-    for (i in index(data)) {
+    for (i in keyword(data)) {
         var y = classes[i]
         var j = 1
         while (<ls>$t_j \leq T_i$<le>) {
-            for (n in index(graph.nodes)) {
+            for (n in keyword(graph.nodes)) {
                 m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, y) = m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, y) + 1
                 t(<ls>$\setel{x}_n^j$<le>, y) = t(<ls>$\setel{x}_n^j$<le>, y) + <ls>$(t_j - t_{j-1})$<le>
             }
@@ -123,7 +123,7 @@ function ctnbclearn(data, classes, graph) {
     }<ls>\label{lst:end-ss-computation}<le>
     <ls>\label{lst:start-params-computation}<le>var q(), thet()
     foreach (y in klass) {
-        for (n in index(graph.nodes)) {
+        for (n in keyword(graph.nodes)) {
             for (<ls>$\setel{x}_n$<le> in <ls>$val(\setel{X}_n)$<le>) {
                 var mm(<ls>$\setel{x}_n$<le>, y) = <ls>$\sum_{\setel{x}_n^{\prime}\neq\setel{x}_n}$<le> m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, y)
                 q(<ls>$\setel{x}_n$<le>, y) = mm(<ls>$\setel{x}_n$<le>, y) / t(<ls>$\setel{x}_n$<le>, y)
@@ -157,15 +157,15 @@ function learn(data, classes, graph) {
     var klass = unique(classes)
     var nk = len(class)
     var priors[nk]
-    for (i in index(data)) {
-        var k = index(classes[i])
+    for (i in keyword(data)) {
+        var k = keyword(classes[i])
         priors[k] = priors[k] + (1 / h)
     }
     var m(), t()
-    foreach (i in index(data)) {
+    foreach (i in keyword(data)) {
         var j = 1
         while (<ls>$t_j \leq T_i$<le>) {
-            foreach (n in index(graph.nodes)) {
+            foreach (n in keyword(graph.nodes)) {
                 var p = <ls>$val^j(Pa(\setel{X}_n))$\label{lst:general-ss-computation}<le>
                 m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, p) = m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, p) + 1
                 t(<ls>$\setel{x}_n^j$<le>, p) = t(<ls>$\setel{x}_n^j$<le>, p) + <ls>$(t_j - t_{j-1})$<le>
@@ -174,7 +174,7 @@ function learn(data, classes, graph) {
         }
     }
     var q(), thet()
-    foreach (n in index(graph.nodes)) {
+    foreach (n in keyword(graph.nodes)) {
         for (<ls>$\setel{x}_n$<le> in <ls>$val(\setel{X}_n)$<le>) {
             foreach (p in <ls>$val(Pa(\setel{X}_n))$\label{lst:general-params-computation}<le>) {
                 var mm(<ls>$\setel{x}_n$<le>, p) = <ls>$\sum_{\setel{x}_n^{\prime}\neq\setel{x}_n}$<le> m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, p)
@@ -190,11 +190,11 @@ function learn(data, classes, graph) {
 
 \cleardoublepage
 \section{Inferenza}\label{sec:inference-ctbnc}
-In questa sezione si affronta il problema della \emph{\keyword{classificazione}} di un \emph{flusso di evidenze completamente osservato}, indicato con $\evidencestream{J}$ (si veda la \autoref{defn:j-evidence-stream}), rispetto a un classificatore \acs{CTBN} (\acs{CTBNC}). Si osservi che, in tale situazione (\ie{} \emph{\keywordsub[classificazione]{dati completi}}), l'unica variabile casuale non osservata è la variabile classe, perciò è possibile sfruttare le relazioni di indipendenza fra variabili casuali così come si fa per le \acl{BN}. L'argomento di questa sezione è quindi il processo di \emph{classificazione supervisionata}, di cui si presentano in primis le basi teoriche e successivamente l'implementazione algoritmica che ne consegue.
+In questa sezione si affronta il problema della \emph{\keyword{classificazione}} di un \emph{flusso di evidenze completamente osservato}, indicato con $\evidencestream{J}$ (si veda la \autoref{defn:j-evidence-stream}), rispetto a un classificatore \acs{CTBN} (\acs{CTBNC}). Si osservi che, in tale situazione (\ie{} \emph{\keyword{dati completi}}), l'unica variabile casuale non osservata è la variabile classe, perciò è possibile sfruttare le relazioni di indipendenza fra variabili casuali così come si fa per le \acl{BN}. L'argomento di questa sezione è quindi il processo di \emph{classificazione supervisionata}, di cui si presentano in primis le basi teoriche e successivamente l'implementazione algoritmica che ne consegue.
 
-Il processo di classificazione di un flusso di evidenze è effettuato in base alla regola \emph{\keywordsub[classificazione]{\acl{MAP}}}\footnote{La stima della probabilità \acf{MAP} è una moda della distribuzione a posteriori che può essere usata per ottenere una stima puntuale di una quantità inosservata sulla base di dati empirici. Può essere vista come una regolarizzazione della stima \acf{MLE} poiché è strettamente correlata ad essa; vi differisce perché impiega un obiettivo di massimizzazione incrementato che incorpora una distribuzione a priori sopra la quantità che si vuole stimare.} (\acs{MAP})~\citep[si veda][]{Stella2012}: un flusso di evidenze completamente osservato viene classificato assegnandogli la classe la cui probabilità a posteriori (rispetto al flusso di evidenze stesso) è massima. A tale scopo è necessario calcolare la probabilità a posteriori della variabile classe $\setel{Y}$ del \acs{CTBNC}, rispetto al flusso di evidenze in input, per tutti i suoi possibili stati (\ie{} classi, o etichette).
+Il processo di classificazione di un flusso di evidenze è effettuato in base alla regola \emph{\acl{MAP}}\index{maximum a posteriori}\footnote{La stima della probabilità \acf{MAP} è una moda della distribuzione a posteriori che può essere usata per ottenere una stima puntuale di una quantità inosservata sulla base di dati empirici. Può essere vista come una regolarizzazione della stima \acf{MLE} poiché è strettamente correlata ad essa; vi differisce perché impiega un obiettivo di massimizzazione incrementato che incorpora una distribuzione a priori sopra la quantità che si vuole stimare.} (\acs{MAP})~\citep[si veda][]{Stella2012}: un flusso di evidenze completamente osservato viene classificato assegnandogli la classe la cui probabilità a posteriori (rispetto al flusso di evidenze stesso) è massima. A tale scopo è necessario calcolare la probabilità a posteriori della variabile classe $\setel{Y}$ del \acs{CTBNC}, rispetto al flusso di evidenze in input, per tutti i suoi possibili stati (\ie{} classi, o etichette).
 
-Il classificatore \acs{CTBN} classifica quindi il flusso di evidenze massimizzando la seguente probabilità a posteriori, ricavata applicando la \emph{\keywordsub[classificazione]{regola di Bayes}}:
+Il classificatore \acs{CTBN} classifica quindi il flusso di evidenze massimizzando la seguente probabilità a posteriori, ricavata applicando la \emph{\keyword{regola di Bayes}}:
 \begin{equation}\label{eq:ctbnc-inference-1}
 P(\setel{Y}\,\arrowvert\,\evidencestream{J})=\frac{P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})}{P(\evidencestream{J})}\text{.}
 \end{equation}
@@ -202,19 +202,19 @@ Si specifica di seguito la semantica dei componenti dell'\autoref{eq:ctbnc-infer
 \begin{itemize}
 \item la probabilità marginale associata alla variabile classe $\setel{Y}$ \[P(\setel{Y})\]
 \item la probabilità del flusso di evidenze \[P(\evidencestream{J})\]
-\item la likelihood del flusso di evidenze dato il valore della variabile classe, a cui ci si riferisce nel prosieguo usando l'espressione \emph{\virgolette{\keywordsub[classificazione]{likelihood temporale}}} \[P(\evidencestream{J}\,\arrowvert\,\setel{Y})\text{.}\]
+\item la likelihood del flusso di evidenze dato il valore della variabile classe, a cui ci si riferisce nel prosieguo usando l'espressione \emph{\virgolette{\keyword{likelihood temporale}}} \[P(\evidencestream{J}\,\arrowvert\,\setel{Y})\text{.}\]
 \end{itemize}
 La probabilità del flusso di evidenze (\ie{} denominatore dell'~\autoref{eq:ctbnc-inference-1}), similmente a quanto accade per i \acs{BNC}~\citep{Friedman1997}, può essere omessa poiché sussiste la relazione di proporzionalità tra il numeratore e la probabilità che si intende calcolare:%non è richiesta per l'implementazione della regola \acs{MAP}, perciò è possibile ometterla e riscrivere la precedente equazione sotto forma di relazione proporzionale:
 \begin{equation}\label{eq:ctbnc-inference-2}
 P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})\text{.}
 \end{equation}
-Il primo termine dell'\autoref{eq:ctbnc-inference-2}, cioè la \emph{\keywordsub[classificazione]{likelihood temporale}}, è invece fondamentale per la classificazione tramite regola \acs{MAP} ed è possibile riformularlo nel seguente modo:
+Il primo termine dell'\autoref{eq:ctbnc-inference-2}, cioè la \emph{\keyword{likelihood temporale}}, è invece fondamentale per la classificazione tramite regola \acs{MAP} ed è possibile riformularlo nel seguente modo:
 \begin{equation}\label{eq:ctbnc-inference-3}
 P(\evidencestream{J}\,\arrowvert\,\setel{Y})=\prod_{j=1}^{J} P(\set{x}^j\,\arrowvert\,\setel{Y})\:P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})\text{,}
 \end{equation}
 dove:
 \begin{itemize}
-    \item $P(\set{x}^j\,\arrowvert\,\setel{Y})$ rappresenta la probabilità che il \emph{\keywordsub[classificazione]{vettore aleatorio}}\footnote{\label{note:vettore-aleatorio}Un \emph{vettore aleatorio} $\set{X}=(\setel{X}_1,\setel{X}_2,\,\dotsc\,,\setel{X}_n)$ è una $n$\emph{-upla} (composta da $n$ variabili casuali) i cui elementi sono dati da numeri aleatori.} $\set{X}$ resti nello stato $\set{x}^j$ durante l'intervallo temporale $[\,t_{j-1},\,t_j)$ data evidenza sulla variabile classe $\setel{Y}$
+    \item $P(\set{x}^j\,\arrowvert\,\setel{Y})$ rappresenta la probabilità che il \emph{\keyword{vettore aleatorio}}\footnote{\label{note:vettore-aleatorio}Un \emph{vettore aleatorio} $\set{X}=(\setel{X}_1,\setel{X}_2,\,\dotsc\,,\setel{X}_n)$ è una $n$\emph{-upla} (composta da $n$ variabili casuali) i cui elementi sono dati da numeri aleatori.} $\set{X}$ resti nello stato $\set{x}^j$ durante l'intervallo temporale $[\,t_{j-1},\,t_j)$ data evidenza sulla variabile classe $\setel{Y}$
     \item $P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})$ rappresenta la probabilità che in $\set{X}$ si verifichi una transizione da $\set{x}^j$ a $\set{x}^{j+1}$ all'istante di tempo $t_j$ data evidenza sulla variabile classe $\setel{Y}$.
 \end{itemize}
 Inoltre, al fine di assicurare la consistenza dell'\autoref{eq:ctbnc-inference-3} si assume che $P(\set{x}^{J+1}\,\arrowvert\,\set{x}^J,\setel{Y})=1$.
@@ -242,7 +242,7 @@ P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})=
 Il termine $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ rappresenta la probabilità che nel vettore aleatorio $\set{X}$ si verifichi una transizione dallo stato $\set{x}^j$ allo $\set{x}^{j+1}$, dato il valore della variabile classe $\setel{Y}$.
 
 %TODO: sta roba di una transizione alla volta va detta nel capitolo 2, in "rappresentazione", o simili, poi ripresa qui (e linkata)
-Poiché il modello \acs{CTBN} implica che, ad ogni istante $t_j$, solo un componente $\setel{X}_n$ del vettore aleatorio $\set{X}$ può essere soggetto a transizione, allora $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ rappresenta la probabilità che la variabile casuale $\setel{X}_n$ effettui una transizione da $\setel{x}_n^j$ a $\setel{x}_n^{j+1}$ mentre tutti gli altri componenti del \keywordsub[classificazione]{vettore aleatorio} $\set{X}$ (\ie{} $\setel{X}_i$ con $i \neq n$) non cambiano il proprio stato.
+Poiché il modello \acs{CTBN} implica che, ad ogni istante $t_j$, solo un componente $\setel{X}_n$ del vettore aleatorio $\set{X}$ può essere soggetto a transizione, allora $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ rappresenta la probabilità che la variabile casuale $\setel{X}_n$ effettui una transizione da $\setel{x}_n^j$ a $\setel{x}_n^{j+1}$ mentre tutti gli altri componenti del \keyword{vettore aleatorio} $\set{X}$ (\ie{} $\setel{X}_i$ con $i \neq n$) non cambiano il proprio stato.
 
 Perciò, come specificato dall'\autoref{eq:ctbnc-inference-6}, nel caso in cui avvenga un cambio di stato in $\setel{X}_n$, il termine $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ equivale alla quantità $\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$, ricavata dalla relazione fra i parametri (si veda il \autoref{th:rel-params}). Tale quantità rappresenta il parametro associato alla transizione da $\setel{x}_n^j$, stato in cui la variabile casuale $\setel{X}_n$ si trovava durante il $j$-esimo intervallo temporale $[\,t_{j-1},\,t_j)$, a $\setel{x}_n^{j+1}$, stato in cui $\setel{X}_n$ si troverà durante il successivo intervallo temporale $[\,t_j,\,t_{j+1})$; data l'istanziazione $pa_j(\setel{x}_n)$ dei genitori di $\setel{X}_n$ durante il $j$-esimo intervallo temporale.
 
@@ -265,7 +265,7 @@ Di conseguenza, dato un classificatore \acs{CTBN} $\conceptsym{C}=\{\,\conceptsy
 \begin{equation}\label{eq:ctbnc-inference-10}
 \setel{y}^*= \argmax_{\setel{y}\in val(\setel{Y})}P(\setel{Y})\prod_{j=1}^{J}\prod_{n=1}^N exp\Big(-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1})\Big)\,P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})
 \end{equation}
-Si presenta di seguito l'algoritmo per l'\emph{\keywordsub[classificazione]{inferenza} esatta}~\citep{Stella2012} di un flusso di evidenze completamente osservato rispetto a un classificatore \acs{CTBN}.
+Si presenta di seguito l'algoritmo per l'\emph{\keyword{inferenza} esatta}~\citep{Stella2012} di un flusso di evidenze completamente osservato rispetto a un classificatore \acs{CTBN}.
 
 Tuttavia si osservi che tale algoritmo rappresenta le probabilità come \emph{log-probabilità}\footnote{La \emph{log-probabilità} è un modalità di rappresentazione della probabilità che porta con sè alcuni vantaggi algebrici e computazionali. Ad esempio, l'utilizzo della \emph{log-probabilità} generalmente comporta una maggior velocità dovuta alla trasformazione delle moltiplicazioni, più computazionalmente costose, in addizioni. In informatica è molto comune l'utilizzo della sua variante negativa, la quale codifica un valore di probabilità $\setel{x} \in [0\,,\,1]$ come $\setel{x}^{\prime}=-\log(\setel{x}) \in \R$.}, a causa della succitata convenienza algebrica che ne deriva. Ciò significa che l'\autoref{lst:ctbnc-inference} implementa la probabilità a posteriori della classe dato un flusso di evidenze (\autoref{eq:ctbnc-inference-9}) come segue:
 \small
@@ -278,12 +278,12 @@ A tal proposito si noti che, nel caso in cui non avvenga alcun cambio di stato d
 function infer(ctbnc, timeseg, stream) {
     <ls>\label{lst:inference-priors-start}<le>var priors = ctbnc.priors
     var logp[len(priors)]
-    for (k in index(priors)) {
+    for (k in keyword(priors)) {
         logp[k] = log(priors[k])
     <ls>\label{lst:inference-priors-end}<le>}
-    <ls>\label{lst:inference-classes-for}<le>for (k in index(priors)) {
-        <ls>\label{lst:inference-stream-for}<le>for (j in index(timeseg)) {
-            <ls>\label{lst:inference-nodes-for}<le>for (n in index(ctbnc.graph.nodes)) {
+    <ls>\label{lst:inference-classes-for}<le>for (k in keyword(priors)) {
+        <ls>\label{lst:inference-stream-for}<le>for (j in keyword(timeseg)) {
+            <ls>\label{lst:inference-nodes-for}<le>for (n in keyword(ctbnc.graph.nodes)) {
                 logp[k] = logp[k] - <ls>$\param{q}_{x_n^j}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
                 <ls>\label{lst:inference-transition-qty}<le>if (<ls>$x_{n_j}$<le> != <ls>$x_{n_{j+1}}$<le>) {
                     logp[k] = logp[k] + log(<ls>$\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$<le>)

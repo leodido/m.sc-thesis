@@ -388,7 +388,7 @@ Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi 
 \section{Apprendimento}
 \label{sec:ctbn-apprendimento}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In questa sezione si argomenta sulla probabilità di un \emph{insieme di dati completo} rispetto a una \acl{CTBN}. A tal fine si mostra come una \acs{CTBN} possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e espressa in termini di \emph{\stats{}} aggregate.
+In questa sezione si argomenta sulla probabilità di un \emph{insieme di dati completo} rispetto a una \acl{CTBN}. A tal fine si mostra come una \acs{CTBN} possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e espressa in termini di \emph{\keyword{\stats{}}} aggregate.
 
 Si affronta infine il processo di apprendimento dei parametri delle \acl{CTBN} da \emph{dati completi}. I processi di apprendimento relativi a dati non completi sono tralasciati poiché non facenti parte degli argomenti di questo lavoro di tesi.
 
@@ -399,7 +399,7 @@ Dato un insieme di variabili casuali, un insieme di dati $\conceptsym{D}=\{\,\de
 
 \subsection{Statistiche sufficienti}
 \label{subsec:ctbn-sufficient-stats}
-Le \emph{\stats{}} per un singolo \mprocess*{} \omog*{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva con:
+Le \emph{\keyword{\stats{}}} per un singolo \mprocess*{} \omog*{} $\setel{X}(t)$ riassumono la sua dinamica evolutiva con:
 \begin{itemize}
     \item $\tstat{x}$: la quantità di tempo trascorsa nello stato $\setel{x}$
     \item $\mstat[x]{\setel{x}^\prime}$: il numero di transizioni dallo stato $\setel{x}$ allo stato $\setel{x}^\prime$.
@@ -436,7 +436,7 @@ Si noti che l'\autoref{eq:ctbn-trans-hmm-likelihood} è ricavata moltiplicando l
 
 \subsubsection{Likelihood di un dataset completo}
 \label{subsec:ctbn-likelihood-dataset}
-Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$~\citep[si veda][3]{Nodelman2002}. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{\stats{}} relative a ogni \mprocess*{} \cond*{} di una \acs{CTBN}.
+Poiché tutte le transizioni sono osservabili, la \emph{likelihood} del dataset $\conceptsym{D}$ può essere decomposta come un prodotto delle likelihood individuali di ogni singola transizione $d$~\citep[si veda][3]{Nodelman2002}. Per tale motivo $\conceptsym{D}$ è sintentizzabile aggregando le \emph{\keyword{\stats{}}} relative a ogni \mprocess*{} \cond*{} di una \acs{CTBN}.
 
 Quindi la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \mprocess*{} \omog*{} $\setel{X}(t)$ è:
 \begin{equation}
@@ -453,7 +453,7 @@ Perciò la probabilità dei dati $\conceptsym{D}$ rispetto a $\conceptsym{N}$ è
 L_{\conceptsym{N}}(\param{q}\,,\,\param{$\theta$}\,:\conceptsym{D})&=\prod_{\setel{X}_i\in\,\set{X}}L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,,\,\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \nonumber\\
 &=\prod_{\setel{X}_i\in\,\set{X}} L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \, L_{\setel{X}_i}(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D})\text{.}
 \end{align}
-Il termine $L_{\setel{X}}(\param{$\theta$}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Tale termine trascura il tempo che intercorre fra le transizioni poiché esse dipendonono esclusivamente dal valore di nodi genitori~\citep[si veda][3]{Nodelman2002}. Quindi, usando le \emph{\stats{}} si può scrivere:
+Il termine $L_{\setel{X}}(\param{$\theta$}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})$ esprime la likelihood delle transizioni tra stati. Tale termine trascura il tempo che intercorre fra le transizioni poiché esse dipendonono esclusivamente dal valore di nodi genitori~\citep[si veda][3]{Nodelman2002}. Quindi, usando le \emph{\keyword{\stats{}}} si può scrivere:
 \begin{equation}\label{eq:like-transitions}
 L_{\setel{X}}(\param{$\theta$}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})} \prod_{x} \prod_{x\neq x^{\prime}}(\param{$\theta$}_{xx^{\prime}\,\arrowvert\,pa_i(\setel{x})})^{\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \end{equation}
@@ -492,7 +492,7 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 \subsection{Stima dei parametri}\label{subsec:ctbn-params}
 Si affronta ora il problema dell'\keyword{apprendimento} dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
 
-Quando si tratta con \keyword{dati multinomiali} ci sono principalmente due scelte che è possibile fare. La scelta più semplice consiste nell'effettuare una stima dei parametri del modello tramite un approccio \emph{\acl{MLE}}. Tuttavia, è noto che tale approccio può portare a problemi con l'inferenza quando i dati di input sono sparsi. Per evitare tale limitazione solitamente si effettua una \emph{\keyword{regolarizzazione} bayesiana} dei parametri: si sceglie una distribuzione a priori per i parametri e li si aggiorna in accordo ai dati di input.
+Quando si tratta con \keyword{dati multinomiali} ci sono principalmente due scelte che è possibile fare. La scelta più semplice consiste nell'effettuare una stima dei parametri del modello tramite un approccio \emph{\acl{MLE}}. Tuttavia, è noto che tale approccio può portare a problemi con l'inferenza quando i dati di input sono sparsi. Per evitare tale limitazione solitamente si effettua una \emph{\keyword{regolarizzazione bayesiana}} dei parametri: si sceglie una distribuzione a priori per i parametri e li si aggiorna in accordo ai dati di input.
 
 La \keyword{stima dei parametri} non è un processo fine a se stesso, in quanto, \graffito{Come costruire una \acs{CIM} dai parametri.} da essi è possibile costruire le \cim{} (\acs{CIM}) di ogni nodo della \acs{CTBN}. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}). Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il rispettivo vettore dei parametri $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$ e ricavando i valori non sulla diagonale dalla relazione (si veda il \autoref{th:rel-params}) fra i parametri $\param{q}$ e $\param{$\theta$}$:
 \begin{equation}
@@ -515,7 +515,7 @@ Invece, la probabilità di transizione da uno stato $\setel{x}$ verso $\setel{x}
 \]
 
 \begin{teorema}{Parametri \ac{MLE}.}
-I parametri che massimizzano la likelihood (\autoref{eq:ctbn-log-likelihood}) di una \acl{CTBN} sono funzione delle \stats{}:
+I parametri che massimizzano la likelihood (\autoref{eq:ctbn-log-likelihood}) di una \acl{CTBN} sono funzione delle \keyword{\stats{}}:
 \begin{equation}
 \label{eq:ctbn-params}\normalfont
 \begin{split}
