@@ -239,7 +239,7 @@
 % Impostazioni di hyperref
 %*********************************************************************************
 \hypersetup{%
-    hyperindex=true,
+    %hyperindex=true,
     %draft, % = elimina tutti i link (utile per stampe in bianco e nero)
     colorlinks=true, linktocpage=true, pdfstartpage=1, pdfstartview=FitV,%
     % decommenta la riga seguente per avere link in nero (per esempio per la stampa in bianco e nero)
@@ -273,30 +273,16 @@
 %*********************************************************************************
 % Analytical index
 %*********************************************************************************
-\makeindex
 
-% Balance columns of the last page
-% \let\orgtheindex\theindex
-% \let\orgendtheindex\endtheindex
-% \def\theindex{%
-% \def\twocolumn{\begin{multicols}{2}}%
-% \def\onecolumn{}%
-% \clearpage
-% \orgtheindex
-% }
-% \def\endtheindex{%
-% \end{multicols}%
-% \orgendtheindex
-% }
+% shortcut for simple indexed terms
+\newcommand{\keyword}[1]{#1\index{#1}}
 
-% Indexing commands
-\newcommand{\keyword}[1]{#1\index{#1@#1}}
-%\newcommand*{\keyword}[2][]{#2\index{#2@#2#1}}% as simple keyword
-%\newcommand{\keywordsub}[2][]{#2\index{#1!#2}}% as categorized keyword
-%\newcommand{\keywordpagb}[1]{\keyword[|textbf]{#1}}% as simple keyword with bold page number
-%\newcommand{\keywordpagi}[1]{\keyword[|textit]{#1}}% as simple keyword with italic page number
-%\newcommand{\keywordbold}[1]{#1\index{#1@\textbf{#1}}}% as bold keyword
-%\newcommand{\keyworditalic}[1]{#1\index{#1@\textsl{#1}}}% as italic keyword
+% redefine lettergroup style
+%\long\def\lettergroup#1\item{\item\textbf}
+%\let\lettergroupDefault\lettergroup
+%\makeatletter
+
+\makeindex[program=texindy]
 
 %*********************************************************************************
 % Impostazioni di graphicx
