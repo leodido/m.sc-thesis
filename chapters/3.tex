@@ -7,11 +7,11 @@
 \chapter{Apprendimento strutturale}
 \label{cap:structurallearning}
 %************************************************
-Uno dei casi principali che costituisce il problema dell'\emph{apprendimento} di modelli grafico probabilistici è l'apprendimento della struttura incognita sottostante ogni modello.
+Uno dei casi principali che costituisce il problema dell'\emph{apprendimento} di modelli grafico probabilistici è l'apprendimento della struttura incognita sottostante un modello, cioè la selezione di un modello probabilistico che rappresenti un dato \emph{\keyword{\trs{}}}. Anche se questo processo è spesso di elevata complessità, esso è considerato di elevata importanza in quanto la costruzione manuale di una struttura può essere difficile o addirittura impossibile se le variabili che la compongono sono sconosciute o di difficile caratterizzazione.
 
 Il problema dell'\emph{apprendimento \keyword{strutturale}} da \emph{\keyword{dati completi}} di una \acl{CTBN} (\acs{CTBN}) è quindi l'argomento trattato in questo capitolo.
 
-Generalmente, questo problema può essere informalmente descritto nel seguente modo: dato un \emph{\keyword{\trs{}}} composto da istanze di un insieme di variabili casuali si trovi un \keyword{grafo} che rappresenti tali dati e le relazioni fra le variabili casuali. Si noti come tale problema possa essere catalogato come una forma di apprendimento non supervisionato; nel senso che il processo di apprendimento non distingue la variabile classe dalle variabili attributo nei dati. L'obiettivo è quindi indurre una struttura (\ie{} \keyword{grafo}) che descriva nel miglior modo possibile la distribuzione di probabilità sui dati (\ie{} \emph{\keyword{\trs{}}}). Si osservi, inoltre, che questo problema di \keyword{ottimizzazione} è solitamente intrattabile per le \acl{BN}~\citep{Chickering1994,Chickering2004}, anche qualora si restringa la cardinalità massima dell'insieme dei genitori di ogni nodo.
+Generalmente, questo problema può essere informalmente descritto nel seguente modo: dato un \emph{\keyword{\trs{}}} composto da istanze di un insieme di variabili casuali si trovi un \keyword{grafo} che rappresenti tali dati e le relazioni fra le variabili casuali. Si noti come tale problema possa essere catalogato come una forma di \keyword{apprendimento non supervisionato}; nel senso che il processo di apprendimento non distingue la variabile classe dalle variabili attributo nei dati. L'obiettivo è quindi indurre una struttura (\ie{} \keyword{grafo}) che descriva nel miglior modo possibile la distribuzione di probabilità sui dati (\ie{} \emph{\keyword{\trs{}}}). Si osservi, inoltre, che questo problema di \keyword{ottimizzazione} è solitamente intrattabile per le \acl{BN}~\citep{Chickering1994,Chickering2004}, anche qualora si restringa la cardinalità massima dell'insieme dei genitori di ogni nodo.
 
 Per quanto riguarda invece il caso delle \acs{CTBN}, \citet{Nodelman2002} hanno dimostrato che, grazie alla mancanza del vincolo di \keyword{aciclicità}, come già accennato nella \autoref{sec:ctbn-rappresentazione}, il problema dell'apprendimento strutturale di una \acs{CTBN} è significativamente più facile, sia teoricamente che in pratica, rispetto all'apprendimento strutturale di una \acl{BN}, o di modelli da esse derivanti (\eg{} le \acf{DBN}). Inoltre, nel caso si vincoli la procedura di ricerca a strutture con un numero massimo di genitori per nodo, questo problema può essere risolto in tempo \keyword{polinomiale}.
 
@@ -19,7 +19,6 @@ L'approccio che si presenta in questo capitolo è quindi un approccio basato sul
 
 Si osservi che l'apprendimento dei \keyword{parametri} (si veda la~\autoref{subsec:ctbn-params}) è propedeutico per tale obiettivo poiché essi costituiscono la base dello \keyword{score bayesiano}.
 
-\cleardoublepage
 \section{Funzione di scoring}\label{sec:ctbn-structurallearning-score}
 Qualsiasi processo di apprendimento strutturale basato su \keyword{punteggio} è costituito da due componenti: una \emph{funzione di \keyword{scoring}} e una procedura di \keyword{ottimizzazione}.
 
@@ -108,27 +107,30 @@ In questa sezione si affronta il secondo passo del processo di apprendimento str
 
 Come già accennato ed intuibile dalla composizione dello score bayesiano (si veda la funzione $famscore_{\conceptsym{B}}$, \autoref{eq:bayesian-score}), la ricerca della \keyword{struttura} ottimale di un modello \acl{CTBN} (\acs{CTBN}) è invece notevolmente più semplice rispetto a quello relativo alle \acs{BN} (o alle \acs{DBN}). La motivazione di tale vantaggio risiede nel fatto che, poiché gli archi fra i nodi del grado $\conceptsym{G}$ di una \acs{CTBN} rappresentano l'effetto del valore attuale della variabile casuale padre sul valore successivo della variabile casuale figlia, non esiste un vincolo di \keyword{aciclicità} ed è di conseguenza possibile ottimizzare l'insieme dei nodi genitori di un qualsiasi nodo separatamente dagli altri.
 
-Inoltre, qualora si restringa il massimo numero di genitori a un valore $k$, per ogni variabile casuale $\setel{X}_i$ di una \acs{CTBN}, con $i=1,\,\dotsc\,,N$, si può semplicemente enumerare ogni suo possibile insieme di nodi genitori $Pa(\setel{X}_i)$ tale che $\arrowvert Pa(\setel{X}_i) \arrowvert \leq k$ e calcolare il rispettivo \keyword{punteggio} $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa(\setel{X}_i):\conceptsym{D})$. Quindi scegliere come insieme dei nodi genitori di $\setel{X}_i$ quello con \keyword{punteggio} massimo.
+Inoltre, qualora si restringa il massimo numero di genitori a un valore $k$, per ogni variabile casuale $\setel{X}_i$ di una \acs{CTBN}, con $i=1,\,\dotsc\,,N$, si può semplicemente enumerare ogni suo possibile insieme di nodi genitori $Pa(\setel{X}_i)$ tale che $\arrowvert Pa(\setel{X}_i) \arrowvert \leq k$ e calcolarne il rispettivo \keyword{punteggio} $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa(\setel{X}_i):\conceptsym{D})$. Infine scegliere come insieme dei nodi genitori di $\setel{X}_i$ quello con \keyword{punteggio} massimo.
 
-Si osservi che, fissato $k$, questa procedura di ricerca è \keyword{polinomiale} rispetto a $N$. Si definisce perciò il seguente teorema~\citep{Nodelman2002}.
+%Si osservi che, fissato $k$, questa procedura di ricerca è \keyword{polinomiale} rispetto a $N$.
+Si definisce perciò il seguente teorema~\citep{Nodelman2002}.
 \begin{teorema}[Problema k-learn]
 Il problema \textbf{k-learn} per le \acl{CTBN}, fissato $k$, può essere risolto in tempo \keyword{polinomiale} rispetto al numero di variabili casuali $N$ e alla dimensione dell'insieme di dati $\conceptsym{D}$.
 \end{teorema}
 
-Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. Di conseguenza è possibile utilizzare un algoritmo di ricerca euristica di tipo \emph{\keyword{greedy}} per esplorare lo spazio di ricerca. Nel seguito si presenta perciò l'algoritmo utilizzato, il cui nome è \emph{\keyword{\hc{}}}.
+Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. \'E quindi possibile utilizzare un algoritmo di ricerca euristica di tipo \emph{\keyword{greedy}} per esplorare lo spazio di ricerca. Nella~\autoref{subsec:structurallearning-hc} si presenta l'algoritmo scelto per l'\keyword{apprendimento strutturale} della struttura ottimale di un modello \acs{CTBN}.
 
 \subsection{Hill Climbing}\label{subsec:structurallearning-hc}
 L'algoritmo \emph{\keyword{\hc{}}} è una tecnica di ricerca euristica finalizzata alla risoluzione di problemi di ottimizzazione i cui stati (\ie{} elementi dello spazio di ricerca) contengono tutte le informazioni necessarie a costituire una soluzione~\citep{Russel2003}.
 
 L'idea su cui si basa tale algoritmo consiste nell'iniziare la ricerca con una soluzione sub-ottimale e, nei passi successivi, migliorare iterativamente la soluzione finché una qualche condizione di fermata venga raggiunta (\eg{} l'algoritmo non può migliorare ulteriormente la soluzione corrente). Il processo di miglioramento è, come già accennato, basato sulla valutazione dello stato corrente tramite una funzione di \keyword{punteggio}.
 
-A differenza di altri algoritmi di ricerca (\eg{} \emph{\keyword{simulated annealing}}) basati sul miglioramento iterativo della soluzione, l'algoritmo \emph{\keyword{\hc{}}} si sposta sempre in uno stato che fornisce una soluzione con maggior punteggio~\citep{Russel2003}.
+A differenza di altri algoritmi di ricerca basati sul miglioramento iterativo della soluzione (\eg{} \emph{\keyword{simulated annealing}}, \emph{\keyword{tabu search}}), l'algoritmo \emph{\keyword{\hc{}}} si sposta sempre in uno stato che fornisce una soluzione con maggior punteggio~\citep{Russel2003}. L'utilizzo di tale algoritmo garantisce il raggiungimento di soluzioni localmente ottime (\ie{} soluzioni che non possono essere migliorate considerando solamente la configurazione degli stati vicini) in una quantità di tempo relativamente bassa. Tuttavia esso non garantisce il raggiungimento di una soluzione che costituisca l'ottimo globale, a meno che la funzione rappresentante lo spazio di ricerca non sia convessa. Ciò avviene poiché l'algoritmo smette di effettuare progressi verso la soluzione globalmente ottima nel momento in cui il vicinato della soluzione corrente non permette alcun miglioramento immediato.
+
+Per sorpassare tale limitazione è possibile attuare varie strategie~\citep[si veda][]{Russel2003}, quali, ad esempio: l'esplorazione iterativa, a partire da diverse configurazioni iniziali, dello stesso spazio di ricerca (\ie{} \emph{random restart} \emph{\keyword{\hc{}}}); la selezione stocastica del vicinato da esaminare ad ogni passo della ricerca locale, sulla base della probabilità che un dato vicinato porti a un progresso maggiore rispetto ad altri vicinati; oppure la scelta di soluzioni non migliorative finalizzata ad una maggiore esplorazione dello spazio di ricerca (\ie{} \emph{\keyword{simulated annealing}}).
 
 \begin{notas}
 Questo algoritmo opera una gestione efficiente della memoria poiché non necessita il mantenimento di alcun albero di ricerca: esso conserva solamente l'informazione (\ie{} punteggio della soluzione) sullo stato corrente e quello successivo.
 \end{notas}
 
-L'\autoref{lst:hc-pseudo} illustra la metodologia di ricerca \emph{\keyword{\hc{}}} dato uno spazio degli stati discreto.
+L'\autoref{lst:hc-pseudo} illustra la tecnica di ricerca \emph{\keyword{\hc{}}} dato uno spazio degli stati discreto.
 \vspace*{8pt}\begin{lstlisting}[language=pseudo, label=lst:hc-pseudo, caption={[Algoritmo \emph{\hc{}}]Algoritmo \emph{\hc{}} per uno spazio degli stati discreto.}]
 function hillclimbing(problem) {
     var current_state = start_state(problem)
@@ -152,17 +154,13 @@ function hillclimbing(problem) {
 }
 \end{lstlisting}
 
-%dopo listings
+Di seguito si discute l'applicazione di tale algoritmo all'\keyword{apprendimento strutturale} delle \acs{CTBN}.
 
-%The main problem that hill climbing can encounter is that of local maxima. This occurs when the algorithm stops making progress towards an optimal solution; mainly due to the lack of immediate improvement in adjacent states.
+Come detto, a causa della mancanza del vincolo di aciclicità, è possibile eseguire la succitata procedura di ottimizzazione in modo indipendente per ogni singolo nodo del modello \acs{CTBN} in esame. Ciò permette di scomporre il problema dell'\keyword{apprendimento strutturale} in un insieme di problemi della stessa entità, di minore complessità e completamente indipendenti fra di essi; contesto ottimo per un approccio parallelizzato alla risoluzione del problema padre.
 
-%Local maxima can be avoided by a variety of methods: Simulated annealing tackles this issue by allowing some steps to be taken which decrease the immediate optimality of the current state. Algorithms such as simulated annealing “can sometimes make changes that make things worse, at least temporarily” (Russell & Norvig, 2003).[1] This allows for the avoidance of dead ends in the search path.
+Dato uno qualsiasi dei succitati sotto-problemi, lo spazio degli stati che l'algoritmo \emph{\keyword{\hc{}}} deve esplorare è composto da tutti i possibili insiemi di genitori con cardinalità minore o uguale a $k$, il numero massimo di genitori di ogni singolo nodo della \acs{CTBN}. L'algoritmo \emph{\keyword{\hc{}}} individua l'insieme di genitori ottimale per il nodo in esame, valutando, iterativamente, i possibili insiemi di nodi genitori con cardinalità minore e maggiore di $1$ rispetto alla cardinalità dell'insieme di genitori corrente. Si osservi che tale configurazione prevede che l'insieme dei genitori con cardinalità pari a $0$ (\ie{} insieme vuoto $\emptyset$) venga anch'esso valutato.
 
-%listato
-%definizione generale \hc{}
-%commento
-%spiegazione parametri (e.g. grafo di partenza (*), caso: apprendere un classificatore CTBN)
-
+La funzione di \emph{\keyword{scoring}} con cui tali insiemi di genitori vengono valutati, rappresentata nell'\autoref{lst:hc-pseudo} dalla funzione \lstinline[]|score|, relativamente all'\keyword{apprendimento strutturale} di una \acs{CTBN}, corrisponde alla funzione $famscore_{\conceptsym{B}}$, presentata nella~\vref{sec:ctbn-structurallearning-score}.
 
 %--------------
 % Learning the structure of a Bayesian network can be considered a specific example of the general problem of selecting a probabilistic model that explains a given set of data. Although this is a difficult task, it is generally considered an appealing option, as constructing a structure by hand might be hard or even impossible if the dependent variables are not known by domain experts. Because of this problem, a wealth of literature has been produced that seeks to understand and provide methods of learning structure from data. A fine example of an overview on the area was given by Buntine (1994, 1996), which although slightly dated now, is a good reference in dealing with most of the issues that arise in the area. Heckerman (1995b) gives a more tutorial like introduction to the task, and for a gradual introduction to the area, the recent book by Neapolitan (2004) has a good look at the theory behind a lot of the techniques used. To begin with, this section will start by examining the theory and complexity of learning Bayesian network structures and then move on to how the challenges have been addressed.
