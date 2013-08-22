@@ -134,6 +134,54 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 	\centering%
 	\begin{tabular}{+l^l}
 	\toprule\rowstyle{\bfseries}%
+	Nodo    & Nome intersezione/strada\\\otoprule
+	$1$     & dante                 \\
+	$2$     & villa                 \\
+	$3$     & viale brianza         \\
+	$4$     & boccaccio             \\
+	$5$     & via boccaccio         \\
+	$6$     & p.zza citterio        \\
+	$7$     & viale cesare battisti \\
+	$8$     & boito                 \\
+	$9$     & volta                 \\
+	$10$    & via dante alighieri   \\
+	$11$    & via g. rossini        \\
+	$12$    & via donizzetti        \\
+	$13$    & via a. volta          \\
+	$14$    & via tognetti          \\
+	$16$    & via boito             \\\bottomrule
+	\end{tabular}
+	\caption[Intersezioni del \ds{2}]{Caratterizzazione degli identificatori delle intersezioni (o nodi) del \ds{2}.}
+	\label{tab:ds-2-nodes}
+\end{table}
+
+%TODO: migliorare ..
+Di seguito si elencano le informazioni dei sensori reali del modello in questione:
+\begin{description}
+\item[$5094$] \hfill \\
+Rilevamento dei veicoli provenienti da P.zza Citterio.
+\item[$5095$] \hfill \\
+Rilevamento dei veicoli provenienti dall'intersezione \virgolette{Boccaccio} diretti verso il centro di Monza.
+\item[$5096$] \hfill \\
+Rilevamento dei veicoli provenienti da Brianza verso Vedano.
+\item[$5097$] \hfill \\
+Rilevamento dei veicoli provenienti Regina Margherita che svoltano a sinistra in Battisti.
+\item[$5098$] \hfill \\
+Rilevamento dei veicoli provenienti da Battisti che svoltano a sinistra verso Vedano.
+\item[$5099$] \hfill \\
+Rilevamento dei veicoli provenienti da Battisti diretti verso il centro di Monza.
+\end{description}
+
+I sensori non reali aggiunti alla rete stradale che simula questa situazione di traffico reale vengono identificati secondo uno schema ben preciso. Il loro identificatore è composto in base al senso di marcia. Nello specifico tale numero è una concatenazione dei seguenti valori: identificatore dell'intersezione di partenza, identificatore dell'intersezione d'arrivo, numero indicante la corsia su cui il sensore è posto (\ie{} $0$ se è la strada possiede una sola corsia, $1$ o $2$ se il sensore è posto rispettivamente a destra o a sinitra, $7$ o $8$ nel caso in cui esso sia posto su ulteriori corsi di destra o sinistra). Ad esempio:
+\begin{itemize}
+\item il sensore identificato da D$912$ è posto sulla corsia di sinistra della strada che collega l'intersezione \virgolette{Volta} all'intersezione \virgolette{Dante}
+\item il sensore identificato da D$1480$ è posto sull'unica corsia di \virgolette{Via Tognetti} nei pressi dell'incrocio con l'intersezione \virgolette{Boito}.
+\end{itemize}
+
+\begin{table}[h]%
+	\centering%
+	\begin{tabular}{+l^l}
+	\toprule\rowstyle{\bfseries}%
 	\#  & Sensore \\\otoprule
 	$01$& D$782$       \\
 	$02$& D$781$       \\
