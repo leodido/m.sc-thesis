@@ -19,7 +19,7 @@ tex:
 makeidx: 
 	makeindex -s classic $(ROOT_FILE)
 
-texindy:
+xindy:
 	texindy -L $(PRIMARY_LANG) -M $(ROOT_FILE).xdy $(ROOT_FILE).idx
 	
 frontispiece:
@@ -32,7 +32,7 @@ biber:
 	biber $(ROOT_FILE)
 
 thesis: tex
-	$(MAKE) texindy
+	$(MAKE) xindy
 	$(MAKE) biber
 	$(MAKE) frontispiece
 	$(MAKE) tex

@@ -18,12 +18,25 @@ Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazi
 \subsection{Modello TSIS}\label{subsec:tsis-simple-model}
 Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui esso è stato generato.
 
-\begin{sidewaysfigure}
-\centering
-\includegraphics[width=1\columnwidth]{tsis-model-simple}
-\caption[Rete stradale del \ds{1}]{File \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}.}
+\omissis{}
+
+%\begin{sidewaysfigure}
+%\centering
+%\includegraphics[width=1\columnwidth]{tsis-model-simple}
+%\caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}.}
+%\label{fig:tsis-model-simple}
+%\end{sidewaysfigure}
+
+\cleardoublepage
+\begin{center}
+\capfigure
+\captionsetup{type=figure}
+\captionsetup[subfigure]{labelformat=empty}
+\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-simple-dx}}\cleardoublepage
+\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-simple-sx}}
+\captionof{figure}[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}.}
 \label{fig:tsis-model-simple}
-\end{sidewaysfigure}
+\end{center}
 
 \begin{table}[h]%
 	\centering%
@@ -96,6 +109,7 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 
 \subsection{Risultati}
 \omissis{}
+Prova~\vref{fig:tsis-model-monza-nodes} ...
 
 %see: https://gist.github.com/leodido/5990626
 
@@ -129,6 +143,17 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 	\label{tab:ds-2-tp-labels}
 \end{table}
 %Saturday classes: `11`, `12`, ..., `16`.
+
+\cleardoublepage
+\begin{center}
+\capfigure
+\captionsetup{type=figure}
+\captionsetup[subfigure]{labelformat=empty}
+\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-monza-gmap-dx}}\cleardoublepage
+\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-monza-gmap-sx}}
+\captionof{figure}[Intersezioni della rete stradale del \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante le intersezioni della rete stradale da cui viene generato il \ds{2}.}
+\label{fig:tsis-model-monza-nodes}
+\end{center}
 
 \begin{table}[h]%
 	\centering%

@@ -170,12 +170,12 @@ Si osservi, inoltre, che è possibile sviluppare una \acs{CORSIM} \acs{RTE} anch
 
 La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} e il suo funzionamento all'interno dell'ambiente di sviluppo \acs{TSIS}. Si osservi che i componenti che costituiscono \acs{CORSIM} sono di due tipi: librerie \acs{DLL} e moduli \acs{COM}\footnote{Il \acf{COM} è uno standard per componenti software ideato da \emph{Microsoft}. Il suo fine consiste nel permettere la comunicazione fra processi e la creazione dinamica di oggetti. Una interfaccia \acs{COM} è una collezione di funzioni, incapsulata in un componente software binario e neutrale rispetto al linguaggio.}. Il \acs{CORSIM} \acsfont{Driver Component}, ad esempio, è il modulo \acs{COM} di \acs{TSIS} preposto a interfacciare \acs{CORSIM} e \acs{TShell}, permettendo così il controllo e l'esecuzione di \acs{CORSIM}, delle \acs{RTE} create dall'utente e degli altri strumenti (\eg{} \acs{TSIS} \acsfont{Output Processor}) di \acs{TSIS} tramite \acs{GUI}.
 
-\begin{sidewaysfigure}
+\begin{figure}
 \centering
-\includegraphics[width=1\columnwidth]{tsis-corsim-components}
+\includegraphics[width=0.925\columnwidth]{tsis-corsim-components}
 \caption[Diagramma dei componenti di \acs{CORSIM}]{Porzione del diagramma dei componenti di \acs{TSIS}: mostra l'architettura modulare e il funzionamento di \acs{CORSIM} all'interno di \acs{TSIS}.}
 \label{fig:tsis-corsim-arch}
-\end{sidewaysfigure}
+\end{figure}
 
 Anche se la~\vref{fig:tsis-corsim-arch} mostra per completezza l'intera architettura di \acs{CORSIM}, si procede con la descrizione delle interfacce di \acs{CORSIM} preposte alla comunicazione con \acs{RTE} sviluppate dall'utente, identificate dalle frecce tratteggiate e numerate.
 

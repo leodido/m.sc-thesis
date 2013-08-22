@@ -288,9 +288,11 @@
 \makeindex[program=texindy,options=-L italian -M arsclassica.xdy]
 
 %*********************************************************************************
-% Impostazioni di graphicx
+% Impostazioni relative alle immagini
 %*********************************************************************************
 \graphicspath{{images/}} % cartella dove sono riposte le immagini
+
+\makeatletter\def\capfigure{\def\@captype{figure}}\makeatother
 
 %*********************************************************************************
 % A4 optimized margins
