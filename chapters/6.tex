@@ -109,6 +109,29 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 
 \begin{table}[h]%
 	\centering%
+	\begin{tabular}{+l^l^l^l}
+	\toprule\rowstyle{\bfseries}%
+	Fascia oraria  		   & Time Period  	& Fase          & Classe  \\\otoprule
+	$00$:$00$ - $02$:$05$  & $1$            & notturna      & $1$     \\
+	$02$:$05$ - $04$:$10$  & $2$            & notturna      & $1$     \\
+	$04$:$10$ - $06$:$15$  & $3$            & alba          & $2$     \\
+	$06$:$15$ - $08$:$20$  & $4$            & mattino       & $3$     \\
+	$08$:$20$ - $10$:$25$  & $5$            & mattino       & $3$     \\
+	$10$:$25$ - $12$:$30$  & $6$            & centrale      & $4$     \\
+	$12$:$30$ - $14$:$35$  & $7$            & centrale      & $4$     \\
+	$14$:$35$ - $16$:$40$  & $8$            & centrale      & $4$     \\
+	$16$:$40$ - $18$:$45$  & $9$            & pomeridiana   & $5$     \\
+	$18$:$45$ - $20$:$50$  & $10$           & pomeridiana   & $5$     \\
+	$20$:$50$ - $22$:$55$  & $11$           & serale        & $6$     \\
+	$22$:$55$ - $24$:$00$  & $12$           & serale        & $6$     \\\bottomrule
+	\end{tabular}
+	\caption[Periodi temporali del \ds{2}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{2}.}
+	\label{tab:ds-2-tp-labels}
+\end{table}
+%Saturday classes: `11`, `12`, ..., `16`.
+
+\begin{table}[h]%
+	\centering%
 	\begin{tabular}{+l^l}
 	\toprule\rowstyle{\bfseries}%
 	\#  & Sensore \\\otoprule
@@ -119,7 +142,7 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 	$05$& D$1682$      \\
 	$06$& D$981$       \\
 	$07$& D$982$       \\
-	$08$& D$1480$      \\
+	$08$& D$1480$      \\\bottomrule
 	\end{tabular}
 	\hspace{-0.6em}
 	\begin{tabular}{+l^l}
@@ -132,7 +155,7 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 	$13$& D$1290$      \\
 	$14$& D$912$       \\
 	$15$& D$911$       \\
-	$16$& D$1092$      \\
+	$16$& D$1092$      \\\bottomrule
 	\end{tabular}
 	\hspace{-0.6em}
 	\begin{tabular}{+l^l}
@@ -145,7 +168,7 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 	\color{red}$21$& D$5098*$     \\
 	\color{red}$22$& D$5099*$     \\
 	\color{red}$23$& D$5097*$     \\
-	$24$& D$421$       \\
+	$24$& D$421$       \\\bottomrule
 	\end{tabular}
 	\hspace{-0.6em}
 	\begin{tabular}{+l^l}
@@ -158,9 +181,8 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 	\color{red}$29$& D$5094*$     \\
 	$30$& D$642$       \\
 	\color{red}$31$& D$5095*$     \\
-	$32$& D$541$       \\
+	$32$& D$541$       \\\bottomrule
 	\end{tabular}
-	\hspace{-0.6em}
 	\caption[Sensori del \ds{2}]{Corrispondenza fra gli identificatori dei sensori del \ds{2} e l'indice con cui essi sono indicati nella \omissis{}}
 	\label{tab:ds-2-sensors-indices}
 \end{table}
