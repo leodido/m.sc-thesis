@@ -294,6 +294,10 @@
 
 \makeatletter\def\capfigure{\def\@captype{figure}}\makeatother
 
+\makeatletter
+\providecommand\phantomcaption{\caption@refstepcounter\@captype}
+\makeatother
+
 %*********************************************************************************
 % A4 optimized margins
 %*********************************************************************************

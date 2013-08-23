@@ -13,32 +13,34 @@
 % spiegare metriche di valutazione utilizzate? si!
 
 \section{\Ds{1}}\label{sec:dataset-1}
-Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti (si vedano rispettivamente i capitoli~\vref{cap:ctbnc,cap:structurallearning}) utilizzando tale insieme di \emph{\keyword{dati completi}} come input.
+Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti (si vedano rispettivamente i~\vref{cap:ctbnc,cap:structurallearning}) utilizzando tale insieme di \emph{\keyword{dati completi}} come input.
 
 \subsection{Modello TSIS}\label{subsec:tsis-simple-model}
 Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui esso è stato generato.
 
-\omissis{}
+\begin{figure}[H]
+  	\centering
+  	\includegraphics[max size={\textwidth}{\textheight}]{tsis-model-simple}% 
+  	\caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}. I sensori sono etichettati tramite degli indici numerici.}
+	\label{fig:tsis-model-simple}
+\end{figure}
 
-%\begin{sidewaysfigure}
-%\centering
-%\includegraphics[width=1\columnwidth]{tsis-model-simple}
-%\caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}.}
-%\label{fig:tsis-model-simple}
-%\end{sidewaysfigure}
+%\begin{figure}[ht]
+%  \centering
+%  \captionsetup[subfigure]{labelformat=empty}
+%  \subfloat[][]{\includegraphics[width=0.92\columnwidth]{tsis-model-simple-dx}}%
+%  \phantomcaption
+%  \label{fig:tsis-model-simple}
+%\end{figure}
+%\begin{figure}[!t]
+%  \centering
+%  \captionsetup{type=figure}
+%  \captionsetup[subfigure]{labelformat=empty}
+%  \subfloat[][]{\includegraphics[width=0.92\columnwidth]{tsis-model-simple-sx}}% 
+%  \caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}.}
+%\end{figure} 
 
-\cleardoublepage
-\begin{center}
-\capfigure
-\captionsetup{type=figure}
-\captionsetup[subfigure]{labelformat=empty}
-\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-simple-dx}}\cleardoublepage
-\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-simple-sx}}
-\captionof{figure}[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}.}
-\label{fig:tsis-model-simple}
-\end{center}
-
-\begin{table}[h]%
+\begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l}
 	\toprule\rowstyle{\bfseries}%
@@ -121,7 +123,7 @@ Prova~\vref{fig:tsis-model-monza-nodes} ...
 
 % dire che parte da uno studio già fatto con sensori reali, riprodotto in tsis e esteso con altri sensori da me
 
-\begin{table}[h]%
+\begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l^l^l}
 	\toprule\rowstyle{\bfseries}%
@@ -144,18 +146,33 @@ Prova~\vref{fig:tsis-model-monza-nodes} ...
 \end{table}
 %Saturday classes: `11`, `12`, ..., `16`.
 
-\cleardoublepage
-\begin{center}
-\capfigure
-\captionsetup{type=figure}
-\captionsetup[subfigure]{labelformat=empty}
-\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-monza-gmap-dx}}\cleardoublepage
-\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-monza-gmap-sx}}
-\captionof{figure}[Intersezioni della rete stradale del \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante le intersezioni della rete stradale da cui viene generato il \ds{2}.}
-\label{fig:tsis-model-monza-nodes}
-\end{center}
+%\cleardoublepage
+%\begin{center}
+%\capfigure
+%\captionsetup{type=figure}
+%\captionsetup[subfigure]{labelformat=empty}
+%\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-monza-gmap-dx}}\cleardoublepage
+%\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-monza-gmap-sx}}
+%\captionof{figure}[Intersezioni della rete stradale del \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante le intersezioni della rete stradale da cui viene generato il \ds{2}.}
+%\label{fig:tsis-model-monza-nodes}
+%\end{center}
 
-\begin{table}[h]%
+\begin{figure}[ht]
+  \centering
+  \captionsetup[subfigure]{labelformat=empty}
+  \subfloat[][]{\includegraphics[width=0.935\columnwidth]{tsis-model-monza-gmap-dx}}%
+  \phantomcaption
+  \label{fig:tsis-model-monza-nodes}
+\end{figure}
+\begin{figure}[!t]
+  \centering
+  \captionsetup{type=figure}
+  \captionsetup[subfigure]{labelformat=empty}
+  \subfloat[][]{\includegraphics[width=0.935\columnwidth]{tsis-model-monza-gmap-sx}}% 
+  \caption[Intersezioni della rete stradale del \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante le intersezioni della rete stradale da cui viene generato il \ds{2}.}
+\end{figure} 
+
+\begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l}
 	\toprule\rowstyle{\bfseries}%
@@ -180,6 +197,14 @@ Prova~\vref{fig:tsis-model-monza-nodes} ...
 	\label{tab:ds-2-nodes}
 \end{table}
 
+% inserire nomi vie visibili
+\begin{figure}[ht]
+  	\centering
+  	\includegraphics[width=1\columnwidth]{tsis-model-monza-compact}% 
+  	\caption[Rete stradale del \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{2}.}
+	\label{fig:tsis-model-monza}
+\end{figure} 
+
 %TODO: migliorare ..
 Di seguito si elencano le informazioni dei sensori reali del modello in questione:
 \begin{description}
@@ -203,7 +228,7 @@ I sensori non reali aggiunti alla rete stradale che simula questa situazione di 
 \item il sensore identificato da D$1480$ è posto sull'unica corsia di \virgolette{Via Tognetti} (\ie{} nodo $14$) nei pressi dell'incrocio con l'intersezione \virgolette{Boito} (\ie{} nodo $8$).
 \end{itemize}
 
-\begin{table}[h]%
+\begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l}
 	\toprule\rowstyle{\bfseries}%
