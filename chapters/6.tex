@@ -21,16 +21,41 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 La~\vref{fig:tsis-model-simple} mostra la rete stradale che compone il modello \acs{TSIS} oggetto di questa sottosezione. Tale figura evidenzia:
 \begin{itemize}
 	\item la disposizione dei sensori utilizzati per il monitoraggio del passaggio dei veicoli
-	\item le strade, tutte composte da $2$ corsie, e le intersezioni da cui è composta la rete stradale
+	\item le strade, tutte composte da $2$ corsie, e i nodi (di ingresso, di transito o di intersezione) da cui è composta la rete stradale
 \end{itemize}
  
 \begin{figure}[H]
   	\centering
   	\includegraphics[max size={\textwidth}{\textheight}]{tsis-model-simple}% 
-  	\caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}. I sensori sono etichettati tramite degli indici numerici di colore giallo mentre le intersezioni (\ie{} nodi) sono etichettate tramite degli indici numerici di colore bianco.}
+  	\caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}. I sensori sono etichettati tramite degli indici numerici di colore giallo mentre i nodi sono etichettati tramite degli indici numerici di colore bianco.}
 	\label{fig:tsis-model-simple}
 \end{figure}
 
+\begin{table}[htbp]%
+	\centering%
+	\begin{tabular}{+l^l^l^l}
+	\toprule\rowstyle{\bfseries}%
+	Fascia oraria  		   & Time Period  	& Fase          & Classe  \\\otoprule
+	$07$:$00$ - $08$:$00$  & $1$            & mattino       & $1$     \\
+	$08$:$00$ - $09$:$00$  & $2$            & mattino       & $1$     \\
+	$09$:$00$ - $10$:$00$  & $3$            & mattino       & $1$     \\
+	$10$:$00$ - $11$:$45$  & $4$            & giorno        & $2$     \\
+	$11$:$45$ - $13$:$30$  & $5$            & giorno        & $2$     \\
+	$13$:$30$ - $15$:$15$  & $6$            & giorno        & $2$     \\
+	$15$:$15$ - $17$:$00$  & $7$            & giorno        & $2$     \\
+	$17$:$00$ - $18$:$00$  & $8$            & pomeriggio    & $3$     \\
+	$18$:$00$ - $19$:$00$  & $9$            & pomeriggio    & $3$     \\
+	$19$:$00$ - $20$:$00$  & $10$           & pomeriggio    & $3$     \\
+	$20$:$00$ - $22$:$00$  & $11$           & sera          & $4$     \\
+	$22$:$00$ - $24$:$00$  & $12$           & sera          & $4$     \\
+	$00$:$00$ - $01$:$40$  & $13$           & notte         & $5$     \\
+	$01$:$40$ - $03$:$20$  & $14$           & notte         & $5$     \\
+	$03$:$20$ - $05$:$00$  & $11$           & notte         & $5$     \\
+	$05$:$00$ - $07$:$00$  & $16$           & alba          & $6$     \\\bottomrule
+	\end{tabular}
+	\caption[Periodi temporali del \ds{1}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{1}.}
+	\label{tab:ds-2-tp-labels}
+\end{table}
 
 \begin{table}[htbp]%
 	\centering%
@@ -120,18 +145,18 @@ Prova~\vref{fig:tsis-model-monza-nodes} ...
 	\begin{tabular}{+l^l^l^l}
 	\toprule\rowstyle{\bfseries}%
 	Fascia oraria  		   & Time Period  	& Fase          & Classe  \\\otoprule
-	$00$:$00$ - $02$:$05$  & $1$            & notturna      & $1$     \\
-	$02$:$05$ - $04$:$10$  & $2$            & notturna      & $1$     \\
+	$00$:$00$ - $02$:$05$  & $1$            & notte         & $1$     \\
+	$02$:$05$ - $04$:$10$  & $2$            & notte         & $1$     \\
 	$04$:$10$ - $06$:$15$  & $3$            & alba          & $2$     \\
 	$06$:$15$ - $08$:$20$  & $4$            & mattino       & $3$     \\
 	$08$:$20$ - $10$:$25$  & $5$            & mattino       & $3$     \\
-	$10$:$25$ - $12$:$30$  & $6$            & centrale      & $4$     \\
-	$12$:$30$ - $14$:$35$  & $7$            & centrale      & $4$     \\
-	$14$:$35$ - $16$:$40$  & $8$            & centrale      & $4$     \\
-	$16$:$40$ - $18$:$45$  & $9$            & pomeridiana   & $5$     \\
-	$18$:$45$ - $20$:$50$  & $10$           & pomeridiana   & $5$     \\
-	$20$:$50$ - $22$:$55$  & $11$           & serale        & $6$     \\
-	$22$:$55$ - $24$:$00$  & $12$           & serale        & $6$     \\\bottomrule
+	$10$:$25$ - $12$:$30$  & $6$            & giorno        & $4$     \\
+	$12$:$30$ - $14$:$35$  & $7$            & giorno        & $4$     \\
+	$14$:$35$ - $16$:$40$  & $8$            & giorno        & $4$     \\
+	$16$:$40$ - $18$:$45$  & $9$            & pomeriggio    & $5$     \\
+	$18$:$45$ - $20$:$50$  & $10$           & pomeriggio    & $5$     \\
+	$20$:$50$ - $22$:$55$  & $11$           & sera          & $6$     \\
+	$22$:$55$ - $24$:$00$  & $12$           & sera          & $6$     \\\bottomrule
 	\end{tabular}
 	\caption[Periodi temporali del \ds{2}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{2}.}
 	\label{tab:ds-2-tp-labels}
