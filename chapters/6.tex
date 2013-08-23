@@ -10,7 +10,7 @@
 % introdurre argomenti del capitolo (dataset, e quindi tsis + sperimentazione)
 % introdurre modalità di sperimentazione
 % introdurre cross-validation
-% spiegare metriche di valutazione utilizzate? si!
+% spiegare metriche di valutazione utilizzate? si! ma in capitolo 4!
 
 \section{\Ds{1}}\label{sec:dataset-1}
 Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti (si vedano rispettivamente i~\vref{cap:ctbnc,cap:structurallearning}) utilizzando tale insieme di \emph{\keyword{dati completi}} come input.
@@ -18,27 +18,19 @@ Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazi
 \subsection{Modello TSIS}\label{subsec:tsis-simple-model}
 Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui esso è stato generato.
 
+La~\vref{fig:tsis-model-simple} mostra la rete stradale che compone il modello \acs{TSIS} oggetto di questa sottosezione. Tale figura evidenzia:
+\begin{itemize}
+	\item la disposizione dei sensori utilizzati per il monitoraggio del passaggio dei veicoli
+	\item le strade, tutte composte da $2$ corsie, e le intersezioni da cui è composta la rete stradale
+\end{itemize}
+ 
 \begin{figure}[H]
   	\centering
   	\includegraphics[max size={\textwidth}{\textheight}]{tsis-model-simple}% 
-  	\caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}. I sensori sono etichettati tramite degli indici numerici.}
+  	\caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}. I sensori sono etichettati tramite degli indici numerici di colore giallo mentre le intersezioni (\ie{} nodi) sono etichettate tramite degli indici numerici di colore bianco.}
 	\label{fig:tsis-model-simple}
 \end{figure}
 
-%\begin{figure}[ht]
-%  \centering
-%  \captionsetup[subfigure]{labelformat=empty}
-%  \subfloat[][]{\includegraphics[width=0.92\columnwidth]{tsis-model-simple-dx}}%
-%  \phantomcaption
-%  \label{fig:tsis-model-simple}
-%\end{figure}
-%\begin{figure}[!t]
-%  \centering
-%  \captionsetup{type=figure}
-%  \captionsetup[subfigure]{labelformat=empty}
-%  \subfloat[][]{\includegraphics[width=0.92\columnwidth]{tsis-model-simple-sx}}% 
-%  \caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}.}
-%\end{figure} 
 
 \begin{table}[htbp]%
 	\centering%
