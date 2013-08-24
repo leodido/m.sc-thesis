@@ -336,7 +336,7 @@ Avendo presentato l'ambiente di sviluppo \acs{TSIS} e le \acs{API} che esso forn
 
 Come detto nella~\autoref{subsec:tsis-features} \vpageref{subsec:tsis-features}, una delle principali limitazioni di \acs{CORSIM} consiste nell'impossibilità di ottenere dei dati non aggregati dal processo di simulazione. Ciò poiché il minimo intervallo temporale che \acs{CORSIM} permette di utilizzare è pari a $1$ secondo per le reti stradali urbane e al più $0.1$ secondi per le reti stradali extraurbane. Perciò, è emerso il problema di sorpassare tale limitazione. La \acs{RTE} sviluppata, \acsfont{Sensors} \acs{DLL}, risponde a tale necessità monitorando determinati elementi (\ie{} i sensori) di un qualsiasi tipo di rete stradale e tracciando gli eventi ad essi correlati (\ie{} passaggio di un veicolo) su un file di output esterno a \acs{TSIS}. Lo scopo di questa sezione consiste nel presentare il funzionamento di \acsfont{Sensors} \acs{DLL}.
 
-\subsection{Sensors DLL}
+\subsection{Sensors DLL}\label{subsec:sensors-dll}
 L'obiettivo ultimo di \acsfont{Sensors} \acs{DLL} consiste nella generazione di un file \acs{CSV}\footnote{\acf{CSV} è un formato basato su file di testo utilizzato per l'importazione ed esportazione (ad esempio da fogli elettronici o database) di una tabella di dati.} che rappresenti il passaggio dei veicoli sui vari sensori presenti nella rete stradale nel tempo. Il monitoraggio dei sensori deve essere effettuato con la massima granularità temporale possibile (\ie{} $0.1$ secondi), anche nel caso di reti stradali urbane.
 
 A tale scopo si è utilizzato il dato \lstinline[]|NETSIM_DETECTORS_mp_DETON|, rinominato in \lstinline[]|net_det_on|, esportato da \acs{CORSIM} nella memoria condivisa. Tale campo indirizza un array dinamico la cui lunghezza è pari al numero di sensori sulla rete stradale. Ognuno degli elementi di tale array è costituito da $10$ bit: l'$i$-esimo bit rappresenta l'attivazione (\ie{} $1$) o meno del relativo sensore nell'$i$-esimo passo temporale minimo (\ie{} $0.1$ secondi). Ogni elemento rappresenta perciò il passaggio dei veicoli sul sensore durante un intervallo temporale fisso di $1$ secondo.
@@ -443,7 +443,7 @@ identificatore sensore  & $1$ in caso di presenza di un veicolo sul rispettivo s
 
 Si osservi che, il fatto che il sensore \lstinline[]|D232|, in corrispondenza dell'istante $1.6$ ($5$\textsuperscript{a} colonna) abbia valore $1$ non indica che il veicolo sia stato rilevato esattamente in tale istante, bensì ciò indica che durante l'intervallo temporale $[\,1.5,1.6\,]$ tale sensore è stato attivato dal passaggio di un veicolo.
 
-\section{Applicativi di supporto}
+\section{Applicativi di supporto}\label{sec:dataset-tools}
 Al fine di automatizzare e facilitare la creazione di dataset relativi al traffico tramite la \acs{RTE} oggetto del corrente capitolo, si è sviluppato un insieme di strumenti dediti alla manipolazione dei file di output di \acsfont{Sensors} \acs{DLL}.
 
 Di seguito si elencano le operazioni di manipolazione che tali strumenti supportano:
