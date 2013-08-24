@@ -20,19 +20,27 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 
 La~\vref{fig:tsis-model-simple} mostra la rete stradale che compone il modello \acs{TSIS} oggetto di questa sottosezione. Tale figura evidenzia:
 \begin{itemize}
-	\item la disposizione dei sensori utilizzati per il monitoraggio del passaggio dei veicoli
-	\item le strade, tutte composte da $2$ corsie, e i nodi da cui è composta la rete stradale
+	\item la disposizione dei sensori (indicati tramite degli indici numerici di colore giallo) utilizzati per il monitoraggio del passaggio dei veicoli
+	\item le strade, tutte composte da $2$ corsie, e i nodi (indicati tramite degli indici numerici di colore bianco) da cui è composta la rete stradale
 	\item i sensi di marcia delle corsie
-	\item le intersezioni controllate tramite semafori (\ie{} indicate dagli indici $02$, $03$ e $04$).
+	\item le intersezioni controllate tramite semafori (\ie{} nodi con indici $02$, $03$ e $04$).
 \end{itemize}
- 
-\begin{figure}[H]
+Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
+\begin{itemize}
+	\item la larghezza delle corsie è \num{3.65} \si{\metre}
+	\item la lunghezza della strada principale (\ie{} da nodo $1$ a nodo $5$) è \num{780} \si{\metre} mentre la lunghezza delle strade ad essa perpendicolari è pari a \num{300} \si{\metre}
+	\item la dimensione dei sensori è \num{0.30} \si{\metre}, da cui consegue che la dimensione della zona sensibile (in tutte le direzioni) è \num{1.85} \si{\metre}
+	\item la distanza dei sensori dal nodo più vicino è \num{6.5} \si{\metre}
+\end{itemize}
+
+\begin{figure}
   	\centering
-  	\includegraphics[max size={\textwidth}{\textheight}]{tsis-model-simple}% 
+  	\includegraphics[max size={0.9\textwidth}{0.9\textheight}]{tsis-model-simple}% 
   	\caption[Rete stradale del \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}. I sensori sono etichettati tramite degli indici numerici di colore giallo mentre i nodi sono etichettati tramite degli indici numerici di colore bianco.}
 	\label{fig:tsis-model-simple}
 \end{figure}
 
+Il modello di simulazione \acs{CORSIM} prevede un tempo di simulazione pari a $24$ ore, suddiviso in $16$ \emph{\keyword{time period}}, ognuno dei quali composto da \emph{\keyword{time interval}} della durata di $1$ secondo: la~\vref{tab:ds-1-tp-labels} illustra la durata (in ore) di ognuno di essi e introduce la corrispondenza fra essi e la fase della giornata, rappresentata come la variabile classe nel relativo dataset.
 \begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l^l^l}
@@ -41,23 +49,53 @@ La~\vref{fig:tsis-model-simple} mostra la rete stradale che compone il modello \
 	$07$:$00$ - $08$:$00$  & $1$            & mattino       & $1$     \\
 	$08$:$00$ - $09$:$00$  & $2$            & mattino       & $1$     \\
 	$09$:$00$ - $10$:$00$  & $3$            & mattino       & $1$     \\
-	$10$:$00$ - $11$:$45$  & $4$            & giorno        & $2$     \\
-	$11$:$45$ - $13$:$30$  & $5$            & giorno        & $2$     \\
-	$13$:$30$ - $15$:$15$  & $6$            & giorno        & $2$     \\
-	$15$:$15$ - $17$:$00$  & $7$            & giorno        & $2$     \\
+	$10$:$00$ - $12$:$00$  & $4$            & giorno        & $2$     \\
+	$12$:$00$ - $14$:$00$  & $5$            & giorno        & $2$     \\
+	$14$:$00$ - $16$:$00$  & $6$            & giorno        & $2$     \\
+	$16$:$00$ - $17$:$00$  & $7$            & giorno        & $2$     \\
 	$17$:$00$ - $18$:$00$  & $8$            & pomeriggio    & $3$     \\
 	$18$:$00$ - $19$:$00$  & $9$            & pomeriggio    & $3$     \\
 	$19$:$00$ - $20$:$00$  & $10$           & pomeriggio    & $3$     \\
 	$20$:$00$ - $22$:$00$  & $11$           & sera          & $4$     \\
 	$22$:$00$ - $24$:$00$  & $12$           & sera          & $4$     \\
-	$00$:$00$ - $01$:$40$  & $13$           & notte         & $5$     \\
-	$01$:$40$ - $03$:$20$  & $14$           & notte         & $5$     \\
-	$03$:$20$ - $05$:$00$  & $11$           & notte         & $5$     \\
+	$00$:$00$ - $02$:$00$  & $13$           & notte         & $5$     \\
+	$02$:$00$ - $04$:$00$  & $14$           & notte         & $5$     \\
+	$04$:$00$ - $05$:$00$  & $11$           & notte         & $5$     \\
 	$05$:$00$ - $07$:$00$  & $16$           & alba          & $6$     \\\bottomrule
 	\end{tabular}
 	\caption[Periodi temporali del \ds{1}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{1}.}
 	\label{tab:ds-1-tp-labels}
 \end{table}
+
+Ogni fase della giornata (\ie{} classe) è caratterizzata da un andamento diverso del traffico:
+\begin{itemize}
+	\item al mattino traffico intenso su tutta la rete stradale e code in direzione del nodo $5$ 
+	\item durante il giorno traffico moderato su tutta la rete e code residue verso il nodo $5$ nella prima parte di tale fase
+	\item nel pomeriggio traffico intenso su tutta la rete stradale e code in direzione del nodo $1$
+	\item durante la sera traffico moderato su tutta la rete stradale e code residue verso il nodo $1$ nella prima parte di tale fase
+	\item pochi veicoli in tutte le direzioni durante la notte
+	\item all'alba aumento dei veicoli diretti verso il nodo $5$
+\end{itemize}
+
+L'andamento del traffico è modellato in \acs{CORSIM} variando i flussi di ingresso dei veicoli e le percentuali di svolta nelle varie intersezioni al variare dei periodi temporali. La~\vref{tab:ds-1-input-vehicles} illustra i flussi di ingresso, espressi come numero di veicoli orari (\ie{} \si{vph}), dei veicoli nella rete stradale per ogni fase della simulazione. Si osservi che l'immissione di veicoli sulla rete stradale avviene seguendo una distribuzione di probabilità di Erlang con parametro \emph{shape} pari a $2$. 
+\begin{table}[H]
+	\centering
+	\begin{tabular}{+l^c^c^c}
+	\toprule\rowstyle{\bfseries}%
+	Fase 		& $01 \rightarrow 05$ & $05 \rightarrow 01$ & Strade secondarie	\\
+				& \si{vph}			  & \si{vph}			& \si{vph}			\\\otoprule
+	mattino		& $600$ 			  & $200$			  	& $100$				\\
+	giorno 		& $300$				  & $300$			    & $50$				\\
+	pomeriggio	& $200$				  & $600$			    & $100$				\\
+	sera 		& $100$				  & $200$			    & $50$				\\
+	notte 		& $50$				  & $50$			    & $25$				\\
+	alba		& $200$				  & $100$			    & $50$				\\\bottomrule
+	\end{tabular}
+	\caption[ABC]{ABC.}
+	\label{tab:ds-1-input-vehicles}
+\end{table}
+
+La~\vref{tab:ds-1-turning-movs} illustra invece le percentuali di svolta ad ogni intersezione al variare della fase della giornata: l'intestazione di tale tabella indica il nodo di provenienza dei veicoli mentre le celle indicano la distribuzione delle svolte che tali veicoli effettuano nell'intersezione che segue il nodo di partenza. Ad esempio, \omissis{}
 
 \begin{sidewaystable}[htbp]
 	\centering
@@ -88,6 +126,10 @@ La~\vref{fig:tsis-model-simple} mostra la rete stradale che compone il modello \
 	\caption[ABC]{ABC.}
 	\label{tab:ds-1-turning-movs}
 \end{sidewaystable}
+
+La rete stradale non include attraversamenti pedonali. Ne consegue che il modello di simulazione non prevede la generazione di traffico pedonale casuale.
+
+	%\item la velocità media dei veicoli su tutte le strade è $48$ \si{km/h}
 
 \begin{table}[htbp]%
 	\centering%
