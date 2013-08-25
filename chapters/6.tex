@@ -204,47 +204,12 @@ Come detto nella~\autoref{subsec:sensors-dll}~\vpageref{subsec:sensors-dll}, ese
 \omissis{}
 
 \section{\Ds{2}}\label{sec:dataset-2}
-\omissis{}
+Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti utilizzando tale insieme di \emph{\keyword{dati completi}} come input. A tale scopo, nella sottosezione che segue, si descrive la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui tale dataset è stato generato.
 
 \subsection{Modello TSIS}\label{subsec:tsis-monza-model}
-\omissis{}
+Il modello \acs{TSIS} in questione, a differenza di quello presentato nella \autoref{subsec:tsis-simple-model}, riproduce una rete stradale reale. Nello specifico esso riproduce la rete stradale circostante \emph{Viale Cesare Battisti} ($20900$ \emph{Monza, MB - Italia}). Disponendo di una serie di informazioni reali, tra cui i dati dei sensori posti su tale rete stradale, si sono potute inferire le caratteristiche della circolazione dei veicoli (\eg{} flusso di veicoli in transito) e quindi riprodurre fedelmente l'andamento del traffico durante tutti i giorni della settimana tramite un adeguato modello di simulazione \acs{CORSIM}.
 
-% dire che parte da uno studio già fatto con sensori reali, riprodotto in tsis e esteso con altri sensori da me
-
-\begin{table}[htbp]%
-	\centering%
-	\begin{tabular}{+l^l^l^l}
-	\toprule\rowstyle{\bfseries}%
-	Fascia oraria  		   & Time Period  	& Fase          & Classe  \\\otoprule
-	$00$:$00$ - $02$:$05$  & $1$            & notte         & $1$     \\
-	$02$:$05$ - $04$:$10$  & $2$            & notte         & $1$     \\
-	$04$:$10$ - $06$:$15$  & $3$            & alba          & $2$     \\
-	$06$:$15$ - $08$:$20$  & $4$            & mattino       & $3$     \\
-	$08$:$20$ - $10$:$25$  & $5$            & mattino       & $3$     \\
-	$10$:$25$ - $12$:$30$  & $6$            & giorno        & $4$     \\
-	$12$:$30$ - $14$:$35$  & $7$            & giorno        & $4$     \\
-	$14$:$35$ - $16$:$40$  & $8$            & giorno        & $4$     \\
-	$16$:$40$ - $18$:$45$  & $9$            & pomeriggio    & $5$     \\
-	$18$:$45$ - $20$:$50$  & $10$           & pomeriggio    & $5$     \\
-	$20$:$50$ - $22$:$55$  & $11$           & sera          & $6$     \\
-	$22$:$55$ - $24$:$00$  & $12$           & sera          & $6$     \\\bottomrule
-	\end{tabular}
-	\caption[Periodi temporali del \ds{2}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{2}.}
-	\label{tab:ds-2-tp-labels}
-\end{table}
-%Saturday classes: `11`, `12`, ..., `16`.
-
-%\cleardoublepage
-%\begin{center}
-%\capfigure
-%\captionsetup{type=figure}
-%\captionsetup[subfigure]{labelformat=empty}
-%\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-monza-gmap-dx}}\cleardoublepage
-%\subfloat[]{\includegraphics[width=1\columnwidth]{tsis-model-monza-gmap-sx}}
-%\captionof{figure}[Intersezioni della rete stradale del \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante le intersezioni della rete stradale da cui viene generato il \ds{2}.}
-%\label{fig:tsis-model-monza-nodes}
-%\end{center}
-
+La~\vref{fig:tsis-model-monza-nodes} illustra la rete stradale oggetto di studio, evidenziando e identificando i nodi e i collegamenti stradali utilizzati per la sua riproduzione in \acs{TSIS}.
 \begin{figure}
   \centering
   \captionsetup[subfigure]{labelformat=empty}
@@ -258,28 +223,30 @@ Come detto nella~\autoref{subsec:sensors-dll}~\vpageref{subsec:sensors-dll}, ese
   \captionsetup[subfigure]{labelformat=empty}
   \subfloat[][]{\includegraphics[width=0.935\columnwidth]{tsis-model-monza-gmap-sx}}% 
   \caption[Intersezioni della rete stradale del \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante le intersezioni della rete stradale da cui viene generato il \ds{2}.}
-\end{figure} 
+\end{figure}
 
+La~\vref{tab:ds-2-nodes} illustra la correlazione tra gli indici dei nodi \acs{CORSIM} e ciò che essi rappresentano nel modello in questione.
 \begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l}
 	\toprule\rowstyle{\bfseries}%
-	Nodo    & Nome intersezione/strada\\\otoprule
-	$1$     & dante                 \\
-	$2$     & villa                 \\
-	$3$     & viale brianza         \\
-	$4$     & boccaccio             \\
-	$5$     & via boccaccio         \\
-	$6$     & p.zza citterio        \\
-	$7$     & viale cesare battisti \\
-	$8$     & boito                 \\
-	$9$     & volta                 \\
-	$10$    & via dante alighieri   \\
-	$11$    & via g. rossini        \\
-	$12$    & via donizzetti        \\
-	$13$    & via a. volta          \\
-	$14$    & via tognetti          \\
-	$16$    & via boito             \\\bottomrule
+	Nodo/i    			& Descrizione											\\\otoprule
+	$01$     			& Intersezione \emph{Battisti - Rossini - Alighieri}    \\
+	$02$     			& Intersezione \emph{Battisti - Brianza - Margherita}   \\
+	$03$     			& Nodo di ingresso da \emph{Viale Brianza}         		\\
+	$04$ - $05$ - $06$ 	& Intersezione \emph{Boccaccio - Margherita}         	\\
+	$08$     			& Intersezione \emph{Battisti - Boito - Tognetti}       \\
+	$09$     			& Intersezione \emph{Battisti - Donizzetti - Volta}     \\
+	$10$    			& Nodo di ingresso da \emph{Via Alighieri}			    \\
+	$11$    			& Nodo di ingresso da \emph{Via Rossini}			    \\
+	$12$    			& Nodo di ingresso da \emph{Via Donizzetti}			    \\
+	$13$    			& Nodo di ingresso da \emph{Via Volta}			  		\\
+	$14$    			& Nodo di ingresso da \emph{Via Tognetti}			    \\
+	$15$ 				& Nodo di ingresso da \emph{Via Boito}			    	\\
+	$07$ - $16$ 		& Diramazione \emph{Boito - Battisti}            		\\
+	$17$				& Nodo di ingresso da \emph{Viale Battisti}			    \\
+	$18$				& Nodo di ingresso da \emph{Via Boccaccio}			    \\
+	$19$				& Nodo di ingresso da \emph{Viale Margherita} 	 		\\\bottomrule
 	\end{tabular}
 	\caption[Intersezioni relative al \ds{2}]{Caratterizzazione degli identificatori delle intersezioni (o nodi) del \ds{2}.}
 	\label{tab:ds-2-nodes}
@@ -373,10 +340,33 @@ I sensori non reali aggiunti alla rete stradale che simula questa situazione di 
 	\label{tab:ds-2-sensors-indices}
 \end{table}
 
+
 Nella~\vref{tab:ds-2-sensors-indices}, i sensori il cui identificatore è contrassegnato da un asterisco corrispondono ai sensori reali, evidenziati anche nella figura \omissis{} tramite un indice numerico di colore rosso.
 
+\begin{table}[htbp]%
+	\centering%
+	\begin{tabular}{+l^l^l^l}
+	\toprule\rowstyle{\bfseries}%
+	Fascia oraria  		   & Time Period  	& Fase          & Classe  \\\otoprule
+	$00$:$00$ - $02$:$05$  & $1$            & notte         & $1$     \\
+	$02$:$05$ - $04$:$10$  & $2$            & notte         & $1$     \\
+	$04$:$10$ - $06$:$15$  & $3$            & alba          & $2$     \\
+	$06$:$15$ - $08$:$20$  & $4$            & mattino       & $3$     \\
+	$08$:$20$ - $10$:$25$  & $5$            & mattino       & $3$     \\
+	$10$:$25$ - $12$:$30$  & $6$            & giorno        & $4$     \\
+	$12$:$30$ - $14$:$35$  & $7$            & giorno        & $4$     \\
+	$14$:$35$ - $16$:$40$  & $8$            & giorno        & $4$     \\
+	$16$:$40$ - $18$:$45$  & $9$            & pomeriggio    & $5$     \\
+	$18$:$45$ - $20$:$50$  & $10$           & pomeriggio    & $5$     \\
+	$20$:$50$ - $22$:$55$  & $11$           & sera          & $6$     \\
+	$22$:$55$ - $24$:$00$  & $12$           & sera          & $6$     \\\bottomrule
+	\end{tabular}
+	\caption[Periodi temporali del \ds{2}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{2}.}
+	\label{tab:ds-2-tp-labels}
+\end{table}
+%Saturday classes: `11`, `12`, ..., `16`.
+
 %varianti del dataset utilizzate
-%split figure on more pages (search google is my friend)
 
 \subsection{Risultati}
 \omissis{}
