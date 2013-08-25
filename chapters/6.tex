@@ -28,7 +28,7 @@ Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
 \begin{itemize}
 	\item la larghezza delle corsie è \num{3.65} \si{\metre}
 	\item la lunghezza della strada principale (\ie{} da nodo $1$ a nodo $5$) è \num{780} \si{\metre} mentre la lunghezza delle strade ad essa perpendicolari è pari a \num{300} \si{\metre}
-	\item la dimensione dei sensori è \num{0.30} \si{\metre}, da cui consegue che la dimensione della zona sensibile (in tutte le direzioni) è \num{1.85} \si{\metre}
+	\item la dimensione dei sensori è \num{0.30} \si{\metre}, da cui consegue che la dimensione della zona sensibile (in tutte le direzioni) è \num{2.13} \si{\metre}
 	\item la distanza dei sensori dal nodo più vicino è \num{6.5} \si{\metre}
 \end{itemize}
 \begin{figure}
@@ -207,7 +207,7 @@ Come detto nella~\autoref{subsec:sensors-dll}~\vpageref{subsec:sensors-dll}, ese
 Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti utilizzando tale insieme di \emph{\keyword{dati completi}} come input. A tale scopo, nella sottosezione che segue, si descrive la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui tale dataset è stato generato.
 
 \subsection{Modello TSIS}\label{subsec:tsis-monza-model}
-Il modello \acs{TSIS} in questione, a differenza di quello presentato nella \autoref{subsec:tsis-simple-model}, riproduce una rete stradale reale. Nello specifico esso riproduce la rete stradale circostante \emph{Viale Cesare Battisti} ($20900$ \emph{Monza, MB - Italia}). Disponendo di una serie di informazioni reali, tra cui i dati dei sensori posti su tale rete stradale, si sono potute inferire le caratteristiche della circolazione dei veicoli (\eg{} flusso di veicoli in transito) e quindi riprodurre fedelmente l'andamento del traffico durante tutti i giorni della settimana tramite un adeguato modello di simulazione \acs{CORSIM}.
+Il modello \acs{TSIS} in questione, a differenza di quello presentato nella \autoref{subsec:tsis-simple-model}, riproduce una rete stradale reale. Nello specifico esso riproduce la rete stradale circostante \emph{Viale Cesare Battisti} ($20900$ \emph{Monza, MB - Italia}). Disponendo di una serie di informazioni reali, tra cui i dati dei sensori posti su tale rete stradale, si sono potute inferire le caratteristiche della circolazione dei veicoli (\eg{} flusso di veicoli in ingresso) e quindi riprodurre fedelmente l'andamento del traffico durante tutti i giorni della settimana tramite un adeguato modello di simulazione \acs{CORSIM}.
 
 La~\vref{fig:tsis-model-monza-nodes} illustra la rete stradale oggetto di studio, evidenziando e identificando i nodi e i collegamenti stradali utilizzati per la sua riproduzione in \acs{TSIS}.
 \begin{figure}
@@ -252,37 +252,28 @@ La~\vref{tab:ds-2-nodes} illustra la correlazione tra gli indici dei nodi \acs{C
 	\label{tab:ds-2-nodes}
 \end{table}
 
-% inserire nomi vie visibili
-\begin{figure}[ht]
-  	\centering
-  	\includegraphics[width=1\columnwidth]{tsis-model-monza-compact}% 
-  	\caption[Rete stradale relativa al \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{2}.}
-	\label{fig:tsis-model-monza}
-\end{figure} 
+Tutte le intersezioni della rete stradale (si veda la \autoref{tab:ds-2-nodes}) sono controllate da semafori la cui configurazione riproduce i piani semaforici reali.
 
-%TODO: migliorare ..
-Di seguito si elencano le informazioni dei sensori reali del modello in questione:
+La rete stradale in questione, oltre a riprodurre i sensori realmente esistenti, contiene nei pressi di ognuna delle succitate intersezioni degli ulteriori sensori per la rilevazione del passaggio dei veicoli. Tutti i sensori sono posti su una sola corsia cosicché il flusso di dati da essi generato sia associabile alla canalizzazione della relativa corsia. Di seguito si elencano le informazioni relative ai sensori reali del modello in questione:
 \begin{description}
 \item[$5094$] \hfill \\
-Rilevamento dei veicoli provenienti da P.zza Citterio.
+Posto nei pressi dell'intersezione $06$ (\ie{} \emph{Boccaccio - Margherita}), rileva i veicoli provenienti dal nodo $19$ (\ie{} corsia sinistra di \emph{Viale Margherita}) diretti verso l'intersezione $02$ (\ie{} \emph{Battisti - Brianza - Margherita}).
 \item[$5095$] \hfill \\
-Rilevamento dei veicoli provenienti dall'intersezione \virgolette{Boccaccio} diretti verso il centro di Monza.
+Posto nei pressi dell'intersezione $06$ (\ie{} \emph{Boccaccio - Margherita}), rileva i veicoli provenienti dal nodo $18$ (\ie{} corsia sinistra \emph{Via Boccaccio}) che svoltano in diagonale a sinistra su \emph{Viale Margherita}.
 \item[$5096$] \hfill \\
-Rilevamento dei veicoli provenienti da Brianza verso Vedano.
+Posto nei pressi dell'intersezione $02$ (\ie{} \emph{Battisti - Brianza - Margherita}), rileva i veicoli provenienti dal nodo $03$ (\ie{} corsia sinistra di \emph{Viale Brianza}) diretti verso il nodo $04$ (\ie{} \emph{Boccaccio - Margherita}).
 \item[$5097$] \hfill \\
-Rilevamento dei veicoli provenienti Regina Margherita che svoltano a sinistra in Battisti.
+Posto nei pressi dell'intersezione $02$ (\ie{} \emph{Battisti - Brianza - Margherita}), rileva i veicoli su \emph{Viale Margherita} (corsia sinistra) che svoltano a sinistra su \emph{Viale Battisti}.
 \item[$5098$] \hfill \\
-Rilevamento dei veicoli provenienti da Battisti che svoltano a sinistra verso Vedano.
+Posto nei pressi dell'intersezione $02$ (\ie{} \emph{Battisti - Brianza - Margherita}), rileva i veicoli su \emph{Viale Battisti} (corsia sinistra) che svoltano in diagonale a sinistra su \emph{Viale Brianza}.
 \item[$5099$] \hfill \\
-Rilevamento dei veicoli provenienti da Battisti diretti verso il centro di Monza.
+Posto nei pressi dell'intersezione $02$ (\ie{} \emph{Battisti - Brianza - Margherita}), rileva i veicoli su \emph{Viale Battisti} (corsia destra) che svoltano a destra in \emph{Viale Margherita}.
 \end{description}
-
-I sensori non reali aggiunti alla rete stradale che simula questa situazione di traffico reale vengono identificati secondo uno schema ben preciso. Il loro identificatore è composto in base al senso di marcia. Nello specifico tale numero è una concatenazione dei seguenti valori: identificatore dell'intersezione di partenza, identificatore dell'intersezione d'arrivo, numero indicante la corsia su cui il sensore è posto (\ie{} $0$ se è la strada possiede una sola corsia, $1$ o $2$ se il sensore è posto rispettivamente a destra o a sinitra, $7$ o $8$ nel caso in cui esso sia posto su ulteriori corsie di destra o sinistra). Ad esempio:
+I sensori aggiunti alla rete stradale sono identificati secondo uno schema ben preciso. Il loro identificatore è composto in base al senso di marcia. Nello specifico tale numero è una concatenazione dei seguenti valori: identificatore del nodo di partenza, identificatore del nodo d'arrivo, numero indicante la corsia su cui il sensore è posto (\ie{} $0$ se è la strada possiede una sola corsia, $1$ o $2$ se il sensore è posto rispettivamente a destra o a sinitra, $7$ o $8$ nel caso in cui esso sia posto su ulteriori corsie di destra o sinistra). Ad esempio:
 \begin{itemize}
 \item il sensore identificato da D$912$ è posto sulla corsia di sinistra della strada che collega l'intersezione \virgolette{Volta} (\ie{} nodo $9$) all'intersezione \virgolette{Dante} (\ie{} nodo $1$)
 \item il sensore identificato da D$1480$ è posto sull'unica corsia di \virgolette{Via Tognetti} (\ie{} nodo $14$) nei pressi dell'incrocio con l'intersezione \virgolette{Boito} (\ie{} nodo $8$).
 \end{itemize}
-
 \begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l}
@@ -339,9 +330,38 @@ I sensori non reali aggiunti alla rete stradale che simula questa situazione di 
 	\caption[Sensori relativi al \ds{2}]{Corrispondenza fra gli identificatori dei sensori del \ds{2} e l'indice con cui essi sono indicati nella \omissis{}}
 	\label{tab:ds-2-sensors-indices}
 \end{table}
+Nella~\vref{tab:ds-2-sensors-indices}, i sensori il cui identificatore è contrassegnato da un asterisco corrispondono ai sensori reali, evidenziati anche nella \vref{fig:tsis-model-monza} tramite un indice numerico di colore rosso.
 
+% TODO: inserire nomi vie visibili
+\begin{figure}[ht]
+  	\centering
+  	\includegraphics[width=1\columnwidth]{tsis-model-monza-compact}% 
+  	\caption[Rete stradale relativa al \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{2}.}
+	\label{fig:tsis-model-monza}
+\end{figure} 
 
-Nella~\vref{tab:ds-2-sensors-indices}, i sensori il cui identificatore è contrassegnato da un asterisco corrispondono ai sensori reali, evidenziati anche nella figura \omissis{} tramite un indice numerico di colore rosso.
+Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
+\begin{itemize}
+	\item la larghezza delle corsie è \num{3.65} \si{\metre}
+	\item le strade del modello \acs{TSIS} riproducono esattamente, sia in lunghezza che in forma, la porzione di strada reale che modellano:
+	\begin{itemize}
+		\item \emph{Viale Battisti} è lungo \num{1.33} \si{\kilo\metre}
+		\item \emph{Via Boito} è lunga \num{308} \si{\metre}
+		\item \emph{Via Tognetti} è lunga \num{351} \si{\metre}
+		\item \emph{Via Donizzetti} è lunga \num{176} \si{\metre}
+		\item \emph{Via Volta} è lunga \num{395} \si{\metre}
+		\item \emph{Via Rossini} è lunga \num{141} \si{\metre}
+		\item \emph{Via Dante} è lunga \num{422} \si{\metre}
+		\item \emph{Viale Brianza} è lungo \num{106} \si{\metre}
+		\item \emph{Viale Margherita} è lungo \num{505} \si{\metre}
+		\item \emph{Via Boccaccio} è lunga \num{336} \si{\metre}
+	\end{itemize}
+	\item la dimensione dei sensori è \num{0.03} \si{\metre}, da cui consegue che la dimensione della zona sensibile (in tutte le direzioni) è \num{1.85} \si{\metre}
+	\item la distanza dei sensori dall'intersezione più vicina è \num{6.5} \si{\metre}
+	\item la velocità media dei veicoli: \num{67} \si{km/h} su \emph{Viale Battisti}, \num{56} \si{km/h} sulle altre strade.
+\end{itemize}
+
+%Vehicle entry headway: erlang with alpha = 2
 
 \begin{table}[htbp]%
 	\centering%
