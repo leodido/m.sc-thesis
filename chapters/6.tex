@@ -6,19 +6,28 @@
 %************************************************
 \chapter{Esperimenti numerici}\label{cap:esperimenti}
 %************************************************
-\omissis{}
-% introdurre argomenti del capitolo (dataset, e quindi tsis + sperimentazione)
-% introdurre modalità di sperimentazione
-% introdurre cross-validation
-% spiegare metriche di valutazione utilizzate? si! ma in capitolo 4!
+Lo scopo di questo capitolo è presentare i risultati ottenuti dalla sperimentazione degli algoritmi di classificazione e apprendimento strutturale oggetto di questo lavoro di tesi (si vedano rispettivamente i~\vref{cap:ctbnc,cap:structurallearning}). 
+
+La generazione di dataset inerenti il traffico automobilistico è stata effettuata, come detto, tramite un software commerciale apposito, \acs{TSIS}, e una \acl{RTE}, \acsfont{Sensors} \acs{DLL}, sviluppata a tale fine. Per maggiori dettagli riguardanti questi strumenti si rimanda al \vref{cap:tsis-sensors}.
+
+Questo capitolo è quindi articolato in due parti, una per ogni dataset su cui è stata effettuata la succitata sperimentazione. Ognuna di tali sezioni è a sua volta suddivisa in due sottosezioni: la prima finalizzata alla descrizione del modello \acs{TSIS} da cui è stato generato il dataset oggetto della sperimentazione, e la seconda finalizzata alla presentazione dei risultati di tale sperimentazione.
+
+Al fine di valutare l'accuratezza dei metodi predittivi sviluppati, la sperimentazione è stata eseguita utilizzando la tecnica chiamata \emph{\keyword{cross-validation}}. Tale metodologia di validazione è infatti pensata per accertare la capacità di generalizzazione di un modello statistico di tipo predittivo su un insieme di dati non conosciuto. Nello specifico, entrambe le sperimentazioni, e entrambi i metodi predittivi valutati (\ie{} classificazione e apprendimento strutturale), sono state condotte tramite una \emph{\keyword{$k$-fold}} \emph{\keyword{cross-validation}} con $k=10$.
 
 \section{\Ds{1}}\label{sec:dataset-1}
-Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti (si vedano rispettivamente i~\vref{cap:ctbnc,cap:structurallearning}) utilizzando tale insieme di \emph{\keyword{dati completi}} come input.
+Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti utilizzando tale insieme di \emph{\keyword{dati completi}} come input.
 
 \subsection{Modello TSIS}\label{subsec:tsis-simple-model}
 Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui esso è stato generato.
 
-La~\vref{fig:tsis-model-simple} mostra la rete stradale che compone il modello \acs{TSIS} oggetto di questa sottosezione. Tale figura evidenzia:
+La~\vref{fig:tsis-model-simple} mostra la rete stradale che compone il modello \acs{TSIS} oggetto di questa sottosezione.
+\begin{figure}[H]
+  	\centering
+  	\includegraphics[max size={0.9\textwidth}{0.9\textheight}]{tsis-model-simple}% 
+  	\caption[Rete stradale relativa al \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}. I sensori sono etichettati tramite degli indici numerici di colore giallo mentre i nodi sono etichettati tramite degli indici numerici di colore bianco.}
+	\label{fig:tsis-model-simple}
+\end{figure}
+Tale figura evidenzia:
 \begin{itemize}
 	\item la disposizione dei sensori (indicati tramite degli indici numerici di colore giallo) utilizzati per il monitoraggio del passaggio dei veicoli
 	\item le strade, tutte composte da $2$ corsie, e i nodi (indicati tramite degli indici numerici di colore bianco) da cui è composta la rete stradale
@@ -31,12 +40,6 @@ Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
 	\item la dimensione dei sensori è \num{0.30} \si{\metre}, da cui consegue che la dimensione della zona sensibile (in tutte le direzioni) è \num{2.13} \si{\metre}
 	\item la distanza dei sensori dal nodo più vicino è \num{6.5} \si{\metre}
 \end{itemize}
-\begin{figure}
-  	\centering
-  	\includegraphics[max size={0.9\textwidth}{0.9\textheight}]{tsis-model-simple}% 
-  	\caption[Rete stradale relativa al \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}. I sensori sono etichettati tramite degli indici numerici di colore giallo mentre i nodi sono etichettati tramite degli indici numerici di colore bianco.}
-	\label{fig:tsis-model-simple}
-\end{figure}
 
 Le intersezioni principali della rete stradale (\ie{} nodi con indici $02$, $03$ e $04$ nella~\vref{fig:tsis-model-simple}) sono controllate da semafori il cui ciclio di controllo dura $100$ secondi. La~\vref{fig:tsis-model-simple-controls} illustra la configurazione del piano semaforico per ogni intersezione controllata durante tutto il tempo di simulazione.
 \begin{figure}[H]
@@ -46,7 +49,7 @@ Le intersezioni principali della rete stradale (\ie{} nodi con indici $02$, $03$
 	\label{fig:tsis-model-simple-controls}
 \end{figure}
 
-Come anticipato, ogni strada che compone la rete stradale contiene, nei pressi dei nodi (sia che essi siano delle intersezioni, sia che essi siano dei nodi di ingresso o di transito), dei sensori finalizzati al rilevamento e tracciamento del passaggio dei veicoli: essi sono indicati nella~\vref{fig:tsis-model-simple} da indici numerici di colore giallo. La~\vref{tab:ds-1-sensors-indices} elenca il nome reale di tali sensori, utilizzato per la generazione del relativo dataset (come mostrato dall'esempio riportato nella~\autoref{subsec:sensors-dll-output}~\vpageref{subsec:sensors-dll-output}).
+Come anticipato, ogni strada che compone la rete stradale contiene, nei pressi dei nodi (sia che essi siano delle intersezioni, sia che essi siano dei nodi di ingresso o di transito), dei sensori finalizzati al rilevamento e tracciamento del passaggio dei veicoli: essi sono indicati nella~\vref{fig:tsis-model-simple} da indici numerici di colore giallo. La~\vref{tab:ds-1-sensors-indices} elenca il nome reale di tali sensori, utilizzato per la generazione del relativo dataset (a tal riguardo, un esempio di dataset è stata riportato nella~\autoref{subsec:sensors-dll-output}~\vpageref{subsec:sensors-dll-output}).
 \begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l}
