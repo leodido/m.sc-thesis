@@ -32,22 +32,22 @@ score_B(\conceptsym{G}:\conceptsym{D})=\ln{P(\conceptsym{D}\,\arrowvert\,\concep
 \end{equation}
 Come mostra l'\autoref{eq:structurallearning-score} la funzione di \keyword{scoring} utilizza la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{} il \trs{} $\conceptsym{D}$) data la struttura candidata (\ie{} $\conceptsym{G}$), oltre alla probabilità a priori della struttura stessa.
 
-\`E possibile aumentare in modo significativo l'efficienza dell'algoritmo di ricerca che si affronta nella prossima sezione qualora si facciano determinate assunzioni. Nello specifico, se si assume che la probabilità a priori della struttura, $P(\conceptsym{G})$, soddisfi la \emph{\keyword{modularità della struttura}}, ne consegue:
+\`E possibile aumentare in modo significativo l'efficienza dell'algoritmo di ricerca che si affronta nella prossima sezione qualora si facciano determinate assunzioni. Nello specifico, se si assume che la probabilità a priori della struttura, $P(\conceptsym{G})$, soddisfi la \emph{\keyword{structure modularity}}, ne consegue:
 \begin{equation}\label{eq:structurallearning-prior-modularity}
 P(\conceptsym{G})=\prod_{\setel{X}_i} P(Pa(\setel{X}_i) = Pa_{\conceptsym{G}}(\setel{X}_i))\text{.}
 \end{equation}
-Se si assume, inoltre, che la probabilità a priori dei parametri soddisfi la \emph{\keyword{modularità dei parametri}}, allora per ogni due strutture $\conceptsym{G}$ e $\conceptsym{G}^\prime$ tali che $Pa_{\conceptsym{G}}(\setel{X}) = Pa_{\conceptsym{G}^\prime}(\setel{X})$ risulta:
+Se si assume, inoltre, che la probabilità a priori dei parametri soddisfi la \emph{\keyword{parameter modularity}}, allora per ogni due strutture $\conceptsym{G}$ e $\conceptsym{G}^\prime$ tali che $Pa_{\conceptsym{G}}(\setel{X}) = Pa_{\conceptsym{G}^\prime}(\setel{X})$ risulta:
 \begin{equation}\label{eq:structurallearning-params-modularity}
 P(\param{q}_{\setel{X}}\,,\param{$\theta$}_{\setel{X}}\,\arrowvert\,\conceptsym{G}) = P(\param{q}_{\setel{X}}\,,\param{$\theta$}_{\setel{X}}\,\arrowvert\,\conceptsym{G}^\prime)\text{.}
 \end{equation}
-Combinando l'assunzione di \emph{indipendenza dei parametri} con l'\autoref{eq:structurallearning-params-modularity} derivante dalla \emph{\keyword{modularità dei parametri}}, si ottiene:
+Combinando l'assunzione di \emph{\keyword{parameter independence}} con l'\autoref{eq:structurallearning-params-modularity} derivante dalla \emph{\keyword{parameter modularity}}, si ottiene:
 \begin{align}\label{eq:structurallearning-params-posterior}
 P(\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}\,\arrowvert\,\conceptsym{G}) &= \prod_{\setel{X}_i} \bigg[ P\Big(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,\arrowvert\,Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i)\Big) \cdot \bigg.\nonumber\\
 & \quad \bigg.{} \qquad \cdot P\Big(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,\arrowvert\,Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i)\Big) \bigg]\text{.}
 \end{align}
 Si osservi che, poiché la \emph{\keyword{penalità del grafo}}, corrispondente al termine $P(Pa(\setel{X}_i) = Pa_{\conceptsym{G}}(\setel{X}_i))$ dell'\autoref{eq:structurallearning-prior-modularity}, è legata alla dimensione del \keyword{grafo} ma indipendente dalla quantità dei dati, è possibile ignorare il termine $P(\conceptsym{G})$ della funzione di \keyword{scoring} (\autoref{eq:structurallearning-score}).
 
-Di conseguenza l'unico termine significativo dell'\autoref{eq:structurallearning-score} è la \emph{\keyword{likelihood marginale}}, $P(\conceptsym{D}\,\arrowvert\,\conceptsym{G})$. Tale termine, infatti, codifica l'incertezza sui parametri integrando su tutti i possibili valori che essi possono assumere:
+Di conseguenza il termine significativo dell'\autoref{eq:structurallearning-score} è la \emph{\keyword{likelihood marginale}}, $P(\conceptsym{D}\,\arrowvert\,\conceptsym{G})$. Tale termine, infatti, codifica l'incertezza sui parametri integrando su tutti i possibili valori che essi possono assumere:
 \begin{equation}\label{eq:structurallearning-marglikelihood}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) = \int_{\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}} P(\conceptsym{D}\,\arrowvert\,\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}) \, P(\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}\,\arrowvert\,\conceptsym{G}) \, d\param{q}_{\conceptsym{G}} d\param{$\theta$}_{\conceptsym{G}}\text{.}
 \end{equation}
@@ -58,14 +58,14 @@ P(\conceptsym{D}\,\arrowvert\,\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\co
 &= \underbrace{\bigg[\prod_{\setel{X}_i} L_{\setel{X}_i}(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \bigg]}_{L(\param{q}:\conceptsym{D})} \underbrace{\bigg[\prod_{\setel{X}_i} L_{\setel{X}_i}(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}:\conceptsym{D}) \bigg]}_{L(\param{$\theta$}:\conceptsym{D})} \text{.}
 \end{split}
 \end{equation}
-Combinando tale decomposizione con l'\emph{\keyword{indipendenza dei parametri}} si può riformulare la \keyword{likelihood marginale} (\autoref{eq:structurallearning-marglikelihood}) nel seguente modo:
+Combinando tale decomposizione con l'\emph{\keyword{parameter independence}} si può riformulare la \keyword{likelihood marginale} (\autoref{eq:structurallearning-marglikelihood}) nel seguente modo:
 \begin{align}\label{eq:structurallearning-marglikelihood-decomp-2}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) &= \int_{\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}} L(\param{q}_{\conceptsym{G}}:\conceptsym{D}) L(\param{$\theta$}_{\conceptsym{G}}:\conceptsym{D}) P(\param{q}_{\conceptsym{G}}) P(\param{$\theta$}_{\conceptsym{G}}) \, d\param{q}_{\conceptsym{G}} d\param{$\theta$}_{\conceptsym{G}} \nonumber\\
 &= \underbrace{\bigg[ \int_{\param{q}_{\conceptsym{G}}} L(\param{q}_{\conceptsym{G}}:\conceptsym{D}) P(\param{q}_{\conceptsym{G}}) \, d\param{q}_{\conceptsym{G}} \bigg]}_{\myterm{termQ}} \cdot \underbrace{\bigg[ \int_{\param{$\theta$}_{\conceptsym{G}}} L(\param{$\theta$}_{\conceptsym{G}}:\conceptsym{D}) P(\param{$\theta$}_{\conceptsym{G}}) \, d\param{$\theta$}_{\conceptsym{G}} \bigg]}_{\myterm{termT}} \text{.}
 \end{align}
 Ottenuta tale equazione, si affronta di seguito l'analisi e la decomposizione dei due termini che la compongono.
 
-Utilizzando l'assunzione di \emph{\keyword{indipendenza locale} dei parametri}, il \autoref{termQ} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è decomponibile nel seguente modo. Si noti che per brevità si pone $\setel{u}=pa_i(\setel{x})$.
+Utilizzando l'assunzione di \emph{local \keyword{parameter independence}}, il \autoref{termQ} dell'\autoref{eq:structurallearning-marglikelihood-decomp-2} è decomponibile nel seguente modo. Si noti che per brevità si pone $\setel{u}=pa_i(\setel{x})$.
 \[
 \prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty P(\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}) \cdot L_{\setel{X}_i}(\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}:\conceptsym{D}) \, d\param{q}_{\setel{x}\,\arrowvert\,\setel{u}} \tag*{\ref{termQ}} \text{.}
 \]
@@ -93,7 +93,7 @@ Quindi si può riformulare la \keyword{likelihood marginale}:
 \begin{equation}\label{eq:data-given-graph}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) = \prod_{\setel{X}_i} MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \cdot MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \text{.}
 \end{equation}
-Al fine di derivare la probabilità a priori della struttura (\autoref{eq:structurallearning-prior-modularity}) si è già assunto in precedenza che l'ipotesi di modularità della struttura sussista. Perciò, sfruttando tale assunzione, l'\autoref{eq:structurallearning-prior-modularity} della probabilità a priori della struttura, e l'\autoref{eq:data-given-graph} della \keyword{likelihood marginale}:
+Al fine di derivare la probabilità a priori della struttura (\autoref{eq:structurallearning-prior-modularity}) si è già assunto in precedenza che l'ipotesi di \emph{\keyword{structure modularity}} sussista. Perciò, sfruttando tale assunzione e combinando l'\autoref{eq:structurallearning-prior-modularity} della probabilità a priori della struttura con la \keyword{likelihood marginale} (\autoref{eq:data-given-graph}), si ottiene:
 \begin{align}\label{eq:bayesian-score}
 score_B(\conceptsym{G}:\conceptsym{D}) &= \sum_{\setel{X}_i} \bigg[ \ln{P(Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i))} + \bigg.\nonumber\\
 & \qquad \quad \> \bigg.{} + \ln{MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})} + \bigg.\nonumber\\
