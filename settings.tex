@@ -69,9 +69,9 @@
 % comandi per le lettere greche
 % ...
 
-% reference for equation terms. use \underbrace{equation}_{\myterm{termA}}
+% reference for equation terms. e.g., \tag*{\myterm{termA}}
 \newcounter{term}
-\renewcommand*{\theterm}{(\alph{term})}
+\renewcommand*{\theterm}{(\emph{\alph{term}})}
 \AtBeginDocument{%
   \let\mylabel\label
 }
@@ -207,30 +207,30 @@
 }
 \lstdefinelanguage{cpp}{
     language=C++,
-    basicstyle=\normalsize\ttfamily,   
-    breakatwhitespace=false,       
-    breaklines=true,               
-    captionpos=b,                   
-    commentstyle=\color{dkgreen},   
-    deletekeywords={...},          
-    escapeinside={<ls>}{<le>},                  
-    keywordstyle=\color{blue},  
-    morekeywords={__stdcall,__declspec,dllimport,dllexport}, 
+    basicstyle=\normalsize\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    commentstyle=\color{dkgreen},
+    deletekeywords={...},
+    escapeinside={<ls>}{<le>},
+    keywordstyle=\color{blue},
+    morekeywords={__stdcall,__declspec,dllimport,dllexport},
     identifierstyle=\color{black},
-    stringstyle=\color{red}, 
-    numbers=left,                
-    numbersep=8pt,                  
-    numberstyle=\scriptsize, 
-    rulecolor=\color{black},        
-    showspaces=false,               
-    showstringspaces=false,        
-    showtabs=false,                
-    stepnumber=1,                   
+    stringstyle=\color{red},
+    numbers=left,
+    numbersep=8pt,
+    numberstyle=\scriptsize,
+    rulecolor=\color{black},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    stepnumber=1,
     tabsize=1,
-    frameround=ftff,                     
-    frame=TB,                            
-    %title=\lstname 
-    %morecomment=[l][\color{magenta}]{\#}               
+    frameround=ftff,
+    frame=TB,
+    %title=\lstname
+    %morecomment=[l][\color{magenta}]{\#}
 }
 
 % Dichiarazioni utili per l'indice della tesi e le etichette

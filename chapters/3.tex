@@ -69,12 +69,14 @@ Utilizzando l'assunzione di \emph{local \keyword{parameter independence}}, il \a
 \[
 \prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty P(\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}) \cdot L_{\setel{X}_i}(\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}:\conceptsym{D}) \, d\param{q}_{\setel{x}\,\arrowvert\,\setel{u}} \tag*{\ref{termQ}} \text{.}
 \]
-Sostituendo a tale termine la distribuzione a \keyword{priori coniugata} su $\param{q}$ (si veda l'\autoref{eq:ctbn-bayesian-params-gamma}) e la likelihood delle quantità di tempo trascorse in ogni stato (si veda l'\autoref{eq:like-time-spent-in-each-state}) si ottiene:
-\footnotesize
-\[
-\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1})} (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tau_{\setel{x}\arrowvert\setel{u}}} \cdot (\param{q}_{x\arrowvert\setel{u}})^{\mstat{x\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tstat{\setel{x}\arrowvert\setel{u}}} d\param{q}_{\setel{x}\arrowvert\setel{u}} \tag*{\ref{termQ}} \text{\normalsize .}
-\]
-\normalsize
+Sostituendo a tale termine la distribuzione a \keyword{priori coniugata} su $\param{q}$ (si veda l'\autoref{eq:ctbn-bayesian-params-gamma}) e la likelihood delle quantità di tempo trascorse in ogni stato (si veda l'\autoref{eq:like-time-spent-in-each-state}) si ottiene: \\
+\begin{align*}
+\begin{split}
+\prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \Bigg( \frac{(\tau_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}+1}}{\Gamma({\alpha_{\setel{x}\arrowvert\setel{u}}+1})} (\param{q}_{\setel{x}\arrowvert\setel{u}})^{\alpha_{\setel{x}\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tau_{\setel{x}\arrowvert\setel{u}}} \; \cdot \\
+\cdot \; (\param{q}_{x\arrowvert\setel{u}})^{\mstat{x\arrowvert\setel{u}}} e^{-\param{q}_{\setel{x}\arrowvert\setel{u}}\tstat{\setel{x}\arrowvert\setel{u}}} \Bigg) d\param{q}_{\setel{x}\arrowvert\setel{u}} \text{.}
+\end{split}\tag*{\ref{termQ}}
+\end{align*}
+
 Si procede semplificando:
 \[
 \prod_{\setel{X}_i} \prod_{\setel{u}} \prod_{\setel{x}} \int_0^\infty \frac{(\tau_{\setel{x}\,\arrowvert\,\setel{u}})^{\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+1} \cdot (\param{q}_{\setel{x}\,\arrowvert\,\setel{u}})^{\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+\mstat{x\,\arrowvert\,\setel{u}}}}{\Gamma({\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+1}) \cdot e^{\param{q}_{\setel{x}\,\arrowvert\,\setel{u}}(\tau_{\setel{x}\,\arrowvert\,\setel{u}}+\tstat{\setel{x}\,\arrowvert\,\setel{u}})}}  \, d\param{q}_{\setel{x}\,\arrowvert\,\setel{u}} \tag*{\ref{termQ}} \text{.}
@@ -89,10 +91,10 @@ Ne consegue che il \autoref{termT} si semplifica:
 \[
 \prod_{\setel{X}_i} \underbrace{\prod_{\setel{u}} \prod_{\setel{x}} \frac{\Gamma(\alpha_{\setel{x}\,\arrowvert\,\setel{u}})}{\Gamma(\alpha_{\setel{x}\,\arrowvert\,\setel{u}}+\mstat{x\,\arrowvert\,\setel{u}})} \cdot \prod_{\setel{x}\neq\setel{x}^\prime} \frac{\Gamma(\alpha_{\setel{x}\setel{x}^\prime\,\arrowvert\,\setel{u}}+\mstat[x]{\setel{x}^\prime\,\arrowvert\,\setel{u}})}{\Gamma(\alpha_{\setel{x}\setel{x}^\prime\,\arrowvert\,\setel{u}})}}_\text{$MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$} \tag*{\ref{termT}} \text{.}
 \]
-Quindi si può riformulare la \keyword{likelihood marginale}:
+Quindi si può riformulare la \keyword{likelihood marginale}:\small
 \begin{equation}\label{eq:data-given-graph}
 P(\conceptsym{D}\,\arrowvert\,\conceptsym{G}) = \prod_{\setel{X}_i} MargL^{\param{q}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \cdot MargL^{\param{$\theta$}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D}) \text{.}
-\end{equation}
+\end{equation}\normalsize
 Al fine di derivare la probabilità a priori della struttura (\autoref{eq:structurallearning-prior-modularity}) si è già assunto in precedenza che l'ipotesi di \emph{\keyword{structure modularity}} sussista. Perciò, sfruttando tale assunzione e combinando l'\autoref{eq:structurallearning-prior-modularity} della probabilità a priori della struttura con la \keyword{likelihood marginale} (\autoref{eq:data-given-graph}), si ottiene:
 \begin{align}\label{eq:bayesian-score}
 score_B(\conceptsym{G}:\conceptsym{D}) &= \sum_{\setel{X}_i} \bigg[ \ln{P(Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i))} + \bigg.\nonumber\\

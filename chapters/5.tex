@@ -11,7 +11,7 @@ Al fine di valutare le prestazioni degli algoritmi di apprendimento e classifica
 
 Come già specificato in precedenza, le \acs{CTBN} sono un modello stocastico dedito alla rappresentazione dell'evoluzione di sistemi dinamici, cioè di fenomeni cangianti nel tempo (non necessariamente o esclusivamente in base ad esso) rappresentabili come insiemi di traiettorie multi-variate. Si è quindi scelto di generare dei dataset che rappresentassero un tipico sistema cangiante: il traffico automobilistico su rete stradale.
 
-Tali dataset, costituiti da un insieme di documenti rappresentanti la presenza (durante l'evolvere del tempo) di veicoli sui sensori di una rete stradale, sono stati generati con l'ausilio di un software commerciale, \acf{TSIS} (versione $\geq$ 6.2) e di una sua \acl{RTE} appositamente sviluppata al fine di monitorare e tracciare il passaggio dei veicoli. 
+Tali dataset, costituiti da un insieme di documenti rappresentanti la presenza (durante l'evolvere del tempo) di veicoli sui sensori di una rete stradale, sono stati generati con l'ausilio di un software commerciale, \acf{TSIS} (versione $\geq$ 6.2) e di una sua \acl{RTE} appositamente sviluppata al fine di monitorare e tracciare il passaggio dei veicoli.
 
 In questo capitolo si presentano sia i succitati strumenti utilizzati per la creazione di reti stradali e relativi modelli di simulazione, sia lo strumento creato per la creazione di dataset relativi al traffico.
 
@@ -183,7 +183,7 @@ Per ogni passo temporale di simulazione, il \acs{CORSIM} \acsfont{Server} chiama
 
 \acs{TSIS} fornisce inoltre una \acs{API}, identificata dalla freccia $2$ nella~\vref{fig:tsis-corsim-arch}, chiamata \acsfont{CORWIN}, che permette alle \acs{RTE} di inviare messaggi al modulo \acs{CORSIM} \acsfont{Server} affinché essi siano visualizzati in \acs{TShell} dal \acs{CORSIM} \acsfont{Driver Component}.
 
-Infine, una \acs{RTE} può accedere direttamente a una serie di funzioni e strutture dati esportate da \acs{CORSIM} nella memoria condivisa. Anche se non è possibile riferirsi a questo meccanismo di comunicazione come una \acs{API} vera e propria, nel prosieguo, ci riferiremo ad essa con il termine \acs{CORSIM} \acs{API} al fine di semplificare la discussione. Perciò, la \acs{CORSIM} \acs{API}, rappresentata dalla freccia $3$ della~\vref{fig:tsis-corsim-arch}, oltre a permettere l'estrazione di informazioni relative alla simulazione, permette alla \acs{RTE} di controllare, eventualmente, molti aspetti della simulazione operata da \acs{CORSIM} (\eg{} aborto della simulazione). 
+Infine, una \acs{RTE} può accedere direttamente a una serie di funzioni e strutture dati esportate da \acs{CORSIM} nella memoria condivisa. Anche se non è possibile riferirsi a questo meccanismo di comunicazione come una \acs{API} vera e propria, nel prosieguo, ci riferiremo ad essa con il termine \acs{CORSIM} \acs{API} al fine di semplificare la discussione. Perciò, la \acs{CORSIM} \acs{API}, rappresentata dalla freccia $3$ della~\vref{fig:tsis-corsim-arch}, oltre a permettere l'estrazione di informazioni relative alla simulazione, permette alla \acs{RTE} di controllare, eventualmente, molti aspetti della simulazione operata da \acs{CORSIM} (\eg{} aborto della simulazione).
 
 Si osservi che, anche se la~\vref{fig:tsis-corsim-arch} non evidenzia tale possibilità, l'architettura di \acs{CORSIM} supporta l'utilizzo di più \acs{RTE} contemporaneamente.
 
@@ -401,7 +401,7 @@ void CLink::processDetectors(void) {
 \end{figure}
 
 \subsection{Formato dell'output}\label{subsec:sensors-dll-output}
-Di seguito si presenta un esempio di file \acs{CSV} di output generato da \acsfont{Sensors} \acs{DLL}. 
+Di seguito si presenta un esempio di file \acs{CSV} di output generato da \acsfont{Sensors} \acs{DLL}.
 
 \begin{lstlisting}[nolol=true, language=pseudo, numbers=none, label=lst:sensors-out-format]
 time,tp,D131,D231,D232,D211,D212,D213
