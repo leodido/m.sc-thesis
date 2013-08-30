@@ -6,11 +6,11 @@
 %************************************************
 \chapter{Esperimenti numerici}\label{cap:esperimenti}
 %************************************************
-Lo scopo di questo capitolo è presentare i risultati ottenuti dalla sperimentazione degli algoritmi di classificazione e apprendimento strutturale oggetto di questo lavoro di tesi (si vedano rispettivamente i~\vref{cap:ctbnc,cap:structurallearning}). 
+Lo scopo di questo capitolo è presentare i risultati ottenuti dalla sperimentazione degli algoritmi di classificazione e apprendimento strutturale oggetto di questo lavoro di tesi (si vedano rispettivamente i~\vref{cap:ctbnc,cap:structurallearning}).
 
 La generazione di dataset inerenti il traffico automobilistico è stata effettuata, come detto, tramite un software commerciale apposito, \acs{TSIS}, e una \acl{RTE}, \acsfont{Sensors} \acs{DLL}, sviluppata a tale fine. Per maggiori dettagli riguardanti questi strumenti si rimanda al \vref{cap:tsis-sensors}.
 
-Questo capitolo è quindi articolato in due parti, una per ogni dataset su cui è stata effettuata la succitata sperimentazione. Ognuna di tali sezioni è a sua volta suddivisa in due sottosezioni: la prima finalizzata alla descrizione del modello \acs{TSIS} da cui è stato generato il dataset oggetto della sperimentazione, e la seconda finalizzata alla presentazione dei risultati di tale sperimentazione.
+Questo capitolo è quindi articolato in due parti, una per ogni dataset su cui è stata effettuata la succitata sperimentazione. Ognuna di tali sezioni è a sua volta suddivisa in due sottosezioni: la prima finalizzata alla descrizione del modello \acs{TSIS} da cui è stato generato il dataset oggetto della sperimentazione e alla descrizione di tale dataset, e la seconda finalizzata alla presentazione dei risultati di tale sperimentazione.
 
 Al fine di valutare l'accuratezza dei metodi predittivi sviluppati, la sperimentazione è stata eseguita utilizzando la tecnica chiamata \emph{\keyword{cross-validation}}. Tale metodologia di validazione è infatti pensata per accertare la capacità di generalizzazione di un modello statistico di tipo predittivo su un insieme di dati non conosciuto. Nello specifico, entrambe le sperimentazioni, e entrambi i metodi predittivi valutati (\ie{} classificazione e apprendimento strutturale), sono state condotte tramite una \emph{\keyword{$k$-fold}} \emph{\keyword{cross-validation}} con $k=10$.
 
@@ -23,7 +23,7 @@ Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{T
 La~\vref{fig:tsis-model-simple} mostra la rete stradale che compone il modello \acs{TSIS} oggetto di questa sottosezione.
 \begin{figure}[H]
   	\centering
-  	\includegraphics[max size={0.9\textwidth}{0.9\textheight}]{tsis-model-simple}% 
+  	\includegraphics[max size={0.9\textwidth}{0.9\textheight}]{tsis-model-simple}%
   	\caption[Rete stradale relativa al \ds{1}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{1}. I sensori sono etichettati tramite degli indici numerici di colore giallo mentre i nodi sono etichettati tramite degli indici numerici di colore bianco.}
 	\label{fig:tsis-model-simple}
 \end{figure}
@@ -36,7 +36,7 @@ Tale figura evidenzia:
 Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
 \begin{itemize}
 	\item la larghezza delle corsie è \num{3.65} \si{\metre}
-	\item la lunghezza della strada principale (\ie{} da nodo $1$ a nodo $5$) è \num{780} \si{\metre} mentre la lunghezza delle strade ad essa perpendicolari è pari a \num{300} \si{\metre}
+	\item la lunghezza della strada principale (\ie{} da nodo $01$ a nodo $05$) è \num{780} \si{\metre} mentre la lunghezza delle strade ad essa perpendicolari è pari a \num{300} \si{\metre}
 	\item la dimensione dei sensori è \num{0.30} \si{\metre}, da cui consegue che la dimensione della zona sensibile (in tutte le direzioni) è \num{2.13} \si{\metre}
 	\item la distanza dei sensori dal nodo più vicino è \num{6.5} \si{\metre}
 \end{itemize}
@@ -144,15 +144,15 @@ Il modello di simulazione \acs{CORSIM} creato per questa rete stradale prevede u
 
 Ogni fase della giornata (\ie{} classe) è caratterizzata da un andamento diverso del traffico:
 \begin{itemize}
-	\item al mattino traffico intenso su tutta la rete stradale e code in direzione del nodo $5$ 
-	\item durante il giorno traffico moderato su tutta la rete e code residue verso il nodo $5$ nella prima parte di tale fase
-	\item nel pomeriggio traffico intenso su tutta la rete stradale e code in direzione del nodo $1$
-	\item durante la sera traffico moderato su tutta la rete stradale e code residue verso il nodo $1$ nella prima parte di tale fase
+	\item al mattino traffico intenso su tutta la rete stradale e code in direzione del nodo $05$
+	\item durante il giorno traffico moderato su tutta la rete e code residue verso il nodo $05$ nella prima parte di tale fase
+	\item nel pomeriggio traffico intenso su tutta la rete stradale e code in direzione del nodo $01$
+	\item durante la sera traffico moderato su tutta la rete stradale e code residue verso il nodo $01$ nella prima parte di tale fase
 	\item durante la notte pochi veicoli in tutte le direzioni
-	\item all'alba aumento dei veicoli diretti verso il nodo $5$
+	\item all'alba aumento dei veicoli diretti verso il nodo $05$
 \end{itemize}
 
-L'andamento del traffico è modellato in \acs{CORSIM} variando i flussi di ingresso dei veicoli e le percentuali di svolta nelle varie intersezioni al variare dei periodi temporali o, in generale, delle fasi di simulazione previste. La~\vref{tab:ds-1-input-vehicles} illustra i flussi di ingresso nella rete stradale, espressi come numero di veicoli orari (\ie{} \si{vph}), per ogni fase della simulazione. Si osservi che l'immissione di veicoli sulla rete stradale avviene seguendo una distribuzione di probabilità di Erlang con parametro \emph{shape} pari a $2$. 
+L'andamento del traffico è modellato in \acs{CORSIM} variando i flussi di ingresso dei veicoli e le percentuali di svolta nelle varie intersezioni al variare dei periodi temporali o, in generale, delle fasi di simulazione previste. La~\vref{tab:ds-1-input-vehicles} illustra i flussi di ingresso nella rete stradale, espressi come numero di veicoli orari (\ie{} \si{vph}), per ogni fase della simulazione. Si osservi che l'immissione di veicoli sulla rete stradale avviene seguendo una distribuzione di probabilità di Erlang con parametro \emph{shape} pari a $2$.
 \begin{table}[H]
 	\centering
 	\begin{tabular}{+l^c^c^c}
@@ -170,9 +170,9 @@ L'andamento del traffico è modellato in \acs{CORSIM} variando i flussi di ingre
 	\label{tab:ds-1-input-vehicles}
 \end{table}
 
-La~\vref{tab:ds-1-turning-movs} illustra le percentuali di svolta al variare della fase di simulazione. L'intestazione di tale tabella indica i nodi di provenienza dei veicoli, il senso di marcia e le direzioni previste dall'intersezione che segue il nodo di partenza. Le celle invece indicano la distribuzione delle svolte effettuate dai veicoli nelle intersezioni. 
+La~\vref{tab:ds-1-turning-movs} illustra le percentuali di svolta al variare della fase di simulazione. L'intestazione di tale tabella indica i nodi di provenienza dei veicoli, il senso di marcia e le direzioni previste dall'intersezione che segue il nodo di partenza. Le celle invece indicano la distribuzione delle svolte effettuate dai veicoli nelle intersezioni.
 
-Si consideri, ad esempio, la prima cella della~\autoref{tab:ds-1-turning-movs}: l'$80$\% dei veicoli provenienti dai nodi $1$, $2$ e $3$, giunti alle intersezioni che seguono tali nodi (\ie{} nodi $2$, $3$ e $4$, rispettivamente; si veda a tal riguardo la~\vref{fig:tsis-model-simple}), proseguono senza svoltare; il $10$\% dei veicoli provenienti dai nodi $1$, $2$ e $3$, invece, svolterà verso destra; idem verso sinistra.
+Si consideri, ad esempio, la prima cella della~\autoref{tab:ds-1-turning-movs}: l'$80$\% dei veicoli provenienti dai nodi $01$, $02$ e $03$, giunti alle intersezioni che seguono tali nodi (\ie{} nodi $02$, $03$ e $04$, rispettivamente; si veda a tal riguardo la~\vref{fig:tsis-model-simple}), proseguono senza svoltare; il $10$\% dei veicoli provenienti dai nodi $01$, $02$ e $03$, invece, svolterà verso destra; idem verso sinistra.
 \begin{table}[htbp]
 	\centering\footnotesize
 	\begin{tabular}{+l^c^c^c^c^c^c^c^c^c^c^c^c}
@@ -203,9 +203,14 @@ Si consideri, ad esempio, la prima cella della~\autoref{tab:ds-1-turning-movs}: 
 
 Come detto nella~\autoref{subsec:sensors-dll}~\vpageref{subsec:sensors-dll}, eseguendo il modello di simulazione \acs{CORSIM} descritto in questa sezione con \acsfont{Sensors} \acs{DLL} si ottiene un file di output che, adeguatamente processato (a tal riguardo si rimanda alla~\vref{sec:dataset-tools}), compone un dataset sottoponibile agli algoritmi di apprendimento e classificazione presentati nei capitoli~\ref{cap:ctbnc} e \ref{cap:structurallearning}.
 
-Di seguito si descrive la composizione di tale dataset:
+Di seguito si descrive le caratteristiche di tale dataset:
 \begin{itemize}
-	\item 
+	\item tempo totale pari a $86400$ secondi (\ie{} $24$ ore)
+	\item suddivisione in $864$ elementi (\ie{} file)
+	\item ogni elemento include $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
+	\item ogni elemento è stato ottimizzato, cioè sottoposto all'eliminazione delle righe in cui non si verifica alcuna transizione di stato dei sensori
+	\item la colonna \lstinline[]|tp| è stata rimossa e sostituita con la colonna \lstinline[]|class| in base alla corrispondenza riportata nella \vref{tab:ds-1-tp-labels}
+	\item l'intestazione di ogni elemento è \\ \lstinline[]|time, class, D122, D121, D341, D342, D722, D721, D1142, D1141, D231, D232, D541, D542, D4112, D4111, D431, D432, D4101, D4102, D451, D452, D832, D831, D261, D262, D321, D322, D392, D391, D211, D212, D272, D271, D1042, D1041, D622, D621, D932, D931, D381, D382|
 \end{itemize}
 
 \subsection{Risultati}
@@ -230,7 +235,7 @@ La~\vref{fig:tsis-model-monza-nodes} illustra la rete stradale oggetto di studio
   \centering
   \captionsetup{type=figure}
   \captionsetup[subfigure]{labelformat=empty}
-  \subfloat[][]{\includegraphics[width=0.935\columnwidth]{tsis-model-monza-gmap-sx}}% 
+  \subfloat[][]{\includegraphics[width=0.935\columnwidth]{tsis-model-monza-gmap-sx}}%
   \caption[Intersezioni della rete stradale del \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante le intersezioni della rete stradale da cui viene generato il \ds{2}.}
 \end{figure}
 
@@ -280,8 +285,8 @@ Posto nei pressi dell'intersezione $02$ (\ie{} \emph{Battisti - Brianza - Marghe
 \end{description}
 I sensori aggiunti alla rete stradale sono identificati secondo uno schema ben preciso. Il loro identificatore è composto in base al senso di marcia. Nello specifico tale numero è una concatenazione dei seguenti valori: identificatore del nodo di partenza, identificatore del nodo d'arrivo, numero indicante la corsia su cui il sensore è posto (\ie{} $0$ se è la strada possiede una sola corsia, $1$ o $2$ se il sensore è posto rispettivamente a destra o a sinitra, $7$ o $8$ nel caso in cui esso sia posto su ulteriori corsie di destra o sinistra). Ad esempio:
 \begin{itemize}
-\item il sensore identificato da D$912$ è posto sulla corsia di sinistra della strada che collega l'intersezione \virgolette{Volta} (\ie{} nodo $9$) all'intersezione \virgolette{Dante} (\ie{} nodo $1$)
-\item il sensore identificato da D$1480$ è posto sull'unica corsia di \virgolette{Via Tognetti} (\ie{} nodo $14$) nei pressi dell'incrocio con l'intersezione \virgolette{Boito} (\ie{} nodo $8$).
+\item il sensore identificato da D$912$ è posto sulla corsia di sinistra della strada che collega l'intersezione \virgolette{Volta} (\ie{} nodo $09$) all'intersezione \virgolette{Dante} (\ie{} nodo $01$)
+\item il sensore identificato da D$1480$ è posto sull'unica corsia di \virgolette{Via Tognetti} (\ie{} nodo $14$) nei pressi dell'incrocio con l'intersezione \virgolette{Boito} (\ie{} nodo $08$).
 \end{itemize}
 \begin{table}[htbp]%
 	\centering%
@@ -344,10 +349,10 @@ Nella~\vref{tab:ds-2-sensors-indices}, i sensori il cui identificatore è contra
 % TODO: inserire nomi vie visibili
 \begin{figure}[ht]
   	\centering
-  	\includegraphics[width=1\columnwidth]{tsis-model-monza-compact}% 
+  	\includegraphics[width=1\columnwidth]{tsis-model-monza-compact}%
   	\caption[Rete stradale relativa al \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{2}.}
 	\label{fig:tsis-model-monza}
-\end{figure} 
+\end{figure}
 
 Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
 \begin{itemize}
