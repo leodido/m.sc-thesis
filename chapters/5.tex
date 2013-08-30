@@ -141,7 +141,7 @@ Si osservi, inoltre, che la granularità temporale massima con cui è possibile 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1\columnwidth]{corsim-time}
-\caption[Gestione del tempo in \acs{CORSIM}]{Esempio di suddivisione gerarchica delle unità temporali in \acs{CORSIM}. Un \emph{time period} della durata di $420$ secondi è suddiviso in $7$ \emph{time interval}, ciascuno della durata di $60$ secondi. Ogni \emph{time interval} verrà poi automaticamente diviso in $60$ \emph{time step} da $1$ secondo ciascuno per \acs{NETSIM}. La durata di tali \emph{time step} di \acs{NETSIM} può o meno coincidere con quella assegnata ai \emph{time step} di \acs{FREESIM} a seconda del valore assegnato al campo $1$ del \acs{RT} $04$.}
+\caption[Gestione del tempo in \acs{CORSIM}]{Esempio di suddivisione gerarchica delle unità temporali in \acs{CORSIM}. Un \emph{time period} della durata di $420$ secondi è suddiviso in $7$ \emph{time interval}, ciascuno della durata di $60$ secondi. Ogni \emph{time interval} verrà poi automaticamente diviso in $60$ \emph{time step} da $1$ secondo ciascuno per \acs{NETSIM} (\ie{} linee rosse). La durata di tali \emph{time step} di \acs{NETSIM} può o meno coincidere, come accade in questo esempio, con quella assegnata ai \emph{time step} di \acs{FREESIM} a seconda del valore del campo $1$ del \acs{RT} $04$ nel modello \acs{CORSIM}.}
 \label{fig:corsim-time}
 \end{figure}
 
