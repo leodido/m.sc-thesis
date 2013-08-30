@@ -147,13 +147,14 @@ Si osservi, inoltre, che la granularità temporale massima con cui è possibile 
 
 La gestione del tempo che \acs{CORSIM} attua implica quindi alcune limitazioni:
 \begin{itemize}
-    \item non è possibile eseguire modelli di simulazione che si protraggono oltre un tempo di circa $52$ ore
+    \item il tempo massimo di simulazione, benché sufficiente nella maggior parte dei casi, è di circa $52$ ore
     \item la massima granularità con cui è possibile raccogliere informazioni è di $1$ secondo, impostando a tale valore la durata degli intervalli temporali
     \item i dati raccolti dalla simulazione sono sempre aggregati in base alla durata dell'intervallo temporale cui si riferiscono.
 \end{itemize}
+Tali vincoli rendono impossibile recuperare l'output dei sensori a tempo continuo in modo non aggregato o in generale con una granularità temporale inferiore a $1$ secondo. Al fine di sorpassare tali limitazioni si è proceduto sviluppando una \acl{RTE} apposita, \acsfont{Sensors} \acs{DLL}, descritta dettagliatamente nella \vref{sec:sensors-rte}. Al fine di rendere la descrizione di tale software maggiormente chiara, è necessario presentare il meccanismo di estensione di \acs{CORSIM}. La sezione che segue affronta questo argomento.
 
 \section{Creazione di estensioni TSIS}
-Come accennato, \acs{TSIS} espone un meccanismo finalizzato all'estensione delle sue funzionalità tramite la creazione, da parte dell'utente, di altri strumenti da integrare nell'ambiente di sviluppo. Tali strumenti, interfacciandosi direttamente con \acs{CORSIM}, possono modificarne o aumentarne la logica di simulazione, collezionare dati o monitorare eventi speciali (\eg{} indicenti).
+\acs{TSIS} espone un meccanismo finalizzato all'estensione delle sue funzionalità tramite la creazione, da parte dell'utente, di altri strumenti da integrare nell'ambiente di sviluppo. Tali strumenti, interfacciandosi direttamente con \acs{CORSIM}, possono modificarne o aumentarne la logica di simulazione, collezionare dati o monitorare eventi speciali (\eg{} indicenti).
 
 In questa sottosezione si presenta il funzionamento dei meccanismi di interfacciamento (\ie{} più brevemente detti \acs{API}\footnote{Con il termine
 \acf{API} si indica un insieme di procedure rese disponibili all'esterno, di solito raggruppate a formare un insieme di strumenti specifici per l'espletamento di un determinato compito all'interno di un programma.}) tra \acs{CORSIM} e strumenti esterni, a cui ci si riferirà da questo momento in poi con il termine \acs{CORSIM} \acs{RTE}.
@@ -168,14 +169,14 @@ Si osservi, inoltre, che è possibile sviluppare una \acs{CORSIM} \acs{RTE} anch
 
 \subsection{Architettura di CORSIM}
 
-La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} e il suo funzionamento all'interno dell'ambiente di sviluppo \acs{TSIS}. Si osservi che i componenti che costituiscono \acs{CORSIM} sono di due tipi: librerie \acs{DLL} e moduli \acs{COM}\footnote{Il \acf{COM} è uno standard per componenti software ideato da \emph{Microsoft}. Il suo fine consiste nel permettere la comunicazione fra processi e la creazione dinamica di oggetti. Una interfaccia \acs{COM} è una collezione di funzioni, incapsulata in un componente software binario e neutrale rispetto al linguaggio.}. Il \acs{CORSIM} \acsfont{Driver Component}, ad esempio, è il modulo \acs{COM} di \acs{TSIS} preposto a interfacciare \acs{CORSIM} e \acs{TShell}, permettendo così il controllo e l'esecuzione di \acs{CORSIM}, delle \acs{RTE} create dall'utente e degli altri strumenti (\eg{} \acs{TSIS} \acsfont{Output Processor}) di \acs{TSIS} tramite \acs{GUI}.
-
+La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} e il suo funzionamento all'interno dell'ambiente di sviluppo \acs{TSIS}.
 \begin{figure}
 \centering
 \includegraphics[width=0.925\columnwidth]{tsis-corsim-components}
 \caption[Diagramma dei componenti di \acs{CORSIM}]{Porzione del diagramma dei componenti di \acs{TSIS}: mostra l'architettura modulare e il funzionamento di \acs{CORSIM} all'interno di \acs{TSIS}.}
 \label{fig:tsis-corsim-arch}
 \end{figure}
+Si osservi che i componenti che costituiscono \acs{CORSIM} sono di due tipi: librerie \acs{DLL} e moduli \acs{COM}\footnote{Il \acf{COM} è uno standard per componenti software ideato da \emph{Microsoft}. Il suo fine consiste nel permettere la comunicazione fra processi e la creazione dinamica di oggetti. Una interfaccia \acs{COM} è una collezione di funzioni, incapsulata in un componente software binario e neutrale rispetto al linguaggio.}. Il \acs{CORSIM} \acsfont{Driver Component}, ad esempio, è il modulo \acs{COM} di \acs{TSIS} preposto a interfacciare \acs{CORSIM} e \acs{TShell}, permettendo così il controllo e l'esecuzione di \acs{CORSIM}, delle \acs{RTE} create dall'utente e degli altri strumenti (\eg{} \acs{TSIS} \acsfont{Output Processor}) di \acs{TSIS} tramite \acs{GUI}.
 
 Anche se la~\vref{fig:tsis-corsim-arch} mostra per completezza l'intera architettura di \acs{CORSIM}, si procede con la descrizione delle interfacce di \acs{CORSIM} preposte alla comunicazione con \acs{RTE} sviluppate dall'utente, identificate dalle frecce tratteggiate e numerate.
 
@@ -204,12 +205,12 @@ Punto di chiamata                   & Descrizione                               
 \lstinline[]|PostVehicleEmit|       & \small Chiamato ad ogni \emph{time step} dopo che i veicoli sono stati immessi nella rete stradale.                                                                           \\
 \lstinline[]|PreNetsimVehicle|      & \small Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{NETSIM}.                                                                                   \\
 \lstinline[]|PreNetsimSignal|       & \small Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{} semafori) del sotto-modello \acs{NETSIM} vengano impostati.                                                                  \\
-\lstinline[]|PostNetsimTimestep|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{NETSIM} e prima che \acs{FREESIM} inizi a simulare il suo relativo sotto-modello.             \\
+\lstinline[]|PostNetsimTimestep|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{NETSIM} e prima che \acs{FREESIM} inizi a simulare il suo relativo sotto-modello.                   \\
 \lstinline[]|PreFresimVehicle|      & \small Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{FREESIM}.                                                                                   \\
 \lstinline[]|PreFresimSignal|       & \small Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{} semafori) del sotto-modello \acs{FREESIM} vengano impostati.                                                                  \\
 \lstinline[]|PostFresimTimestep|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{FREESIM}.
                                                                                     \\
-\lstinline[]|BeginSimulation|       & \small Chiamato dopo l'inizializzazione di \acs{CORSIM} (\ie{} rete stradale piena) in corrispondenza dell'inizio della simulazione.                                                                  \\
+\lstinline[]|BeginSimulation|       & \small Chiamato dopo l'inizializzazione di \acs{CORSIM} (\ie{} rete stradale piena) in corrispondenza dell'inizio della simulazione.                                                                        \\
 \lstinline[]|TimeStepComplete|      & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step}.                                                                                   \\
 \lstinline[]|TimeIntervalComplete|  & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time interval}.                                                                                   \\
 \lstinline[]|TimePeriodComplete|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time period}.                                                                                   \\
