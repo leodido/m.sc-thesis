@@ -201,16 +201,16 @@ Si consideri, ad esempio, la prima cella della~\autoref{tab:ds-1-turning-movs}: 
 	\label{tab:ds-1-turning-movs}
 \end{table}
 
-Come detto nella~\autoref{subsec:sensors-dll}~\vpageref{subsec:sensors-dll}, eseguendo il modello di simulazione \acs{CORSIM} descritto in questa sezione con \acsfont{Sensors} \acs{DLL} si ottiene un file di output che, adeguatamente processato (a tal riguardo si rimanda alla~\vref{sec:dataset-tools}), compone un dataset sottoponibile agli algoritmi di apprendimento e classificazione presentati nei capitoli~\ref{cap:ctbnc} e \ref{cap:structurallearning}.
+Come detto nella~\autoref{subsec:sensors-dll}~\vpageref{subsec:sensors-dll}, eseguendo il modello di simulazione \acs{CORSIM} descritto in questa sezione con \acsfont{Sensors} \acs{DLL} si ottiene un file di output (si veda il listato d'esempio \ref{lst:sensors-out-format} \vpageref{lst:sensors-out-format}) che, adeguatamente processato, compone un dataset sottoponibile agli algoritmi di apprendimento e classificazione presentati nei capitoli~\ref{cap:ctbnc} e \ref{cap:structurallearning}.
 
-Di seguito si descrive le caratteristiche di tale dataset:
+Di seguito si descrivono le caratteristiche di tale dataset:
 \begin{itemize}
 	\item tempo totale pari a $86400$ secondi (\ie{} $24$ ore)
 	\item suddivisione in $864$ elementi (\ie{} file)
 	\item ogni elemento include $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
 	\item ogni elemento è stato ottimizzato, cioè sottoposto all'eliminazione delle righe in cui non si verifica alcuna transizione di stato dei sensori
 	\item la colonna \lstinline[]|tp| è stata rimossa e sostituita con la colonna \lstinline[]|class| in base alla corrispondenza riportata nella \vref{tab:ds-1-tp-labels}
-	\item l'intestazione di ogni elemento è \\ \lstinline[]|time, class, D122, D121, D341, D342, D722, D721, D1142, D1141, D231, D232, D541, D542, D4112, D4111, D431, D432, D4101, D4102, D451, D452, D832, D831, D261, D262, D321, D322, D392, D391, D211, D212, D272, D271, D1042, D1041, D622, D621, D932, D931, D381, D382|
+	\item l'intestazione di ogni elemento è \\ \lstinline[]|time, class, D122, D121, D341, D342, D722, D721, D1142, D1141, D231, D232, D541, D542, D4112, D4111, D431, D432, D4101, D4102, D451, D452, D832, D831, D261, D262, D321, D322, D392, D391, D211, D212, D272, D271, D1042, D1041, D622, D621, D932, D931, D381, D382|.
 \end{itemize}
 
 \subsection{Risultati}
@@ -221,7 +221,7 @@ Di seguito si descrive le caratteristiche di tale dataset:
 Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti utilizzando tale insieme di \emph{\keyword{dati completi}} come input. A tale scopo, nella sottosezione che segue, si descrive la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui tale dataset è stato generato.
 
 \subsection{Modello TSIS}\label{subsec:tsis-monza-model}
-Il modello \acs{TSIS} in questione, a differenza di quello presentato nella \autoref{subsec:tsis-simple-model}, riproduce una rete stradale reale. Nello specifico esso riproduce la rete stradale circostante \emph{Viale Cesare Battisti} ($20900$ \emph{Monza, MB - Italia}). Disponendo di una serie di informazioni reali, tra cui i dati dei sensori posti su tale rete stradale, si sono potute inferire le caratteristiche della circolazione dei veicoli (\eg{} flusso di veicoli in ingresso) e quindi riprodurre fedelmente l'andamento del traffico durante tutti i giorni della settimana tramite un adeguato modello di simulazione \acs{CORSIM}.
+Il modello \acs{TSIS} in questione, a differenza di quello presentato nella \autoref{subsec:tsis-simple-model}, riproduce una rete stradale reale. Nello specifico esso riproduce la rete stradale circostante \emph{Viale Cesare Battisti} ($20900$ \emph{Monza, MB - Italia}). Disponendo di una serie di informazioni reali, tra cui i dati dei sensori posti su tale rete stradale, si sono potute inferire le caratteristiche della circolazione dei veicoli (\eg{} flusso di veicoli in ingresso) e quindi riprodurre fedelmente l'andamento del traffico durante tutti i giorni della settimana tramite degli adeguati modelli di simulazione \acs{CORSIM}. Nello specifico si sono realizzati $3$ modelli \acs{CORSIM}: essi rappresentano la stessa rete stradale ma diversi modelli di traffico, uno per i giorni lavorativi (dal lunedì al venerdì), uno per il sabato e uno per la domenica.
 
 La~\vref{fig:tsis-model-monza-nodes} illustra la rete stradale oggetto di studio, evidenziando e identificando i nodi e i collegamenti stradali utilizzati per la sua riproduzione in \acs{TSIS}.
 \begin{figure}
@@ -266,7 +266,7 @@ La~\vref{tab:ds-2-nodes} illustra la correlazione tra gli indici dei nodi \acs{C
 	\label{tab:ds-2-nodes}
 \end{table}
 
-Tutte le intersezioni della rete stradale (si veda la \autoref{tab:ds-2-nodes}) sono controllate da semafori la cui configurazione riproduce i piani semaforici reali.
+Tutte le intersezioni della rete stradale (si veda la \autoref{tab:ds-2-nodes}; \ie{} nodi con indici $01$, $02$, $04$, $05$, $06$, $07$, $08$, $09$) sono controllate da semafori la cui configurazione riproduce i piani semaforici reali.
 
 La rete stradale in questione, oltre a riprodurre i sensori realmente esistenti, contiene nei pressi di ognuna delle succitate intersezioni degli ulteriori sensori per la rilevazione del passaggio dei veicoli. Tutti i sensori sono posti su una sola corsia cosicché il flusso di dati da essi generato sia associabile alla canalizzazione della relativa corsia. Di seguito si elencano le informazioni relative ai sensori reali del modello in questione:
 \begin{description}
@@ -344,7 +344,7 @@ I sensori aggiunti alla rete stradale sono identificati secondo uno schema ben p
 	\caption[Sensori relativi al \ds{2}]{Corrispondenza fra gli identificatori dei sensori del \ds{2} e l'indice con cui essi sono indicati nella \omissis{}}
 	\label{tab:ds-2-sensors-indices}
 \end{table}
-Nella~\vref{tab:ds-2-sensors-indices}, i sensori il cui identificatore è contrassegnato da un asterisco corrispondono ai sensori reali, evidenziati anche nella \vref{fig:tsis-model-monza} tramite un indice numerico di colore rosso.
+Nella~\vref{tab:ds-2-sensors-indices}, i sensori il cui identificatore è contrassegnato da un asterisco corrispondono ai sensori reali, evidenziati anche nella \vref{fig:tsis-model-monza} tramite un indice numerico di colore rosso, mentre gli altri sensori sono quelli aggiunti per estendere il modello in questione.
 
 % TODO: inserire nomi vie visibili
 \begin{figure}[ht]
@@ -377,6 +377,11 @@ Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
 
 %Vehicle entry headway: erlang with alpha = 2
 
+Come anticipato, per questo caso di studio si sono creati $3$ modelli di simulazione differenti (corrispondenti quindi a $3$ differenti sorgenti \acs{TRF}), al fine di rappresentare i diversi flussi di traffico durante la settimana.
+
+Il file \acs{TRF} creato per modellare il traffico sulla rete stradale nei giorni lavorativi prevede un tempo di simulazione totale pari a $24$ ore, suddiviso in $12$ \emph{time period}, ognuno dei quali composto da \emph{time interval} della durata di $100$ secondi: la \vref{tab:ds-2-tp-labels} illustra la durata (in ore) di ognuno di essi e introduce la corrispondenza fra essi e la fase della giornata, rappresentata come la variabile classe nel relativo dataset.
+
+Nei modelli di traffico relativi al sabato e alla domenica la corrispondenza tra i \emph{time period}, che rimangono identici a quelli mostrati nella tabella \vref{tab:ds-2-tp-labels}, e la variable classe è differente. Ad esempio, il \emph{time period} $1$ del modello di traffico relativo al sabato è stato associato alla classe $11$ mentre il \emph{time period} $1$ del modello di traffico relativo alla domenica è stato associato alla classe $21$. Ne deriva che gli identificatori della variabile classe per questi due modelli di traffico sono incrementati di una e due decine rispetto agli identificatori usati per il modello di traffico relativo ai giorni lavorativi.
 \begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l^l^l}
@@ -395,12 +400,13 @@ Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
 	$20$:$50$ - $22$:$55$  & $11$           & sera          & $6$     \\
 	$22$:$55$ - $24$:$00$  & $12$           & sera          & $6$     \\\bottomrule
 	\end{tabular}
-	\caption[Periodi temporali del \ds{2}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{2}.}
+	\caption[Periodi temporali del \ds{2}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{2} (giorni lavorativi).}
 	\label{tab:ds-2-tp-labels}
 \end{table}
-%Saturday classes: `11`, `12`, ..., `16`.
 
-%varianti del dataset utilizzate
+Ogni fase della giornata (i. e., classe) è caratterizzata da un andamento diverso del traffico: ...
+
+%dire del multirun per i giorni lavorativi
 
 \subsection{Risultati}
 \omissis{}
