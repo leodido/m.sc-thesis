@@ -179,6 +179,32 @@
 %*********************************************************************************
 % Impostazioni di listings
 %*********************************************************************************
+
+%\lstloadlanguages{[Visual]C++,[ISO]C++}% try it
+
+% Input source code
+\makeatletter
+\let\oldaddcontentsline\addcontentsline
+\newcommand{\lstlistsourcecodename}{Elenco dei codici}%
+\lst@UserCommand\lstlistofsourcecode{\bgroup
+    \let\contentsname\lstlistsourcecodename
+    \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{los}}
+    \tableofcontents \egroup}%
+\newcommand{\lstinputsourcecode}[2][]{{%
+  \renewcommand{\lstlistingname}{Sorgente}%
+  \renewcommand{\addcontentsline}[3]{\oldaddcontentsline{los}{##2}{##3}}%
+  \lstinputlisting[#1]{#2}%
+}}
+\makeatother
+
+% Dichiarazioni utili per l'indice della tesi e le etichette
+\providecommand*{\lstlistingautorefname}{algoritmo}
+\providecommand*{\lstnumberautorefname}{linea}
+%\addto\captionsitalian{%
+%\renewcommand{\lstlistingname}{Algoritmo}}
+%\addto\captionsitalian{%
+%\renewcommand{\lstlistlistingname}{Elenco degli algoritmi}}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \lstdefinelanguage{pseudo}{
     morekeywords=%
@@ -232,14 +258,6 @@
     %title=\lstname
     %morecomment=[l][\color{magenta}]{\#}
 }
-
-% Dichiarazioni utili per l'indice della tesi e le etichette
-\addto\captionsitalian{%
-\renewcommand{\lstlistingname}{Algoritmo}}
-\addto\captionsitalian{%
-\renewcommand{\lstlistlistingname}{Elenco degli algoritmi}}
-\providecommand*{\lstlistingautorefname}{algoritmo}
-\providecommand*{\lstnumberautorefname}{linea}
 
 %*********************************************************************************
 % Impostazioni di hyperref

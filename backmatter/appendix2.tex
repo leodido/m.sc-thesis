@@ -1,0 +1,39 @@
+% !TEX encoding = UTF-8
+% !TEX TS-program = pdflatex
+% !TEX root = ../arsclassica.tex
+% !TEX spellcheck = it-IT
+
+%************************************************
+\chapter{Materiale}
+\label{cap:stuff}
+%************************************************
+
+Lo scopo di questa appendice è illustrare il materiale (\eg{} sorgenti) relativo a questo lavoro di tesi.
+
+\section{Modelli di traffico}\label{sec:trf-files}
+
+In questa sezione si riportano i file che descrivono completamente le reti stradali e i relativi modelli di simulazione da cui si ottengono i \ds{1} e \mynum{2}. Lo scopo di questa sezione è permettere la completa riproducibilità dei dataset descritti nel \autoref{cap:esperimenti}.
+
+\subsection{\Ds{1}}\label{sec:trf-1}
+
+Si riporta il file \acs{TRF} da cui è possibile generare il \ds{1} (descritto nella \vref{sec:dataset-1}) utilizzando \acs{CORSIM} e \acsfont{Sensors} \acs{DLL}.
+
+\lstinputsourcecode[language=pseudo, numbers=none, basicstyle=\scriptsize\ttfamily, caption={[Sorgente \acs{TRF} del \ds{1}]Sorgente \acs{TRF} che codifica la rete stradale da cui viene generato il \ds{1}.}]{codes/simple.trf}
+
+\subsection{\Ds{2}}\label{sec:trf-2}
+
+Si riportano i file \acs{TRF} da cui è possibile generare il \ds{2} (descritto nella \vref{sec:dataset-2}) utilizzando \acs{CORSIM} e \acsfont{Sensors} \acs{DLL}. Ognuno dei file riportati di seguito rappresentano la stessa rete stradale con diversi modelli di traffico.
+
+In prims si riporta il file \acs{TRF} che codifica il modello di traffico dei giorni lavorativi.
+
+\lstinputsourcecode[language=pseudo, numbers=none, basicstyle=\scriptsize\ttfamily, caption={[Sorgente \acs{TRF} del \ds{2} (giorni lavorativi)]Sorgente del file \acs{TRF} che codifica la rete stradale, e il modello di traffico durante i giorni lavorativi, da cui viene generato il \ds{2}.}]{codes/monza-week-exte.trf}
+
+Di seguito si riporta il file \acs{TRF} che codifica il modello di traffico per il sabato.
+
+\lstinputsourcecode[language=pseudo, numbers=none, basicstyle=\scriptsize\ttfamily, caption={[Sorgente \acs{TRF} del \ds{2} (sabato)]Sorgente del file \acs{TRF} che codifica la rete stradale, e il modello di traffico vigente il sabato, da cui viene generato il \ds{2}.}]{codes/monza-satu-exte.trf}
+
+Segue il file \acs{TRF} che codifica il modello di traffico della domenica.
+
+\lstinputsourcecode[language=pseudo, numbers=none, basicstyle=\scriptsize\ttfamily, caption={[Sorgente \acs{TRF} del \ds{2} (domenica)]Sorgente del file \acs{TRF} che codifica la rete stradale, e il modello di traffico vigente la domenica, da cui viene generato il \ds{2}.}]{codes/monza-sund-exte.trf}
+
+Affinchè il dataset in questione sia perfettamente riproducibile si riportano anche i file \acs{RNS}\footnote{\acs{CORSIM} può leggere i semi numerici (\ie{} \emph{seed}) su cui basare la simulazione e il numero di esecuzioni da effettuare da dei file chiamati \acf{RNS}. Un file \acs{RNS} è un semplice file di testo opportunamente formattato: sulla prima riga va inserito il numero di esecuzioni da effettuare, le $3$ righe successive devono invece contenere $3$ numeri di \emph{seed} separati da un carattere di tabulazione.}

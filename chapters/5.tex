@@ -271,25 +271,13 @@ Lungi dal volere fornire una documentazione esaustiva delle \acs{API} dell'ambie
 
 Ad esempio, il listato~\ref{lst:callpoint-api} mostra il codice di intestazione necessario a definire ed esportare la funzione \lstinline[]|on_initialize| (listato~\ref{lst:callpoint-impl}), che, come mostrato dalla~\vref{fig:tshell-tool-config-8} viene collegata al punto di chiamata \lstinline[]|Initialize| di \acs{CORSIM}. Si osservi che la scelta del nome di tale funzione non è vincolata ad alcun criterio.
 
-\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Costrutto per l'esportazione delle funzioni \acs{RTE}, label=lst:callpoint-api]
-#ifdef __cplusplus
-#define DLL_EXPORT extern "C" __declspec(dllexport)
-#endif // __cplusplus
-\end{lstlisting}
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Costrutto per l'esportazione delle funzioni \acs{RTE}, label=lst:callpoint-api]{codes/callpointapi.cpp}
 
-\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Esempio di funzione \acs{RTE} esportata, label=lst:callpoint-impl]
-DLL_EXPORT void __stdcall on_initialize() {
-    // implementation
-}
-\end{lstlisting}
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Esempio di funzione \acs{RTE} esportata, label=lst:callpoint-impl]{codes/callpointimpl.cpp}
 
 Il listato~\ref{lst:corwin-api} illustra invece come importare una delle funzioni esposte dalla \acsfont{CORWIM} \acs{API} in una \acs{RTE}. Nello specifico, l'esempio in questione, è relativo all'importazione della funzione \lstinline[]|OutputString|, finalizzata all'invio di messaggi di output a \acs{TShell} durante la simulazione \acs{CORSIM}.
-\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Importazione delle \acsfont{CORWIN} \acs{API}, label=lst:corwin-api]
-#ifdef __cplusplus
-#define CORWINAPI extern "C" __declspec(dllimport)
-CORWINAPI void __stdcall OutputString(const char *str, unsigned int size, int msgCode, unsigned long color);
-#endif // __cplusplus
-\end{lstlisting}
+
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Importazione delle \acsfont{CORWIN} \acs{API}, label=lst:corwin-api]{codes/corwinapi.cpp}
 
 Infine, come già detto, \acs{CORSIM} permette l'accesso alla maggior parte dei dati che esso manipola durante la simulazione, esportandoli nella memoria condivisa. Tali dati sono dei seguenti tipi:
 \begin{enumerate}
@@ -300,11 +288,7 @@ Infine, come già detto, \acs{CORSIM} permette l'accesso alla maggior parte dei 
 \end{enumerate}
 
 Il listato~\ref{lst:corsim-api-dll-import} mostra il costrutto utilizzabile per l'importazione di dati e funzioni dalla cosiddetta \acs{CORSIM} \acs{API}.
-\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Costrutto per l'importazione delle \acs{CORSIM} \acs{API}, label=lst:corsim-api-dll-import]
-#ifdef __cplusplus
-#define DLL_IMPORT extern "C" __declspec(dllimport)
-#endif // __cplusplus
-\end{lstlisting}
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Costrutto per l'importazione delle \acs{CORSIM} \acs{API}, label=lst:corsim-api-dll-import]{codes/corsimapidllimport.cpp}
 
 Tale costrutto viene poi utilizzato per l'effettiva importazione di dati e funzioni da \acs{CORSIM}. Il listato~\ref{lst:corsim-api} riporta un esempio di importazione per ogni tipo di dati che le \acs{CORSIM} \acs{API} rendono disponibile:
 \begin{enumerate}
@@ -314,22 +298,7 @@ Tale costrutto viene poi utilizzato per l'effettiva importazione di dati e funzi
     \item a~\autoref{lst:netsim-abort-func-import} si importa \lstinline[]|abortcorsim|, una funzione delle \acs{CORSIM} \acs{API} finalizzata al controllo dell'esecuzione della simulazione da parte della \acs{RTE}
 \end{enumerate}
 
-\vspace*{8pt}\begin{lstlisting}[language=cpp, caption=Importazione di oggetti delle \acs{CORSIM} \acs{API}, label=lst:corsim-api]
-// netsim scalar non-array variables
-DLL_IMPORT int NETSIM_DETECTORS_mp_NUMDET;<ls>\label{lst:netsim-num-dets-import}<le>
-#define net_det_num NETSIM_DETECTORS_mp_NUMDET<ls>\label{lst:netsim-num-dets-assign}<le>
-// netsim statically allocated arrays
-DLL_IMPORT struct<ls>\label{lst:netsim-nmap-import}<le>
-{
-    int NMAP[8999];
-} SIN075;
-#define net_node_num SIN075.NMAP<ls>\label{lst:netsim-nmap-assign}<le>
-// netsim dinamically allocated arrays
-DLL_IMPORT int *NETSIM_DETECTORS_mp_DTMODD;<ls>\label{lst:netsim-dets-mod-import}<le>
-#define net_det_id NETSIM_DETECTORS_mp_DTMOD<ls>\label{lst:netsim-dets-mod-assign}<le>
-// netsim exported functions
-DLL_IMPORT void __stdcall abortcorsim(void);<ls>\label{lst:netsim-abort-func-import}<le>
-\end{lstlisting}
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Importazione di oggetti delle \acs{CORSIM} \acs{API}, label=lst:corsim-api]{codes/corsimapi.cpp}
 
 \cleardoublepage
 \section{Estensione}\label{sec:sensors-rte}
@@ -356,43 +325,7 @@ Configurata la rete stradale, \acsfont{Sensors} \acs{DLL} può monitorare i sens
 
 Completata la simulazione e di conseguenza anche la procedura di monitoraggio dei sensori, \acsfont{Sensors} \acs{DLL}, in corrispondenza del punto di chiamata \lstinline[]|SimulationComplete| di \acs{CORSIM}, genera un file \acs{CSV} in cui memorizza il tempo, il \emph{time period} della rilevazione e la dinamica di stato di ogni sensore. La~\autoref{subsec:sensors-dll-output} \vpageref{subsec:sensors-dll-output} si occupa di presentare in maggior dettaglio l'output di \acsfont{Sensors} \acs{DLL}.
 
-\vspace*{8pt}\begin{lstlisting}[caption={[Rilevazione del passaggio dei veicoli sui sensori]Metodo della classe \lstinline[]|CLink| per la rilevazione del passaggio dei veicoli sui sensori}, label=lst:process-sensors, language=cpp]
-void CLink::processDetectors(void) {
-    int det, new_state, old_state  = 0;
-    POSITION pos, pos_i = NULL;
-    CDetector *detector = NULL;
-    CInteger *pi = NULL;
-    CBinarySequence *sequence = NULL;
-    pos = m_detector_list.GetHeadPosition();
-    while (pos != NULL) {<ls>\label{lst:iterate-sensors}<le>
-        detector = m_detector_list.GetNext(pos);
-        int det_num = detector->getCorsimId();<ls>\label{lst:get-sensor-id}<le>
-        det = net_det_on[det_num];<ls>\label{lst:get-sensor-on}<le>
-        sequence = CBinarySequence::convert(det);<ls>\label{lst:get-sensor-bits}<le>
-        pos_i = sequence->sequence.GetTailPosition();<ls>\label{lst:get-sensor-state-start}<le>
-        old_state = detector->getState() ? 1 : 0;
-        for (index = 0; index < 10; index++) {
-            pi = sequence->sequence.GetPrev(pos_i);
-            new_state = pi->data;
-            if ((old_state == 0) && (new_state == 1)) {
-                detector->setState(true, !is_init);
-            }
-            if ((old_state == 1) && (new_state == 1)) {
-                float atime = detector->getActivationTime();
-                detector->setState(true, !is_init);
-            }
-            if ((old_state == 1) && (new_state == 0)) {
-                detector->setState(false, !is_init);
-            }
-            if ((old_state == 0) && (new_state == 0)) {
-                detector->setState(false, !is_init);
-            }
-            old_state = new_state;
-        }<ls>\label{lst:get-sensor-state-end}<le>
-        delete sequence;
-    }
-}
-\end{lstlisting}
+\vspace*{8pt}\lstinputsourcecode[caption={[Rilevazione del passaggio dei veicoli sui sensori]Metodo della classe \lstinline[]|CLink| per la rilevazione del passaggio dei veicoli sui sensori}, label=lst:process-sensors, language=cpp]{codes/processsensors.cpp}
 
 \begin{figure}[H]
 \centering
@@ -404,29 +337,7 @@ void CLink::processDetectors(void) {
 \subsection{Formato dell'output}\label{subsec:sensors-dll-output}
 Di seguito si presenta un esempio di file \acs{CSV} di output generato da \acsfont{Sensors} \acs{DLL}.
 
-\begin{lstlisting}[nolol=true, language=pseudo, numbers=none, label=lst:sensors-out-format]
-time,tp,D131,D231,D232,D211,D212,D213
-0.10000,1,0,0,0,0,0,0
-0.20000,1,0,0,1,0,0,0
-0.30000,1,0,0,1,0,0,0
-0.40000,1,0,0,0,0,0,0
-0.50000,1,0,0,0,0,1,0
-0.60000,1,0,0,0,0,1,0
-0.70000,1,0,0,0,0,0,0
-0.80000,1,0,0,0,0,0,0
-0.90000,1,0,0,0,0,0,0
-1.00000,1,0,1,0,0,0,0
-1.10000,2,0,1,0,0,0,1
-1.20000,2,0,1,0,0,0,1
-1.30000,2,0,1,0,0,0,0
-1.40000,2,0,0,0,0,0,0
-1.50000,2,0,0,1,0,0,0
-1.60000,2,0,0,1,0,0,0
-1.70000,2,0,0,0,0,0,0
-1.80000,2,1,0,0,0,0,0
-1.90000,2,1,0,0,0,0,0
-2.00000,2,1,0,0,0,0,0
-\end{lstlisting}
+\lstinputsourcecode[language=pseudo, numbers=none, caption=Formato di output di \acsfont{Sensors} \acs{DLL}, label=lst:sensors-out-format]{codes/sensorsoutformat.txt}
 
 La~\vref{tab:sensors-output-semantic} chiarisce il significato di ogni colonna dei dati tabulari restituiti da \acsfont{Sensors} \acs{DLL}.
 \begin{table}[H]%

@@ -102,7 +102,7 @@
 
 \usepackage{arsclassica}                    % improve classicthesis
 
-\usepackage{bookmark}                       
+\usepackage{bookmark}
 
 \usepackage{etoolbox}
 
@@ -114,13 +114,15 @@
 
 \usepackage{multicol}
 
-\usepackage{siunitx}
+\usepackage{siunitx}                        % units
+
+%\usepackage{filecontents}                   % external files inclusion
 
 %******************************************************************
 % Settings
 %******************************************************************
 \input{info}
-\input{settings}                            
+\input{settings}
 %******************************************************************
 % Document
 %******************************************************************
@@ -154,6 +156,7 @@
 %******************************************************************
 \appendix
 \input{backmatter/appendix1}
+\input{backmatter/appendix2}
 \input{backmatter/acronyms}
 \input{backmatter/index}
 \input{backmatter/bibliography}
