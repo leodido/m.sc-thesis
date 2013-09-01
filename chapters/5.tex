@@ -196,7 +196,7 @@ Un attento osservatore noterà come \acs{CORSIM}, la libreria finalizzata al pro
 Di seguito si presenta il ciclo di vita di \acs{CORSIM} descrivendo i punti di chiamata che esso esporta tramite apposite funzioni affinché una \acs{RTE}, implementando ed esportando una funzione per almeno uno di essi, possa interfacciarsi con il processo di simulazione. Tali informazioni sono quindi relative alla \acs{API} rappresentata dalla freccia $1$ nella~\vref{fig:tsis-corsim-arch}. Le modalità di implementazione e utilizzo in \CC{} di tale \acs{API} sono illustrate nella~\autoref{subsec:tsis-api-examples} \vpageref{subsec:tsis-api-examples}.
 
 La~\vref{tab:corsim-lifecycle} descrive tutti i punti di chiamata relativi alla linea di esecuzione temporale di \acs{CORSIM}.
-\begin{table}[H]%
+\begin{table}[ht]%
 \begin{tabularx}{\columnwidth}{+l^X}
 \toprule\rowstyle{\bfseries}%
 Punto di chiamata                   & Descrizione                                   \\
@@ -271,13 +271,13 @@ Lungi dal volere fornire una documentazione esaustiva delle \acs{API} dell'ambie
 
 Ad esempio, il listato~\ref{lst:callpoint-api} mostra il codice di intestazione necessario a definire ed esportare la funzione \lstinline[]|on_initialize| (listato~\ref{lst:callpoint-impl}), che, come mostrato dalla~\vref{fig:tshell-tool-config-8} viene collegata al punto di chiamata \lstinline[]|Initialize| di \acs{CORSIM}. Si osservi che la scelta del nome di tale funzione non è vincolata ad alcun criterio.
 
-\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Costrutto per l'esportazione delle funzioni \acs{RTE}, label=lst:callpoint-api]{codes/callpointapi.cpp}
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Costrutto per l'esportazione delle funzioni \acs{RTE}, label=lst:callpoint-api]{codes/callpointapi}
 
-\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Esempio di funzione \acs{RTE} esportata, label=lst:callpoint-impl]{codes/callpointimpl.cpp}
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Esempio di funzione \acs{RTE} esportata, label=lst:callpoint-impl]{codes/callpointimpl}
 
 Il listato~\ref{lst:corwin-api} illustra invece come importare una delle funzioni esposte dalla \acsfont{CORWIM} \acs{API} in una \acs{RTE}. Nello specifico, l'esempio in questione, è relativo all'importazione della funzione \lstinline[]|OutputString|, finalizzata all'invio di messaggi di output a \acs{TShell} durante la simulazione \acs{CORSIM}.
 
-\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Importazione delle \acsfont{CORWIN} \acs{API}, label=lst:corwin-api]{codes/corwinapi.cpp}
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Importazione delle \acsfont{CORWIN} \acs{API}, label=lst:corwin-api]{codes/corwinapi}
 
 Infine, come già detto, \acs{CORSIM} permette l'accesso alla maggior parte dei dati che esso manipola durante la simulazione, esportandoli nella memoria condivisa. Tali dati sono dei seguenti tipi:
 \begin{enumerate}
@@ -288,7 +288,7 @@ Infine, come già detto, \acs{CORSIM} permette l'accesso alla maggior parte dei 
 \end{enumerate}
 
 Il listato~\ref{lst:corsim-api-dll-import} mostra il costrutto utilizzabile per l'importazione di dati e funzioni dalla cosiddetta \acs{CORSIM} \acs{API}.
-\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Costrutto per l'importazione delle \acs{CORSIM} \acs{API}, label=lst:corsim-api-dll-import]{codes/corsimapidllimport.cpp}
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Costrutto per l'importazione delle \acs{CORSIM} \acs{API}, label=lst:corsim-api-dll-import]{codes/corsimapidllimport}
 
 Tale costrutto viene poi utilizzato per l'effettiva importazione di dati e funzioni da \acs{CORSIM}. Il listato~\ref{lst:corsim-api} riporta un esempio di importazione per ogni tipo di dati che le \acs{CORSIM} \acs{API} rendono disponibile:
 \begin{enumerate}
@@ -298,7 +298,7 @@ Tale costrutto viene poi utilizzato per l'effettiva importazione di dati e funzi
     \item a~\autoref{lst:netsim-abort-func-import} si importa \lstinline[]|abortcorsim|, una funzione delle \acs{CORSIM} \acs{API} finalizzata al controllo dell'esecuzione della simulazione da parte della \acs{RTE}
 \end{enumerate}
 
-\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Importazione di oggetti delle \acs{CORSIM} \acs{API}, label=lst:corsim-api]{codes/corsimapi.cpp}
+\vspace*{8pt}\lstinputsourcecode[language=cpp, caption=Importazione di oggetti delle \acs{CORSIM} \acs{API}, label=lst:corsim-api]{codes/corsimapi}
 
 \cleardoublepage
 \section{Estensione}\label{sec:sensors-rte}
@@ -325,7 +325,7 @@ Configurata la rete stradale, \acsfont{Sensors} \acs{DLL} può monitorare i sens
 
 Completata la simulazione e di conseguenza anche la procedura di monitoraggio dei sensori, \acsfont{Sensors} \acs{DLL}, in corrispondenza del punto di chiamata \lstinline[]|SimulationComplete| di \acs{CORSIM}, genera un file \acs{CSV} in cui memorizza il tempo, il \emph{time period} della rilevazione e la dinamica di stato di ogni sensore. La~\autoref{subsec:sensors-dll-output} \vpageref{subsec:sensors-dll-output} si occupa di presentare in maggior dettaglio l'output di \acsfont{Sensors} \acs{DLL}.
 
-\vspace*{8pt}\lstinputsourcecode[caption={[Rilevazione del passaggio dei veicoli sui sensori]Metodo della classe \lstinline[]|CLink| per la rilevazione del passaggio dei veicoli sui sensori}, label=lst:process-sensors, language=cpp]{codes/processsensors.cpp}
+\vspace*{8pt}\lstinputsourcecode[caption={[Rilevazione del passaggio dei veicoli sui sensori]Metodo della classe \lstinline[]|CLink| per la rilevazione del passaggio dei veicoli sui sensori}, label=lst:process-sensors, language=cpp]{codes/processsensors}
 
 \begin{figure}[H]
 \centering
