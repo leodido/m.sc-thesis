@@ -254,7 +254,7 @@ La~\vref{tab:ds-2-nodes} illustra la correlazione tra gli indici dei nodi \acs{C
 	$10$    			& Nodo di ingresso da \emph{Via Alighieri}			    \\
 	$11$    			& Nodo di ingresso da \emph{Via Rossini}			    \\
 	$12$    			& Nodo di ingresso da \emph{Via Donizzetti}			    \\
-	$13$    			& Nodo di ingresso da \emph{Via Volta}			  		\\
+	$13$    			& Nodo di uscita da \emph{Via Volta}			  		\\
 	$14$    			& Nodo di ingresso da \emph{Via Tognetti}			    \\
 	$15$ 				& Nodo di ingresso da \emph{Via Boito}			    	\\
 	$07$ - $16$ 		& Diramazione \emph{Boito - Battisti}            		\\
@@ -375,8 +375,6 @@ Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
 	\item la velocità media dei veicoli: \num{67} \si{km/h} su \emph{Viale Battisti}, \num{56} \si{km/h} sulle altre strade.
 \end{itemize}
 
-%Vehicle entry headway: erlang with alpha = 2
-
 Come anticipato, per questo caso di studio si sono creati $3$ modelli di simulazione differenti (corrispondenti quindi a $3$ differenti sorgenti \acs{TRF}), al fine di rappresentare i diversi flussi di traffico durante la settimana.
 
 Il file \acs{TRF} creato per modellare il traffico sulla rete stradale nei giorni lavorativi prevede un tempo di simulazione totale pari a $24$ ore, suddiviso in $12$ \emph{time period}, ognuno dei quali composto da \emph{time interval} della durata di $100$ secondi: la \vref{tab:ds-2-tp-labels} illustra la durata (in ore) di ognuno di essi e introduce la corrispondenza fra essi e la fase della giornata, rappresentata come la variabile classe nel relativo dataset.
@@ -404,7 +402,41 @@ Nei modelli di traffico relativi al sabato e alla domenica la corrispondenza tra
 	\label{tab:ds-2-tp-labels}
 \end{table}
 
-Ogni fase della giornata (i. e., classe) è caratterizzata da un andamento diverso del traffico: ...
+Ogni fase della giornata (\ie{} classe) è caratterizzata da un andamento diverso del traffico. Di seguito si presenta l'andamento generale del traffico durante i giorni lavorativi:
+\begin{itemize}
+	\item al mattino (\ie{} periodi temporali $4$ e $5$) traffico diretto verso il centro di \emph{Monza}, prevalentemente da \emph{Viale Battisti} (\ie{} nodo di ingresso $17$) e, in misura minore, da \emph{Viale Monza} (\ie{} nodo di ingresso $03$)
+	\item durante il giorno (\ie{} periodi temporali $6$, $7$ e $8$) incremento del traffico verso il centro di \emph{Monza}, soprattutto da \emph{Viale Battisti}, e incremento del traffico fra \emph{Viale Boccaccio} e \emph{Viale Margherita} (\ie{} nodi $18$ e $19$)
+	\item durante il pomeriggio (\ie{} periodi temporali $9$ e $10$) il flusso dei veicoli inizia a invertire la sua direzione verso \emph{Viale Battisti}; aumento del numero di veicoli diretti verso le strade laterali (\eg{} \emph{Via Donizzetti}, \emph{Via Alighieri}, \emph{Via Rossini})
+	\item alla sera (\ie{} periodi temporali $11$ e $12$) traffico proveniente dal centro di \emph{Monza} diretto verso \emph{Viale Battisti} e, al contempo, diminuizione dei veicoli provenienti da \emph{Viale Brianza}
+	\item durante la notte (\ie{} periodi temporali $1$ e $2$) riduzione del traffico su tutta la rete
+	\item all'alba (\ie{} periodo temporale $3$) pochi veicoli circolanti sulla rete stradale, prevalentemente su \emph{Viale Battisti} dove si verifica un leggero incremento dei veicoli in ingresso.
+\end{itemize}
+
+Come detto, l'andamento del traffico è modellato variando i flussi di ingresso. La \vref{tab:ds-2-input-vehicles} illustra il numero di veicoli orari (\ie{} \si{vph}) in ingresso sulla rete stradale in relazione a ogni periodo temporale del modello di simulazione. Anche per i modelli di simulazione \acs{CORSIM} relativi alla rete stradale descritta si è scelto di utilizzare una distribuzione di probabilità di Erlang per governare l'immissione dei veicoli sulla rete stradale.
+\begin{table}
+	\centering
+	\begin{tabular}{+l^c^c^c^c^c^c^c^c}
+	\toprule\rowstyle{\bfseries}%
+	Time Period	& $19$		& $18$		& $17$		& $15$		& $14$		& $12$		& $11, 10$  & $03$		\\
+				& \si{vph}	& \si{vph}	& \si{vph}	& \si{vph}	& \si{vph}	& \si{vph}  & \si{vph}	& \si{vph}	\\\otoprule
+	$1$			& $150$ 	& $275$		& $375$		& $5$ 		& $5$ 		& $5$ 		& $5$ 		& $205$ 	\\
+	$2$			& $25$ 		& $80$		& $105$		& $5$ 		& $5$ 		& $5$ 		& $5$ 		& $70$ 		\\
+	$3$			& $96$ 		& $70$		& $325$		& $5$ 		& $5$ 		& $5$ 		& $5$ 		& $113$ 	\\
+	$4$			& $350$ 	& $450$		& $1950$	& $20$ 		& $50$ 		& $20$ 		& $20$ 		& $1080$ 	\\
+	$5$			& $500$ 	& $600$		& $1855$	& $20$ 		& $20$ 		& $20$ 		& $20$ 		& $1325$ 	\\
+	$6$			& $750$ 	& $500$		& $2100$	& $20$ 		& $20$ 		& $20$ 		& $20$ 		& $1022$ 	\\
+	$7$			& $600$ 	& $400$		& $1950$	& $20$ 		& $20$ 		& $20$ 		& $20$ 		& $1000$ 	\\
+	$8$			& $700$  	& $600$		& $2390$	& $20$ 		& $20$ 		& $20$ 		& $20$ 		& $1050$ 	\\
+	$9$			& $700$ 	& $510$		& $2410$	& $20$ 		& $20$ 		& $20$ 		& $20$ 		& $1010$ 	\\
+	$10$		& $700$ 	& $250$		& $2275$	& $20$ 		& $12$ 		& $20$ 		& $20$ 		& $980$ 	\\
+	$11$		& $370$ 	& $190$		& $1565$	& $10$ 		& $10$ 		& $10$ 		& $10$ 		& $575$ 	\\
+	$12$		& $400$ 	& $75$		& $975$		& $8$ 		& $8$ 		& $10$ 		& $7$ 		& $400$ 	\\\bottomrule
+	\end{tabular}
+	\caption[Flussi di ingresso relativi al \ds{2}]{Numero di veicoli orari immessi nella rete stradale del dataset \ds{2} al variare del periodo temporale.}
+	\label{tab:ds-2-input-vehicles}
+\end{table}
+
+Si osservi, inoltre, che al fine di definire il succitato andamento del traffico è stata attuata un'adeguata modellazione delle percentuali di svolta in ogni intersezione. Tuttavia, a causa della complessità del modello, non è possibile riportare le variazione delle percentuali di svolta di ogni intersezione per ogni periodo temporale.
 
 %dire del multirun per i giorni lavorativi
 
