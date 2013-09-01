@@ -210,7 +210,7 @@ Di seguito si descrivono le caratteristiche di tale dataset:
 	\item ogni elemento include $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
 	\item ogni elemento è stato ottimizzato, cioè sottoposto all'eliminazione delle righe in cui non si verifica alcuna transizione di stato dei sensori
 	\item la colonna \lstinline[]|tp| è stata rimossa e sostituita con la colonna \lstinline[]|class| in base alla corrispondenza riportata nella \vref{tab:ds-1-tp-labels}
-	\item l'intestazione di ogni elemento è \\ \lstinline[]|time, class, D122, D121, D341, D342, D722, D721, D1142, D1141, D231, D232, D541, D542, D4112, D4111, D431, D432, D4101, D4102, D451, D452, D832, D831, D261, D262, D321, D322, D392, D391, D211, D212, D272, D271, D1042, D1041, D622, D621, D932, D931, D381, D382|.
+	\item l'intestazione di ogni elemento è: \\ \lstinline[]|time, class, D122, D121, D341, D342, D722, D721, D1142, D1141, D231, D232, D541, D542, D4112, D4111, D431, |\\\lstinline[]|D432, D4101, D4102, D451, D452, D832, D831, D261, D262, D321, D322, D392, D391, D211, D212, D272, D271, D1042, |\\\lstinline[]|D1041, D622, D621, D932, D931, D381, D382|.
 \end{itemize}
 
 \subsection{Risultati}
@@ -432,20 +432,34 @@ Come detto, l'andamento del traffico è modellato variando i flussi di ingresso.
 	$11$		& $370$ 	& $190$		& $1565$	& $10$ 		& $10$ 		& $10$ 		& $10$ 		& $575$ 	\\
 	$12$		& $400$ 	& $75$		& $975$		& $8$ 		& $8$ 		& $10$ 		& $7$ 		& $400$ 	\\\bottomrule
 	\end{tabular}
-	\caption[Flussi di ingresso relativi al \ds{2}]{Numero di veicoli orari immessi nella rete stradale del dataset \ds{2} al variare del periodo temporale.}
+	\caption[Flussi di ingresso relativi al \ds{2} (giorni lavorativi)]{Numero di veicoli orari immessi nella rete stradale del \ds{2} (giorni lavorativi) al variare del periodo temporale.}
 	\label{tab:ds-2-input-vehicles}
 \end{table}
 
-Si osservi, inoltre, che al fine di definire il succitato andamento del traffico è stata attuata un'adeguata modellazione delle percentuali di svolta in ogni intersezione. Tuttavia, a causa della complessità del modello, non è possibile riportare le variazione delle percentuali di svolta di ogni intersezione per ogni periodo temporale.
+Si osservi, inoltre, che al fine di definire il succitato andamento del traffico è stata attuata un'adeguata modellazione delle percentuali di svolta in ogni intersezione. Tuttavia, a causa della complessità del modello, non è possibile riportare le variazioni delle percentuali di svolta di ogni intersezione per ogni periodo temporale.
 
-%dire del multirun per i giorni lavorativi
+Per chiarezza si sottolinea infine che i profili di traffico del sabato e della domenica sono stati descritti con flussi di ingresso e percentuali di svolta di diversa entità rispetto a quelli appena descritti.
+
+Eseguendo con \acsfont{Sensors} \acs{DLL} uno qualsiasi dei modelli di simulazione (\ie{} giorni lavorativi, sabato o domenica) relativi alla rete stradale presentata, si ottiene il relativo file di output che, processato tramite gli strumenti di supporto precedentemente introdotti (si veda la \vref{sec:dataset-tools}), compone un dataset utile alla classificazione dei profili di traffico.
+
+Affinché i dataset in questione siano perfettamente riproducibili si sono utilizzati dei file \acs{RNS}\footnote{\acs{CORSIM} supporta l'utilizzo di file \acf{RNS} per la configurazione di alcuni aspetti della simulazione: numero di esecuzione e semi numerici da utilizzare per la generazione stocastica di eventi.}, semplici file di testo opportunamente formattati da cui \acs{CORSIM} legge il numero di esecuzioni da effettuare e i semi numerici\footnote{Il \emph{seed} è un numero utilizzato per inizializzare un generatore di numeri pseudo-casuali. Condividendo tale numero e utilizzando lo stesso generatore di numeri pseudo-casuali utilizzato da \acs{CORSIM} è possibile riprodurre la stessa identica simulazione su altre macchine.} relativi ad alcuni aspetti stocastici della simulazione (\eg{} incidenti, tipologia di guida dei conducenti).
+
+Di seguito si riporta il file \acs{RNS} relativo al modello di traffico per i giorni lavorativi della corrente rete stradale.
+\lstinputsourcecode[language=pseudo, numbers=none, caption={[Configurazione \acs{RNS} del \ds{2}]File \acs{RNS} che configura il numero di esecuzioni (\ie{} 5) e i semi numerici del modello di simulazione \acs{CORSIM} relativo alla rete stradale del \ds{2}.}, label=lst:model2-week-rns]{codes/monza-week-exte.rns}
+
+Di seguito si descrivono le caratteristiche del dataset:
+\begin{itemize}
+	\item tempo totale pari a $86400$ secondi (\ie{} $24$ ore)
+	\item suddivisione in $864$ elementi (\ie{} file)
+	\item ogni elemento include $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
+	\item ogni elemento è stato ottimizzato, cioè sottoposto all'eliminazione delle righe in cui non si verifica alcuna transizione di stato dei sensori
+	\item la colonna \lstinline[]|tp| è stata rimossa e sostituita con la colonna \lstinline[]|class| in base alla corrispondenza riportata nella \vref{tab:ds-2-tp-labels} (gli identificatori delle classi variano come detto per i profili di traffico relativi al sabato e alla domenica)
+	\item l'intestazione di ogni elemento è: \\\lstinline[]|time, class, D5096, D341, D5098, D5099, D211, D212, |\\\lstinline[]|D241, D242, D5097, D421, D5095, D541, D5094, D641, |\\\lstinline[]|D891, D892, D981, D982, D911, D912, D191, D192, D1290, |\\\lstinline[]|D1682, D1681, D1687, D1110, D1091, D1092, D1480, D781, |\\\lstinline[]|D782|.
+\end{itemize}
+Si osservi come tali caratteristiche sono indipendenti dal profilo di traffico simulato. Le differenza tra i $3$ diversi modelli di traffico sviluppati si sostanziano, chiaramente, nel diverso andamento dei flussi di traffico sulla rete stradale, il ché porta a diversi dati di rilevazione da parte dei sensori; nel numero di esecuzioni della simulazione (\ie{} $5$ per i giorni lavorativi e $1$ per il sabato e la domenica) e nei valori assunti dalla colonna relativa alla classe di traffico.
 
 \subsection{Risultati}
 \omissis{}
-
-
-
-%see: https://gist.github.com/leodido/5733991
 
 %risultati:
 %apprendimento
