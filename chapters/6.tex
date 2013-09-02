@@ -266,7 +266,7 @@ La~\vref{tab:ds-2-nodes} illustra la correlazione tra gli indici dei nodi \acs{C
 	\label{tab:ds-2-nodes}
 \end{table}
 
-Tutte le intersezioni della rete stradale (si veda la \autoref{tab:ds-2-nodes}; \ie{} nodi con indici $01$, $02$, $04$, $05$, $06$, $07$, $08$, $09$) sono controllate da semafori la cui configurazione riproduce i piani semaforici reali.
+Tutte le intersezioni della rete stradale (\ie{} nodi con indici $01$, $02$, $04$, $05$, $06$, $07$, $08$, $09$ nella \autoref{tab:ds-2-nodes}) sono controllate da semafori la cui configurazione riproduce i piani semaforici reali.
 
 La rete stradale in questione, oltre a riprodurre i sensori realmente esistenti, contiene nei pressi di ognuna delle succitate intersezioni degli ulteriori sensori per la rilevazione del passaggio dei veicoli. Tutti i sensori sono posti su una sola corsia cosicché il flusso di dati da essi generato sia associabile alla canalizzazione della relativa corsia. Di seguito si elencano le informazioni relative ai sensori reali del modello in questione:
 \begin{description}
@@ -412,7 +412,7 @@ Ogni fase della giornata (\ie{} classe) è caratterizzata da un andamento divers
 	\item all'alba (\ie{} periodo temporale $3$) pochi veicoli circolanti sulla rete stradale, prevalentemente su \emph{Viale Battisti} dove si verifica un leggero incremento dei veicoli in ingresso.
 \end{itemize}
 
-Come detto, l'andamento del traffico è modellato variando i flussi di ingresso. La \vref{tab:ds-2-input-vehicles} illustra il numero di veicoli orari (\ie{} \si{vph}) in ingresso sulla rete stradale in relazione a ogni periodo temporale del modello di simulazione. Anche per i modelli di simulazione \acs{CORSIM} relativi alla rete stradale descritta si è scelto di utilizzare una distribuzione di probabilità di Erlang per governare l'immissione dei veicoli sulla rete stradale.
+Come detto, l'andamento del traffico è modellato variando i flussi di ingresso. La \vref{tab:ds-2-input-vehicles} illustra il numero di veicoli orari (\ie{} \si{vph}) in ingresso sulla rete stradale in relazione a ogni periodo temporale del modello di simulazione. Anche per i modelli di simulazione \acs{CORSIM} relativi a questa rete stradale si è scelto di utilizzare una distribuzione di probabilità di Erlang per governare l'immissione dei veicoli sulla rete stradale.
 \begin{table}
 	\centering
 	\begin{tabular}{+l^c^c^c^c^c^c^c^c}
@@ -442,7 +442,7 @@ Per chiarezza si sottolinea infine che i profili di traffico del sabato e della 
 
 Eseguendo con \acsfont{Sensors} \acs{DLL} uno qualsiasi dei modelli di simulazione (\ie{} giorni lavorativi, sabato o domenica) relativi alla rete stradale presentata, si ottiene il relativo file di output che, processato tramite gli strumenti di supporto precedentemente introdotti (si veda la \vref{sec:dataset-tools}), compone un dataset utile alla classificazione dei profili di traffico.
 
-Affinché i dataset in questione siano perfettamente riproducibili si sono utilizzati dei file \acs{RNS}\footnote{\acs{CORSIM} supporta l'utilizzo di file \acf{RNS} per la configurazione di alcuni aspetti della simulazione: numero di esecuzione e semi numerici da utilizzare per la generazione stocastica di eventi.}, semplici file di testo opportunamente formattati da cui \acs{CORSIM} legge il numero di esecuzioni da effettuare e i semi numerici\footnote{Il \emph{seed} è un numero utilizzato per inizializzare un generatore di numeri pseudo-casuali. Condividendo tale numero e utilizzando lo stesso generatore di numeri pseudo-casuali utilizzato da \acs{CORSIM} è possibile riprodurre la stessa identica simulazione su altre macchine.} relativi ad alcuni aspetti stocastici della simulazione (\eg{} incidenti, tipologia di guida dei conducenti).
+Affinché i dataset in questione siano perfettamente riproducibili si sono utilizzati dei file \acs{RNS}\footnote{\acs{CORSIM} supporta l'utilizzo di file \acf{RNS} per la configurazione di alcuni aspetti della simulazione: numero di esecuzione e semi numerici da utilizzare per la generazione stocastica di eventi.}, semplici file di testo, opportunamente formattati, da cui \acs{CORSIM} legge il numero di esecuzioni da effettuare e i semi numerici\footnote{Il \emph{seed} è un numero utilizzato per inizializzare un generatore di numeri pseudo-casuali. Condividendo tale numero e utilizzando lo stesso generatore di numeri pseudo-casuali utilizzato da \acs{CORSIM} è possibile riprodurre la stessa identica simulazione su altre macchine.} relativi ad alcuni aspetti stocastici della simulazione (\eg{} incidenti, tipologia di guida dei conducenti).
 
 Di seguito si riporta il file \acs{RNS} relativo al modello di traffico per i giorni lavorativi della corrente rete stradale.
 \lstinputsourcecode[language=pseudo, numbers=none, caption={[Configurazione \acs{RNS} del \ds{2}]File \acs{RNS} che configura il numero di esecuzioni (\ie{} 5) e i semi numerici del modello di simulazione \acs{CORSIM} relativo alla rete stradale del \ds{2}.}, label=lst:model2-week-rns]{codes/monza-week-exte.rns}
@@ -456,7 +456,7 @@ Di seguito si descrivono le caratteristiche del dataset:
 	\item la colonna \lstinline[]|tp| è stata rimossa e sostituita con la colonna \lstinline[]|class| in base alla corrispondenza riportata nella \vref{tab:ds-2-tp-labels} (gli identificatori delle classi variano come detto per i profili di traffico relativi al sabato e alla domenica)
 	\item l'intestazione di ogni elemento è: \\\lstinline[]|time, class, D5096, D341, D5098, D5099, D211, D212, |\\\lstinline[]|D241, D242, D5097, D421, D5095, D541, D5094, D641, |\\\lstinline[]|D891, D892, D981, D982, D911, D912, D191, D192, D1290, |\\\lstinline[]|D1682, D1681, D1687, D1110, D1091, D1092, D1480, D781, |\\\lstinline[]|D782|.
 \end{itemize}
-Si osservi come tali caratteristiche sono indipendenti dal profilo di traffico simulato. Le differenza tra i $3$ diversi modelli di traffico sviluppati si sostanziano, chiaramente, nel diverso andamento dei flussi di traffico sulla rete stradale, il ché porta a diversi dati di rilevazione da parte dei sensori; nel numero di esecuzioni della simulazione (\ie{} $5$ per i giorni lavorativi e $1$ per il sabato e la domenica) e nei valori assunti dalla colonna relativa alla classe di traffico.
+Si osservi come tali caratteristiche sono indipendenti dal profilo di traffico simulato. Le differenze tra i $3$ diversi modelli di traffico sviluppati si sostanziano, chiaramente, nel diverso andamento dei flussi di traffico sulla rete stradale, il ché porta a diversi dati di rilevazione da parte dei sensori; nel numero di esecuzioni della simulazione (\ie{} $5$ per i giorni lavorativi e $1$ per il sabato e la domenica) e nei valori assunti dalla colonna relativa alla classe di traffico.
 
 \subsection{Risultati}
 \omissis{}
