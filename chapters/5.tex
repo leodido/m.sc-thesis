@@ -24,10 +24,21 @@ In questa tesi affrontiamo il primo passo: la classificazione dei profili di tra
 
 Con l'ausilio di un software commerciale, \acf{TSIS} (versione $\geq$ 6.2), e di una sua \acl{RTE} appositamente sviluppata al fine di monitorare e tracciare il passaggio dei veicoli, sono stati generati dei dataset contenenti un insieme di documenti rappresentanti la presenza (durante l'evolvere del tempo) di veicoli sui sensori di una rete stradale.
 
-In questo capitolo si presentano sia i succitati strumenti utilizzati per la creazione di reti stradali e relativi modelli di simulazione, sia lo strumento ideato per la creazione di dataset relativi al traffico.
+Si precisa che i sensori cui ci si riferisce sono le \keyword{spire}, cioè dei sensori ad induttanza magnetica, posti sotto l'asfalto, che generano un'informazione, detta \keyword{onda quadra}, così composta: stato pari a $1$ se un veicolo è presente sul sensore, stato pari a $0$ viceversa. La \vref{fig:onda-quadra} illustra visivamente quanto appena descritto.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\columnwidth]{onda-quadra.png}
+    \caption[Onda quadra]{Rappresentazione dell'onda quadra generata da un sensore a spira magnetica.}
+    \label{fig:onda-quadra}
+\end{figure}
+
+Poiché \acs{TSIS} supporta esclusivamente la generazione di output aggregati rispetto al tempo (\eg{} densità dei veicoli per strada, velocità media, conteggio dei veicoli per sensore), si è reso necessario lo sviluppo di una \acl{RTE} dedicata che fosse in grado di memorizzare il dato atomico dei sensori al fine di ottenere la succitata \keyword{onda quadra} a tempo continuo.
+
+In questo capitolo si presentano sia i succitati strumenti utilizzati per la creazione di reti stradali e relativi modelli di simulazione, sia l'estensione ideata per la creazione di dataset relativi al traffico.
 
 Relativamente, invece, al processo pratico di creazione dei dataset si rimanda alla~\autoref{sec:create-dataset-howto}.
 
+\cleardoublepage
 \section{TSIS}
 \label{sec:tsis}
 \acf{TSIS} è un \acl{IDE}\footnote{Un \acl{IDE}, comunemente chiamato anche \ACF{IDE}, è un insieme di programmi finalizzati a supportare il processo di sviluppo dei software. Generalmente, un \acs{IDE} è costituito da uno strumento per la creazione e modifica del codice sorgente, un compilatore o un interprete, strumenti per l'automazione dello sviluppo e la qualità del codice sorgente.}, distribuito commercialmente da McTrans\footnote{McTrans Moving Technology: \url{http://mctrans.ce.ufl.edu}.} e supportato dalla \acf{FWHA}\footnote{Agenzia del Dipartimento dei Trasporti degli Stati Uniti d'America: \\ \url{www.fhwa.dot.gov}.}, il cui scopo ultimo è permettere la simulazione e l'analisi di modelli di reti stradali.
@@ -122,38 +133,38 @@ Poiché un modello di simulazione del traffico è caratterizzato dal cambiamento
 
 \acs{CORSIM} affronta questo problema permettendo di partizionare il tempo totale di simulazione in una serie di periodi temporali (\ie{} \emph{time period}) di durata variabile. Ogni periodo temporale possiede perciò un insieme di dati di input che non variano per tutta la sua durata. Inoltre, i periodi temporali sono a loro volta suddivisi in intervalli temporali (\ie{} \emph{time interval}), anch'essi suddivisi in passi temporali (\ie{} \emph{time step}).
 
-Le principali limitazioni di \acs{TSIS} derivano dalle modalità con cui \acs{CORSIM} implementa la gestione del tempo: la lista dei periodi temporali è rappresentata internamente tramite un array statico di dimensione prefissata. Nello specifico, un modello \acs{CORSIM} può essere costituito da un massimo di $19$ periodi temporali, ognuno dei quali viene specificato tramite il \acs{RT} $03$, e può avere una durata compresa tra i $10$ e i $9999$ secondi. Ognuno di tali periodi temporali è suddiviso in intervalli (specificati tramite dei \acs{RT} $04$) la cui durata, compresa tra $1$ e $200$ secondi, deve essere un sottomultiplo della durata del periodo temporale cui appartiene. Infine, ogni intervallo temporale è partizionato in passi temporali: \acs{NETSIM} utilizza un passo temporale fisso di $1$ secondo mentre \acs{FREESIM} opera in base al passo temporale specificato dall'utente. Poiché i due modelli di simulazione microscopica che costituiscono \acs{CORSIM} operano in modo sincronizzato, la durata del passo temporale di \acs{FREESIM}, anche se compresa nell'intervallo $[0.1,1]$ secondi, non può essere specificata liberamente dall'utente. All'utente è permesso specificare solo il numero di passi temporali di \acs{FREESIM} (tramite il campo $1$, \acs{RT} $04$) che devono essere eseguiti per ogni secondo di simulazione. Tale approccio permette perciò di utilizzare dei passi temporali di durata minore per il simulatore \acs{FREESIM} mantenendo la sincronizzazione con il simulatore \acs{NETSIM}. La~\vref{tab:fresim-time-steps} mostra la corrispondenza tra il numero di passi temporali di \acs{FREESIM} e la reale durata che verrà loro assegnata.
+Le principali limitazioni di \acs{TSIS} derivano dalle modalità con cui \acs{CORSIM} implementa la gestione del tempo: la lista dei periodi temporali è rappresentata internamente tramite un array statico di dimensione prefissata. Nello specifico, un modello \acs{CORSIM} può essere costituito da un massimo di $19$ periodi temporali, ognuno dei quali viene specificato tramite il \acs{RT} $03$, e può avere una durata compresa tra i $10$ e i $9999$ secondi. Ognuno di tali periodi temporali è suddiviso in intervalli (specificati tramite dei \acs{RT} $04$) la cui durata, compresa tra $1$ e $200$ secondi, deve essere un sottomultiplo della durata del periodo temporale cui appartiene. Infine, ogni intervallo temporale è partizionato in passi temporali: \acs{NETSIM} utilizza un passo temporale fisso di $1$ secondo mentre \acs{FREESIM} opera in base al passo temporale specificato dall'utente. Poiché i due modelli di simulazione microscopica che costituiscono \acs{CORSIM} operano in modo sincronizzato, la durata del passo temporale di \acs{FREESIM}, anche se compresa nell'intervallo $[0.1,1]$ secondi, non può essere specificata liberamente dall'utente. All'utente è permesso specificare solo il numero di passi temporali di \acs{FREESIM} (tramite il campo $1$, \acs{RT} $04$) che devono essere eseguiti per ogni secondo di simulazione. Tale approccio permette perciò di utilizzare dei passi temporali di durata minore per il simulatore \acs{FREESIM} mantenendo la sincronizzazione con il simulatore \acs{NETSIM}.
 
+La~\vref{tab:fresim-time-steps} mostra la corrispondenza tra il numero di passi temporali di \acs{FREESIM} e la reale durata che verrà loro assegnata.
 \begin{table}[h]%
-\centering%
-\begin{tabular}{+c^c}
-\toprule\rowstyle{\bfseries}%
-Valore del campo $1$    & Durata del passo temporale in \acs{FREESIM}   \\
-                        & (sec)                                         \\\otoprule%
-1                       & 1.0                                           \\
-2                       & 0.5                                           \\
-3                       & 0.333333                                      \\
-4                       & 0.25                                          \\
-5                       & 0.2                                           \\
-6                       & 0.166667                                      \\
-7                       & 0.142857                                      \\
-8                       & 0.125                                         \\
-9                       & 0.111111                                      \\
-10                      & 0.1                                           \\\bottomrule
-\end{tabular}
-\caption[Durata dei passi temporali in \acs{FREESIM}]{Relazione tra numero di passi temporali per ogni secondo di simulazione e durata effettiva del passo temporale in \acs{FREESIM}.}
-\label{tab:fresim-time-steps}
+    \centering%
+    \begin{tabular}{+c^c}
+    \toprule\rowstyle{\bfseries}%
+    Valore del campo $1$    & Durata del passo temporale in \acs{FREESIM}   \\
+                            & (sec)                                         \\\otoprule%
+    1                       & 1.0                                           \\
+    2                       & 0.5                                           \\
+    3                       & 0.333333                                      \\
+    4                       & 0.25                                          \\
+    5                       & 0.2                                           \\
+    6                       & 0.166667                                      \\
+    7                       & 0.142857                                      \\
+    8                       & 0.125                                         \\
+    9                       & 0.111111                                      \\
+    10                      & 0.1                                           \\\bottomrule
+    \end{tabular}
+    \caption[Durata dei passi temporali in \acs{FREESIM}]{Relazione tra numero di passi temporali per ogni secondo di simulazione e durata effettiva del passo temporale in \acs{FREESIM}.}
+    \label{tab:fresim-time-steps}
 \end{table}
 
 La~\vref{fig:corsim-time} mostra, tramite un esempio, quanto appena descritto relativamente alla rappresentazione del tempo in \acs{CORSIM}.
 
 Si osservi, inoltre, che la granularità temporale massima con cui è possibile ottenere statistiche cumulative, e, in generale, dati relativi alla simulazione, corrisponde alla durata scelta per gli intervalli temporali (si veda a tal riguarda la documentazione relativa al tipo \acs{RT} $05$). Si consideri ad esempio la~\vref{fig:corsim-time}: in tal caso non sarà possibile ottenere dati cumulati relativi a un intervallo di tempo minore di $60$ secondi.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=1\columnwidth]{corsim-time}
-\caption[Gestione del tempo in \acs{CORSIM}]{Esempio di suddivisione gerarchica delle unità temporali in \acs{CORSIM}. Un \emph{time period} della durata di $420$ secondi è suddiviso in $7$ \emph{time interval}, ciascuno della durata di $60$ secondi. Ogni \emph{time interval} verrà poi automaticamente diviso in $60$ \emph{time step} da $1$ secondo ciascuno per \acs{NETSIM} (\ie{} linee rosse). La durata di tali \emph{time step} di \acs{NETSIM} può o meno coincidere, come accade in questo esempio, con quella assegnata ai \emph{time step} di \acs{FREESIM} a seconda del valore del campo $1$ del \acs{RT} $04$ nel modello \acs{CORSIM}.}
-\label{fig:corsim-time}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\columnwidth]{corsim-time}
+    \caption[Gestione del tempo in \acs{CORSIM}]{Esempio di suddivisione gerarchica delle unità temporali in \acs{CORSIM}. Un \emph{time period} della durata di $420$ secondi è suddiviso in $7$ \emph{time interval}, ciascuno della durata di $60$ secondi. Ogni \emph{time interval} verrà poi automaticamente diviso in $60$ \emph{time step} da $1$ secondo ciascuno per \acs{NETSIM} (\ie{} linee rosse). La durata di tali \emph{time step} di \acs{NETSIM} può o meno coincidere, come accade in questo esempio, con quella assegnata ai \emph{time step} di \acs{FREESIM} a seconda del valore del campo $1$ del \acs{RT} $04$ nel modello \acs{CORSIM}.}
+    \label{fig:corsim-time}
 \end{figure}
 
 La gestione del tempo che \acs{CORSIM} attua implica quindi alcune limitazioni:
@@ -162,7 +173,7 @@ La gestione del tempo che \acs{CORSIM} attua implica quindi alcune limitazioni:
     \item la massima granularità con cui è possibile raccogliere informazioni è di $1$ secondo, impostando a tale valore la durata degli intervalli temporali
     \item i dati raccolti dalla simulazione sono sempre aggregati in base alla durata dell'intervallo temporale cui si riferiscono.
 \end{itemize}
-Tali vincoli rendono impossibile recuperare l'output dei sensori a tempo continuo in modo non aggregato o in generale con una granularità temporale inferiore a $1$ secondo. Al fine di sorpassare tali limitazioni si è proceduto sviluppando una \acl{RTE} apposita, \acsfont{Sensors} \acs{DLL}, descritta dettagliatamente nella \vref{sec:sensors-rte}. Al fine di rendere la descrizione di tale software maggiormente chiara, è necessario presentare il meccanismo di estensione di \acs{CORSIM}. La sezione che segue affronta questo argomento.
+Tali vincoli rendono impossibile recuperare l'output dei sensori a tempo continuo in modo non aggregato o in generale con una granularità temporale inferiore a $1$ secondo. Al fine di sorpassare tali limitazioni si è proceduto sviluppando una \acl{RTE} apposita, \acsfont{Sensors} \acs{DLL}, descritta dettagliatamente nella \vref{sec:sensors-rte}. Al fine di rendere la descrizione di tale software maggiormente chiara, è necessario presentare il meccanismo di estensione di \acs{CORSIM}. La sezione che segue affronta perciò tale argomento.
 
 \section{Creazione di estensioni TSIS}
 \acs{TSIS} espone un meccanismo finalizzato all'estensione delle sue funzionalità tramite la creazione, da parte dell'utente, di altri strumenti da integrare nell'ambiente di sviluppo. Tali strumenti, interfacciandosi direttamente con \acs{CORSIM}, possono modificarne o aumentarne la logica di simulazione, collezionare dati o monitorare eventi speciali (\eg{} indicenti).
@@ -182,10 +193,10 @@ Si osservi, inoltre, che è possibile sviluppare una \acs{CORSIM} \acs{RTE} anch
 
 La~\vref{fig:tsis-corsim-arch} illustra l'architettura modulare di \acs{CORSIM} e il suo funzionamento all'interno dell'ambiente di sviluppo \acs{TSIS}.
 \begin{figure}
-\centering
-\includegraphics[width=0.925\columnwidth]{tsis-corsim-components}
-\caption[Diagramma dei componenti di \acs{CORSIM}]{Porzione del diagramma dei componenti di \acs{TSIS}: mostra l'architettura modulare e il funzionamento di \acs{CORSIM} all'interno di \acs{TSIS}.}
-\label{fig:tsis-corsim-arch}
+    \centering
+    \includegraphics[width=0.925\columnwidth]{tsis-corsim-components}
+    \caption[Diagramma dei componenti di \acs{CORSIM}]{Porzione del diagramma dei componenti di \acs{TSIS}: mostra l'architettura modulare e il funzionamento di \acs{CORSIM} all'interno di \acs{TSIS}.}
+    \label{fig:tsis-corsim-arch}
 \end{figure}
 Si osservi che i componenti che costituiscono \acs{CORSIM} sono di due tipi: librerie \acs{DLL} e moduli \acs{COM}\footnote{Il \acf{COM} è uno standard per componenti software ideato da \emph{Microsoft}. Il suo fine consiste nel permettere la comunicazione fra processi e la creazione dinamica di oggetti. Una interfaccia \acs{COM} è una collezione di funzioni, incapsulata in un componente software binario e neutrale rispetto al linguaggio.}. Il \acs{CORSIM} \acsfont{Driver Component}, ad esempio, è il modulo \acs{COM} di \acs{TSIS} preposto a interfacciare \acs{CORSIM} e \acs{TShell}, permettendo così il controllo e l'esecuzione di \acs{CORSIM}, delle \acs{RTE} create dall'utente e degli altri strumenti (\eg{} \acs{TSIS} \acsfont{Output Processor}) di \acs{TSIS} tramite \acs{GUI}.
 
@@ -208,34 +219,34 @@ Di seguito si presenta il ciclo di vita di \acs{CORSIM} descrivendo i punti di c
 
 La~\vref{tab:corsim-lifecycle} descrive tutti i punti di chiamata relativi alla linea di esecuzione temporale di \acs{CORSIM}.
 \begin{table}[ht]%
-\begin{tabularx}{\columnwidth}{+l^X}
-\toprule\rowstyle{\bfseries}%
-Punto di chiamata                   & Descrizione                                   \\
-\otoprule%
-\lstinline[]|Initialize|            & \small Chiamato all'inizio della simulazione prima della fase di inizializzazione \acs{CORSIM} ma dopo la lettura del file \acs{TRF} di input.                                                            \\
-\lstinline[]|PostVehicleEmit|       & \small Chiamato ad ogni \emph{time step} dopo che i veicoli sono stati immessi nella rete stradale.                                                                           \\
-\lstinline[]|PreNetsimVehicle|      & \small Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{NETSIM}.                                                                                   \\
-\lstinline[]|PreNetsimSignal|       & \small Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{} semafori) del sotto-modello \acs{NETSIM} vengano impostati.                                                                  \\
-\lstinline[]|PostNetsimTimestep|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{NETSIM} e prima che \acs{FREESIM} inizi a simulare il suo relativo sotto-modello.                   \\
-\lstinline[]|PreFresimVehicle|      & \small Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{FREESIM}.                                                                                   \\
-\lstinline[]|PreFresimSignal|       & \small Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{} semafori) del sotto-modello \acs{FREESIM} vengano impostati.                                                                  \\
-\lstinline[]|PostFresimTimestep|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{FREESIM}.
-                                                                                    \\
-\lstinline[]|BeginSimulation|       & \small Chiamato dopo l'inizializzazione di \acs{CORSIM} (\ie{} rete stradale piena) in corrispondenza dell'inizio della simulazione.                                                                        \\
-\lstinline[]|TimeStepComplete|      & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step}.                                                                                   \\
-\lstinline[]|TimeIntervalComplete|  & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time interval}.                                                                                   \\
-\lstinline[]|TimePeriodComplete|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time period}.                                                                                   \\
-\lstinline[]|TimePeriodValidated|   & \small Chiamato in corrispondenza della fine del processo di lettura e validazione del file di input relativo a ogni \emph{time period}, prima dell'inizializzazione e dell'effettivo inizio del processo di simulazione di ogni \emph{time period}.                                                                                   \\
-\lstinline[]|SimulationComplete|    & \small Chiamato in corrispondenza della fine della simulazione e prima della completa terminazione del processo.                                                                           \\
-\lstinline[]|Shutdown|              & \small Chiamato appena prima che l'esecuzione di \acs{CORSIM} termini.
-                                                                                    \\
-\lstinline[]|Exit|                  & \small Chiamato in corrispondenza della fine dell'intero processo di simulazione.
-                                                                                    \\\bottomrule
-\end{tabularx}
-\caption[Ciclo di vita di \acs{CORSIM}]{Descrizione di punti di chiamata che \acs{CORSIM} espone all'esterno.}
-\label{tab:corsim-lifecycle}
+    \begin{tabularx}{\columnwidth}{+l^X}
+    \toprule\rowstyle{\bfseries}%
+    Punto di chiamata                   & Descrizione                                   \\
+    \otoprule%
+    \lstinline[]|Initialize|            & \small Chiamato all'inizio della simulazione prima della fase di inizializzazione \acs{CORSIM} ma dopo la lettura del file \acs{TRF} di input.                                                            \\
+    \lstinline[]|PostVehicleEmit|       & \small Chiamato ad ogni \emph{time step} dopo che i veicoli sono stati immessi nella rete stradale.                                                                           \\
+    \lstinline[]|PreNetsimVehicle|      & \small Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{NETSIM}.                                                                                   \\
+    \lstinline[]|PreNetsimSignal|       & \small Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{} semafori) del sotto-modello \acs{NETSIM} vengano impostati.                                                                  \\
+    \lstinline[]|PostNetsimTimestep|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{NETSIM} e prima che \acs{FREESIM} inizi a simulare il suo relativo sotto-modello.                   \\
+    \lstinline[]|PreFresimVehicle|      & \small Chiamato ad ogni \emph{time step} appena prima che i veicoli inizino a muoversi nel sotto-modello \acs{FREESIM}.                                                                                   \\
+    \lstinline[]|PreFresimSignal|       & \small Chiamato ad ogni \emph{time step} appena prima che i segnali (\eg{} semafori) del sotto-modello \acs{FREESIM} vengano impostati.                                                                  \\
+    \lstinline[]|PostFresimTimestep|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step} di \acs{FREESIM}.
+                                                                                        \\
+    \lstinline[]|BeginSimulation|       & \small Chiamato dopo l'inizializzazione di \acs{CORSIM} (\ie{} rete stradale piena) in corrispondenza dell'inizio della simulazione.                                                                        \\
+    \lstinline[]|TimeStepComplete|      & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time step}.                                                                                   \\
+    \lstinline[]|TimeIntervalComplete|  & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time interval}.                                                                                   \\
+    \lstinline[]|TimePeriodComplete|    & \small Chiamato in corrispondenza della fine del processo di simulazione di ogni \emph{time period}.                                                                                   \\
+    \lstinline[]|TimePeriodValidated|   & \small Chiamato in corrispondenza della fine del processo di lettura e validazione del file di input relativo a ogni \emph{time period}, prima dell'inizializzazione e dell'effettivo inizio del processo di simulazione di ogni \emph{time period}.                                                                                   \\
+    \lstinline[]|SimulationComplete|    & \small Chiamato in corrispondenza della fine della simulazione e prima della completa terminazione del processo.                                                                           \\
+    \lstinline[]|Shutdown|              & \small Chiamato appena prima che l'esecuzione di \acs{CORSIM} termini.
+                                                                                        \\
+    \lstinline[]|Exit|                  & \small Chiamato in corrispondenza della fine dell'intero processo di simulazione.
+                                                                                        \\\bottomrule
+    \end{tabularx}
+    \caption[Ciclo di vita di \acs{CORSIM}]{Descrizione di punti di chiamata che \acs{CORSIM} espone all'esterno.}
+    \label{tab:corsim-lifecycle}
 \end{table}
-Una volta compilata la \acs{RTE} e ottenuto il relativo file \acs{DLL}, ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispettiva funzione implementata dalla \acs{RTE}. La~\autoref{subsec:rte-corsim-linking} \vpageref{subsec:rte-corsim-linking} descrive in maggior dettaglio tale processo.
+Una volta compilata la \acs{RTE} e ottenuto il relativo file \acs{DLL}, ognuno dei punti di chiamata di \acs{CORSIM} deve essere associato alla rispettiva funzione implementata dalla \acs{RTE}. La sezione che segue descrive in maggior dettaglio tale processo.
 
 \subsection{Collegare una RTE a CORSIM}\label{subsec:rte-corsim-linking}
 Questa sottosezione illustra i passi necessari a espletare il processo di collegamento (\ie{} \emph{linking}) di una \acs{RTE} a \acs{CORSIM}. Tale processo è eseguibile direttamente tramite \acs{TShell}.
@@ -243,37 +254,37 @@ Questa sottosezione illustra i passi necessari a espletare il processo di colleg
 A scopo esemplificativo si descrive come aggiungere la \acs{RTE} per il rilevamento e tracciamento del passaggio dei veicoli sui sensori (descritta nella~\vref{sec:sensors-rte}). Tale operazione viene svolta tramite il menù \emph{Tools} di \acs{TShell} scegliendo la voce \emph{Tool Configuration} e cliccando sul pulsante per l'aggiunta (\ie{} \emph{Add}) di una \acs{RTE}. La~\vref{fig:tshell-tool-config-1} mostra lo strumento di configurazione degli strumenti appartenenti all'ambiente di \acs{TSIS}.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=1\columnwidth]{tshell-tool-config-1}
-\caption[Aggiunta di una \acs{RTE} a \acs{TSIS}]{Strumento finalizzato all'aggiunta di una \acs{RTE} a \acs{TSIS}.}
-\label{fig:tshell-tool-config-1}
-\end{figure}
-Specificato il percorso a cui risiede il file \acs{DLL} della \acs{RTE}, il tipo di \acs{RTE}, il nome e l'icona che si intende assegnare a tale strumento e il tipo di file a cui va associato (\eg{} \acs{TRF}), la \acs{RTE} è aggiunta a \acs{TSIS}. La~\vref{fig:tshell-toolbar} mostra la barra degli strumenti di \acs{TShell} quando un file \acs{TRF} viene aperto: essa contiene il pulsante per l'avvio della \acs{RTE} appena aggiunta all'ambiente di sviluppo \acs{TSIS}.
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.4\columnwidth]{tshell-toolbar}
-\caption[Barra degli strumenti di \acs{TShell}]{Barra degli strumenti di \acs{TShell} contenente il pulsante per l'invocazione della \acs{RTE} aggiunta all'ambiente di sviluppo \acs{TSIS}.}
-\label{fig:tshell-toolbar}
+    \centering
+    \includegraphics[width=1\columnwidth]{tshell-tool-config-1}
+    \caption[Aggiunta di una \acs{RTE} a \acs{TSIS}]{Strumento finalizzato all'aggiunta di una \acs{RTE} a \acs{TSIS}.}
+    \label{fig:tshell-tool-config-1}
+    \end{figure}
+    Specificato il percorso a cui risiede il file \acs{DLL} della \acs{RTE}, il tipo di \acs{RTE}, il nome e l'icona che si intende assegnare a tale strumento e il tipo di file a cui va associato (\eg{} \acs{TRF}), la \acs{RTE} è aggiunta a \acs{TSIS}. La~\vref{fig:tshell-toolbar} mostra la barra degli strumenti di \acs{TShell} quando un file \acs{TRF} viene aperto: essa contiene il pulsante per l'avvio della \acs{RTE} appena aggiunta all'ambiente di sviluppo \acs{TSIS}.
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\columnwidth]{tshell-toolbar}
+    \caption[Barra degli strumenti di \acs{TShell}]{Barra degli strumenti di \acs{TShell} contenente il pulsante per l'invocazione della \acs{RTE} aggiunta all'ambiente di sviluppo \acs{TSIS}.}
+    \label{fig:tshell-toolbar}
 \end{figure}
 
 Tuttavia, come detto, le funzioni della \acs{RTE} devono essere collegate ai punti di chiamata di \acs{CORSIM} affinché la \acs{RTE} risulti completamente funzionante. Per adempiere tale operazione è necessario utilizzare nuovamente lo strumento di configurazione cliccando sul pulsante per la modifica (\ie{} \emph{Edit}) di una \acs{RTE}. A questo punto, selezionando la scheda relativa alle \acs{RTE}, è possibile invocare lo strumento per effettuare il succitato collegamento. La~\vref{fig:tshell-tool-config-8} mostra il processo di collegamento tra le funzioni della \acs{RTE} e i punti di chiamata di \acs{CORSIM}.
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.8\columnwidth]{tshell-tool-config-8}
-\caption[Collegamento delle funzioni della \acs{RTE} a \acs{CORSIM}]{Collegamento delle funzioni della \acs{RTE} ai rispettivi punti di chiamata di \acs{CORSIM}.}
-\label{fig:tshell-tool-config-8}
+    \centering
+    \includegraphics[width=1\columnwidth]{tshell-tool-config-8}
+    \caption[Collegamento delle funzioni della \acs{RTE} a \acs{CORSIM}]{Collegamento delle funzioni della \acs{RTE} ai rispettivi punti di chiamata di \acs{CORSIM}.}
+    \label{fig:tshell-tool-config-8}
 \end{figure}
 
 Inoltre, può essere necessario dover configurare la \acs{RTE} aggiunta in base alle sue esigenze, così come modificare alcune funzionalità di \acs{CORSIM} relativamente ad essa. Ad esempio, la \acs{RTE} per il monitoraggio e il tracciamento del passaggio dei veicoli sui sensori non necessita che i file di output di \acs{CORSIM} vengano generati, né che vengano generati i file per la visualizzazione animata della simulazione in \acs{TRAFED}. Inoltre, tale \acs{RTE}, non necessita che la simulazione \acs{CORSIM} sia eseguita più volte. La~\vref{fig:tshell-tool-config-35} mostra la configurazione di tali opzioni.
 \begin{figure}[H]
-\centering
-\subfloat[Proprietà di \acs{CORSIM}.]
-{\includegraphics[width=0.8\columnwidth]{tshell-tool-config-3}} \\
-\subfloat[Impostazioni proprietà d'esecuzione di \acs{CORSIM}.]
-{\label{fig:ipsum}%
-\includegraphics[width=0.8\columnwidth]{tshell-tool-config-5}}
-\caption[Configurazione delle proprietà di \acs{CORSIM}]{Configurazione delle proprietà di \acs{CORSIM} per la \acs{RTE}: disattivazione dell'output di \acs{CORSIM}, della generazione dell'input per \acs{TRAFED} e delle esecuzioni multiple della simulazione.}
-\label{fig:tshell-tool-config-35}
+    \centering
+    \subfloat[Proprietà di \acs{CORSIM}.]
+    {\includegraphics[width=1\columnwidth]{tshell-tool-config-3}} \\
+    \subfloat[Impostazioni proprietà d'esecuzione di \acs{CORSIM}.]
+    {\label{fig:ipsum}%
+    \includegraphics[width=1\columnwidth]{tshell-tool-config-5}}
+    \caption[Configurazione delle proprietà di \acs{CORSIM}]{Configurazione delle proprietà di \acs{CORSIM} per la \acs{RTE}: disattivazione dell'output di \acs{CORSIM}, della generazione dell'input per \acs{TRAFED} e delle esecuzioni multiple della simulazione.}
+    \label{fig:tshell-tool-config-35}
 \end{figure}
 
 \cleardoublepage
@@ -339,14 +350,14 @@ Completata la simulazione e di conseguenza anche la procedura di monitoraggio de
 \vspace*{8pt}\lstinputsourcecode[caption={[Rilevazione del passaggio dei veicoli sui sensori]Metodo della classe \lstinline[]|CLink| per la rilevazione del passaggio dei veicoli sui sensori}, label=lst:process-sensors, language=cpp]{codes/processsensors}
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=1.4\textwidth,center]{sensors-class-diagram}
-\caption[Diagramma delle classi di \acsfont{Sensors} \acs{DLL}]{Diagramma delle classi di \acsfont{Sensors} \acs{DLL}.}
-\label{fig:sensors-class-diagram}
+    \centering
+    \includegraphics[width=1.4\textwidth,center]{sensors-class-diagram}
+    \caption[Diagramma delle classi di \acsfont{Sensors} \acs{DLL}]{Diagramma delle classi di \acsfont{Sensors} \acs{DLL}.}
+    \label{fig:sensors-class-diagram}
 \end{figure}
 
 \subsection{Formato dell'output}\label{subsec:sensors-dll-output}
-Di seguito si presenta un esempio di file \acs{CSV} di output generato da \acsfont{Sensors} \acs{DLL}.
+Di seguito si presenta un esempio di file \acs{CSV} di output generato da \acsfont{Sensors} \acs{DLL}. Come anticipato, esso codifica l'\keyword{onda quadra} di ogni sensore a spira magnetica posto sulla rete stradale.
 
 \lstinputsourcecode[language=pseudo, numbers=none, caption=Formato di output di \acsfont{Sensors} \acs{DLL}, label=lst:sensors-out-format]{codes/sensorsoutformat.txt}
 
@@ -366,6 +377,7 @@ identificatore sensore  & $1$ in caso di presenza di un veicolo sul rispettivo s
 
 Si osservi che, il fatto che il sensore \lstinline[]|D232|, in corrispondenza dell'istante $1.6$ ($5$\textsuperscript{a} colonna) abbia valore $1$ non indica che il veicolo sia stato rilevato esattamente in tale istante, bensì ciò indica che durante l'intervallo temporale $[\,1.5,1.6\,]$ tale sensore è stato attivato dal passaggio di un veicolo.
 
+\cleardoublepage
 \section{Applicativi di supporto}\label{sec:dataset-tools}
 Al fine di automatizzare e facilitare la creazione di dataset relativi al traffico tramite la \acs{RTE} trattata nel corrente capitolo, si è sviluppato un insieme di strumenti dediti alla manipolazione dei file di output di \acsfont{Sensors} \acs{DLL}.
 
