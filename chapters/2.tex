@@ -105,16 +105,16 @@ function ctnbclearn(data, classes, graph) {
     var klass = unique(classes)
     var nk = len(class)
     var priors[nk]
-    for (i in keyword(data)) {
-        var k = keyword(classes[i])
+    for (i in index(data)) {
+        var k = index(classes[i])
         priors[k] = priors[k] + (1 / h)
     }<ls>\label{lst:end-prior-computation}<le>
     <ls>\label{lst:start-ss-computation}<le>var m(), t()
-    for (i in keyword(data)) {
+    for (i in index(data)) {
         var y = classes[i]
         var j = 1
         while (<ls>$t_j \leq T_i$<le>) {
-            for (n in keyword(graph.nodes)) {
+            for (n in index(graph.nodes)) {
                 m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, y) = m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, y) + 1
                 t(<ls>$\setel{x}_n^j$<le>, y) = t(<ls>$\setel{x}_n^j$<le>, y) + <ls>$(t_j - t_{j-1})$<le>
             }
@@ -123,7 +123,7 @@ function ctnbclearn(data, classes, graph) {
     }<ls>\label{lst:end-ss-computation}<le>
     <ls>\label{lst:start-params-computation}<le>var q(), thet()
     foreach (y in klass) {
-        for (n in keyword(graph.nodes)) {
+        for (n in index(graph.nodes)) {
             for (<ls>$\setel{x}_n$<le> in <ls>$val(\setel{X}_n)$<le>) {
                 var mm(<ls>$\setel{x}_n$<le>, y) = <ls>$\sum_{\setel{x}_n^{\prime}\neq\setel{x}_n}$<le> m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, y)
                 q(<ls>$\setel{x}_n$<le>, y) = mm(<ls>$\setel{x}_n$<le>, y) / t(<ls>$\setel{x}_n$<le>, y)
@@ -157,15 +157,15 @@ function learn(data, classes, graph) {
     var klass = unique(classes)
     var nk = len(class)
     var priors[nk]
-    for (i in keyword(data)) {
-        var k = keyword(classes[i])
+    for (i in index(data)) {
+        var k = index(classes[i])
         priors[k] = priors[k] + (1 / h)
     }
     var m(), t()
-    foreach (i in keyword(data)) {
+    foreach (i in index(data)) {
         var j = 1
         while (<ls>$t_j \leq T_i$<le>) {
-            foreach (n in keyword(graph.nodes)) {
+            foreach (n in index(graph.nodes)) {
                 var p = <ls>$val^j(Pa(\setel{X}_n))$\label{lst:general-ss-computation}<le>
                 m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, p) = m(<ls>$\setel{x}_n^j$<le>, <ls>$\setel{x}_n^{j+1}$<le>, p) + 1
                 t(<ls>$\setel{x}_n^j$<le>, p) = t(<ls>$\setel{x}_n^j$<le>, p) + <ls>$(t_j - t_{j-1})$<le>
@@ -174,7 +174,7 @@ function learn(data, classes, graph) {
         }
     }
     var q(), thet()
-    foreach (n in keyword(graph.nodes)) {
+    foreach (n in index(graph.nodes)) {
         for (<ls>$\setel{x}_n$<le> in <ls>$val(\setel{X}_n)$<le>) {
             foreach (p in <ls>$val(Pa(\setel{X}_n))$\label{lst:general-params-computation}<le>) {
                 var mm(<ls>$\setel{x}_n$<le>, p) = <ls>$\sum_{\setel{x}_n^{\prime}\neq\setel{x}_n}$<le> m(<ls>$\setel{x}_n$<le>, <ls>$\setel{x}_n^{\prime}$<le>, p)
@@ -278,12 +278,12 @@ A tal proposito si noti che, nel caso in cui non avvenga alcun cambio di stato d
 function infer(ctbnc, timeseg, stream) {
     <ls>\label{lst:inference-priors-start}<le>var priors = ctbnc.priors
     var logp[len(priors)]
-    for (k in keyword(priors)) {
+    for (k in index(priors)) {
         logp[k] = log(priors[k])
     <ls>\label{lst:inference-priors-end}<le>}
-    <ls>\label{lst:inference-classes-for}<le>for (k in keyword(priors)) {
-        <ls>\label{lst:inference-stream-for}<le>for (j in keyword(timeseg)) {
-            <ls>\label{lst:inference-nodes-for}<le>for (n in keyword(ctbnc.graph.nodes)) {
+    <ls>\label{lst:inference-classes-for}<le>for (k in index(priors)) {
+        <ls>\label{lst:inference-stream-for}<le>for (j in index(timeseg)) {
+            <ls>\label{lst:inference-nodes-for}<le>for (n in index(ctbnc.graph.nodes)) {
                 logp[k] = logp[k] - <ls>$\param{q}_{x_n^j}^{pa_j(\setel{x_n})}$<le> * timeseg[j]
                 <ls>\label{lst:inference-transition-qty}<le>if (<ls>$x_{n_j}$<le> != <ls>$x_{n_{j+1}}$<le>) {
                     logp[k] = logp[k] + log(<ls>$\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$<le>)
