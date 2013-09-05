@@ -278,7 +278,7 @@
     pdfsubject={\mysubject},%
     pdfkeywords={\mykeywords},%
     pdfcreator={pdfLaTeX},%
-    pdfproducer={LaTeX with hyperref, classicthesis and arsclassica}%
+    pdfproducer={LaTeX with hyperref, ClassicThesis and ArsClassica}%
 }
 
 % macro per far sì che solo la sezione e il numero di pagina siano un link in varioref
@@ -417,6 +417,51 @@
 \newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
 #1\ignorespaces
 }
+
+%*********************************************************************************
+% Style custom commands
+%*******************************************************************
+\DeclareRobustCommand*{\pkgname}[1]{{\normalfont\sffamily#1}%
+\index{Package!#1@\textsf{#1}}%
+\index{#1@\textsf{#1}}}
+
+\DeclareRobustCommand*{\envname}[1]{{\normalfont\ttfamily#1}%
+\index{Environment!#1@\texttt{#1}}%
+\index{#1@\texttt{#1}}}
+
+\DeclareRobustCommand*{\optname}[1]{{\normalfont\ttfamily#1}%
+\index{Option!#1@\texttt{#1}}%
+\index{#1@\texttt{#1}}}
+
+\DeclareRobustCommand*{\clsname}[1]{{\normalfont\sffamily#1}%
+\index{Class!#1@\textsf{#1}}%
+\index{#1@\textsf{#1}}}
+
+\DeclareRobustCommand*{\cmdname}[1]{\mbox{\lstinline!\\#1!}%
+\index{#1@\texttt{\hspace*{-1.2ex}\textbackslash#1}}}
+
+\DeclareRobustCommand*{\classicthesis}{Classic\-Thesis}
+
+\DeclareRobustCommand*{\arsclassica}{{\normalfont\sffamily ArsClassica}}
+
+\DeclareRobustCommand*{\miktex}{MiK\TeX%
+\index{miktex@MiK\protect\TeX}}
+
+\DeclareRobustCommand*{\texlive}{\TeX{}~Live%
+\index{texlive@\protect\TeX{}~Live}}
+
+\DeclareRobustCommand*{\pacchetto}[1]{{\normalfont\ttfamily#1}%
+\index{Pacchetto!#1@\texttt{#1}}%
+\index{#1@\texttt{#1}}}
+
+\DeclareRobustCommand*{\bibtex}{\textsc{Bib}\TeX%
+\index{bibtex@\textsc{Bib}\protect\TeX}%
+}
+
+\DeclareRobustCommand*{\amseuler}{\protect\AmS{} Euler%
+\index{AmS Euler@\protect\AmS~Euler}%
+\index{Font!AmS Euler@\protect\AmS~Euler}}
+
 
 %*********************************************************************************
 % Define your commands here
