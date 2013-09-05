@@ -10,17 +10,6 @@
 \pdfbookmark{Introduzione}{introduzione}
 \chapter*{Introduzione}\label{cap:intro}
 
-%abstract 1
-In this paper we present a language for finite state con- tinuous time Bayesian networks (CTBNs), which de- scribe structured stochastic processes that evolve over continuous time. The state of the system is decom- posed into a set of local variables whose values change over time. The dynamics of the system are described by specifying the behavior of each local variable as a function of its parents in a directed (possibly cyclic) graph. The model specifies, at any given point in time, the distribution over two aspects: when a local variable changes its value and the next value it takes. These distributions are determined by the variable’s current value and the current values of its parents in the graph. More formally, each variable is modelled as a finite state continuous time Markov process whose transi- tion intensities are functions of its parents. We present a probabilistic semantics for the language in terms of the generative model a CTBN defines over sequences of events. We list types of queries one might ask of a CTBN,discuss the conceptual and computational diffi- culties associated with exact inference, and provide an algorithm for approximate inference which takes ad- vantage of the structure within the process.
-%intro 1
-Consider a medical situation where you have administered a drug to a patient and wish to know how long it will take for the drug to take effect. The answer to this question will likely depend on various factors, such as how recently the patient has eaten. We want to model the temporal process for the effect of the drug and how its dynamics depend on these other factors. As another example, we might want to predict the amount of time that a person remains unem- ployed, which can depend on the state of the economy, on their own financial situation, and more.
-Although these questions touch on a wide variety of is-
-sues, they are all questions about distributions over time.
-
-%abstract 2
-The class of continuous time Bayesian network classifiers is defined; it solves the problem of supervised classification on multivariate trajectories evolving in continuous time. The trajectory consists of the val- ues of discrete attributes that are measured in continuous time, while the predicted class is expected to occur in the future. Two instances from this class, namely the continuous time naive Bayes classifier and the continuous time tree augmented naive Bayes classifier, are introduced and analyzed. They implement a trade-off between computational complexity and classification accuracy. Learning and inference for the class of continuous time Bayesian network classifiers are addressed, in the case where complete data are available. A learning algorithm for the continuous time naive Bayes classifier and an exact inference algo- rithm for the class of continuous time Bayesian network classifiers are described. The performance of the continuous time naive Bayes classifier is assessed in the case where real-time feedback to neurological patients undergoing motor rehabilitation must be provided.
-%intro 2
-
 Di seguito si passano in rassegna gli argomenti trattati in ogni capitolo.
 \begin{description}
 	\item[{\hyperref[cap:ctbn]{Nel primo capitolo}}]

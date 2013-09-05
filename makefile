@@ -14,7 +14,7 @@ distclean: clean
 	$(RM) $(DIST_FILES)
 
 tex:
-	latexmk -f -silent -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(ROOT_FILE).tex
+	latexmk -f -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(ROOT_FILE).tex
 
 makeidx:
 	makeindex -s classic $(ROOT_FILE)
