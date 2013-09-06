@@ -31,19 +31,23 @@ Le \acf{BN}
 permettono di rappresentare un dominio come uno spazio degli stati strutturato.
 Esse codificano esplicitamente le dipendenze tra le variabili di un sistema e sfruttano le indipendenze al fine di semplificare la complessità computazionale del modello che lo descrive.
 Tuttavia esse sono limitate alla rappresentazione di processi statici.
-Da ciò consegue che non possono essere utilizzate per rispondere direttamente a interrogativi che riguardano i cambiamenti temporali di un sistema.
+Da ciò consegue che non possono essere utilizzate per rispondere direttamente a interrogativi che riguardino i cambiamenti temporali di un sistema.
 
-Le \acf{DBN}
+Le \acf{DBN} costituiscono l'estensione temporale delle \acl{BN}
 \citep{Dean1989}
-costituiscono l'estensione delle \acf{DBN} ai processi temporali.
-Esse modellano
+. Esse modellano la dinamica di un sistema discretizzando il tempo, suddividendolo così in un numero prefissato di intervalli temporali.
+Per ognuno di tali intervalli temporali, le \acl{DBN} rappresentano tramite una \acl{BN} la distribuzione delle transizioni di stato che le variabili del sistema effettuano.
+Nel concreto le \acf{DBN} fotografano lo stato di un sistema a differenti punti nel tempo, tutti equidistanti tra di essi.
+Poiché tale strumento non rappresenta il tempo in modo esplicito risulta perciò difficile poterlo utilizzare per interrogarci circa l'occorrenza, in un qualsiasi momento temporale, di specifici eventi nel sistema che esso modella.
+Una ulteriore limitazione di tale approccio è costituita dalla granularità temporale fissata a priori con cui le \acl{DBN} modellano l'evoluzione dei sistemi dinamici.
+Nel caso in cui si intenda modellare un sistema i cui processi evolvono con differenti granularità temporali tramite le \acl{DBN}, è necessario rappresentare e vincolare l'intero sistema alla minore di tali granularità temporali.
+Inoltre, nel caso in cui le osservazioni di cui si dispone avvengano a intervalli di tempo irregolari, il modello delle \acl{DBN} non prevede l'esclusione degli intervalli di tempo in cui non è stata ottenuta alcuna osservazione.
 
-%Dynamic Bayesian networks (DBNs) (Dean & Kanazawa, 1989) are the standard extension of Bayesian networks to temporal processes.
+Tali premesse costituiscono il movente di questo lavoro di tesi, il cui obiettivo principale è presentare un framework alternativo, le \acf{CTBN}.
 
-%DBNs model a dynamic system by discretizing time and providing a Bayesian network fragment that represents the probabilistic transition of the state at time t to the state at time t+1. Thus, DBNs represent the state of the system at different points in time, but do not represent time explicitly. As a consequence, it is very difficult to query a DBN for a distribution over the time at which a particular event takes place. Moreover, since DBNs slice time into fixed increments, one must always propagate the joint distribution over the variables at the same rate. This requirement has several limitations. First, if our system is composed of processes that evolve at different time granularities, we must represent the entire system at the finest possible granularity. Second, if we obtain observations which are irregularly spaced in time, we must still represent the intervening time slices at which no evidence is obtained. Hanks et al. (1995) present another discrete time approach to temporal reasoning related to DBNs which they extend with a rule-based formalism to model endoge- nous changes to variables which occur between exogenous events. They also include an extensive discussion of vari- ous approaches probabilistic temporal reasoning. We provide the alternative framework of continuous time Bayesian networks. This framework explicitly represents temporal dynamics and allows us to query the network for the distribution over the time when particular events of in- terest occur. Given sequences of observations spaced irregularly through time, we can propagate the joint distribution from observation to observation. Our approach is based on the framework of homogeneous Markov processes, but utilizes ideas from Bayesian networks to provide a graphi- cal representation language for these systems. Endogenous changes are modelled by the state transitions of the pro- cess. The graphical representation allows compact models for processes involving a large number of co-evolving variables, and an effective approximate inference procedure similar to clique tree propagation.
+% This framework explicitly represents temporal dynamics and allows us to query the network for the distribution over the time when particular events of in- terest occur. Given sequences of observations spaced irregularly through time, we can propagate the joint distribution from observation to observation. Our approach is based on the framework of homogeneous Markov processes, but utilizes ideas from Bayesian networks to provide a graphi- cal representation language for these systems. Endogenous changes are modelled by the state transitions of the pro- cess. The graphical representation allows compact models for processes involving a large number of co-evolving variables, and an effective approximate inference procedure similar to clique tree propagation.
 
 %contributi
-%panoramica
 
 Di seguito si passano in rassegna gli argomenti trattati in ogni capitolo.
 \begin{description}
