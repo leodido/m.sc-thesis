@@ -9,6 +9,41 @@
 \cleardoublepage
 \pdfbookmark{Introduzione}{introduzione}
 \chapter*{Introduzione}\label{cap:intro}
+Il cambiamento è un concetto ubiquo.
+Non è un'esagerazione pensare a tale concetto come l'unico aspetto costante della realtà.
+A supporto di tale tesi, si pensi a un qualsiasi insieme di azioni reali.
+Ad esempio si consideri l'investimento di denaro in azioni societarie, lo svolgimento di una partita di calcio, la cottura di un pasto o la cura di un paziente.
+Qualsiasi sia il sistema dinamico che scegliamo di considerare, per comprenderlo e manipolarlo si rende necessario ragionare circa i cambiamenti che avvengono in esso.
+Si ha infatti la necessità di prevedere con quale probabilità specifici eventi (che determinano il cambiamento dello stato del sistema) avvengono.
+La natura di ogni cambiamento è spesso determinata da molti fattori che sono, a loro volta, cangianti.
+Si ipotizzi, ad esempio, di voler predire quando un individuo troverà occupazione.
+Ebbene, tale evento è sicuramente influenzato dallo stato dell'economia locale in cui l'individuo vive, così come dalla sua stessa situazione finanziaria.
+Allo stesso modo, per predire il tempo necessario affinché dei farmaci somministrati ad un paziente sortiscano il loro effetto è necessario considerare le tempistiche e le modalità con cui il paziente si è cibato.
+\`E quindi evidente come nel concetto di cambiamento sia connaturato il concetto di tempo.
+Interrogarsi circa l'avvenire dei cambiamenti nei sistemi citati, sebbene essi riguardino una vasta gamma di problemi, corrisponde ad analizzare le distribuzioni temporali degli eventi.
+
+Per rispondere ad interrogativi di questo tipo, in letteratura si è solitamente ricorso all'utilizzo di modelli basati sui \mprocess{}
+\citep{Duffie1996,Lando1998}.
+Anche se tali approcci funzionano bene, essi hanno una limitazione: non permettono la specifica di modelli con un spazio degli stati strutturato in cui alcune variabili non dipendano direttamente da altre. Ne consegue che con tali approcci non è possibile modellare la distribuzione temporale che rappresenta la velocità d'effetto di un farmaco condizionatamente alla velocità con cui esso raggiunge il sangue del paziente, variabile la cui distribuzione nel tempo può essere a sua volta dipendente dalle tempistiche con cui si verificano altri fenomeni, come per esempio l'assunzione di cibo da parte del paziente.
+
+Le \acf{BN}
+\citep{Pearl1988}
+permettono di rappresentare un dominio come uno spazio degli stati strutturato.
+Esse codificano esplicitamente le dipendenze tra le variabili di un sistema e sfruttano le indipendenze al fine di semplificare la complessità computazionale del modello che lo descrive.
+Tuttavia esse sono limitate alla rappresentazione di processi statici.
+Da ciò consegue che non possono essere utilizzate per rispondere direttamente a interrogativi che riguardano i cambiamenti temporali di un sistema.
+
+Le \acf{DBN}
+\citep{Dean1989}
+costituiscono l'estensione delle \acf{DBN} ai processi temporali.
+Esse modellano
+
+%Dynamic Bayesian networks (DBNs) (Dean & Kanazawa, 1989) are the standard extension of Bayesian networks to temporal processes.
+
+%DBNs model a dynamic system by discretizing time and providing a Bayesian network fragment that represents the probabilistic transition of the state at time t to the state at time t+1. Thus, DBNs represent the state of the system at different points in time, but do not represent time explicitly. As a consequence, it is very difficult to query a DBN for a distribution over the time at which a particular event takes place. Moreover, since DBNs slice time into fixed increments, one must always propagate the joint distribution over the variables at the same rate. This requirement has several limitations. First, if our system is composed of processes that evolve at different time granularities, we must represent the entire system at the finest possible granularity. Second, if we obtain observations which are irregularly spaced in time, we must still represent the intervening time slices at which no evidence is obtained. Hanks et al. (1995) present another discrete time approach to temporal reasoning related to DBNs which they extend with a rule-based formalism to model endoge- nous changes to variables which occur between exogenous events. They also include an extensive discussion of vari- ous approaches probabilistic temporal reasoning. We provide the alternative framework of continuous time Bayesian networks. This framework explicitly represents temporal dynamics and allows us to query the network for the distribution over the time when particular events of in- terest occur. Given sequences of observations spaced irregularly through time, we can propagate the joint distribution from observation to observation. Our approach is based on the framework of homogeneous Markov processes, but utilizes ideas from Bayesian networks to provide a graphi- cal representation language for these systems. Endogenous changes are modelled by the state transitions of the pro- cess. The graphical representation allows compact models for processes involving a large number of co-evolving variables, and an effective approximate inference procedure similar to clique tree propagation.
+
+%contributi
+%panoramica
 
 Di seguito si passano in rassegna gli argomenti trattati in ogni capitolo.
 \begin{description}
