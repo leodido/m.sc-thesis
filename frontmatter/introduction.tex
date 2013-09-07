@@ -45,15 +45,22 @@ Nel caso in cui si intenda modellare un sistema i cui processi evolvono con diff
 Inoltre, nel caso in cui le osservazioni di cui si dispone avvengano a intervalli di tempo irregolari, il modello delle \acl{DBN} non prevede l'esclusione degli intervalli di tempo in cui non è stata ottenuta alcuna osservazione.
 
 Tali premesse costituiscono il movente di questo lavoro di tesi, il cui obiettivo principale è presentare un framework alternativo, le \acf{CTBN}.
-La peculiarità di questo framework consiste nella sua abilità di rappresentare l'evoluzione di sistemi dinamici nel tempo continuo in modo esplicito, sorpassando così i vincoli dell'approccio utilizzato dalle \acl{DBN}.
+La peculiarità di questo framework consiste nella sua abilità di rappresentare in modo esplicito l'evoluzione di sistemi dinamici nel tempo continuo, sorpassando così i vincoli dell'approccio utilizzato dalle \acl{DBN}.
+Infatti, un modello \acl{CTBN} è in grado di adattare i parametri delle distribuzioni che rappresenta e la struttura di dipendenze che codifica alle granularità temporali relative all'evoluzione delle diverse variabili che lo compongono.
+L'approccio che questo modello grafico probabilisto utilizza al fine di raggiungere tale scopo fonde idee provenienti dalle \acl{BN} e dalla teoria dei \mprocess{}.
 
-...
+I contributi che questa tesi
 
-Attorno a tale argomento si è sviluppato ...
+-We introduce CTBNs, a new framework for modelling finite-state, continuous time processes over a factored state. The graphical representation allows for natural, cyclic dependency graphs. There is no need to specify a temporal granularity for a model.
 
-% This framework explicitly represents temporal dynamics and allows us to query the network for the distribution over the time when particular events of in- terest occur. Given sequences of observations spaced irregularly through time, we can propagate the joint distribution from observation to observation. Our approach is based on the framework of homogeneous Markov processes, but utilizes ideas from Bayesian networks to provide a graphi- cal representation language for these systems. Endogenous changes are modelled by the state transitions of the pro- cess. The graphical representation allows compact models for processes involving a large number of co-evolving variables, and an effective approximate inference procedure similar to clique tree propagation.
+-defines a new class of supervised classifiers; namely the class of continuous time Bayesian network classifiers. Two parsimoni-
+ous instances from this class, i.e. the continuous time naive Bayes classifier and the continuous time tree augmented naive Bayes classifier, are introduced.
+-Develops an exact algorithm for making inference on all instances from the class of continuous time Bayesian network
+classifiers.
+-Compares the continuous time naive Bayes classifier with two algorithms, namely dynamic time warping and open-end
+dynamic time warping which is a state-of-the art algorithm for real-time feedback to neurological patients undergoing motor rehabilitation.
 
-%contributi
+Questo lavoro di tesi è quindi composto da una serie di contributi ulteriori sviluppati attorno all'argomento principale. In primis ...
 
 Di seguito si passano in rassegna gli argomenti trattati in ogni capitolo.
 \begin{description}
@@ -64,16 +71,13 @@ Di seguito si passano in rassegna gli argomenti trattati in ogni capitolo.
 	\item[{\hyperref[cap:structurallearning]{Nel terzo capitolo}}]
 	si affronta il problema dell'\emph{apprendimento strutturale} di una \acs{CTBN} da \emph{dati completi}, per il quale si presenta un approccio risolutivo basato su punteggio. Viene presentata la definizione di una funzione che associa uno \emph{score bayesiano} ad ogni struttura rispetto a dei dati di addestramento. Infine viene descritto il funzionamento di una \emph{procedura di ottimizzazione} (\ie{} nello specifico si descrive l'algoritmo \emph{hill climbing}) finalizzata alla ricerca di una struttura che massimizzi la funzione di punteggio (\ie{} \emph{score bayesiano}).
 	\item[{\hyperref[cap:ctbnr]{Nel quarto capitolo}}]
-	\omissis{}
-	%offre una descrizione dell'implementazione, attuata in linguaggio \acsfont{R}, degli algoritmi presentati nei precedenti capitoli
+	si presentano le caratteristiche di \acsfont{RCTBN}, il pacchetto \lstinline[]|R| sviluppato al fine di implementare il framework delle \acs{CTBN} e gli algoritmi (apprendimento dei parametri e apprendimento strutturale di una \acs{CTBN}, classificazione supervisionata di un \acs{CTNBC}) presentati nei precedenti capitoli. Inoltre, vengono presentati gli ulteriori moduli o pacchetti sviluppati con lo scopo di rendere maggiormente completo e snello l'intero processo di utilizzo del framework delle \acs{CTBN}. Ci si riferisce, ad esempio, al pacchetto sviluppato per l'esecuzione di cross-validazione del succitato modello di classificazione supervisionata.
 	\item[{\hyperref[cap:tsis-sensors]{Nel quinto capitolo}}]
 	si introduce il problema di ottimizzazione del traffico urbano. Successivamente si presentano le caratteristiche e il funzionamento di \acf{TSIS}, il sistema commerciale utilizzato per creare e simulare modelli di traffico. Infine si descrive \acsfont{Sensors} \acs{DLL}, \acl{RTE} di \acs{TSIS} appositamente sviluppata al fine di monitorare e tracciare il passaggio dei veicoli sulle reti stradali tramite sensori. Lo scopo di tale applicativo è la generazione di dataset sottoponibili agli algoritmi di classificazione e apprendimento strutturale delle \acs{CTBN}. Tale passo è infatti propedeutico alla valutazione del processo di \emph{classificazione dei profili di traffico} tramite classificatori \acs{CTBN}.
 	\item[{\hyperref[cap:esperimenti]{Nel sesto capitolo}}]
 	si presentano le varie configurazioni dei $2$ modelli di traffico, uno fittizzio e uno che rispecchia una rete stradale reale (quella circostante \emph{Viale C. Battisti, $20900$ Monza, MB - Italia}), creati tramite \acs{TSIS} e simulati tramite il relativo simulatore, \acs{CORSIM}. Viene quindi fornita una descrizione dettagliata dei relativi dataset generati dai succitati modelli di traffico tramite \acsfont{Sensors} \acs{DLL}. Per tutti i dataset generati, vengono presentati e commentati i risultati ottenuti utilizzando i classificatori \acs{CTNB} (\acs{CTNBC}) per la \emph{classificazione dei profili di traffico}. Si riportano, inoltre, i risultati dell'applicazione dell'algoritmo di \emph{apprendimento strutturale} dei \acs{CTBN} ai succitati dataset.
 	\item[{\hyperref[cap:concl]{Nel settimo capitolo}}]
-	\omissis{}
-	% considerazioni/conclusioni
-	% sviluppi futuri
+	si riportano sia le conclusioni tratte dalla sperimentazione attuata e riportata nel capitolo precedente, sia una serie di considerazione generali sui metodi e modelli presentati e implementati.
 	\item[{\hyperref[cap:guide]{L'appendice A}}]
 	offre le \emph{guide all'utilizzo} degli strumenti sviluppati a corredo di questo lavoro di tesi. In una prima parte viene presentato, tramite esempi, il funzionamento di \acsfont{RCTBN}, il pacchetto \acsfont{R} che implementa quanto trattato del framework \acs{CTBN}. Nella seconda ed ultima parte viene invece presentata la generazione di dataset tramite l'esecuzione di \acsfont{Sensors} \acs{DLL} su modelli di traffico \acs{TSIS}.
 \end{description}
