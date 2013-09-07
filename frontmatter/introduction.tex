@@ -44,15 +44,15 @@ Una ulteriore limitazione di tale approccio è costituita dalla granularità tem
 Nel caso in cui si intenda modellare un sistema i cui processi evolvono con differenti granularità temporali tramite le \acl{DBN}, è necessario rappresentare e vincolare l'intero sistema alla minore di tali granularità temporali.
 Inoltre, nel caso in cui le osservazioni di cui si dispone avvengano a intervalli di tempo irregolari, il modello delle \acl{DBN} non prevede l'esclusione degli intervalli di tempo in cui non è stata ottenuta alcuna osservazione.
 
-Tali premesse costituiscono il movente di questo lavoro di tesi, il cui obiettivo principale è presentare un framework alternativo, le \acf{CTBN}.
+Tali premesse costituiscono il movente di questo lavoro di tesi, il cui obiettivo principale è presentare un framework alternativo, le \acf{CTBN} \citep{Nodelman2007}.
 La peculiarità di questo framework consiste nella sua abilità di rappresentare in modo esplicito l'evoluzione di sistemi dinamici nel tempo continuo, sorpassando così i vincoli dell'approccio utilizzato dalle \acl{DBN}.
 Infatti, un modello \acl{CTBN} è in grado di adattare i parametri delle distribuzioni che rappresenta e la struttura di dipendenze che codifica alle granularità temporali relative all'evoluzione delle diverse variabili che lo compongono.
-L'approccio che questo modello grafico probabilisto utilizza al fine di raggiungere tale scopo fonde idee provenienti dalle \acl{BN} e dalla teoria dei \mprocess{}.
+L'approccio che questo modello grafico probabilistico utilizza al fine di raggiungere tale scopo fonde idee provenienti dalle \acl{BN} e dalla teoria dei \mprocess{}.
 
-Questo lavoro di tesi è quindi composto da una serie di contributi sviluppati attorno all'argomento principale. Si elencano sintenticamente gli argomenti affrontati:
+Questo lavoro di tesi è quindi composto da una serie di contributi sviluppati attorno all'argomento principale. Si elencano sinteticamente gli argomenti affrontati:
 \begin{itemize}
 	\item descrizione delle \acl{CTBN}, un nuovo framework finalizzato alla rappresentazione strutturata di \mprocess{} che evolvono nel tempo continuo
-	\item definizione, a partire dalle \acl{CTBN}, di una nuova classe di classificatori, i \acf{CTBNC}; e introduzione di due istanze di tale classe, in particolare del classificatore \acl{CTNB} (\acs{CTNBC})
+	\item definizione, a partire dalle \acl{CTBN}, di una nuova classe di classificatori, i \acf{CTBNC} \citep{Stella2012}; e introduzione di due istanze di tale classe, in particolare del classificatore \acl{CTNB} (\acs{CTNBC})
 	\item descrizione del processo di apprendimento delle \acl{CTBN}
 	\item descrizione del processo di apprendimento dei classificatori \acl{CTBN} e del relativo algoritmo
 	\item descrizione del processo di classificazione di un classificatore \acl{CTNB} e del relativo algoritmo di inferenza
@@ -80,7 +80,7 @@ Di seguito si passano in rassegna, capitolo per capitolo, gli argomenti appena c
 	\item[{\hyperref[cap:tsis-sensors]{Nel quinto capitolo}}]
 	si introduce il problema di \emph{ottimizzazione del traffico urbano}. Successivamente si presentano le caratteristiche e il funzionamento di \acf{TSIS}, il sistema commerciale utilizzato per creare e simulare \emph{modelli di traffico}. Infine si descrive \acsfont{Sensors} \acs{DLL}, \acl{RTE} di \acs{TSIS} appositamente sviluppata al fine di monitorare e tracciare il passaggio dei veicoli sulle reti stradali tramite \emph{sensori}. Lo scopo di tale applicativo è la generazione di \emph{dataset} sottoponibili agli algoritmi di classificazione e apprendimento strutturale delle \acs{CTBN}. Tale passo è infatti propedeutico alla valutazione del processo di \emph{classificazione dei profili di traffico} tramite classificatori \acs{CTBN}.
 	\item[{\hyperref[cap:esperimenti]{Nel sesto capitolo}}]
-	si presentano le varie configurazioni dei $2$ \emph{modelli di traffico}, uno fittizzio e uno che rispecchia una rete stradale reale (quella circostante \emph{Viale C. Battisti, $20900$ Monza, MB - Italia}), creati tramite \acs{TSIS} e simulati tramite il relativo simulatore, \acs{CORSIM}. Viene quindi fornita una descrizione dettagliata dei relativi \emph{dataset} generati dai succitati modelli di traffico tramite \acsfont{Sensors} \acs{DLL}. Per tutti i dataset generati, vengono presentati e commentati i risultati ottenuti utilizzando i classificatori \acs{CTNB} (\acs{CTNBC}) per la \emph{classificazione dei profili di traffico}. Si riportano, inoltre, i risultati dell'applicazione dell'algoritmo di \emph{apprendimento strutturale} dei \acs{CTBN} ai succitati dataset.
+	si presentano le varie configurazioni dei $2$ \emph{modelli di traffico}, uno fittizio e uno che rispecchia una rete stradale reale (quella circostante \emph{Viale C. Battisti, $20900$ Monza, MB - Italia}), creati tramite \acs{TSIS} e simulati tramite il relativo simulatore, \acs{CORSIM}. Viene quindi fornita una descrizione dettagliata dei relativi \emph{dataset} generati dai succitati modelli di traffico tramite \acsfont{Sensors} \acs{DLL}. Per tutti i dataset generati, vengono presentati e commentati i risultati ottenuti utilizzando i classificatori \acs{CTNB} (\acs{CTNBC}) per la \emph{classificazione dei profili di traffico}. Si riportano, inoltre, i risultati dell'applicazione dell'algoritmo di \emph{apprendimento strutturale} dei \acs{CTBN} ai succitati dataset.
 	\item[{\hyperref[cap:concl]{Nel settimo capitolo}}]
 	si riportano sia le \emph{conclusioni} tratte dalla sperimentazione attuata e riportata nel capitolo precedente, sia una serie di \emph{considerazioni} generali sui metodi e modelli presentati e implementati.
 	\item[{\hyperref[cap:guide]{L'appendice A}}]
