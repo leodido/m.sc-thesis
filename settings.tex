@@ -36,6 +36,10 @@
 %*********************************************************************************
 % Impostazioni di amsmath, amssymb, amsthm
 %*********************************************************************************
+
+\DeclareMathAlphabet{\mathscrbf}{OMS}{mdugm}{b}{n}
+\newcommand{\myinitial}{\mathscrbf{L}}
+
 % Force the equation numbers to be always the same size
 \makeatletter
 \renewcommand{\maketag@@@}[1]{\hbox{\m@th\normalsize\normalfont#1}}%
@@ -59,7 +63,7 @@
 \newcommand{\vectel}[1]{\mathrm{#1}}
 
 % comandi per i simboli matematici che denotano schemi, categorie, concetti
-\newcommand{\conceptsym}[1]{\mathcal{#1}}
+\newcommand{\conceptsym}[1]{\mathcal{#1}} % or use pazocal % try it
 
 % un ambiente per i sistemi
 \newenvironment{sistema}%
