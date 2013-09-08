@@ -27,7 +27,7 @@
 
 \subsection{Cross-validation}
 
-\section{Creazione di dataset}\label{sec:create-dataset-howto}
+\section{Generazione di dataset}\label{sec:create-dataset-howto}
 In questa sezione si illustra il processo di generazione di un dataset per le \acs{CTBN} a partire da un modello di traffico \acs{TSIS}, utilizzando l'\acl{RTE} sviluppata in questo lavoro di tesi, \acsfont{Sensors} \acs{DLL}.
 
 \subsection{Sensors DLL}
@@ -35,19 +35,22 @@ Al fine di generare un dataset per le \acs{CTBN} che rappresenti l'\keyword{onda
 
 Si mostra il processo di generazione del \ds{2} (\vref{sec:dataset-2}).
 
-Come primo passo è chiaramente necessario aprire \acs{TSIS} \acsfont{Next}, cioè l'ultima versione di \acs{TShell} (versione $6.3$), e caricare il modello di traffico per i giorni lavorativi relativo a \emph{Viale Cesare Battisti}. Di seguito si elencano quindi i passi necessari alla generazione del \ds{2}:
+Come primo passo è chiaramente necessario aprire \acs{TShell} e caricare il modello di traffico per i giorni lavorativi relativo a \emph{Viale Cesare Battisti}. Di seguito si elencano quindi i passi necessari alla generazione del \ds{2}:
 \begin{itemize}
-	\item dal \emph{menù} delle \emph{opzioni} si selezioni la voce \emph{proprietà d'esecuzione} e successivamente la scheda \emph{proprietà d'esecuzione multipla}
+	\item nella barra degli strumenti di \acs{TShell} si clicchi l'icona relativa a \acsfont{Sensors} \acs{DLL}
+	\item si clicchi sul pulsante relativo alle \emph{\virgolette{proprietà d'esecuzione}} $\vcenter{\hbox{\includegraphics[scale=.9]{run-props}}}$ e successivamente sulla scheda \emph{\virgolette{proprietà d'esecuzione multipla}}
 	\item si selezioni il file \acs{RNS} fornito in allegato a questo lavoro di tesi (e riportato in \vref{lst:model2-week-rns})\par
 	\begin{minipage}{\linewidth}
 		\centering
 		\includegraphics[width=1\linewidth]{multi-run-properties-tsis-next}\captionof{figure}[Esecuzione multipla guidata da file \acs{RNS}]{Selezione del file \acs{RNS} per l'impostazione dell'esecuzione multipla.}\label{fig:multi-run-properties-tsis-next}
 	\end{minipage}
-	\item \omissis{}
-
+	\item si esegua la simulazione cliccando sull'apposito pulsante
+	\item conclusa la simulazione, \acsfont{Sensors} \acs{DLL} salva, nella cartella dove il file \acs{TRF} simulato risiede, i file \acs{CSV} di output (riguardo il cui formato si è discusso nella \autoref{subsec:sensors-dll-output}~\vpageref{subsec:sensors-dll-output})
 \end{itemize}
 
+Si osservi che per ogni esecuzione della simulazione viene generato il relativo file di output. Il nome di tali file \acs{CSV} è una concatenazione delle seguenti informazioni: nome del file \acs{TRF} (seguito dal numero dell'esecuzione in caso di esecuzione multipla), data e ora dell'esecuzione, suffisso \lstinline[]|sensors|.
+
 \subsection{Applicativi di supporto}
-\omissis{}
+Ottenuti i file di output di \acsfont{Sensors} \acs{DLL} \omissis{}
 
 
