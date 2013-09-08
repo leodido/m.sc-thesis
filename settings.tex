@@ -218,19 +218,23 @@
 }}
 \makeatother
 
+%\newcommand{\sourcecodename}{Sorgente}
 %\newcommand{\listofsourcecodename}{Elenco dei sorgenti}
 %\newlistof[chapter]{sourcecode}{los}{\listofsourcecodename}%
 %\renewcommand{\cftsourcecodefont}{\normalfont}%
 %\renewcommand{\cftsourcecodepresnum}{\lstlistingname~}%
 %\renewcommand{\cftsourcecodepagefont}{\normalfont}%
-%\renewcommand{\cftsourcecodepresnum}{Sorgente~}%
+%\renewcommand{\cftsourcecodepresnum}{\sourcecodename~}%
 %\cftsetindents{sourcecode}{0em}{\figurelabelwidth}%
-%\newcommand{\inputsourcecode}[2][]{%
-%  \refstepcounter{sourcecode}
-%  \renewcommand{\lstlistingname}{Sorgente}%
-%  \addcontentsline{los}{sourcecode}{\protect\numberline{\thesourcecode}}
-%  \lstinputlisting[#1]{#2}%
-%}
+%\makeatletter
+%  \let\oldaddcontentsline\addcontentsline
+%  \newcommand{\inputsourcecode}[2][]{%
+%    \refstepcounter{sourcecode}
+%    \renewcommand{\lstlistingname}{\sourcecodename}%
+%    \def\numberline##1{\hb@xt@\@tempdima{\sourcecodename{} ##1\hfil}}
+%    \renewcommand{\addcontentsline}[3]{\oldaddcontentsline{los}{##2}{##3}}%
+%    \lstinputlisting[#1]{#2}%
+%  }
 %\makeatother
 
 %\makeatletter
