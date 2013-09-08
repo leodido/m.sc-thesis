@@ -184,30 +184,70 @@
 % Impostazioni di listings
 %*********************************************************************************
 
-%\lstloadlanguages{[Visual]C++,[ISO]C++}% try it
+% extract text between square brackets
+\DeclareRobustCommand{\getsquarebrackscontent}[1]{%
+  \StrBetween[1,1]{#1}{[}{]}%
+}
+\DeclareRobustCommand{\getshort}[1]{%
+  \sbox0{\getsquarebrackscontent{#1}}%
+  \ifdim\wd0=0pt
+    {#1}% if #1 is empty
+  \else
+    {\getsquarebrackscontent{#1}}% if #1 is not empty
+  \fi
+}
 
 % Input source code
 \makeatletter
+\newcommand{\sourcecodename}{Sorgente}
 \let\oldaddcontentsline\addcontentsline
-\newcommand{\lstinputsourcecode}[2][]{{%
-  \renewcommand{\lstlistingname}{Sorgente}%
+\newcommand{\listofsourcecodename}{Elenco dei sorgenti}%
+\lst@UserCommand\listofsourcecode{\bgroup
+  \let\contentsname\listofsourcecodename
+  \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{los}}
+  \newlength{\sourcecodelabelwidth}
+  \settowidth{\sourcecodelabelwidth}{\sourcecodename~999}
+  \addtolength{\sourcecodelabelwidth}{1.8em}
+  \def\l@lstlisting##1##2{\@dottedtocline{1}{0em}{\sourcecodelabelwidth}{##1}{##2}}
+  \def\numberline##1{\hb@xt@\@tempdima{\sourcecodename{} ##1\hfil}}
+  \tableofcontents \egroup}%
+\newcommand{\inputsourcecode}[2][]{{%
+  \renewcommand{\lstlistingname}{\sourcecodename}%
   \renewcommand{\addcontentsline}[3]{\oldaddcontentsline{los}{##2}{##3}}%
   \lstinputlisting[#1]{#2}%
 }}
-\newcommand{\lstlistsourcecodename}{Elenco dei codici}%
-\lst@UserCommand\lstlistofsourcecode{\bgroup
-    \let\contentsname\lstlistsourcecodename
-    \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{los}}
-    \tableofcontents \egroup}%
 \makeatother
+
+%\newcommand{\listofsourcecodename}{Elenco dei sorgenti}
+%\newlistof[chapter]{sourcecode}{los}{\listofsourcecodename}%
+%\renewcommand{\cftsourcecodefont}{\normalfont}%
+%\renewcommand{\cftsourcecodepresnum}{\lstlistingname~}%
+%\renewcommand{\cftsourcecodepagefont}{\normalfont}%
+%\renewcommand{\cftsourcecodepresnum}{Sorgente~}%
+%\cftsetindents{sourcecode}{0em}{\figurelabelwidth}%
+%\newcommand{\inputsourcecode}[2][]{%
+%  \refstepcounter{sourcecode}
+%  \renewcommand{\lstlistingname}{Sorgente}%
+%  \addcontentsline{los}{sourcecode}{\protect\numberline{\thesourcecode}}
+%  \lstinputlisting[#1]{#2}%
+%}
+%\makeatother
+
+%\makeatletter
+%\define@key{mymacro}{caption}[Caption not set.]{\def\mymacro@caption{\string#1\relax}}
+%\DeclareDocumentCommand{\mymacro}{o m}{%
+%  \begingroup%
+%  \setkeys{mymacro}{#1}%
+%  Caption arg: \getshort{\mymacro@caption} \par
+%  Tutto: #1 \par
+%  Altro: #2 \par \hrulefill
+%  \endgroup%
+%}
+%\makeatother
 
 % Dichiarazioni utili per l'indice della tesi e le etichette
 \providecommand*{\lstlistingautorefname}{algoritmo}
 \providecommand*{\lstnumberautorefname}{linea}
-%\addto\captionsitalian{%
-%\renewcommand{\lstlistingname}{Algoritmo}}
-%\addto\captionsitalian{%
-%\renewcommand{\lstlistlistingname}{Elenco degli algoritmi}}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \lstdefinelanguage{pseudo}{

@@ -445,7 +445,7 @@ Eseguendo con \acsfont{Sensors} \acs{DLL} uno qualsiasi dei modelli di simulazio
 Affinché i dataset in questione siano perfettamente riproducibili si sono utilizzati dei file \acs{RNS}\footnote{\acs{CORSIM} supporta l'utilizzo di file \acf{RNS} per la configurazione di alcuni aspetti della simulazione: numero di esecuzione e semi numerici da utilizzare per la generazione stocastica di eventi.}, semplici file di testo, opportunamente formattati, da cui \acs{CORSIM} legge il numero di esecuzioni da effettuare e i semi numerici\footnote{Il \emph{seed} è un numero utilizzato per inizializzare un generatore di numeri pseudo-casuali. Condividendo tale numero e utilizzando lo stesso generatore di numeri pseudo-casuali utilizzato da \acs{CORSIM} è possibile riprodurre la stessa identica simulazione su altre macchine.} relativi ad alcuni aspetti stocastici della simulazione (\eg{} incidenti, tipologia di guida dei conducenti).
 
 Di seguito si riporta il file \acs{RNS} relativo al modello di traffico per i giorni lavorativi della corrente rete stradale.
-\lstinputsourcecode[language=pseudo, numbers=none, caption={[Configurazione \acs{RNS} del \ds{2}]File \acs{RNS} che configura il numero di esecuzioni (\ie{} 5) e i semi numerici del modello di simulazione \acs{CORSIM} relativo alla rete stradale del \ds{2}.}, label=lst:model2-week-rns]{codes/monza-week-exte.rns}
+\inputsourcecode[language=pseudo, numbers=none, caption={[Configurazione \acs{RNS} del \ds{2}]File \acs{RNS} che configura il numero di esecuzioni (\ie{} 5) e i semi numerici del modello di simulazione \acs{CORSIM} relativo alla rete stradale del \ds{2}.}, label=lst:model2-week-rns]{codes/monza-week-exte.rns}
 
 Di seguito si descrivono le caratteristiche del dataset:
 \begin{itemize}
