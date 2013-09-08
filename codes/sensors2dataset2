@@ -1,0 +1,1 @@
+./sensors2dataset -v -t -r -b 2,3,5,8,10,12 -i ~/week-base-1.csv

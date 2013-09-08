@@ -1,0 +1,1 @@
+./splitfile.sh -i ~/week-base-1.csv_dataset.csv -n 1000
