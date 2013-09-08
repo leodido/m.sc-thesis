@@ -17,8 +17,7 @@ Ad esempio si consideri l'investimento di denaro in azioni societarie, lo svolgi
 Qualsiasi sia il sistema dinamico che scegliamo di considerare, per comprenderlo e manipolarlo si rende necessario ragionare circa i cambiamenti che avvengono in esso.
 Si ha infatti la necessità di prevedere con quale probabilità specifici eventi (che determinano il cambiamento dello stato del sistema) avvengono.
 La natura di ogni cambiamento è spesso determinata da molti fattori che sono, a loro volta, cangianti.
-Si ipotizzi, ad esempio, di voler predire quando un individuo troverà occupazione.
-Ebbene, tale evento è sicuramente influenzato dallo stato dell'economia locale in cui l'individuo vive, così come dalla sua stessa situazione finanziaria.
+Si ipotizzi, ad esempio, di voler predire il momento in cui un individuo troverà occupazione, ebbene tale evento è sicuramente influenzato dallo stato dell'economia locale in cui l'individuo vive, così come dalla sua stessa situazione finanziaria.
 Allo stesso modo, per predire il tempo necessario affinché dei farmaci somministrati ad un paziente sortiscano il loro effetto è necessario considerare le tempistiche e le modalità con cui il paziente si è cibato.
 \`E quindi evidente come nel concetto di cambiamento sia connaturato il concetto di tempo.
 Interrogarsi circa l'avvenire dei cambiamenti nei sistemi citati, sebbene essi riguardino una vasta gamma di problemi, corrisponde ad analizzare le distribuzioni temporali degli eventi.
@@ -44,30 +43,21 @@ Una ulteriore limitazione di tale approccio è costituita dalla granularità tem
 Nel caso in cui si intenda modellare un sistema i cui processi evolvono con differenti granularità temporali tramite le \acl{DBN}, è necessario rappresentare e vincolare l'intero sistema alla minore di tali granularità temporali.
 Inoltre, nel caso in cui le osservazioni di cui si dispone avvengano a intervalli di tempo irregolari, il modello delle \acl{DBN} non prevede l'esclusione degli intervalli di tempo in cui non è stata ottenuta alcuna osservazione.
 
-Tali premesse costituiscono il movente di questo lavoro di tesi, il cui obiettivo principale è presentare un framework alternativo, le \acf{CTBN} \citep{Nodelman2007}.
-La peculiarità di questo framework consiste nella sua abilità di rappresentare in modo esplicito l'evoluzione di sistemi dinamici nel tempo continuo, sorpassando così i vincoli dell'approccio utilizzato dalle \acl{DBN}.
+Tali premesse costituiscono il movente di questo lavoro di tesi, il cui obiettivo principale è presentare un framework alternativo, le \acf{CTBN}
+\citep{Nodelman2007}
+. La peculiarità di questo framework consiste nella sua abilità di rappresentare in modo esplicito l'evoluzione di sistemi dinamici nel tempo continuo, sorpassando così i vincoli dell'approccio utilizzato dalle \acl{DBN}.
 Infatti, un modello \acl{CTBN} è in grado di adattare i parametri delle distribuzioni che rappresenta e la struttura di dipendenze che codifica alle granularità temporali relative all'evoluzione delle diverse variabili che lo compongono.
 L'approccio che questo modello grafico probabilistico utilizza al fine di raggiungere tale scopo fonde idee provenienti dalle \acl{BN} e dalla teoria dei \mprocess{}.
 
-Questo lavoro di tesi è quindi composto da una serie di contributi sviluppati attorno all'argomento principale. Si elencano sinteticamente gli argomenti affrontati:
+Il presente elaborato è quindi composto dalla descrizione dei contributi sviluppati attorno alle \acl{CTBN}. Oltre alla descrizione di tale framework, finalizzato alla rappresentazione strutturata di \mprocess{} che evolvono nel tempo continuo, per il quale si è progettato e implementato un pacchetto \lstinline[]|R|, questo lavoro di tesi apporta principalmente i seguenti contributi:
 \begin{itemize}
-	\item descrizione delle \acl{CTBN}, un nuovo framework finalizzato alla rappresentazione strutturata di \mprocess{} che evolvono nel tempo continuo
-	\item definizione, a partire dalle \acl{CTBN}, di una nuova classe di classificatori, i \acf{CTBNC} \citep{Stella2012}; e introduzione di due istanze di tale classe, in particolare del classificatore \acl{CTNB} (\acs{CTNBC})
-	\item descrizione del processo di apprendimento delle \acl{CTBN}
-	\item descrizione del processo di apprendimento dei classificatori \acl{CTBN} e del relativo algoritmo
-	\item descrizione del processo di classificazione di un classificatore \acl{CTNB} e del relativo algoritmo di inferenza
-	\item descrizione del processo di apprendimento strutturale di una \acl{CTBN} e della relativa procedura di ricerca euristica della struttura che meglio rappresenta i dati di apprendimento
-	\item implementazione del framework delle \acl{CTBN} e dei succitati processi come pacchetto per il linguaggio \lstinline[]|R|
-	\item descrizione di un software per la creazione di modelli di traffico
-	\item descrizione dell'implementazione di una estensione del succitato software finalizzata al monitoraggio e tracciamento del passaggio di veicoli su reti stradali tramite sensori
-	\item descrizione di $2$ modelli di traffico finalizzati alla creazione di dataset per le \acl{CTBN}
-	\item descrizione del processo di modellazione e simulazione dei succitati modelli di traffico
-	\item descrizione del processo di creazione dei dataset per le \acl{CTBN}
-	\item applicazione del classificatore \acl{CTNB} al problema della classificazione dei profili di traffico
-	\item apprendimento strutturale del modello \acl{CTBN} corrispondente ai dataset e modelli di traffico creati
+	\item descrizione, a partire dalle \acs{CTBN}, di una nuova \emph{classe di classificatori}, i \acf{CTBNC} \citep{Stella2012}
+	\item descrizione del processo di \emph{classificazione superivisionata} di un classificatore \acl{CTNB} (\acs{CTNBC}) e del processo di \emph{apprendimento strutturale} di una \acs{CTBN}; processi anch'essi implementati nel succitato pacchetto \lstinline[]|R|
+	\item progettazione e implementazione di un software per il monitoraggio e \emph{tracciamento} del passaggio di \emph{veicoli} su reti stradali tramite sensori; sistema utile alla generazione di \emph{dataset} per il framework delle \acs{CTBN}
+	\item applicazione del classificatore \acs{CTNB} (\acs{CTNBC}) al problema della \emph{classificazione dei profili di traffico}.
 \end{itemize}
 
-Di seguito si passano in rassegna, capitolo per capitolo, gli argomenti appena citati.
+Di seguito si passano in rassegna, capitolo per capitolo, gli argomenti affrontati.
 \begin{description}
 	\item[{\hyperref[cap:ctbn]{Nel primo capitolo}}]
 	si introducono in primis i \emph{fondamenti teorici} su cui il framework delle \acf{CTBN} è basato. Successivamente si descrivono i \emph{concetti} e gli \emph{strumenti} da cui tale classe di modelli grafico probabilistici è costituita: \emph{\cim{}} e \emph{\stats{}}. Si affronta quindi il processo di \emph{apprendimento dei parametri} delle \acs{CTBN} da \emph{dati completi} e, infine, il calcolo della \emph{likelihood} di una \acs{CTBN} rispetto a un insieme di \emph{dati completi}.
@@ -86,6 +76,4 @@ Di seguito si passano in rassegna, capitolo per capitolo, gli argomenti appena c
 	\item[{\hyperref[cap:guide]{L'appendice A}}]
 	offre le \emph{guide all'utilizzo} degli strumenti sviluppati a corredo di questo lavoro di tesi. In una prima parte viene presentato, tramite esempi, il funzionamento di \acsfont{RCTBN}, il pacchetto \acsfont{R} che implementa quanto trattato del framework \acs{CTBN}. Nella seconda ed ultima parte viene invece presentata la generazione di dataset tramite l'esecuzione di \acsfont{Sensors} \acs{DLL} su modelli di traffico \acs{TSIS}.
 \end{description}
-
-
 
