@@ -12,7 +12,11 @@ Lo scopo di questa appendice è formulare delle guide all'utilizzo del software 
 Questa appendice è quindi suddivisa in due sezioni tematiche, una relativa all'utilizzo delle funzionalità offerte dal \pacchettor{} e una relativa all'utilizzo di \acsfont{Sensors} \acs{DLL} per la generazione di dataset da modelli \acs{TSIS}.
 
 \section{Utilizzo del pacchetto RCTBN}\label{sec:package-howto}
-\omissis{}
+Nelle seguenti sottosezioni si illustrano le funzionalità principali offerte da \rctbn{}. Lo scopo è quello di guidare l'utente all'utilizzo del framework delle \acs{CTBN} tramite il succitato pacchetto \lstinline[]|R|.
+
+Prima di addentrarci nella guida all'utilizzo del \pacchettor{} è necessario verificare che il sistema disponga dell'adeguato ambiente \lstinline[]|R| (versione $\ge 3.0$). Inoltre è necessario che il pacchetto \lstinline[]|devtools|\footnote{Il pacchetto \lstinline[]|devtools| è un insieme di funzioni e strumenti finalizzati all'espletamento di processi comuni e fondamentali per lo sviluppo in \lstinline[]|R|. Il codice sorgente di tale pacchetto è disponibile all'indirizzo: \url{https://github.com/hadley/devtools}.} sia correttamente installato. In caso contrario è possibile installare l'ultima versione stabile digitando il seguente comando in una nuova sessione \lstinline[]|R|.
+
+\vspace*{8pt}\inputsourcecode[caption={[Installazione del pacchetto \lstinline$devtools$]Installazione del pacchetto \lstinline$devtools$.},language=R,numbers=none]{codes/devtoolsinstallation}
 
 \subsection{Caricamento del dataset}
 
