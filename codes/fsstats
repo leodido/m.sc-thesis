@@ -1,0 +1,3 @@
+options(width = 190)
+options(ctbn.verbose = FALSE)
+fsstats(monza100o, c("D241"), c("D911", "D191", "D641"))

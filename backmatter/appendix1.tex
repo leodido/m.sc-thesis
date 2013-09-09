@@ -51,22 +51,47 @@ La funzione \lstinline[language=rstats]{read_dataset} effettua varie operazioni,
 	\lstinline[language=rstats]{read_dataset("monza100o", autosave = FALSE)}.
 \end{itemize}
 
-Eseguito il sorgente \ref{lst:rctbn-import-ds}, il dataset sarà stato importato come oggetto \lstinline$R$ al seguente percorso:
+L'output del sorgente \ref{lst:rctbn-import-ds} corrisponde all'oggetto \lstinline$R$ contenente il dataset nelle modalità descritte. Ciò significa che assegnando tale funzione a una variabile sarà possibile operare con il dataset in questione. Ad esempio:
+
+\lstinline[language=rstats]{monzads <- read_dataset("monza100o")}.
+
+Si osservi che, nel caso in cui non l'opzione \lstinline$ctbn.verbose$ (posta di default a \lstinline[language=rstats]{TRUE}) non sia stata modificata, la funzione \lstinline[language=rstats]{read_dataset} stampa a video il seguente messaggio:
+
+\vspace*{8pt}\inputsourcecode[language=rstats,nolol,numbers=none,basicstyle=\footnotesize\ttfamily]{codes/importctbndsoutput}\vspace*{8pt}
+
+Quindi, eseguito il sorgente \ref{lst:rctbn-import-ds}, il dataset sarà stato importato e serializzato come oggetto \lstinline$R$ al seguente percorso:
 
 \lstinline[language=rstats]{"~/Workspace/R/test/ctbn/data/monza100o/store.rdata"}.
 
 Si osservi che anche tale comportamento è personalizzabile tramite l'utilizzo delle opzioni che \rctbn{} fornisce all'utente. Nello specifico è possibile modificare l'opzione \lstinline$ctbn.store.name$, impostata di default al valore \lstinline[language=rstats]{"store"}, e l'opzione \lstinline$ctbn.store.ext$, impostata all'avvio al valore \lstinline[language=rstats]{"rdata"}.
 
-Si mostra ora come sfruttare l'operazione appena illustrata per utilizzare il \ds{2} in una nuova sessione \lstinline$R$ senza necessità di importarlo nuovamente; ottenendo così un notevole risparmio di tempo nel flusso di lavoro.
+Si mostra ora come sfruttare l'operazione appena illustrata per utilizzare il \ds{2} in una nuova sessione \lstinline$R$ senza necessità di importarlo nuovamente, processo che ha richiesto circa $45$ secondi. Tale caratteristica di \rctbn{} permette di ottenere un notevole risparmio di tempo nel flusso di lavoro.
 
 \vspace*{8pt}\inputsourcecode[caption={[Caricamento del \ds{2}]Caricamento del \ds{2}.},language=rstats,label=lst:rctbn-load-ds]{codes/loadctbnds}
 Come detto, la funzione \lstinline[language=rstats]{load_dataset} non importa nuovamente il dataset \lstinline[language=rstats]{"monza100o"}, bensì essa cerca il relativo file \acsfont{RDATA} nella cartella apposita e inietta dinamicamente l'oggetto da esso contenuto nell'attuale ambiente \lstinline$R$. Ciò significa che l'esecuzione del sorgente \ref{lst:rctbn-load-ds} permette di avere istantaneamente accesso a una oggetto \lstinline$R$ memorizzato in una variabile \lstinline$monza100o$.
 
-Si osservi infine che l'intero processo di gestione dei dataset contempla la possibilità che l'utente utilizzi dei dataset il cui nome non corrisponde a un nome di variabile valido per \lstinline$R$. In tale situazione il \pacchettor{} provvede a generare un nome di variabile valido a partire dal nome del dataset specificato. Perciò, una volta importato o caricato tale dataset sarà possibile ricavare il suo nome ispezionando l'ambiente \lstinline$R$ eseguendo il comando \lstinline[language=rstats]{ls(all = TRUE)}, il quale elenca tutte le variabili disponibili nell'ambiente \lstinline$R$ attuale.
+Si osservi infine che l'intero processo di gestione dei dataset contempla la possibilità che l'utente utilizzi dei dataset il cui nome non corrisponde a un nome di variabile valido per \lstinline$R$. In tale situazione il \pacchettor{} provvede a generare un nome di variabile valido a partire dal nome del dataset specificato. Perciò, una volta importato o caricato tale dataset sarà possibile ricavare il suo nome ispezionando l'ambiente \lstinline$R$ eseguendo il comando \lstinline[language=rstats]{ls(all = TRUE)}, il quale elenca tutte le variabili disponibili nell'ambiente \lstinline$R$ attuale. Alternativamente, qualora l'opzione \lstinline$ctbn.verbose$ abbia valore \lstinline[language=rstats]{TRUE}, la funzione \lstinline[language=rstats]{load_dataset} mostrerà a video un messaggio, finalizzato alla comunicazione del nome della variabile in cui il dataset è stato iniettato.
 
-\subsection{Calcolo delle sufficient statistics}
+\vspace*{8pt}\inputsourcecode[language=pseudo,nolol,numbers=none,basicstyle=\footnotesize\ttfamily]{codes/loadctbndsoutput}
 
-%\vspace*{8pt}\inputsourcecode[caption={[].},language=rstats]{codes/}
+\subsection{Calcolo delle \stats{}}
+In questa sottosezione si illustrano le funzionalità che \rctbn{} fornisce affinché l'utente possa computare le \emph{\stats{}}.
+
+I sorgenti mostrati assumono che il \pacchettor{} sia stato caricato e che il \ds{2} sia stato importato e caricato.
+
+Si suppone innanzitutto di voler calcolare le \emph{\stats{}} di una o più variabili del \ds{2} dato uno specifico insieme di genitori. A tale scopo \rctbn{} fornisce la funzione \lstinline[language=rstats]{fsstats}.
+
+Perciò, di seguito si illustra come computare le \emph{\stats{}} su tutto il \ds{2} del nodo \lstinline[language=rstats]{"D241"} impostando come suo insieme dei genitori l'insieme composto dai nodi \lstinline[language=rstats]{"D911"}, \lstinline[language=rstats]{"D191"} e \lstinline[language=rstats]{"D641"}.
+
+\vspace*{8pt}\inputsourcecode[caption={[Esempio di calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} sul \ds{2}.},language=rstats,label=lst:rctbn-fsstats]{codes/fsstats}
+Il risultato di tale esecuzione è una tabella hash, contenente un solo elemento, cioè le \emph{\stats{}} %? controllare ..
+%formato di output
+%spiegare un po' ..
+%vedi docs
+%citare il CTNBC riguardo fsstats (tutti lo stesso parent) (e fare esempio?)
+Si osservi che \lstinline[language=rstats]{fsstats} non permette di computare le \emph{\stats{}} di più variabili specificando per ognuna di esse un insieme di genitori diverso. Tale funzione è quindi utilizzabile con profitto nel caso in cui si intenda calcolare le \emph{\stats{}} di più variabili (eventualmentre anche tutte) rispetto a un unico insieme di genitori: si pensi ad esempio a ciò che è necessario fare quando si intende apprendere un classificatore \acs{CTNB} (\acs{CTNBC}) (mostrato in \vref{fig:ctnbc}), caratterizzato proprio dal fatto che ogni sua variabile ha un solo nodo genitore, il nodo classe.
+
+%versione _graph
 
 \subsection{Calcolo dei parametri}
 
