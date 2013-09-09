@@ -53,7 +53,7 @@ La funzione \lstinline[language=rstats]{read_dataset} effettua varie operazioni,
 
 L'output del sorgente \ref{lst:rctbn-import-ds} corrisponde all'oggetto \lstinline$R$ contenente il dataset nelle modalità descritte. Ciò significa che assegnando tale funzione a una variabile sarà possibile operare con il dataset in questione. Ad esempio:
 
-\lstinline[language=rstats]{monzads <- read_dataset("monza100o")}.
+\lstinline[language=rstats]{monzads = read_dataset("monza100o")}.
 
 Si osservi che, nel caso in cui non l'opzione \lstinline$ctbn.verbose$ (posta di default a \lstinline[language=rstats]{TRUE}) non sia stata modificata, la funzione \lstinline[language=rstats]{read_dataset} stampa a video il seguente messaggio:
 
@@ -83,15 +83,50 @@ Si suppone innanzitutto di voler calcolare le \emph{\stats{}} di una o più vari
 
 Perciò, di seguito si illustra come computare le \emph{\stats{}} su tutto il \ds{2} del nodo \lstinline[language=rstats]{"D241"} impostando come suo insieme dei genitori l'insieme composto dai nodi \lstinline[language=rstats]{"D911"}, \lstinline[language=rstats]{"D191"} e \lstinline[language=rstats]{"D641"}.
 
-\vspace*{8pt}\inputsourcecode[caption={[Esempio di calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} sul \ds{2}.},language=rstats,label=lst:rctbn-fsstats]{codes/fsstats}
-Il risultato di tale esecuzione è una tabella hash, contenente un solo elemento, cioè le \emph{\stats{}} %? controllare ..
-%formato di output
-%spiegare un po' ..
-%vedi docs
-%citare il CTNBC riguardo fsstats (tutti lo stesso parent) (e fare esempio?)
-Si osservi che \lstinline[language=rstats]{fsstats} non permette di computare le \emph{\stats{}} di più variabili specificando per ognuna di esse un insieme di genitori diverso. Tale funzione è quindi utilizzabile con profitto nel caso in cui si intenda calcolare le \emph{\stats{}} di più variabili (eventualmentre anche tutte) rispetto a un unico insieme di genitori: si pensi ad esempio a ciò che è necessario fare quando si intende apprendere un classificatore \acs{CTNB} (\acs{CTNBC}) (mostrato in \vref{fig:ctnbc}), caratterizzato proprio dal fatto che ogni sua variabile ha un solo nodo genitore, il nodo classe.
+\vspace*{8pt}\inputsourcecode[caption={[Calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} sul \ds{2}.},language=rstats,label=lst:rctbn-fsstats]{codes/fsstats}
+Il risultato di tale esecuzione è una tabella hash contenente un solo elemento: le \emph{\stats{}} del nodo \lstinline[language=rstats]{"D241"} dati i nodi genitori \lstinline[language=rstats]{"D911"}, \lstinline[language=rstats]{"D191"} e \lstinline[language=rstats]{"D641"}. La chiave di tale elemento della tabella hash è una rappresentazione di tale informazione mentre l'elemento è un oggetto tabulare (classe \lstinline$data.table$) rappresentante i valori delle \emph{\stats{}} $T$ e $M$ per ogni combinazione dei valori assunti dai nodi genitori.
 
-%versione _graph
+Di seguito si riporta l'output fornito dal sorgente \ref{lst:rctbn-fsstats}.
+
+\vspace*{8pt}\inputsourcecode[language=pseudo,nolol,numbers=none,basicstyle=\footnotesize\ttfamily]{codes/fsstatsres}\vspace*{8pt}
+
+Si osservi che \lstinline[language=rstats]{fsstats} non permette di computare le \emph{\stats{}} di più variabili specificando per ognuna di esse un insieme di genitori diverso. Tale funzione è quindi utilizzabile con profitto nel caso in cui si intenda calcolare le \emph{\stats{}} di più variabili (eventualmente anche tutte) rispetto a un unico insieme di genitori: si pensi ad esempio a ciò che è necessario fare quando si intende apprendere un classificatore \acs{CTNB} (\acs{CTNBC}) (mostrato in \vref{fig:ctnbc}), caratterizzato proprio dal fatto che ogni sua variabile ha un solo nodo genitore, il nodo classe.
+
+Ipotizziamo perciò di volere utilizzare la funzione \lstinline[language=rstats]{fsstats} per calcolare le \emph{\stats{}} di alcune variabili (ad esempio le variabili \lstinline[language=rstats]{"D241"}, \lstinline[language=rstats]{"D781"} e \lstinline[language=rstats]{"D782"}) data la sola variabile \lstinline[language=rstats]{"class"} (\ie{} nodo classe) come genitore. Il sorgente che segue illustra come espletare tale obiettivo.
+
+\vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di più nodi dato un insieme di genitori comune, il nodo classe (\ds{2}).},label=lst:rctbn-fsstats2]{codes/fsstats2}
+
+Come visibile dall'output conseguente l'esecuzione del sorgente \ref{lst:rctbn-fsstats2}, in questo caso, la funzione \lstinline[language=rstats]{fsstats} restituisce una tabella hash con più elementi, una per ogni nodo oggetto della computazione delle \emph{\stats{}}.
+
+\vspace*{8pt}\inputsourcecode[nolol,language=pseudo,numbers=none, basicstyle=\footnotesize\ttfamily]{codes/fsstats2res}\vspace*{8pt}
+
+Si osservi che la funzione \lstinline[language=rstats]{fsstats} permette anche di calcolare le \emph{\stats{}} di uno o più nodi senza condizionare la loro computazione ad alcun genitore.
+
+Di seguito viene illustrato come effettuare tale operazione.
+
+\vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di un nodo senza condizionare la computazione a un insieme di genitori (\ds{2}).},label=lst:rctbn-fsstats3]{codes/fsstats3}
+
+Nel caso in cui si desideri computare le \emph{\stats{}} di più nodi rispetto a diversi insiemi di genitori è invece necessario utilizzare la funzione \lstinline[language=rstats]{fsstats_graph}. La differenza tra tale funzione e quella appena illustrata consiste principalmente nella firma. Infatti, essa non richiede in input un parametro relativo ai nodi e uno relativo all'insieme di genitori comune per essi, bensì una matrice binaria avente sulle righe i nodi genitori e sulle colonne i nodi figli. Un $1$ posto nella posizione $(3,2)$ (\ie{} riga $3$, colonna $2$) indica che il nodo $2$ è figlio del nodo $3$.
+
+A titolo esemplificativo si ipotizzi di voler calcolare le \emph{\stats{}}:
+\begin{itemize}
+	\item del nodo \lstinline[language=rstats]{"D241"} dato il solo nodo \lstinline[language=rstats]{"class"} come genitore
+	\item del nodo \lstinline[language=rstats]{"D781"} dati nodi genitori \lstinline[language=rstats]{"D981"} e \lstinline[language=rstats]{"D241"}
+	\item del nodo \lstinline[language=rstats]{"D782"} dati nodi genitori \lstinline[language=rstats]{"class"} e \lstinline[language=rstats]{"D981"}.
+\end{itemize}
+Tale insieme di informazioni corrisponde alla matrice mostrata di seguito.
+
+\vspace*{8pt}\inputsourcecode[numbers=none,language=pseudo,nolol,basicstyle=\footnotesize\ttfamily]{codes/fsstatsgraphmatrix}\vspace*{8pt}
+
+Il sorgente che segue illustra come costruire tale matrice e utilizzarla come parametro di input della funzione \lstinline[language=rstats]{fsstats_graph}.
+
+\vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di più nodi aventi diversi insiemi di nodi genitori (\ds{2}).},label=lst:rctbn-ffstatsgraph]{codes/fsstatsgraph}
+
+L'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-ffstatsgraph} illustra le \emph{\stats{}} dei nodi scelti, dati i loro rispettivi insiemi di nodi genitori, computate sul \ds{2}.
+
+\vspace*{8pt}\inputsourcecode[numbers=none,language=pseudo,nolol,basicstyle=\footnotesize\ttfamily]{codes/fsstatsgraphres}
+
+%parametri per lo smoothing (uguali per entrambe)
 
 \subsection{Calcolo dei parametri}
 

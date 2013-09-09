@@ -1,0 +1,3 @@
+options(width = 190)
+options(ctbn.verbose = FALSE)
+fsstats(monza100o, "D241", parents = NULL)
