@@ -40,7 +40,7 @@ Se si assume, inoltre, che la probabilità a priori dei parametri soddisfi la \e
 \begin{equation}\label{eq:structurallearning-params-modularity}
 P(\param{q}_{\setel{X}}\,,\param{$\theta$}_{\setel{X}}\,\arrowvert\,\conceptsym{G}) = P(\param{q}_{\setel{X}}\,,\param{$\theta$}_{\setel{X}}\,\arrowvert\,\conceptsym{G}^\prime)\text{.}
 \end{equation}
-Combinando l'assunzione di \emph{\keyword{parameter independence}} con l'\autoref{eq:structurallearning-params-modularity} derivante dalla \emph{\keyword{parameter modularity}}, si ottiene:
+Combinando l'assunzione di \emph{\keyword{parameter independence}} con l'equazione \ref{eq:structurallearning-params-modularity} derivante dalla \emph{\keyword{parameter modularity}}, si ottiene:
 \begin{align}\label{eq:structurallearning-params-posterior}
 P(\param{q}_{\conceptsym{G}}\,,\param{$\theta$}_{\conceptsym{G}}\,\arrowvert\,\conceptsym{G}) &= \prod_{\setel{X}_i} \bigg[ P\Big(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,\arrowvert\,Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i)\Big) \cdot \bigg.\nonumber\\
 & \quad \bigg.{} \qquad \cdot P\Big(\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,\arrowvert\,Pa(\setel{X}_i)=Pa_{\conceptsym{G}}(\setel{X}_i)\Big) \bigg]\text{.}
