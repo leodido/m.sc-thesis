@@ -268,7 +268,7 @@
     language=pseudo,
     basicstyle=\normalsize\ttfamily,
     numbers=left,%none
-    numberstyle=\scriptsize,%\tiny
+    numberstyle=\scriptsize,
     stepnumber=1,
     numbersep=8pt,
     showstringspaces=false,
@@ -278,6 +278,14 @@
     tabsize=1,
     captionpos=b,
     escapeinside={<ls>}{<le>}
+}
+\lstdefinelanguage{rstats}{
+    language=R,
+    basicstyle=\normalsize\ttfamily,
+    morekeywords=%
+    {
+      read_dataset,load_dataset,suppressWarnings,dataset
+    }
 }
 \lstdefinelanguage{cpp}{
     language=C++,

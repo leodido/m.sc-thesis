@@ -16,25 +16,63 @@ Nelle seguenti sottosezioni si illustrano le funzionalità principali offerte da
 
 Prima di addentrarci nella guida all'utilizzo del \pacchettor{} è necessario verificare che il sistema disponga dell'adeguato ambiente \lstinline[]|R| (versione $\ge 3.0$). Inoltre è necessario che il pacchetto \lstinline[]|devtools|\footnote{Il pacchetto \lstinline[]|devtools| è un insieme di funzioni e strumenti finalizzati all'espletamento di processi comuni e fondamentali per lo sviluppo in \lstinline[]|R|. Il codice sorgente di tale pacchetto è disponibile all'indirizzo: \url{https://github.com/hadley/devtools}.} sia correttamente installato. In caso contrario, purché si disponda di una connessione a Internet, è possibile installare l'ultima versione stabile digitando il seguente comando in una nuova sessione \lstinline[]|R|.
 
-\vspace*{8pt}\inputsourcecode[caption={[Installazione del pacchetto \lstinline$devtools$]Installazione del pacchetto \lstinline$devtools$.},language=R,numbers=none]{codes/devtoolsinstallation}
+\vspace*{8pt}\inputsourcecode[caption={[Installazione del pacchetto \lstinline$devtools$]Installazione del pacchetto \lstinline$devtools$.},language=rstats,numbers=none]{codes/devtoolsinstallation}
 
 A questo punto è possibile procedere all'installazione del \pacchettor{}. Poiché esso non è ancora stato pubblicato nell'archivio online dei pacchetti \lstinline$R$\footnote{Una delle modalità di installazione di pacchetti \lstinline$R$ è tramite connessione a un archivio online in cui essi vengono memorizzati. Tale archivio, chiamato \acf{CRAN}, è raggiungibile al seguento indirizzo: \url{http://cran.r-project.org}.}, la procedura di installazione differisce da quella precedentemente mostrata. A tale scopo si utilizza quindi il pacchetto \lstinline$devtools$ per installare \rctbn{}. Si osservi che il pacchetto \lstinline$devtools$ permette di creare e installare un pacchetto \lstinline$R$ a partire dal suo sorgente (purché esso rispetti le dovute convenzioni e contenga codice eseguibile senza errori), che sia esso online o sul sistema dell'utente, o da un archivio compresso. Perciò, disponendo del sorgente di \rctbn{}, è possibile installarlo come pacchetto \lstinline$R$ digitando le seguenti istruzioni.
 
-\vspace*{8pt}\inputsourcecode[caption={[Installazione del \pacchettor{}]Installazione del \pacchettor{}.},language=R]{codes/rctbninstallation}
+\vspace*{8pt}\inputsourcecode[caption={[Installazione del \pacchettor{}]Installazione del \pacchettor{}.},language=rstats]{codes/rctbninstallation}
 
 Si osservi che l'opzione \lstinline$dependencies$ fa sì che tutte i pacchetti da cui \rctbn{} dipende vengano scaricati e installati dall'archivio \acs{CRAN}: anche in questo caso è quindi necessaria una connessione a Internet.
 
-\`E ora possibile utilizzare il \pacchettor{} per l'esecuzione dei vari processi relativi al framework delle \acs{CTBN}.
+\`E ora possibile utilizzare il \pacchettor{} per l'esecuzione dei vari processi relativi al framework delle \acs{CTBN}. Si osservi che esso viene installato con il nome \lstinline$ctbn$ nella libreria \lstinline$R$.
 
-\subsection{Caricamento del dataset}
+Tutti gli esempi d'utilizzo che vengono mostrati in questa sezione assumono che la cartella di lavoro sia \lstinline[language=rstats]{"~/Workspace/R/test/ctbn"}. Perciò, come mostrato in seguito, si utilizza il comando \lstinline$setwd$ per impostare la cartella di lavoro.
+
+\subsection{Gestione dei dataset}
+Come detto nella \autoref{subsec:rctbn-ds-management} \vpageref{subsec:rctbn-ds-management}, il \pacchettor{} implementa una serie di funzionalità, non correlate concettualmente al framework delle \acs{CTBN}, utili allo svolgimento di operazioni di gestione dei dataset. Lo scopo principale di questo insieme di funzionalità è permettere il caricamento e la compressione su disco dei dataset per le \acs{CTBN}, così da evitare all'utente la ripetizione di tale operazione ogni qual volta egli necessiti di un dataset precedentemente già importato.
+
+Perciò, di seguito si illustra come importare il \ds{2} (descritto nella \vref{sec:dataset-2}).
+
+\vspace*{8pt}\inputsourcecode[caption={[Caricamento e serializzazione del \ds{2}]Caricamento e serializzazione del \ds{2}.},language=rstats,label=lst:rctbn-import-ds]{codes/importctbnds}
+Si osservi che, come anticipato, è indispensabile impostare la corrente cartella di lavoro (comando \lstinline$setwd$) poiché il \pacchettor{} utilizza tale informazione per cercare il dataset da importare. Nello specifico, \rctbn{} cercherà nella cartella di lavoro una cartella \lstinline$dataset$ e dentro questa cercherà una cartella con il nome del primo parametro attuale della funzione \lstinline[language=rstats]{read_dataset}. \`E possibile modificare la cartella in cui \rctbn{} cerca i dataset modificando l'opzione \lstinline$ctbn.data.dir$, impostata di default al valore \lstinline$dataset$, tramite il comando \lstinline[language=rstats]{options}.
+
+La funzione \lstinline[language=rstats]{read_dataset} effettua varie operazioni, che vengono descritte di seguito.
+\begin{itemize}
+	\item Legge ogni file \acs{CSV} presente nella cartella:\par
+	\lstinline[language=rstats]{"~/Workspace/R/test/ctbn/dataset/monza-100-o"}.\par
+	\`E possibile importare file con altre estensioni semplicemente modificando il valore dell'opzione \lstinline$ctbn.data.ext$, impostato all'avvio al valore \lstinline[language=rstats]{"csv"}.
+	\item Controlla che ogni struttura tabulare letta contenga la colonna relativa al tempo. Tale informazione è specificabile tramite l'opzione \lstinline$ctbn.col.time$, impostata di default al valore \lstinline[language=rstats]{"time"}.
+	\item Controlla che ogni struttura tabulare letta contenga la colonna relativa alla classe. Tale informazione è specificabile tramite l'opzione \lstinline$ctbn.col.class$, impostata all'avvio a \lstinline[language=rstats]{"class"}. Nel caso in cui non si sia interessati ad eseguire tale controllo è possibile ometterlo semplicemente modificando la chiamata in questione come mostrato di seguito:\par
+	\lstinline[language=rstats]{read_dataset("monza100o", classcheck = FALSE)}.
+	\item Controlla che ogni file contenga altre colonne oltre a quelle relative al tempo e, opzionalmente, alla classe.
+	\item Ordina le strutture tabulari importati in base alle rispettive colonne temporali.
+	\item Crea un oggetto \lstinline$R$ simile a una tabella hash dove ogni chiave è rappresentata da una stringa, il nome del file importato (senza estensione), e ogni elemento è una tabella (nello specifico un oggetto della classe \lstinline$data.table$) contenente la struttura tabulare importata.
+	\item Serializza in modo compresso tale oggetto su file salvando un file \acsfont{RDATA}\footnote{I file con estensione \acsfont{RDATA}, o \acsfont{RDA}, sono dei formati binari che \lstinline$R$ utilizza per la memorizzazione su disco di oggetti appartenenti al suo linguaggio.} nella cartella adibita alla memorizzazione dei dataset importati (specificata dall'opzione \lstinline$ctbn.store.dir$, il cui valore di default è \lstinline[language=rstats]{"data"}). \`E possibile, ma non consigliato, disattivare la serializzazione del dataset importanto modificando la chiamata in questione come mostrato:\par
+	\lstinline[language=rstats]{read_dataset("monza100o", autosave = FALSE)}.
+\end{itemize}
+
+Eseguito il sorgente \ref{lst:rctbn-import-ds}, il dataset sarà stato importato come oggetto \lstinline$R$ al seguente percorso:
+
+\lstinline[language=rstats]{"~/Workspace/R/test/ctbn/data/monza-100-o/store.rdata"}.
+
+Si osservi che anche tale comportamento è personalizzabile tramite l'utilizzo delle opzioni che \rctbn{} fornisce all'utente. Nello specifico è possibile modificare l'opzione \lstinline$ctbn.store.name$, impostata di default al valore \lstinline[language=rstats]{"store"}, e l'opzione \lstinline$ctbn.store.ext$, impostata all'avvio al valore \lstinline[language=rstats]{"rdata"}.
+
+%\vspace*{8pt}\inputsourcecode[caption={[].},language=rstats]{codes/loadctbnds}
 
 \subsection{Calcolo delle sufficient statistics}
 
+%\vspace*{8pt}\inputsourcecode[caption={[].},language=rstats]{codes/}
+
 \subsection{Calcolo dei parametri}
+
+%\vspace*{8pt}\inputsourcecode[caption={[].},language=rstats]{codes/}
 
 \subsection{Calcolo delle CIM}
 
+%\vspace*{8pt}\inputsourcecode[caption={[].},language=rstats]{codes/}
+
 \subsection{Apprendimento}
+%attenzione: apprendimento classificatore, quello dei parametri già fatto!
 
 \subsection{Classificazione}
 

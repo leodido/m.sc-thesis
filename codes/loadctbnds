@@ -1,0 +1,3 @@
+setwd("~/Workspace/R/test/ctbn")
+suppressWarnings(library(ctbn))
+load_dataset("monza100o")
