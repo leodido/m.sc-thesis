@@ -14,9 +14,17 @@ Questa appendice è quindi suddivisa in due sezioni tematiche, una relativa all'
 \section{Utilizzo del pacchetto RCTBN}\label{sec:package-howto}
 Nelle seguenti sottosezioni si illustrano le funzionalità principali offerte da \rctbn{}. Lo scopo è quello di guidare l'utente all'utilizzo del framework delle \acs{CTBN} tramite il succitato pacchetto \lstinline[]|R|.
 
-Prima di addentrarci nella guida all'utilizzo del \pacchettor{} è necessario verificare che il sistema disponga dell'adeguato ambiente \lstinline[]|R| (versione $\ge 3.0$). Inoltre è necessario che il pacchetto \lstinline[]|devtools|\footnote{Il pacchetto \lstinline[]|devtools| è un insieme di funzioni e strumenti finalizzati all'espletamento di processi comuni e fondamentali per lo sviluppo in \lstinline[]|R|. Il codice sorgente di tale pacchetto è disponibile all'indirizzo: \url{https://github.com/hadley/devtools}.} sia correttamente installato. In caso contrario è possibile installare l'ultima versione stabile digitando il seguente comando in una nuova sessione \lstinline[]|R|.
+Prima di addentrarci nella guida all'utilizzo del \pacchettor{} è necessario verificare che il sistema disponga dell'adeguato ambiente \lstinline[]|R| (versione $\ge 3.0$). Inoltre è necessario che il pacchetto \lstinline[]|devtools|\footnote{Il pacchetto \lstinline[]|devtools| è un insieme di funzioni e strumenti finalizzati all'espletamento di processi comuni e fondamentali per lo sviluppo in \lstinline[]|R|. Il codice sorgente di tale pacchetto è disponibile all'indirizzo: \url{https://github.com/hadley/devtools}.} sia correttamente installato. In caso contrario, purché si disponda di una connessione a Internet, è possibile installare l'ultima versione stabile digitando il seguente comando in una nuova sessione \lstinline[]|R|.
 
 \vspace*{8pt}\inputsourcecode[caption={[Installazione del pacchetto \lstinline$devtools$]Installazione del pacchetto \lstinline$devtools$.},language=R,numbers=none]{codes/devtoolsinstallation}
+
+A questo punto è possibile procedere all'installazione del \pacchettor{}. Poiché esso non è ancora stato pubblicato nell'archivio online dei pacchetti \lstinline$R$\footnote{Una delle modalità di installazione di pacchetti \lstinline$R$ è tramite connessione a un archivio online in cui essi vengono memorizzati. Tale archivio, chiamato \acf{CRAN}, è raggiungibile al seguento indirizzo: \url{http://cran.r-project.org}.}, la procedura di installazione differisce da quella precedentemente mostrata. A tale scopo si utilizza quindi il pacchetto \lstinline$devtools$ per installare \rctbn{}. Si osservi che il pacchetto \lstinline$devtools$ permette di creare e installare un pacchetto \lstinline$R$ a partire dal suo sorgente (purché esso rispetti le dovute convenzioni e contenga codice eseguibile senza errori), che sia esso online o sul sistema dell'utente, o da un archivio compresso. Perciò, disponendo del sorgente di \rctbn{}, è possibile installarlo come pacchetto \lstinline$R$ digitando le seguenti istruzioni.
+
+\vspace*{8pt}\inputsourcecode[caption={[Installazione del \pacchettor{}]Installazione del \pacchettor{}.},language=R]{codes/rctbninstallation}
+
+Si osservi che l'opzione \lstinline$dependencies$ fa sì che tutte i pacchetti da cui \rctbn{} dipende vengano scaricati e installati dall'archivio \acs{CRAN}: anche in questo caso è quindi necessaria una connessione a Internet.
+
+\`E ora possibile utilizzare il \pacchettor{} per l'esecuzione dei vari processi relativi al framework delle \acs{CTBN}.
 
 \subsection{Caricamento del dataset}
 
@@ -60,7 +68,7 @@ Si osservi che per ogni esecuzione della simulazione viene generato il relativo 
 \subsection{Applicativi di supporto}
 Ottenuti i file di output di \acsfont{Sensors} \acs{DLL} è necessario trasformarli in un dataset utile al framework delle \acs{CTBN}. A tale scopo sono stati sviluppati degli applicativi, brevemente discussi nella \vref{sec:dataset-tools}.
 
-Il primo passo necessario consiste nella sostituzione dei \emph{\keyword{time period}} con le rispettive classi (si veda a tal riguardo la \vref{tab:ds-2-tp-labels}). A tale scopo è stato sviluppato un programma \lstinline[]|bash| chiamato \lstinline[]|sensors2dataset|.
+Il primo passo necessario consiste nella sostituzione dei \emph{\keyword{time period}} con le rispettive classi (si veda a tal riguardo la \vref{tab:ds-2-tp-labels}). A tale scopo è stato sviluppato un programma in linguaggio \lstinline[]|R| con interfaccia \lstinline[]|bash| chiamato \lstinline[]|sensors2dataset|.
 
 Riguardo al modello in questione è quindi necessario eseguire il succitato programma nel seguente modo, ripetendo tale passo per tutti i $5$ file di output generati (si ricorda che il modello per i giorni lavorativi viene eseguito infatti $5$ volte, una per ogni giorno lavorativo):
 
@@ -85,5 +93,8 @@ L'opzione \lstinline[]|n| serve a specificare il numero di righe da cui ogni fil
 
 Si osservi che \lstinline[]|splitfile| salva i file generati in una nuova cartella la cui posizione corrisponde a quella del file di input.
 
-Infine, è possibile ottimizzare il dataset appena generato rimuovendole righe che corrispondono a intervalli temporali durante i quali non è avvenuta alcuna transizione di stato per nessun sensore. A tale scopo viene fornito un programma sviluppato in linguaggio \lstinline[]|R| con interfaccia \lstinline[]|bash| chiamato \lstinline[]|killconsdup|. Esso permette l'ottimizzazione di un singole file \acs{CSV} secondo la logica descritta oppure l'ottimizzazione di tutti i file \acs{CSV} presenti nella cartella di input fornita. Di seguito si illustra la seconda tipologia d'utilizzo di \lstinline[]|killconsdup|.
+Infine, è possibile ottimizzare il dataset appena generato rimuovendo le righe che corrispondono a intervalli temporali durante i quali non è avvenuta alcuna transizione di stato per nessun sensore. A tale scopo viene fornito un programma \lstinline[]|bash| chiamato \lstinline[]|killconsdup|. Esso permette l'ottimizzazione di un singole file \acs{CSV} secondo la logica descritta oppure l'ottimizzazione di tutti i file \acs{CSV} presenti nella cartella di input fornita. Di seguito si illustra la seconda tipologia d'utilizzo di \lstinline[]|killconsdup|.
 \vspace*{8pt}\inputsourcecode[caption={[Ottimizzazione del \ds{2}]Esecuzione del programma \lstinline[]|bash| finalizzato alla rimozione delle osservazioni duplicate, cioè delle righe relative agli intervalli temporali durante i quali tutti i sensori sono rimasti nel loro precedente stato.},language=sh,numbers=none]{codes/killconsdup2}
+Si osservi che \lstinline$killconsdup$ non considera la prima riga dei file che processa, assumendo che essa contenga l'intestazione del file \acs{CSV}. Inoltre esso non considera la prima e la seconda colonna dei file di input assumendo esse si riferiscano rispettivamente alla colonna del tempo e della classe. Infine, affinché tale programma funzioni correttamente è necessario che il separatore dei file \acs{CSV} di input sia la virgola.
+
+Eseguito il precedente comando, i file che compongono il dataset saranno sovrascritti con la loro rispettiva versione ottimizzata.
