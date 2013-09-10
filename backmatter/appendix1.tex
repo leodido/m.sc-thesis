@@ -106,7 +106,7 @@ Di seguito viene illustrato come effettuare tale operazione.
 
 \vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di un nodo senza condizionare la computazione a un insieme di genitori (\ds{2}).},label=lst:rctbn-fsstats3]{codes/fsstats3}
 
-Nel caso in cui si desideri computare le \emph{\stats{}} di più nodi rispetto a diversi insiemi di genitori è invece necessario utilizzare la funzione \lstinline[language=rstats]{fsstats_graph}. La differenza tra tale funzione e quella appena illustrata consiste principalmente nella firma. Infatti, essa non richiede in input un parametro relativo ai nodi e uno relativo all'insieme di genitori comune per essi, bensì una matrice binaria avente sulle righe i nodi genitori e sulle colonne i nodi figli. Un $1$ posto nella posizione $(3,2)$ (\ie{} riga $3$, colonna $2$) indica che il nodo $2$ è figlio del nodo $3$.
+Nel caso in cui si desideri computare le \emph{\stats{}} di più nodi rispetto a diversi insiemi di genitori è invece necessario utilizzare la funzione \lstinline[language=rstats]{fsstats_graph}. La differenza tra tale funzione e quella appena illustrata consiste principalmente nella firma. Infatti, essa non richiede in input un parametro relativo ai nodi e uno relativo all'insieme di genitori comune, bensì una matrice binaria avente sulle righe i nodi genitori e sulle colonne i nodi figli, il cui scopo è rappresentare la struttura di una \acs{CTBN}. Un $1$ posto nella posizione $(3,2)$ (\ie{} riga $3$, colonna $2$) indica che il nodo $2$ è figlio del nodo $3$.
 
 A titolo esemplificativo si ipotizzi di voler calcolare le \emph{\stats{}}:
 \begin{itemize}
@@ -114,10 +114,19 @@ A titolo esemplificativo si ipotizzi di voler calcolare le \emph{\stats{}}:
 	\item del nodo \lstinline[language=rstats]{"D781"} dati nodi genitori \lstinline[language=rstats]{"D981"} e \lstinline[language=rstats]{"D241"}
 	\item del nodo \lstinline[language=rstats]{"D782"} dati nodi genitori \lstinline[language=rstats]{"class"} e \lstinline[language=rstats]{"D981"}.
 \end{itemize}
-Tale insieme di informazioni corrisponde alla matrice mostrata di seguito.
-
-%FIXME: fare tabella!
-\vspace*{8pt}\inputsourcecode[numbers=none,language=pseudo,nolol,basicstyle=\footnotesize\ttfamily]{codes/fsstatsgraphmatrix}\vspace*{8pt}
+Tale insieme di informazioni corrisponde alla matrice mostrata dalla seguente tabella.
+\begin{table}[ht]
+	\centering\footnotesize
+	\begin{tabular}{+l^c^c^c}
+	\toprule\rowstyle{\bfseries}%
+	       			& D241   & D781 & D782 		\\\otoprule
+	\bfseries{class}& $1$    & $0$ 	& $1$ 		\\
+	\bfseries{D981} & $0$    & $1$ 	& $1$ 		\\
+	\bfseries{D241} & $0$    & $1$ 	& $0$ 		\\\bottomrule
+	\end{tabular}
+	\caption[Struttura d'esempio di una \acs{CTBN}]{Struttura d'esempio di una \acs{CTBN} espressa tramite la corrispondenza fra i nodi e relativi insiemi di genitori.}
+	\label{tab:little-example-ctbn}
+\end{table}
 
 Il sorgente che segue illustra come costruire tale matrice e utilizzarla come parametro di input della funzione \lstinline[language=rstats]{fsstats_graph}.
 
@@ -130,7 +139,7 @@ L'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-ffstatsgraph} illu
 \subsection{Apprendimento dei parametri}
 Si illustra ora come effettuare l'apprendimento dei parametri di una \acs{CTBN} da un insieme di \emph{\keyword{dati completi}}, nello specifico dal \ds{2}, tramite la relativa funzionalità offerta dal \pacchettor{}. Si ricorda, come discusso nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}, che è possibile effettuare la \keyword{stima dei parametri} tramite due approcci: la \keyword{stima \acl{MLE}} o la \keyword{stima bayesiana}.
 
-Supponendo di considerare la \acs{CTBN} con la struttura utilizzata per l'esempio precedente (si veda il sorgente \ref{lst:rctbn-fsstats2}) e di aver salvato le \emph{\stats{}} calcolate in una variabile chiamata \lstinline$ss$, è possibile apprendere i parametri fornendo tale variabile in input alla funzione \lstinline[language=rstats]{params}.
+Supponendo di considerare la \acs{CTBN} con la struttura utilizzata per l'esempio precedente (si veda la \vref{tab:little-example-ctbn}) e di aver salvato le \emph{\stats{}} calcolate nel sorgente \ref{lst:rctbn-fsstats2} in una variabile chiamata \lstinline$ss$, è possibile apprendere i parametri fornendo tale variabile in input alla funzione \lstinline[language=rstats]{params}.
 
 \vspace*{8pt}\inputsourcecode[caption={[Stima dei parametri di una \acs{CTBN} dal \ds{2}]Apprendimento (\ie{} stima esatta) dei parametri di una \acs{CTBN} dal \ds{2}.},language=rstats,label=lst:rctbn-hparams]{codes/params}
 
@@ -215,7 +224,7 @@ Si osservi che tale struttura è perfettamente riproducibile su qualsiasi macchi
 	D$981$     	        & class, D$341$, D$982$, D$1110$, D$781$     				\\
 	D$982$				& class, D$5094$									 		\\\bottomrule
 	\end{tabular}
-	\caption[Esempio di classificatore \acs{CTBN}]{Struttura d'esempio di un classificatore \acs{CTBN} (\acs{CTBNC}) espressa tramite la corrispondenza fra i nodi e relativi insieme di genitori.}
+	\caption[Struttura d'esempio di classificatore \acs{CTBN}]{Struttura d'esempio di un classificatore \acs{CTBN} (\acs{CTBNC}) espressa tramite la corrispondenza fra i nodi e relativi insiemi di genitori.}
 \end{table}\normalsize
 
 Si presenta ora sinteticamente la firma della la funzione \lstinline[language=rstats]{learn_ctbnc}. Essa richiede in input due parametri principali:
@@ -235,8 +244,8 @@ Affinché l'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-learc-ct
 
 Si osservi che l'oggetto restituito dalla funzione \lstinline[language=rstats]{learn_ctbnc} è una lista nominata (\ie{} un tipo del linguaggio \lstinline$R$ simile a una tabella hash) composta da $2$ elementi, chiamati \lstinline$priors$ e \lstinline$params$.
 
-Ipotizzando di assegnare il risultato di \lstinline[language=rstats]{learn_ctbnc} a un oggetto chiamato \lstinline$model$, è possibile accedere ai suoi elementi tramite l'operatore per liste nominate \lstinline[]|$|%
-. Ad esempio, il comando \lstinline[]|model$priors| permette di accedere alla distribuzione di probabilità a priori della variabile classe, che è anch'essa una lista nominata, come visibile dall'output mostrato.
+Ipotizzando di assegnare il risultato di \lstinline[language=rstats]{learn_ctbnc} a un oggetto chiamato \lstinline$model$, è possibile accedere ai suoi elementi tramite l'operatore \lstinline$R$ per liste nominate \lstinline[]|$|%
+. Ad esempio, il comando \lstinline[]|model$priors| permette di accedere alla distribuzione di probabilità a priori della variabile classe come visibile dall'output mostrato.
 
 \subsection{Classificazione di un CTNBC}
 %prima è necessario apprendere -> apprendimento learn_ctnbc
