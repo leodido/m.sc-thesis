@@ -1,0 +1,20 @@
+options(width = 190)
+options(ctbn.verbose = FALSE)
+
+dt1 = monza100o[[1]]
+cols = setdiff(colnames(dt1), c(getOption('ctbn.col.time')))
+ncols = length(cols)
+set.seed(ncols)
+amat = matrix(rbinom(ncols^2, 1, 0.05), ncols, ncols)
+dimnames(amat) = list(cols, cols)
+diag(amat) = 0
+amat[1, ] = 1
+noparents = apply(amat, 2, function(i) length(unique(i)) == 1)
+noparents = noparents[noparents == TRUE]
+for (cn in names(noparents)) {
+  amat[, cn] = rbinom(ncols, 1, .1)
+}
+diag(amat) = 0
+
+faketrainset = monza100o[seq(1, length(monza100o), 20)]
+learn_ctbnc(faketrainset, am)

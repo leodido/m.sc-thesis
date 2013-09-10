@@ -127,7 +127,7 @@ L'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-ffstatsgraph} illu
 \vspace*{8pt}\inputsourcecode[numbers=none,language=pseudo,nolol,basicstyle=\footnotesize\ttfamily]{codes/fsstatsgraphres}
 
 \subsection{Apprendimento dei parametri}
-Si illustra ora come effettuare l'apprendimento dei parametri di una \acs{CTBN} da un insieme di \emph{\keyword{dati completi}}, nello specifico dal \ds{2}, tramite la relativa funzionalità offerta dal \pacchettor{}. Si ricorda, come discusso nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}, che è possibile effettuare la \keyword{stima dei parametri} tramite due approcci: la stima \acl{MLE} o la \keyword{stima bayesiana}.
+Si illustra ora come effettuare l'apprendimento dei parametri di una \acs{CTBN} da un insieme di \emph{\keyword{dati completi}}, nello specifico dal \ds{2}, tramite la relativa funzionalità offerta dal \pacchettor{}. Si ricorda, come discusso nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}, che è possibile effettuare la \keyword{stima dei parametri} tramite due approcci: la \keyword{stima \acl{MLE}} o la \keyword{stima bayesiana}.
 
 Supponendo di considerare la \acs{CTBN} con la struttura utilizzata per l'esempio precedente (si veda il sorgente \ref{lst:rctbn-fsstats2}) e di aver salvato le \emph{\stats{}} calcolate in una variabile chiamata \lstinline$ss$, è possibile apprendere i parametri fornendo tale variabile in input alla funzione \lstinline[language=rstats]{params}.
 
@@ -137,19 +137,28 @@ Tale funzione richiede in input una tabella hash contenente le \emph{\stats{}} d
 
 L'output restituito è il seguente, dove le colonne \lstinline$T_PARAM$ e \lstinline$Q_PARAM$ si riferiscono rispettivamente ai parametri $\param{$\theta$}$ e $\param{q}$.
 
-\vspace*{8pt}\inputsourcecode[language=pseudo,nolol,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/paramsres}
+\vspace*{8pt}\inputsourcecode[language=pseudo,nolol,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/paramsres}\vspace*{8pt}
 
 Per controllare il modo in cui i parametri vengono computati, cioè se essi vengono appresi tramite stima \acl{MLE} o tramite \keyword{stima bayesiana}, il \pacchettor{} fornisce $3$ opzioni, presentate di seguito.
 \begin{itemize}
 	\item L'opzione \lstinline$ctbn.smoothing$, impostata al valore \lstinline[language=rstats]{TRUE} all'avvio di \rctbn{}. Ciò indica che, qualora non si modifichi tale opzione, \rctbn{} effettua la \emph{\keyword{regolarizzazione bayesiana}} dei parametri (corrispondente all'implementazione dell'\autoref{eq:ctbn-imaginary-params} \vpageref{eq:ctbn-imaginary-params})
 	\item Le opzioni \lstinline$ctbn.imaginary.count$  e \lstinline$ctbn.imaginary.time$ utili a specificare i valori dei \emph{\keyword{conteggi immaginari}}. Esse sono impostate di dafault rispettivamente ai valori $1$ e $0.005$.
 \end{itemize}
-Perciò, l'esempio presentato dal sorgente \ref{lst:rctbn-hparams} effettua la \emph{\keyword{stima bayesiana}} dei parametri.
+Perciò, l'esempio presentato dal sorgente \ref{lst:rctbn-hparams} effettua la \emph{\keyword{stima bayesiana}} dei parametri, calcolando $\paramhat{q}$ e $\greekhat{\theta}$.
+
 \cleardoublepage
 \subsection{Calcolo delle CIM}
+Riguardo il calcolo delle \im{} \cond{}, il \pacchettor{} offre una funzione, \lstinline[language=rstats]{cims}, che è il naturale proseguimento della funzione \lstinline[language=rstats]{params} illustrata nella sottosezione precedente.
 
-%\vspace*{8pt}\inputsourcecode[caption={[].},language=rstats]{codes/}
+Perciò, per calcolare le \im{} \cond{} è necessario disporre di un oggetto, che chiamiamo \lstinline$pp$, contenente i parametri appresi tramite la funzione \lstinline[language=rstats]{params}. La porzione di codice seguente illustra la chiamata di tale funzione.
 
+\vspace*{8pt}\inputsourcecode[caption={[Calcolo delle \acs{CIM} di una \acs{CTBN} dal \ds{2}]Calcolo delle \acs{CIM} della \acs{CTBN} d'esempio dal \ds{2}.},language=rstats,label=lst:rctbn-cim-comput]{codes/cims}
+
+Di seguito viene riportato un estratto dell'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-cim-comput}.
+
+\vspace*{8pt}\inputsourcecode[language=pseudo,nolol,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/cimsres}\vspace*{8pt}
+
+\cleardoublepage
 \subsection{Apprendimento di un CTBNC}
 % learn_ctbnc
 
