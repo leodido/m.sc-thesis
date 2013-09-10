@@ -539,7 +539,7 @@ Una distribuzione a \keyword{priori coniugata} per il parametro $\param{q}$ è l
 \begin{equation}\label{eq:ctbn-bayesian-params-gamma}
 P(\param{q})=\frac{ \tau_{\setel{x}}^{\,\alpha_{\setel{x}+1}} }{ \Gamma(\alpha_{\setel{x}+1}) } \param{q}^{ \alpha_{\setel{x}} } \, e^{ -\param{q}\tau_{\setel{x}} } \text{.}
 \end{equation}
-Invece, avendo assunto l'indipendenza dei parametri e poiché la funzione di densità della distribuzione di probabilità di $\param{$\theta$}$, che è una \keyword{multinomiale}, è positiva, per essa si sceglie come \keyword{priori coniugata} la \emph{distribuzione di \keyword{Dirichlet}} $P(\param{$\theta$})=Dir(\alpha_{\setel{x}\setel{x}_1},\,\dotsc\,,\alpha_{\setel{x}\setel{x}_K})$~\citep[si veda][]{Heckerman1996,Heckerman1995}, la cui funzione di densità~\citep{Steck2002} è:
+Invece, avendo assunto la \emph{\keyword{parameter independence}} e poiché la funzione di densità della distribuzione di probabilità di $\param{$\theta$}$, che è una \keyword{multinomiale}, è positiva, per essa si sceglie come \keyword{priori coniugata} la \emph{distribuzione di \keyword{Dirichlet}} $P(\param{$\theta$})=Dir(\alpha_{\setel{x}\setel{x}_1},\,\dotsc\,,\alpha_{\setel{x}\setel{x}_K})$~\citep[si veda][]{Heckerman1996,Heckerman1995}, la cui funzione di densità~\citep{Steck2002} è:
 \begin{equation}\label{eq:ctbn-bayesian-params-dirichlet}
 P(\param{$\theta$})=\frac{ \Gamma(\alpha_{\setel{x}}) }{ \Gamma(\alpha_{\setel{x}\setel{x}_1}) \cdot \,\dotsc\, \cdot \Gamma(\alpha_{\setel{x}\setel{x}_K}) } \param{$\theta$}_{\setel{x}\setel{x}_k}^{\alpha_{\setel{x}\setel{x}_1}-1} \cdot \,\dotsc\, \cdot \param{$\theta$}_{\setel{x}\setel{x}_1}^{\alpha_{\setel{x}\setel{x}_K}-1} \text{.}
 \end{equation}
@@ -557,11 +557,11 @@ P(\param{$\theta$}\,\arrowvert\,\conceptsym{D})&=Dir(\alpha_{\setel{x}\setel{x}_
 \end{aligned}
 \end{equation}
 
-Al fine di generalizzare quest'idea e ottenere una distribuzione a \keyword{priori coniugata} per un'intera \acs{CTBN} è necessario che essa soddisfi due assunzioni (comuni per le distribuzioni a priori nelle \acl{BN}, si veda~\citet{Heckerman1996}): l'\keyword{indipendenza globale} e locale dei parametri. In base all'\emph{\keyword{indipendenza globale} dei parametri} si può scrivere:
+Al fine di generalizzare quest'idea e ottenere una distribuzione a \keyword{priori coniugata} per un'intera \acs{CTBN} è necessario che essa soddisfi due assunzioni (comuni per le distribuzioni a priori nelle \acl{BN}, si veda~\citet{Heckerman1996}): la \emph{global \keyword{parameter independence}} e la \emph{local \keyword{parameter independence}}. In base alla \emph{global \keyword{parameter independence}} si può scrivere:
 \begin{equation}\label{eq:ctbn-bayesian-params-globalind}
 P(\param{q}\,,\param{$\theta$})=\prod_{\setel{X}_i\in\set{X}}\,P(\param{q}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)}\,,\param{$\theta$}_{\setel{X}_i\,\arrowvert\,Pa(\setel{X}_i)})\text{.}
 \end{equation}
-Invece, dall'\emph{\keyword{indipendenza locale} dei parametri} consegue che è possibile scrivere:
+Invece, dalla \emph{local \keyword{parameter independence}} consegue che è possibile scrivere:
 \footnotesize
 \begin{equation}\label{eq:ctbn-bayesian-params-localind}
 P(\param{q}_{\setel{X}\,\arrowvert\,Pa(\setel{X})}\,,\,\param{$\theta$}_{\setel{X}\,\arrowvert\,Pa(\setel{X})}) = \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg] \bigg[ \prod_{\setel{x}}\prod_{pa_i(\setel{x})} P(\param{$\theta$}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}) \bigg]\text{\normalsize .}
