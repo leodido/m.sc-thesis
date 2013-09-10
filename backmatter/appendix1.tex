@@ -148,9 +148,11 @@ Perciò, l'esempio presentato dal sorgente \ref{lst:rctbn-hparams} effettua la \
 
 \cleardoublepage
 \subsection{Calcolo delle CIM}
-Riguardo il calcolo delle \im{} \cond{}, il \pacchettor{} offre una funzione, \lstinline[language=rstats]{cims}, che è il naturale proseguimento della funzione \lstinline[language=rstats]{params} illustrata nella sottosezione precedente.
+Riguardo il calcolo delle \im{} \cond{} (\acs{CIM}), il \pacchettor{} offre una funzione, \lstinline[language=rstats]{cims}, che è il naturale proseguimento della funzione \lstinline[language=rstats]{params} illustrata nella sottosezione precedente.
 
-Perciò, per calcolare le \im{} \cond{} è necessario disporre di un oggetto, che chiamiamo \lstinline$pp$, contenente i parametri appresi tramite la funzione \lstinline[language=rstats]{params}. La porzione di codice seguente illustra la chiamata di tale funzione.
+Per calcolare le \im{} \cond{} è necessario disporre di un oggetto, che chiamiamo \lstinline$pp$, contenente i parametri appresi tramite la funzione \lstinline[language=rstats]{params}. A tal fine è sufficiente modificare l'ultima linea del sorgente \ref{lst:rctbn-hparams} affinché il risultato della funzione \lstinline[language=rstats]{params} venga salvato in una variabile con tale nome.
+
+La porzione di codice seguente illustra la chiamata di tale funzione.
 
 \vspace*{8pt}\inputsourcecode[caption={[Calcolo delle \acs{CIM} di una \acs{CTBN} dal \ds{2}]Calcolo delle \acs{CIM} della \acs{CTBN} d'esempio dal \ds{2}.},language=rstats,label=lst:rctbn-cim-comput]{codes/cims}
 
@@ -160,9 +162,75 @@ Di seguito viene riportato un estratto dell'output ottenuto dall'esecuzione del 
 
 \cleardoublepage
 \subsection{Apprendimento di un CTBNC}
-% learn_ctbnc
+In questa sottosezione si presenta l'utilizzo del \pacchettor{} per l'apprendimento di un classificatore \acs{CTBN} (\acs{CTBNC}).
 
-%\vspace*{8pt}\inputsourcecode[caption={[].},language=rstats]{codes/}
+A tale scopo si presenta una porzione di codice \lstinline$R$ che, generato in modo casuale un classificatore \acs{CTBN} valido (si veda la \autoref{defn:ctbnc} nella \vref{sec:ctbnc-model}) per il \ds{2}, utilizza la funzione \lstinline[language=rstats]{learn_ctbnc} per apprenderne i parametri e la distribuzione a priori delle classi rispetto a un \emph{\keyword{traning set}} di tale dataset.
+
+Prima di illustrare il sorgente necessario all'apprendimento del succitato classificatore \acs{CTBN}, si riporta la sua struttura.
+
+Si osservi che tale struttura è perfettamente riproducibile su qualsiasi macchina si esegua il codice utile a generarla, a causa dell'utilizzo del comando \lstinline[language=rstats]{set.seed} che fissa il seme del generatore dei numeri casuali di \lstinline$R$.
+
+\begin{table}[htbp]%
+	\footnotesize
+	\centering%
+	\begin{tabular}{+c^c}
+	\toprule\rowstyle{\bfseries}%
+	Nodo    			& Nodi genitori 											\\\otoprule
+	D$1091$     	    & class, D$912$     										\\
+	D$1092$     	    & class, D$1091$     										\\
+	D$1110$     	    & class, D$5098$     										\\
+	D$1290$     	    & class, D$5095$     										\\
+	D$1480$     	    & class, D$212$, D$1110$ 									\\
+	D$1681$     	    & class, D$982$     										\\
+	D$1682$     	    & class, D$5094$,D$191$     								\\
+	D$1687$     	    & class, D$541$, D$1290$, D$1092$     						\\
+	D$191$     	    	& class     												\\
+	D$192$     	  		& class     												\\
+	D$211$     	    	& class, D$982$, D$1091$     								\\
+	D$212$     	    	& class, D$5099$     										\\
+	D$241$     	    	& class,     												\\
+	D$242$     	    	& class, D$5096$, D$911$     								\\
+	D$341$     	   		& class, D$242$, D$892$, D$1091$     						\\
+	D$421$     	    	& class, D$241$, D$982$, D$1091$     						\\\bottomrule
+	\end{tabular}
+	\hspace{-0.6em}
+	\begin{tabular}{+c^c}
+	\toprule\rowstyle{\bfseries}%
+	Nodo    			& Nodi genitori 											\\\otoprule
+	D$5094$     	    & class, D$1092$, D$781$     								\\
+	D$5095$     	    & class, D$5097$, D$982$, D$1091$     						\\
+	D$5096$     	    & class, D$212$, D$1687$     								\\
+	D$5097$     	    & class     												\\
+	D$5098$     	    & class, D$341$   											\\
+	D$5099$     	    & class   													\\
+	D$541$     	    	& class, D$421$     										\\
+	D$641$     	    	& class, D$341$, D$911$, D$192$     						\\
+	D$781$     	    	& class 	     											\\
+	D$782$     	 	    & class 	     											\\
+	D$891$     	    	& class, D$242$     										\\
+	D$892$     	 	    & class, D$241$, D$1682$, D$781$     						\\
+	D$911$     	  	    & class     												\\
+	D$912$     	  	    & class, D$5098$, D$892$    								\\
+	D$981$     	        & class, D$341$, D$982$, D$1110$, D$781$     				\\
+	D$982$				& class, D$5094$									 		\\\bottomrule
+	\end{tabular}
+	\caption[Esempio di classificatore \acs{CTBN}]{Struttura d'esempio di un classificatore \acs{CTBN} (\acs{CTBNC}) espressa tramite la corrispondenza fra i nodi e relativi insieme di genitori.}
+\end{table}\normalsize
+
+Si presenta ora sinteticamente la firma della la funzione \lstinline[language=rstats]{learn_ctbnc}. Essa richiede in input due parametri principali:
+\begin{itemize}
+	\item il \emph{\keyword{traning set}}
+	\item una matrice di adiacenza che rappresenti una struttura valida di un classificatore \acs{CTBN}.
+\end{itemize}
+In sostanza, la funzione \lstinline[language=rstats]{learn_ctbnc} implementa l'\autoref{lst:ctbnc-learning} presentato \vpageref{lst:ctbnc-learning}.
+
+Di seguito si illustra il codice sorgente che, utilizzando tale funzione, apprende un \acs{CTBNC} da un \emph{\keyword{training set}} del \ds{2} (\ie{} da una porzione di elementi di tale dataset).
+
+\vspace*{8pt}\inputsourcecode[caption={[Apprendimento di un \acs{CTBNC} sul \ds{2}]Apprendimento di un classificatore \acs{CTBN}, la cui struttura viene generata in modo casuale, su un \emph{\keyword{traning set}} facente parte del \ds{2}.},language=rstats,label=lst:rctbn-learc-ctbnc]{codes/learnctbnc}
+
+Affinché l'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-learc-ctbnc} sia leggibile, se ne riporta solamente la sua prima parte.
+
+\vspace*{8pt}\inputsourcecode[nolol,language=pseudo,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/learnctbncres}\vspace*{8pt}
 
 \subsection{Classificazione di un CTNBC}
 %prima è necessario apprendere -> apprendimento learn_ctnbc
