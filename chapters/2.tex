@@ -267,20 +267,11 @@ Di conseguenza, dato un classificatore \acs{CTBN} $\conceptsym{C}=\{\,\conceptsy
 \end{equation}
 Si presenta di seguito l'algoritmo per l'\emph{\keyword{inferenza} esatta}~\citep{Stella2012} di un flusso di evidenze completamente osservato rispetto a un classificatore \acs{CTBN}.
 
-Tuttavia si osservi che tale algoritmo rappresenta le probabilità come \emph{log-probabilità}\footnote{La \emph{log-probabilità} è un modalità di rappresentazione della probabilità che porta con sè alcuni vantaggi algebrici e computazionali. Ad esempio, l'utilizzo della \emph{log-probabilità} generalmente comporta una maggior velocità dovuta alla trasformazione delle moltiplicazioni, più computazionalmente costose, in addizioni. In informatica è molto comune l'utilizzo della sua variante negativa, la quale codifica un valore di probabilità $\setel{x} \in [0\,,\,1]$ come $\setel{x}^{\prime}=-\log(\setel{x}) \in \R$.}, a causa della succitata convenienza algebrica che ne deriva. Ciò significa che l'\autoref{lst:ctbnc-inference} implementa la probabilità a posteriori della classe dato un flusso di evidenze (\autoref{eq:ctbnc-inference-9}) come segue:
-\small
-\begin{equation}\label{eq:ctbnc-inference-11}
-\ell_{P(\setel{Y}|\omissis{})} = \log (P(\setel{Y})) + \sum_{j=1}^{J}\sum_{n=1}^N-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1}) + \log (P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y}))\text{\normalsize .}
-\end{equation}
-\normalsize
-A tal proposito si noti che, nel caso in cui non avvenga alcun cambio di stato durante un determinato istante di tempo $t_j$, la quantità $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ dell'\autoref{eq:ctbnc-inference-11} sarà pari a $1$ (si veda l'\autoref{eq:ctbnc-inference-6}), il cui logaritmo è pari a $0$. Ciò si riflette nella struttura di controllo condizionale alla \autoref{lst:inference-transition-qty}.
 \vspace*{8pt}\begin{lstlisting}[caption={[Inferenza su un classificatore \acs{CTBN}]Inferenza su un classificatore \acs{CTBN} (\acs{CTBNC}).},label=lst:ctbnc-inference, language=pseudo]
 function infer(ctbnc, timeseg, stream) {
     <ls>\label{lst:inference-priors-start}<le>var priors = ctbnc.priors
     var logp[len(priors)]
-    for (k in index(priors)) {
-        logp[k] = log(priors[k])
-    <ls>\label{lst:inference-priors-end}<le>}
+    for (k in index(priors)) logp[k] = log(priors[k])<ls>\label{lst:inference-priors-end}<le>
     <ls>\label{lst:inference-classes-for}<le>for (k in index(priors)) {
         <ls>\label{lst:inference-stream-for}<le>for (j in index(timeseg)) {
             <ls>\label{lst:inference-nodes-for}<le>for (n in index(ctbnc.graph.nodes)) {
@@ -293,20 +284,29 @@ function infer(ctbnc, timeseg, stream) {
     <ls>\label{lst:inference-logprob-end}<le>}
     <ls>\label{lst:inference-end}<le>return which(max(logp))
 }
-\end{lstlisting}
+\end{lstlisting}\normalsize
+
+Si osservi che tale algoritmo rappresenta le probabilità come \emph{log-probabilità}\footnote{La \emph{log-probabilità} è un modalità di rappresentazione della probabilità che porta con sè alcuni vantaggi algebrici e computazionali. Ad esempio, l'utilizzo della \emph{log-probabilità} generalmente comporta una maggior velocità dovuta alla trasformazione delle moltiplicazioni, più computazionalmente costose, in addizioni. In informatica è molto comune l'utilizzo della sua variante negativa, la quale codifica un valore di probabilità $\setel{x} \in [0\,,\,1]$ come $\setel{x}^{\prime}=-\log(\setel{x}) \in \R$.}, a causa della succitata convenienza algebrica che ne deriva. Ciò significa che l'\autoref{lst:ctbnc-inference} implementa la probabilità a posteriori della classe dato un flusso di evidenze (\autoref{eq:ctbnc-inference-9}) come segue:
+\small
+\begin{equation}\label{eq:ctbnc-inference-11}
+\ell_{P(\setel{Y}|\omissis{})} = \log (P(\setel{Y})) + \sum_{j=1}^{J}\sum_{n=1}^N-\param{q}_{\setel{x}_n^j}^{pa_j(\setel{x}_n)}\,(t_j - t_{j-1}) + \log (P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y}))\text{\normalsize .}
+\end{equation}
+\normalsize
+A tal proposito si noti che, nel caso in cui non avvenga alcun cambio di stato durante un determinato istante di tempo $t_j$, la quantità $P(\setel{x}_n^{j+1}\,\arrowvert\,\setel{x}_n^j,\setel{Y})$ dell'\autoref{eq:ctbnc-inference-11} sarà pari a $1$ (come specificato dall'\autoref{eq:ctbnc-inference-6}), il cui logaritmo è pari a $0$. Ciò si riflette nella struttura di controllo condizionale alla \autoref{lst:inference-transition-qty}.
+
 L'\autoref{lst:ctbnc-inference} di inferenza esatta appena presentato è composto principalmente da due fasi corrispondenti ai due termini principali dell'\autoref{eq:ctbnc-inference-11}: da \autoref{lst:inference-priors-start} a \autoref{lst:inference-priors-end} converte la distribuzione della variabile classe $\setel{Y}$ del classificatore \acs{CTBN} in forma logaritmica; da \autoref{lst:inference-classes-for} a \autoref{lst:inference-logprob-end} aggiorna, incrementandola o decrementandola, il valore di \emph{log-probabilità} relativo a ogni classe (si veda il ciclo \lstinline[]|for| alla \autoref{lst:inference-classes-for}) del classificatore \acs{CTBN} iterando il flusso di evidenze per ogni segmento temporale cui sono associate le sue istanze (\ie{} variabile \lstinline[]|timeseg|, che si assume venga fornita in input; si veda il ciclo \lstinline[]|for| alla \autoref{lst:inference-stream-for}), infine iterando sui nodi del grafo $\conceptsym{N}$ del \acs{CTBNC} (ciclo \lstinline[]|for| a \autoref{lst:inference-nodes-for}).
-\begin{nota}
-Si osservi che è possibile implementare l'algoritmo di inferenza anche utilizzando la \emph{\keyword{parametrizzazione mista}} (si veda la \autoref{defn:mixed-parametrization}). In tal caso si evita la computazione delle \cim{} (\acs{CIM}) ma, in contrasto, è necessario calcolare il termine $\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$ (a tal proposito si veda l'\autoref{eq:ctbn-params-rel}) ogni qual volta una variabile casuale del flusso di evidenze di input effettui una transizione (a patto che tale transizione avvenga fra due stati appartenenti allo spazio degli stati della rispettiva variabile casuale associata al nodo del classificatore \acs{CTBN}).
-% Tale approccio può risultare conveniente o meno. Nello specifico, la limitazione di questo approccio si presenta quando le variabili casuali del flusso di evidenza di input effettuano transizioni molto spesso, per giunta tra gli stessi stati: ciò implica che si calcolerà più volte del necessario la stessa intensità di transizione. Tuttavia, prevedendo un meccanismo di memorizzazione delle transizioni per cui si è già computata la rispettiva intensità, questo approccio può rivelarsi più efficiente.
-\end{nota}
 
 Il passo finale dell'algoritmo, corrispondente alla linea~\autoref{lst:inference-end}, consiste nella restituzione della classe la cui \emph{log-probabilità} è maggiore di quella delle restanti classi. Tale passo completa perciò l'implementazione dell'\autoref{eq:ctbnc-inference-10}.
+
+L'algoritmo di inferenza esatta presentato in questa sezione è polinomiale.
+
+\begin{nota}
+Si osservi che è possibile implementare l'algoritmo di inferenza anche utilizzando la \emph{\keyword{parametrizzazione mista}} (si veda la \autoref{defn:mixed-parametrization}). In tal caso si evita la computazione delle \cim{} (\acs{CIM}) ma, in contrasto, ogni qual volta una variabile casuale del flusso di evidenze di input effettua una transizione è necessario calcolare il termine $\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$ (a tal proposito si veda l'\autoref{eq:ctbn-params-rel}).% Tale approccio può risultare conveniente o meno. Nello specifico, la limitazione di questo approccio si presenta quando le variabili casuali del flusso di evidenza di input effettuano transizioni molto spesso, per giunta tra gli stessi stati: ciò implica che si calcolerà più volte del necessario la stessa intensità di transizione. Tuttavia, prevedendo un meccanismo di memorizzazione delle transizioni per cui si è già computata la rispettiva intensità, questo approccio può rivelarsi più efficiente.
+\end{nota}
 
 %\begin{nota}
 %Si noti che l'algoritmo in esame implementa una conversione delle probabilità in forma logaritmica non negativa (\ie{} $\setel{x} \in [0\,,\,1]$ %rappresentato come $\setel{x}^{\prime}=\log(\setel{x})$). Ne consegue che l'applicazione della regola \acs{MAP} non varia.
 %\end{nota}
-
-L'algoritmo di inferenza esatta presentato in questa sezione è polinomiale.
 
 % \section{Considerazioni}\label{sec:considerations-ctbnc}
 % In questo capitolo si è quindi definita la classe dei \acf{CTBNC}, una classe di modelli grafico probabilistici finalizzati alla classificazione supervisionata, caratterizzati dalla capacità di modellare direttamente la variabile temporale. Per tale classe sono stati presentati un processo di apprendimento e uno di inferenza esatta. Entrambi gli algoritmi correlati a tali processi sono inoltre computazionalmente efficienti.
