@@ -116,6 +116,7 @@ A titolo esemplificativo si ipotizzi di voler calcolare le \emph{\stats{}}:
 \end{itemize}
 Tale insieme di informazioni corrisponde alla matrice mostrata di seguito.
 
+%FIXME: fare tabella!
 \vspace*{8pt}\inputsourcecode[numbers=none,language=pseudo,nolol,basicstyle=\footnotesize\ttfamily]{codes/fsstatsgraphmatrix}\vspace*{8pt}
 
 Il sorgente che segue illustra come costruire tale matrice e utilizzarla come parametro di input della funzione \lstinline[language=rstats]{fsstats_graph}.
@@ -156,7 +157,7 @@ La porzione di codice seguente illustra la chiamata di tale funzione.
 
 \vspace*{8pt}\inputsourcecode[caption={[Calcolo delle \acs{CIM} di una \acs{CTBN} dal \ds{2}]Calcolo delle \acs{CIM} della \acs{CTBN} d'esempio dal \ds{2}.},language=rstats,label=lst:rctbn-cim-comput]{codes/cims}
 
-Di seguito viene riportato un estratto dell'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-cim-comput}.
+Di seguito viene mostrato un estratto dell'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-cim-comput}.
 
 \vspace*{8pt}\inputsourcecode[language=pseudo,nolol,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/cimsres}\vspace*{8pt}
 
@@ -168,7 +169,7 @@ A tale scopo si presenta una porzione di codice \lstinline$R$ che, generato in m
 
 Prima di illustrare il sorgente necessario all'apprendimento del succitato classificatore \acs{CTBN}, si riporta la sua struttura.
 
-Si osservi che tale struttura è perfettamente riproducibile su qualsiasi macchina si esegua il codice utile a generarla, a causa dell'utilizzo del comando \lstinline[language=rstats]{set.seed} che fissa il seme del generatore dei numeri casuali di \lstinline$R$.
+Si osservi che tale struttura è perfettamente riproducibile su qualsiasi macchina esegua il codice utile a generarla. Ciò è possibile grazie all'utilizzo del comando \lstinline[language=rstats]{set.seed} che fissa il seme del generatore dei numeri casuali di \lstinline$R$. La tabella seguente illustra perciò tale struttura, sotto forma di corrispondenza di ogni nodo al suo insieme di nodi genitori.
 
 \begin{table}[htbp]%
 	\footnotesize
@@ -220,7 +221,7 @@ Si osservi che tale struttura è perfettamente riproducibile su qualsiasi macchi
 Si presenta ora sinteticamente la firma della la funzione \lstinline[language=rstats]{learn_ctbnc}. Essa richiede in input due parametri principali:
 \begin{itemize}
 	\item il \emph{\keyword{traning set}}
-	\item una matrice di adiacenza che rappresenti una struttura valida di un classificatore \acs{CTBN}.
+	\item una matrice di adiacenza, della stessa entità di quella richiesta dalla funzione \lstinline[language=rstats]{fsstats_graph}, che rappresenti una struttura valida di un classificatore \acs{CTBN}.
 \end{itemize}
 In sostanza, la funzione \lstinline[language=rstats]{learn_ctbnc} implementa l'\autoref{lst:ctbnc-learning} presentato \vpageref{lst:ctbnc-learning}.
 
@@ -231,6 +232,11 @@ Di seguito si illustra il codice sorgente che, utilizzando tale funzione, appren
 Affinché l'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-learc-ctbnc} sia leggibile, se ne riporta solamente la sua prima parte.
 
 \vspace*{8pt}\inputsourcecode[nolol,language=pseudo,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/learnctbncres}\vspace*{8pt}
+
+Si osservi che l'oggetto restituito dalla funzione \lstinline[language=rstats]{learn_ctbnc} è una lista nominata (\ie{} un tipo del linguaggio \lstinline$R$ simile a una tabella hash) composta da $2$ elementi, chiamati \lstinline$priors$ e \lstinline$params$.
+
+Ipotizzando di assegnare il risultato di \lstinline[language=rstats]{learn_ctbnc} a un oggetto chiamato \lstinline$model$, è possibile accedere ai suoi elementi tramite l'operatore per liste nominate \lstinline[]|$|%
+. Ad esempio, il comando \lstinline[]|model$priors| permette di accedere alla distribuzione di probabilità a priori della variabile classe, che è anch'essa una lista nominata, come visibile dall'output mostrato.
 
 \subsection{Classificazione di un CTNBC}
 %prima è necessario apprendere -> apprendimento learn_ctnbc
@@ -254,7 +260,7 @@ Come primo passo è chiaramente necessario aprire \acs{TShell} e caricare il mod
 \begin{itemize}
 	\item nella barra degli strumenti di \acs{TShell} si clicchi l'icona relativa a \acsfont{Sensors} \acs{DLL}
 	\item si clicchi sul pulsante relativo alle \emph{\virgolette{proprietà d'esecuzione}} $\vcenter{\hbox{\includegraphics[scale=.9]{run-props}}}$ e successivamente sulla scheda \emph{\virgolette{proprietà d'esecuzione multipla}}
-	\item si selezioni il file \acs{RNS} fornito in allegato a questo lavoro di tesi (e riportato nel sorgente \ref{lst:model2-week-rns} \vpageref{lst:model2-week-rns})\par
+	\item si selezioni il file \acs{RNS} fornito in allegato a questo lavoro di tesi (e illustrato nel sorgente \ref{lst:model2-week-rns} \vpageref{lst:model2-week-rns})\par
 	\begin{minipage}{\linewidth}
 		\centering
 		\includegraphics[width=1\linewidth]{multi-run-properties-tsis-next}\captionof{figure}[Esecuzione multipla guidata da file \acs{RNS}]{Selezione del file \acs{RNS} per l'impostazione dell'esecuzione multipla.}\label{fig:multi-run-properties-tsis-next}

@@ -1,0 +1,33 @@
+                    PARENT_SET CHILD
+ 1:                 class,D912 D1091
+ 2:                class,D1091 D1092
+ 3:                class,D5098 D1110
+ 4:                class,D5095 D1290
+ 5:           class,D212,D1110 D1480
+ 6:                 class,D982 D1681
+ 7:           class,D5094,D191 D1682
+ 8:     class,D541,D1290,D1092 D1687
+ 9:                      class  D191
+10:                      class  D192
+11:           class,D982,D1091  D211
+12:                class,D5099  D212
+13:                      class  D241
+14:           class,D5096,D911  D242
+15:      class,D242,D892,D1091  D341
+16:      class,D241,D982,D1091  D421
+17:           class,D1092,D781 D5094
+18:     class,D5097,D982,D1091 D5095
+19:           class,D212,D1687 D5096
+20:                      class D5097
+21:                 class,D341 D5098
+22:                      class D5099
+23:                 class,D421  D541
+24:       class,D341,D911,D192  D641
+25:                      class  D781
+26:                      class  D782
+27:                 class,D242  D891
+28:      class,D241,D1682,D781  D892
+29:                      class  D911
+30:           class,D5098,D892  D912
+31: class,D341,D982,D1110,D781  D981
+32:                class,D5094  D982
