@@ -7,4 +7,4 @@ instance1[, class := NULL]
 # apprendimento del CTNBC sui restanti elementi
 m <- learn_ctnbc(monza100e)<ls>\label{lst:learn-ctbnc-infer2}<le>
 # inferenza della classe dell'istanza selezionata
-results <- infer_ctnbc(m, instance1)
+results <- infer_ctbnc(m, instance1)

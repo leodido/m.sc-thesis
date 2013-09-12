@@ -14,4 +14,4 @@ amat <- rbind(class = rep(1, ncols), amat)
 # apprendimento del CTNBC sui restanti elementi
 m <- learn_ctbnc(monza100e, amat)<ls>\label{lst:learn-ctbnc-infer1}<le>
 # inferenza della classe dell'istanza selezionata
-results <- infer_ctnbc(m, instance1)<ls>\label{lst:infer-ctbnc-infer1}<le>
+results <- infer_ctbnc(m, instance1)<ls>\label{lst:infer-ctbnc-infer1}<le>

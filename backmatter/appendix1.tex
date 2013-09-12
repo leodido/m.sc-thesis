@@ -253,15 +253,17 @@ Ipotizzando di assegnare il risultato di \lstinline[language=rstats]{learn_ctbnc
 . Ad esempio, il comando \lstinline[]|model$priors| permette di accedere alla distribuzione di probabilità a priori della variabile classe come visibile dall'output mostrato.
 
 \subsection{Classificazione di un CTNBC}
-Una volta appreso un classificatore è necessario verificarne la sua capacità di classificazione\index{classificazione supervisionata}. A tale scopo si necessita quindi di un algoritmo di classificazione che, dato in input il modello di un classificatore appreso e una istanza da classificare, inferisca la classe a cui è più probabile che tale istanza appartenga.
+Appreso un classificatore \acs{CTBN} su un \emph{\keyword{training set}} è chiaramente possibile, come discusso in questo lavoro di tesi, utilizzarlo per compiere la classificazione\index{classificazione supervisionata} di una qualsiasi istanza del \emph{\keyword{test set}}. A tale scopo si necessita di un algoritmo di classificazione che, dato in input il modello di un classificatore appreso e una istanza da classificare, inferisca la classe a cui è più probabile che tale istanza appartenga.
 
-In questo lavoro di tesi, \vpageref{lst:ctbnc-inference}, si è presentato un algoritmo di inferenza (\autoref{lst:ctbnc-inference}) dedito alla classificazione di classificatori \acl{CTNB} (\acs{CTNBC}). Il \pacchettor{} espone la funzione \lstinline[language=rstats]{infer_ctnbc} che implementa tale procedura di inferenza.
+Lo scopo di questa sottosezione è illustrare il processo di classificazione\index{classificazione supervisionata} tramite un modello di classificatore \acs{CTNB} (\acs{CTNBC}).
+
+In questo lavoro di tesi, \vpageref{lst:ctbnc-inference}, si è presentato un algoritmo di inferenza (\autoref{lst:ctbnc-inference}) dedito alla classificazione tramite classificatori \acl{CTBN} (\acs{CTBNC}), classe di modelli di \emph{\keyword{classificazione supervisionata}} cui appartengono i modelli di classificatori \acs{CTNB}. Il \pacchettor{} fornisce tale procedura di inferenza esponendo la funzione \lstinline[language=rstats]{infer_ctbnc}.
 
 Prima di presentare la succitata funzione, si fa notare che \rctbn{} fornisce una funzione apposita per l'apprendimento dei classificatori \acs{CTNB} (\acs{CTNBC}): \lstinline[language=rstats]{learn_ctnbc}. Una chiamata a tale funzione è equivalente a una chiamata alla funzione \lstinline[language=rstats]{learn_ctbnc} con parametro \lstinline$amat$ posto al valore \lstinline$NULL$. Tuttavia, essa è ben più performante di \lstinline[language=rstats]{learn_ctbnc} poiché attua delle ottimizzazioni di calcolo dovute a delle assunzioni che la struttura dei classificatori \acs{CTNB} permettono di fare.
 
-I parametri principali per cui la funzione \lstinline[language=rstats]{infer_ctnbc} richiede un input sono:
+I parametri principali per cui la funzione \lstinline[language=rstats]{infer_ctbnc} richiede un input sono:
 \begin{itemize}
-	\item il modello di un classificatore \acs{CTNB} (\acs{CTNBC})
+	\item il modello di un classificatore \acs{CTBN} (\acs{CTBNC})
 	\item un'istanza su cui effettuare la procedura di inferenza.
 \end{itemize}
 Anche in questo caso si tralascia la discussione dei restanti parametri poiché essi non sono di primaria importanza.
@@ -274,11 +276,11 @@ Come detto, utilizzando l'apposita funzione (si veda \autoref{lst:learn-ctbnc-in
 
 \vspace*{8pt}\inputsourcecode[caption={[Classificazione di un'istanza del \ds{2}]Apprendimento di un classificatore \acs{CTNB} (\acs{CTNBC}) tramie la apposita funzione e classificazione di un'istanza del \ds{2} tramite tale classificatore.},label=lst:rctbn-infer-ctnbc,language=rstats]{codes/inferctnbc2}
 
-L'output della funzione \lstinline[language=rstats]{infer_ctnbc} consiste in una lista etichettata composta due elementi: \lstinline$logp$, contenente un vettore etichettato delle \emph{\keyword{log-probabilità}} di ogni classe e \lstinline$prob$, contenente un vettore etichettato delle \emph{\keyword{probabilità}} assegnate ad ogni classe del modello \acs{CTNBC} di riferimento.
+L'output della funzione \lstinline[language=rstats]{infer_ctbnc} consiste in una lista etichettata composta due elementi: \lstinline$logp$, contenente un vettore etichettato delle \emph{\keyword{log-probabilità}} di ogni classe e \lstinline$prob$, contenente un vettore etichettato delle \emph{\keyword{probabilità}} assegnate ad ogni classe del modello \acs{CTNBC} di riferimento.
 
 \vspace*{8pt}\inputsourcecode[nolol,language=pseudo,numbers=none,basicstyle=\small\ttfamily]{codes/inferctnbcres}\vspace*{8pt}
 
-Si osservi che, questa modalità di output non è l'unica che la funzione \lstinline[language=rstats]{infer_ctnbc} possiede. Infatti, fornendole un ulteriore parametro booleano in input, essa restituisce il nome (\ie{} $1$ in questo caso) della classe assegnata all'istanza processata. Nel caso si voglia operare manualmente tale operazione è sufficiente digitare il seguente comando:
+Si osservi che, questa modalità di output non è l'unica che la funzione \lstinline[language=rstats]{infer_ctbnc} possiede. Infatti, fornendole un ulteriore parametro booleano in input, essa restituisce il nome (\ie{} classe $1$) della classe assegnata all'istanza processata e il relativo valore di probabilità ($100\%$, in questo caso). Nel caso si voglia operare manualmente tale operazione è sufficiente digitare il seguente comando:
 
 \lstinline[language=rstats]{max(results[["prob"]])}.
 
