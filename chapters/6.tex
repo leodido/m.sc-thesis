@@ -6,16 +6,16 @@
 %************************************************
 \chapter{Esperimenti numerici}\label{cap:esperimenti}
 %************************************************
-Lo scopo di questo capitolo è presentare i risultati ottenuti dalla sperimentazione degli algoritmi di classificazione e apprendimento strutturale oggetto di questo lavoro di tesi (si vedano rispettivamente i~\vref{cap:ctbnc,cap:structurallearning}).
+Lo scopo finale di questo capitolo è presentare i risultati ottenuti dalla sperimentazione del processo di \emph{classificazione supervisionata} utilizzando diversi modelli di classificatore \acs{CTBN} (\acs{CTBNC}) (riguardo tali argomenti si rimanda ai~\vref{cap:ctbnc,cap:structurallearning}).
 
-La generazione di dataset inerenti il traffico automobilistico è stata effettuata, come detto, tramite un software commerciale apposito, \acs{TSIS}, e una \acl{RTE}, \acsfont{Sensors} \acs{DLL}, sviluppata a tale fine. Per maggiori dettagli riguardanti questi strumenti si rimanda al \vref{cap:tsis-sensors}.
+Tuttavia, prima di illustrare e comparare i succitati risultati, si presentano i modelli \acs{TSIS} da cui sono stati generati i dataset oggetto della sperimentazione. La generazione di dataset inerenti il traffico automobilistico è stata effettuata, come detto, tramite un software commerciale apposito, \acs{TSIS}, e una \acl{RTE}, \acsfont{Sensors} \acs{DLL}, sviluppata a tale fine. Per maggiori dettagli riguardanti questi strumenti si rimanda al \vref{cap:tsis-sensors}.
 
-Questo capitolo è quindi articolato in due parti, una per ogni dataset su cui è stata effettuata la succitata sperimentazione. Ognuna di tali sezioni è a sua volta suddivisa in due sottosezioni: la prima finalizzata alla descrizione del modello \acs{TSIS} da cui è stato generato il dataset oggetto della sperimentazione e alla descrizione di tale dataset, e la seconda finalizzata alla presentazione dei risultati di tale sperimentazione.
+Perciò, questo capitolo è così articolato: una sezione per ognuno dei $2$ dataset generati, e una sezione relativa alla succitata sperimentazione. Le sezioni relative ai dataset sono suddivise in due sottosezioni: la prima finalizzata alla descrizione del modello \acs{TSIS} da cui è stato generato il dataset successivamente sottoposto a sperimentazione e la seconda finalizzata alla presentazione delle varie configurazioni del dataset generato.
 
-Al fine di valutare l'accuratezza dei metodi predittivi sviluppati, la sperimentazione è stata eseguita utilizzando la tecnica chiamata \emph{\keyword{cross-validation}}. Tale metodologia di validazione è infatti pensata per accertare la capacità di generalizzazione di un modello statistico di tipo predittivo su un insieme di dati non conosciuto. Nello specifico, entrambe le sperimentazioni, e entrambi i metodi predittivi valutati (\ie{} classificazione e apprendimento strutturale), sono state condotte tramite una \emph{\keyword{$k$-fold}} \emph{\keyword{cross-validation}} con $k=10$.
+Al fine di valutare l'accuratezza dei metodi predittivi sviluppati, la sperimentazione è stata eseguita utilizzando la tecnica chiamata \emph{\keyword{cross-validation}}. Tale metodologia di validazione è infatti pensata per accertare la capacità di generalizzazione di un modello statistico di tipo predittivo su un insieme di dati non conosciuto. Nello specifico, le sperimentazioni dei metodi predittivi valutati sono state condotte tramite una \emph{\keyword{$k$-fold}} \emph{\keyword{cross-validation}} con $k=10$.
 
 \section{\Ds{1}}\label{sec:dataset-1}
-Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti utilizzando tale insieme di \emph{\keyword{dati completi}} come input.
+Lo scopo di questa sezione è presentare le varie configurazioni del \ds{1} create.
 
 \subsection{Modello TSIS}\label{subsec:tsis-simple-model}
 Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui esso è stato generato.
@@ -201,24 +201,28 @@ Si consideri, ad esempio, la prima cella della~\autoref{tab:ds-1-turning-movs}: 
 	\label{tab:ds-1-turning-movs}
 \end{table}
 
+\newpage
+\subsection{Configurazioni del dataset}
 Come detto nella~\autoref{subsec:sensors-dll}~\vpageref{subsec:sensors-dll}, eseguendo il modello di simulazione \acs{CORSIM} descritto in questa sezione con \acsfont{Sensors} \acs{DLL} si ottiene un file di output (si veda il listato d'esempio \ref{lst:sensors-out-format} \vpageref{lst:sensors-out-format}) che, adeguatamente processato, compone un dataset sottoponibile agli algoritmi di apprendimento e classificazione presentati nei capitoli~\ref{cap:ctbnc} e \ref{cap:structurallearning}.
 
-Di seguito si descrivono le caratteristiche di tale dataset:
+Di seguito si descrivono le caratteristiche di tale dataset comuni a tutte le sue varianti generate:
 \begin{itemize}
 	\item tempo totale pari a $86400$ secondi (\ie{} $24$ ore)
-	\item suddivisione in $864$ elementi (\ie{} file)
-	\item ogni elemento include $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
-	\item ogni elemento è stato ottimizzato, cioè sottoposto all'eliminazione delle righe in cui non si verifica alcuna transizione di stato dei sensori
 	\item la colonna \lstinline[]|tp| è stata rimossa e sostituita con la colonna \lstinline[]|class| in base alla corrispondenza riportata nella \vref{tab:ds-1-tp-labels}
 	\item l'intestazione di ogni elemento è: \\ \lstinline[]|time, class, D122, D121, D341, D342, D722, D721, D1142, D1141, D231, D232, D541, D542, D4112, D4111, D431, |\\\lstinline[]|D432, D4101, D4102, D451, D452, D832, D831, D261, D262, D321, D322, D392, D391, D211, D212, D272, D271, D1042, |\\\lstinline[]|D1041, D622, D621, D932, D931, D381, D382|.
+	\item ogni elemento del dataset (\ie{} file) è stato ottimizzato, cioè sottoposto all'eliminazione delle righe in cui non si verifica alcuna transizione di stato dei sensori
 \end{itemize}
 
-\subsection{Risultati}
-%configurazione fold
-%configurazione imaginary counts and time
+Per il dataset in questione si sono create due sue differenti varianti operando differenti divisioni temporali del file sorgente:
+\begin{enumerate}
+	\item suddivisione in $864$ elementi, ognungo dei quali include al più $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
+	\item suddivisione in $288$ elementi, ognuno dei quali include al più $5$ minuti di traiettorie di ogni sensore della succitata rete stradale.
+\end{enumerate}
+Tali configurazioni sono chiamate, rispettivamente, \ds{1\text{.}100} e \ds{1\text{.}300}.
 
+\cleardoublepage
 \section{\Ds{2}}\label{sec:dataset-2}
-Lo scopo di questa sezione è presentare il \ds{1} e i risultati di classificazione e apprendimento strutturale ottenuti utilizzando tale insieme di \emph{\keyword{dati completi}} come input. A tale scopo, nella sottosezione che segue, si descrive la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui tale dataset è stato generato.
+Questa sezione presenta il \ds{2}. A tale scopo, nella sottosezione che segue, si descrive la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui tale dataset è stato generato.
 
 \subsection{Modello TSIS}\label{subsec:tsis-monza-model}
 Il modello \acs{TSIS} in questione, a differenza di quello presentato nella \autoref{subsec:tsis-simple-model}, riproduce una rete stradale reale. Nello specifico esso riproduce la rete stradale circostante \emph{Viale Cesare Battisti} ($20900$ \emph{Monza, MB - Italia}). Disponendo di una serie di informazioni reali, tra cui i dati dei sensori posti su tale rete stradale, si sono potute inferire le caratteristiche della circolazione dei veicoli (\eg{} flusso di veicoli in ingresso) e quindi riprodurre fedelmente l'andamento del traffico durante tutti i giorni della settimana tramite degli adeguati modelli di simulazione \acs{CORSIM}. Nello specifico si sono realizzati $3$ modelli \acs{CORSIM}: essi rappresentano la stessa rete stradale ma diversi modelli di traffico, uno per i giorni lavorativi (dal lunedì al venerdì), uno per il sabato e uno per la domenica.
@@ -227,19 +231,19 @@ La~\vref{fig:tsis-model-monza-nodes} illustra la rete stradale oggetto di studio
 \begin{figure}
   \centering
   \captionsetup[subfigure]{labelformat=empty}
-  \subfloat[][]{\includegraphics[width=0.935\columnwidth]{tsis-model-monza-gmap-dx}}%
+  \subfloat[][]{\includegraphics[width=0.99\columnwidth]{tsis-model-monza-gmap-dx}}%
   \phantomcaption
   \label{fig:tsis-model-monza-nodes}
 \end{figure}
-\begin{figure}
+\begin{figure}[ht]
   \centering
   \captionsetup{type=figure}
   \captionsetup[subfigure]{labelformat=empty}
-  \subfloat[][]{\includegraphics[width=0.935\columnwidth]{tsis-model-monza-gmap-sx}}%
+  \subfloat[][]{\includegraphics[width=0.99\columnwidth]{tsis-model-monza-gmap-sx}}%
   \caption[Intersezioni della rete stradale del \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante le intersezioni della rete stradale da cui viene generato il \ds{2}.}
 \end{figure}
 
-La~\vref{tab:ds-2-nodes} illustra la correlazione tra gli indici dei nodi \acs{CORSIM} e ciò che essi rappresentano nel modello in questione.
+La~\vref{tab:ds-2-nodes} illustra invece la correlazione tra gli indici dei nodi \acs{CORSIM} e ciò che essi rappresentano nel modello in questione.
 \begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l}
@@ -288,7 +292,18 @@ I sensori aggiunti alla rete stradale sono identificati secondo uno schema ben p
 \item il sensore identificato da D$912$ è posto sulla corsia di sinistra della strada che collega l'intersezione \virgolette{Volta} (\ie{} nodo $09$) all'intersezione \virgolette{Dante} (\ie{} nodo $01$)
 \item il sensore identificato da D$1480$ è posto sull'unica corsia di \virgolette{Via Tognetti} (\ie{} nodo $14$) nei pressi dell'incrocio con l'intersezione \virgolette{Boito} (\ie{} nodo $08$).
 \end{itemize}
-\begin{table}[htbp]%
+La \vref{fig:tsis-model-monza} illustra la disposizione di tutti i sensori sulla rete stradale in esame, distinguendo quelli reali tramite un colore diverso dell'indice che li rappresenta.
+
+\cleardoublepage
+% TODO: inserire nomi vie visibili
+\begin{figure}[H]
+  	\centering
+  	\includegraphics[width=1\columnwidth]{tsis-model-monza-compact}%
+  	\caption[Rete stradale relativa al \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{2}.}
+	\label{fig:tsis-model-monza}
+\end{figure}
+
+\begin{table}[ht]%
 	\centering%
 	\begin{tabular}{+l^l}
 	\toprule\rowstyle{\bfseries}%
@@ -341,20 +356,12 @@ I sensori aggiunti alla rete stradale sono identificati secondo uno schema ben p
 	\color{red}$31$& D$5095*$     \\
 	$32$& D$541$       \\\bottomrule
 	\end{tabular}
-	\caption[Sensori relativi al \ds{2}]{Corrispondenza fra gli identificatori dei sensori del \ds{2} e l'indice con cui essi sono indicati nella \omissis{}}
+	\caption[Sensori relativi al \ds{2}]{Corrispondenza fra gli identificatori dei sensori del \ds{2} e l'indice con cui essi sono indicati nella \vref{fig:tsis-model-monza}.}
 	\label{tab:ds-2-sensors-indices}
 \end{table}
-Nella~\vref{tab:ds-2-sensors-indices}, i sensori il cui identificatore è contrassegnato da un asterisco corrispondono ai sensori reali, evidenziati anche nella \vref{fig:tsis-model-monza} tramite un indice numerico di colore rosso, mentre gli altri sensori sono quelli aggiunti per estendere il modello in questione.
+Nella~\vref{tab:ds-2-sensors-indices}, i sensori il cui identificatore è contrassegnato da un asterisco corrispondono ai sensori reali, evidenziati anche nella \vref{fig:tsis-model-monza} tramite un indice numerico di colore rosso; i restanti sensori corrispondono a quelli aggiunti per estendere il modello in questione.
 
-% TODO: inserire nomi vie visibili
-\begin{figure}[ht]
-  	\centering
-  	\includegraphics[width=1\columnwidth]{tsis-model-monza-compact}%
-  	\caption[Rete stradale relativa al \ds{2}]{Visualizzazione del file \acs{TNO} rappresentante la rete stradale da cui viene generato il \ds{2}.}
-	\label{fig:tsis-model-monza}
-\end{figure}
-
-Di seguito si riportano le ulteriori caratteristiche di tale rete stradale:
+Di seguito si riportano le ulteriori caratteristiche della rete stradale oggetto di questa sottosezione:
 \begin{itemize}
 	\item la larghezza delle corsie è \num{3.65} \si{\metre}
 	\item le strade del modello \acs{TSIS} riproducono esattamente, sia in lunghezza che in forma, la porzione di strada reale che modellano:
@@ -413,7 +420,7 @@ Ogni fase della giornata (\ie{} classe) è caratterizzata da un andamento divers
 \end{itemize}
 
 Come detto, l'andamento del traffico è modellato variando i flussi di ingresso. La \vref{tab:ds-2-input-vehicles} illustra il numero di veicoli orari (\ie{} \si{vph}) in ingresso sulla rete stradale in relazione a ogni periodo temporale del modello di simulazione. Anche per i modelli di simulazione \acs{CORSIM} relativi a questa rete stradale si è scelto di utilizzare una distribuzione di probabilità di Erlang per governare l'immissione dei veicoli sulla rete stradale.
-\begin{table}
+\begin{table}[h]
 	\centering
 	\begin{tabular}{+l^c^c^c^c^c^c^c^c}
 	\toprule\rowstyle{\bfseries}%
@@ -432,7 +439,7 @@ Come detto, l'andamento del traffico è modellato variando i flussi di ingresso.
 	$11$		& $370$ 	& $190$		& $1565$	& $10$ 		& $10$ 		& $10$ 		& $10$ 		& $575$ 	\\
 	$12$		& $400$ 	& $75$		& $975$		& $8$ 		& $8$ 		& $10$ 		& $7$ 		& $400$ 	\\\bottomrule
 	\end{tabular}
-	\caption[Flussi di ingresso relativi al \ds{2}]{Numero di veicoli orari immessi nella rete stradale del \ds{2} (giorni lavorativi) al variare del periodo temporale.}
+	\caption[Flussi di ingresso relativi al \ds{2}]{Numero di veicoli orari immessi nella rete stradale da ogni nodo di ingresso (colonne) del \ds{2} (giorni lavorativi) al variare del periodo temporale sulle righe.}
 	\label{tab:ds-2-input-vehicles}
 \end{table}
 
@@ -440,28 +447,44 @@ Si osservi, inoltre, che al fine di definire il succitato andamento del traffico
 
 Per chiarezza si sottolinea infine che i profili di traffico del sabato e della domenica sono stati descritti con flussi di ingresso e percentuali di svolta di diversa entità rispetto a quelli appena descritti.
 
+\subsection{Configurazioni del dataset}
 Eseguendo con \acsfont{Sensors} \acs{DLL} uno qualsiasi dei modelli di simulazione (\ie{} giorni lavorativi, sabato o domenica) relativi alla rete stradale presentata, si ottiene il relativo file di output che, processato tramite gli strumenti di supporto precedentemente introdotti (si veda la \vref{sec:dataset-tools}), compone un dataset utile alla classificazione dei profili di traffico.
 
-Affinché i dataset in questione siano perfettamente riproducibili si sono utilizzati dei file \acs{RNS}\footnote{\acs{CORSIM} supporta l'utilizzo di file \acf{RNS} per la configurazione di alcuni aspetti della simulazione: numero di esecuzione e semi numerici da utilizzare per la generazione stocastica di eventi.}, semplici file di testo, opportunamente formattati, da cui \acs{CORSIM} legge il numero di esecuzioni da effettuare e i semi numerici\footnote{Il \emph{seed} è un numero utilizzato per inizializzare un generatore di numeri pseudo-casuali. Condividendo tale numero e utilizzando lo stesso generatore di numeri pseudo-casuali utilizzato da \acs{CORSIM} è possibile riprodurre la stessa identica simulazione su altre macchine.} relativi ad alcuni aspetti stocastici della simulazione (\eg{} incidenti, tipologia di guida dei conducenti).
+Affinché i dataset in questione siano perfettamente riproducibili si sono utilizzati dei file \acs{RNS}\footnote{\acs{CORSIM} supporta l'utilizzo di file \acf{RNS} per la configurazione di alcuni aspetti della simulazione: numero di esecuzioni da effettuare e semi numerici da utilizzare per la generazione stocastica di eventi.}, semplici file di testo, opportunamente formattati, da cui \acs{CORSIM} legge il numero di esecuzioni da effettuare e i semi numerici\footnote{Il \emph{seed} è un numero utilizzato per inizializzare un generatore di numeri pseudo-casuali. Condividendo tale numero e utilizzando lo stesso generatore di numeri pseudo-casuali utilizzato da \acs{CORSIM} è possibile riprodurre la stessa identica simulazione su altri calcolatori.} relativi ad alcuni aspetti stocastici della simulazione (\eg{} incidenti, tipologia di guida dei conducenti).
 
-Di seguito si riporta il file \acs{RNS} relativo al modello di traffico per i giorni lavorativi della corrente rete stradale.
+Di seguito si riporta il file \acs{RNS} relativo al modello di traffico per i giorni lavorativi della rete stradale illustrata nella precedente sezione.
 \inputsourcecode[language=pseudo, numbers=none, caption={[Configurazione \acs{RNS} del \ds{2}]File \acs{RNS} che configura il numero di esecuzioni (\ie{} 5) e i semi numerici del modello di simulazione \acs{CORSIM} relativo alla rete stradale del \ds{2}.}, label=lst:model2-week-rns]{codes/monza-week-exte.rns}
 
-Di seguito si descrivono le caratteristiche del dataset:
+Tralasciando i profili di traffico relativi al sabato e alla domenica, si illustrano ora le varianti generate con \acsfont{Sensors} \acs{DLL} dalla simulazione \acs{CORSIM} del profilo di traffico relativo ai giorni lavorativi. Dal modello \acs{TSIS} illustrato si sono generate $4$ diverse varianti del \ds{2} combinando la presenza o l'assenza dei sensori aggiuntivi con diversi tagli temporali dell'intero insieme di onde quadre dei sensori.
+
+Tutte le varianti del \ds{2} generate sono accomunate dalle seguenti caratteristiche:
 \begin{itemize}
 	\item tempo totale pari a $86400$ secondi (\ie{} $24$ ore)
-	\item suddivisione in $864$ elementi (\ie{} file)
-	\item ogni elemento include $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
+	\item la colonna \lstinline[]|tp| è stata rimossa e sostituita con la colonna \lstinline[]|class| in base alla corrispondenza riportata nella \vref{tab:ds-2-tp-labels} (gli identificatori delle classi variano, come detto, per i profili di traffico relativi al sabato e alla domenica)
 	\item ogni elemento è stato ottimizzato, cioè sottoposto all'eliminazione delle righe in cui non si verifica alcuna transizione di stato dei sensori
-	\item la colonna \lstinline[]|tp| è stata rimossa e sostituita con la colonna \lstinline[]|class| in base alla corrispondenza riportata nella \vref{tab:ds-2-tp-labels} (gli identificatori delle classi variano come detto per i profili di traffico relativi al sabato e alla domenica)
-	\item l'intestazione di ogni elemento è: \\\lstinline[]|time, class, D5096, D341, D5098, D5099, D211, D212, |\\\lstinline[]|D241, D242, D5097, D421, D5095, D541, D5094, D641, |\\\lstinline[]|D891, D892, D981, D982, D911, D912, D191, D192, D1290, |\\\lstinline[]|D1682, D1681, D1687, D1110, D1091, D1092, D1480, D781, |\\\lstinline[]|D782|.
 \end{itemize}
-Si osservi come tali caratteristiche sono indipendenti dal profilo di traffico simulato. Le differenze tra i $3$ diversi modelli di traffico sviluppati si sostanziano, chiaramente, nel diverso andamento dei flussi di traffico sulla rete stradale, il ché porta a diversi dati di rilevazione da parte dei sensori; nel numero di esecuzioni della simulazione (\ie{} $5$ per i giorni lavorativi e $1$ per il sabato e la domenica) e nei valori assunti dalla colonna relativa alla classe di traffico.
+Si osservi come tali caratteristiche siano comunque indipendenti dal profilo di traffico simulato. Le differenze tra i $3$ diversi modelli di traffico sviluppati si sostanziano nel diverso andamento dei flussi di traffico sulla rete stradale, il ché porta a diversi dati di rilevazione da parte dei sensori; nel numero di esecuzioni della simulazione (\ie{} $5$ per i giorni lavorativi e $1$ per il sabato e la domenica) e nei valori assunti dalla colonna relativa alla classe di traffico (\eg{}, classe $21$ piuttosto che classe $1$).
+
+Si descrivono infine le varianti del \ds{2} sottoposte a sperimentazione.
+\begin{description}
+	\item[\ds{2\text{.}B\text{.}100}] \hfill \\
+	Dataset composto da $864$ elementi (\ie{} file) ognuno dei quali rappresenta al più $100$ secondi di traiettorie dei sensori. Contiene solamente le onde quadre relative ai $6$ sensori reali (\ie{} D$5094$, D$5095$, D$5096$, D$5097$, D$5098$ e D$5099$).
+	\item[\ds{2\text{.}B\text{.}300}] \hfill \\
+	Come il precedente, tale dataset contiene solo le onde quadre relative ai sensori reali. \`E composto da $288$ elementi ognuno dei quali rappresenta al più $5$ minuti di traiettori dei succitati sensori.
+	\item[\ds{2\text{.}E\text{.}100}] \hfill \\
+	Dataset composto da $864$ elementi ognuno dei quali rappresenta al più $100$ secondi di traiettorie dei sensori. Poiché esso considera tutti i sensori del modello \acs{TSIS} illustrato in questa sezione, l'intestazione di ognuno dei suoi elementi è la seguente:\par
+	\lstinline[]|time, class, D5096, D341, D5098, D5099, D211, D212, |\\\lstinline[]|D241, D242, D5097, D421, D5095, D541, D5094, D641, |\\\lstinline[]|D891, D892, D981, D982, D911, D912, D191, D192, D1290, |\\\lstinline[]|D1682, D1681, D1687, D1110, D1091, D1092, D1480, D781, |\\\lstinline[]|D782|.
+	\item[\ds{2\text{.}E\text{.}300}] \hfill \\
+	Dataset composto da $288$ elementi ciascuno dei quali rappresenta al più $5$ minuti di traiettorie dei sensori. Come il precedento, anche questo dataset, è stato generato dal modello \acs{TSIS} provvisto dei sensori aggiuntivi.
+\end{description}
+
+\section{Sperimentazione}
 
 \subsection{Risultati}
-\omissis{}
 
 %risultati:
 %apprendimento
 %classificazione (cross-validated)
 %apprendimento strutturale (cross-validated)
+%configurazione fold?
+%configurazione imaginary counts and time?
