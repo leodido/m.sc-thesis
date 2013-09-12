@@ -1,0 +1,17 @@
+options(width = 190)
+options(ctbn.verbose = FALSE)
+# selezione di una istanza (la prima) dal dataset
+instance1 <- monza100o[[1]]
+monza100o[[1]] <- NULL
+instance1[, class := NULL]
+# generazione di una struttura valida per un classificatore CTNB
+timecol = c(getOption("ctbn.col.time"))
+cols <- setdiff(colnames(instance1), timecol)
+ncols <- length(cols)
+amat <- matrix(rep(0, ncols^2), ncols, ncols)
+dimnames(amat) <- list(cols, cols)
+amat <- rbind(class = rep(1, ncols), amat)
+# apprendimento del CTNBC sui restanti elementi
+model <- learn_ctbnc(monza100o, amat)<ls>\label{lst:learn-ctbnc-infer1}<le>
+# inferenza della classe dell'istanza selezionata
+results <- infer_ctnbc(model, instance1)<ls>\label{lst:infer-ctbnc-infer1}<le>

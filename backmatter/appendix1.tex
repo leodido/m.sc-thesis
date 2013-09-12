@@ -232,9 +232,12 @@ Si presenta ora sinteticamente la firma della la funzione \lstinline[language=rs
 	\item il \emph{\keyword{traning set}}
 	\item una matrice di adiacenza, della stessa entità di quella richiesta dalla funzione \lstinline[language=rstats]{fsstats_graph}, che rappresenti una struttura valida di un classificatore \acs{CTBN}.
 \end{itemize}
+Tuttavia, si noti che essa prevede ulteriori parametri formali che non vengono presentati poiché non ritenuti di primaria importanza.
+
 In sostanza, la funzione \lstinline[language=rstats]{learn_ctbnc} implementa l'\autoref{lst:ctbnc-learning} presentato \vpageref{lst:ctbnc-learning}.
 
-Di seguito si illustra il codice sorgente che, utilizzando tale funzione, apprende un \acs{CTBNC} da un \emph{\keyword{training set}} del \ds{2} (\ie{} da una porzione di elementi di tale dataset).
+Di seguito si illustra il codice sorgente che, utilizzando tale funzione (si veda la \autoref{lst:learn-ctbnc-func-line}), apprende un \acs{CTBNC} da un \emph{\keyword{training set}} del \ds{2} (\ie{} da una porzione di elementi di tale dataset).
+Si noti che prima d'eseguire tale operazione, da \autoref{lst:gen-valid-ctbnc-start} a \autoref{lst:gen-valid-ctbnc-end}, viene generata una struttura valida e casuale per un classificatore \acs{CTBN}; a \autoref{lst:gen-fake-ts} viene invece generato l'ipotetico \emph{\keyword{training set}}.
 
 \vspace*{8pt}\inputsourcecode[caption={[Apprendimento di un \acs{CTBNC} sul \ds{2}]Apprendimento di un classificatore \acs{CTBN}, la cui struttura viene generata in modo casuale, su un \emph{\keyword{traning set}} facente parte del \ds{2}.},language=rstats,label=lst:rctbn-learc-ctbnc]{codes/learnctbnc}
 
@@ -242,20 +245,47 @@ Affinché l'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-learc-ct
 
 \vspace*{8pt}\inputsourcecode[nolol,language=pseudo,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/learnctbncres}\vspace*{8pt}
 
-Si osservi che l'oggetto restituito dalla funzione \lstinline[language=rstats]{learn_ctbnc} è una lista nominata (\ie{} un tipo del linguaggio \lstinline$R$ simile a una tabella hash) composta da $2$ elementi, chiamati \lstinline$priors$ e \lstinline$params$.
+Si osservi che l'oggetto restituito dalla funzione \lstinline[language=rstats]{learn_ctbnc} è una lista etichettata (\ie{} un tipo del linguaggio \lstinline$R$ simile a una tabella hash) composta da $2$ elementi, chiamati \lstinline$priors$ e \lstinline$params$.
 
 Ipotizzando di assegnare il risultato di \lstinline[language=rstats]{learn_ctbnc} a un oggetto chiamato \lstinline$model$, è possibile accedere ai suoi elementi tramite l'operatore \lstinline$R$ per liste nominate \lstinline[]|$|%
 . Ad esempio, il comando \lstinline[]|model$priors| permette di accedere alla distribuzione di probabilità a priori della variabile classe come visibile dall'output mostrato.
 
 \subsection{Classificazione di un CTNBC}
-%prima è necessario apprendere -> apprendimento learn_ctnbc
-%appreso un ctbn proviamo a classificare dei dati ..
+Una volta appreso un classificatore è necessario verificarne la sua capacità di classificazione\index{classificazione supervisionata}. A tale scopo si necessita quindi di un algoritmo di classificazione che, dato in input il modello di un classificatore appreso e una istanza da classificare, inferisca la classe a cui è più probabile che tale istanza appartenga.
 
-%\vspace*{8pt}\inputsourcecode[caption={[].},language=rstats]{codes/}
+In questo lavoro di tesi, \vpageref{lst:ctbnc-inference}, si è presentato un algoritmo di inferenza (\autoref{lst:ctbnc-inference}) dedito alla classificazione di classificatori \acl{CTNB} (\acs{CTNBC}). Il \pacchettor{} espone la funzione \lstinline[language=rstats]{infer_ctnbc} che implementa tale procedura di inferenza.
+
+Prima di presentare la succitata funzione, si fa notare che \rctbn{} fornisce una funzione apposita per l'apprendimento dei classificatori \acs{CTNB} (\acs{CTNBC}): \lstinline[language=rstats]{learn_ctnbc}. Una chiamata a tale funzione è equivalente a una chiamata alla funzione \lstinline[language=rstats]{learn_ctbnc} con parametro \lstinline$amat$ posto al valore \lstinline$NULL$. Tuttavia, essa è ben più performante di \lstinline[language=rstats]{learn_ctbnc} poiché attua delle ottimizzazioni di calcolo dovute a delle assunzioni che la struttura dei classificatori \acs{CTNB} permettono di fare.
+
+I parametri principali per cui la funzione \lstinline[language=rstats]{infer_ctnbc} richiede un input sono:
+\begin{itemize}
+	\item il modello di un classificatore \acs{CTNB} (\acs{CTNBC})
+	\item un'istanza su cui effettuare la procedura di inferenza.
+\end{itemize}
+Anche in questo caso si tralascia la discussione dei restanti parametri poiché essi non sono di primaria importanza.
+
+Di seguito si presenta il sorgente che, selezionata un'istanza dal \ds{2} (\ie{} il primo elemento nel dataset), apprende un classificatore \acs{CTNB} sui restanti elementi presenti del dataset (\autoref{lst:learn-ctbnc-infer1}) e utilizza tale modello per classificare la succitata istanza (\autoref{lst:infer-ctbnc-infer1}).
+
+\vspace*{8pt}\inputsourcecode[caption={Apprendimento di un classificatore \acs{CTNB} (\acs{CTNBC}) tramite la procedura generica e classificazione di un'istanza del \ds{2} tramite tale classificatore.},nolol,language=rstats]{codes/inferctnbc}
+
+Come detto, utilizzando l'apposita funzione (si veda \autoref{lst:learn-ctbnc-infer2}) di apprendimento dei classificatori \acs{CTNB} (\acs{CTNBC}) è possibile ridurre la quantità di linee di codice e di operazioni necessarie, come mostra il seguente sorgente.
+
+\vspace*{8pt}\inputsourcecode[caption={[Classificazione di un'istanza del \ds{2}]Apprendimento di un classificatore \acs{CTNB} (\acs{CTNBC}) tramie la apposita funzione e classificazione di un'istanza del \ds{2} tramite tale classificatore.},label=lst:rctbn-infer-ctnbc,language=rstats]{codes/inferctnbc2}
+
+L'output della funzione \lstinline[language=rstats]{infer_ctnbc} consiste in una lista etichettata composta due elementi: \lstinline$logp$, contenente un vettore etichettato delle \emph{\keyword{log-probabilità}} di ogni classe e \lstinline$prob$, contenente un vettore etichettato delle \emph{\keyword{probabilità}} assegnate ad ogni classe del modello \acs{CTNBC} di riferimento.
+
+\vspace*{8pt}\inputsourcecode[nolol,language=pseudo,numbers=none,basicstyle=\small\ttfamily]{codes/inferctnbcres}\vspace*{8pt}
+
+Si osservi che, questa modalità di output non è l'unica che la funzione \lstinline[language=rstats]{infer_ctnbc} possiede. Infatti, fornendole un ulteriore parametro booleano in input, essa restituisce il nome (\ie{} $1$ in questo caso) della classe assegnata all'istanza processata. Nel caso si voglia operare manualmente tale operazione è sufficiente digitare il seguente comando:
+
+\lstinline[language=rstats]{max(results[["prob"]])}.
 
 \subsection{Apprendimento strutturale}
+Lo scopo di questa sottosezione è presentare brevemente l'esecuzione del processo di \emph{\keyword{apprendimento strutturale}} tramite il \pacchettor{}.
 
-\subsection{Cross-validazione}
+
+
+%\subsection{Cross-validazione}%TODO: fare solo se: 1) c'è tempo 2) è stata fatta la sezione sulla cross-validazione e relativo pacchetto
 
 \section{Generazione di dataset}\label{sec:create-dataset-howto}
 In questa sezione si illustra il processo di generazione di un dataset per le \acs{CTBN} a partire da un modello di traffico \acs{TSIS}, utilizzando l'\acl{RTE} sviluppata in questo lavoro di tesi, \acsfont{Sensors} \acs{DLL}.
