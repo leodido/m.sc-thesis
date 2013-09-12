@@ -1,0 +1,18 @@
+options(width = 190)
+options(ctbn.verbose = FALSE)
+# selezione di un training set
+faketrainset = monza100e[seq(1, length(monza100e), 20)]
+# creazione della struttura di un CTNBC
+timecol = c(getOption("ctbn.col.time"))
+classcol = c(getOption("ctbn.col.class"))
+nodes <- colnames(monza100e[[1]])[- timecol]
+nn <- length(nodes)
+amat <- matrix(0, nn, nn, dimnames = list(nodes, nodes))
+amat[classcol, ] <- 1
+# ricerca della struttura del CTBNC partendo dal CTNBC
+greedy_search(
+  faketrainset,
+  start = amat,
+  whitelist = classcol,
+  k = 2
+)

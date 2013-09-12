@@ -9,7 +9,9 @@
 %************************************************
 Lo scopo di questa appendice è formulare delle guide all'utilizzo del software sviluppato a sostengo del lavoro di tesi.
 
-Questa appendice è quindi suddivisa in due sezioni tematiche, una relativa all'utilizzo delle funzionalità offerte dal \pacchettor{} e una relativa all'utilizzo di \acsfont{Sensors} \acs{DLL} per la generazione di dataset da modelli \acs{TSIS}.
+Questa appendice è quindi suddivisa in due sezioni tematiche, una relativa all'utilizzo delle principali funzionalità offerte dal \pacchettor{} e una relativa all'utilizzo di \acsfont{Sensors} \acs{DLL} per la generazione di dataset da modelli \acs{TSIS}.
+
+Tutti gli esempi presentati in questa appendice si riferiscono alla variante estesa, con elementi da $100$ secondi, del dataset relativo a \emph{Viale Cesare Battisti} (\ie{} \ds{2\text{.}E\text{.}100}). In questo capitolo, per brevità, ci si riferirà a tale dataset semplicemente con il termine \ds{2}.
 
 \section{Utilizzo del pacchetto RCTBN}\label{sec:package-howto}
 Nelle seguenti sottosezioni si illustrano le funzionalità principali offerte da \rctbn{}. Lo scopo è quello di guidare l'utente all'utilizzo del framework delle \acs{CTBN} tramite il succitato pacchetto \lstinline[]|R|.
@@ -39,21 +41,21 @@ Si osservi che, come anticipato, è indispensabile impostare la corrente cartell
 La funzione \lstinline[language=rstats]{read_dataset} effettua varie operazioni, che vengono descritte di seguito.
 \begin{itemize}
 	\item Legge ogni file \acs{CSV} presente nella cartella:\par
-	\lstinline[language=rstats]{"~/Workspace/R/test/ctbn/dataset/monza100o"}.\par
+	\lstinline[language=rstats]{"~/Workspace/R/test/ctbn/dataset/monza100e"}.\par
 	\`E possibile importare file con altre estensioni semplicemente modificando il valore dell'opzione \lstinline$ctbn.data.ext$, impostato all'avvio al valore \lstinline[language=rstats]{"csv"}.
 	\item Controlla che ogni struttura tabulare letta contenga la colonna relativa al tempo. Tale informazione è specificabile tramite l'opzione \lstinline$ctbn.col.time$, impostata di default al valore \lstinline[language=rstats]{"time"}.
 	\item Controlla che ogni struttura tabulare letta contenga la colonna relativa alla classe. Tale informazione è specificabile tramite l'opzione \lstinline$ctbn.col.class$, impostata all'avvio a \lstinline[language=rstats]{"class"}. Nel caso in cui non si sia interessati ad eseguire tale controllo è possibile ometterlo semplicemente modificando la chiamata in questione come mostrato di seguito:\par
-	\lstinline[language=rstats]{read_dataset("monza100o", classcheck = FALSE)}.
+	\lstinline[language=rstats]{read_dataset("monza100e", classcheck = FALSE)}.
 	\item Controlla che ogni file contenga altre colonne oltre a quelle relative al tempo e, opzionalmente, alla classe.
 	\item Ordina le strutture tabulari importati in base alle rispettive colonne temporali.
 	\item Crea un oggetto \lstinline$R$ simile a una tabella hash dove ogni chiave è rappresentata da una stringa, il nome del file importato (senza estensione), e ogni elemento è una tabella (nello specifico un oggetto della classe \lstinline$data.table$) contenente la struttura tabulare importata.
 	\item Serializza in modo compresso tale oggetto su file salvando un file \acsfont{RDATA}\footnote{I file con estensione \acsfont{RDATA}, o \acsfont{RDA}, sono dei formati binari che \lstinline$R$ utilizza per la memorizzazione su disco di oggetti appartenenti al suo linguaggio.} nella cartella adibita alla memorizzazione dei dataset importati (specificata dall'opzione \lstinline$ctbn.store.dir$, il cui valore di default è \lstinline[language=rstats]{"data"}). \`E possibile, ma non consigliato, disattivare la serializzazione del dataset importato modificando la chiamata in questione come mostrato:\par
-	\lstinline[language=rstats]{read_dataset("monza100o", autosave = FALSE)}.
+	\lstinline[language=rstats]{read_dataset("monza100e", autosave = FALSE)}.
 \end{itemize}
 
 L'output del sorgente \ref{lst:rctbn-import-ds} corrisponde all'oggetto \lstinline$R$ contenente il dataset nelle modalità descritte. Ciò significa che assegnando tale funzione a una variabile sarà possibile operare con il dataset in questione. Ad esempio:
 
-\lstinline[language=rstats]{monzads = read_dataset("monza100o")}.
+\lstinline[language=rstats]{monzads = read_dataset("monza100e")}.
 
 Si osservi che, nel caso in cui non l'opzione \lstinline$ctbn.verbose$ (posta di default a \lstinline[language=rstats]{TRUE}) non sia stata modificata, la funzione \lstinline[language=rstats]{read_dataset} stampa a video il seguente messaggio:
 
@@ -61,14 +63,14 @@ Si osservi che, nel caso in cui non l'opzione \lstinline$ctbn.verbose$ (posta di
 
 Quindi, eseguito il sorgente \ref{lst:rctbn-import-ds}, il dataset sarà stato importato e serializzato come oggetto \lstinline$R$ al seguente percorso:
 
-\lstinline[language=rstats]{"~/Workspace/R/test/ctbn/data/monza100o/store.rdata"}.
+\lstinline[language=rstats]{"~/Workspace/R/test/ctbn/data/monza100e/store.rdata"}.
 
 Si osservi che anche tale comportamento è personalizzabile tramite l'utilizzo delle opzioni che \rctbn{} fornisce all'utente. Nello specifico è possibile modificare l'opzione \lstinline$ctbn.store.name$, impostata di default al valore \lstinline[language=rstats]{"store"}, e l'opzione \lstinline$ctbn.store.ext$, impostata all'avvio al valore \lstinline[language=rstats]{"rdata"}.
 
 Si mostra ora come sfruttare l'operazione appena illustrata per utilizzare il \ds{2} in una nuova sessione \lstinline$R$ senza necessità di importarlo nuovamente, processo che ha richiesto circa $45$ secondi. Tale caratteristica di \rctbn{} permette di ottenere un notevole risparmio di tempo nel flusso di lavoro.
 
 \vspace*{8pt}\inputsourcecode[caption={[Caricamento del \ds{2}]Caricamento del \ds{2}.},language=rstats,label=lst:rctbn-load-ds]{codes/loadctbnds}
-Come detto, la funzione \lstinline[language=rstats]{load_dataset} non importa nuovamente il dataset \lstinline[language=rstats]{"monza100o"}, bensì essa cerca il relativo file \acsfont{RDATA} nella cartella apposita e inietta dinamicamente l'oggetto da esso contenuto nell'attuale ambiente \lstinline$R$. Ciò significa che l'esecuzione del sorgente \ref{lst:rctbn-load-ds} permette di avere istantaneamente accesso a una oggetto \lstinline$R$ memorizzato in una variabile \lstinline$monza100o$.
+Come detto, la funzione \lstinline[language=rstats]{load_dataset} non importa nuovamente il dataset \lstinline[language=rstats]{"monza100e"}, bensì essa cerca il relativo file \acsfont{RDATA} nella cartella apposita e inietta dinamicamente l'oggetto da esso contenuto nell'attuale ambiente \lstinline$R$. Ciò significa che l'esecuzione del sorgente \ref{lst:rctbn-load-ds} permette di avere istantaneamente accesso a una oggetto \lstinline$R$ memorizzato in una variabile \lstinline$monza100e$.
 
 Si osservi infine che l'intero processo di gestione dei dataset contempla la possibilità che l'utente utilizzi dei dataset il cui nome non corrisponde a un nome di variabile valido per \lstinline$R$. In tale situazione il \pacchettor{} provvede a generare un nome di variabile valido a partire dal nome del dataset specificato. Perciò, una volta importato o caricato tale dataset sarà possibile ricavare il suo nome ispezionando l'ambiente \lstinline$R$ eseguendo il comando \lstinline[language=rstats]{ls(all = TRUE)}, il quale elenca tutte le variabili disponibili nell'ambiente \lstinline$R$ attuale. Alternativamente, qualora l'opzione \lstinline$ctbn.verbose$ abbia valore \lstinline[language=rstats]{TRUE}, la funzione \lstinline[language=rstats]{load_dataset} mostrerà a video un messaggio, finalizzato alla comunicazione del nome della variabile in cui il dataset è stato iniettato.
 
@@ -141,7 +143,8 @@ Si illustra ora come effettuare l'apprendimento dei parametri di una \acs{CTBN} 
 
 Supponendo di considerare la \acs{CTBN} con la struttura utilizzata per l'esempio precedente (si veda la \vref{tab:little-example-ctbn}) e di aver salvato le \emph{\stats{}} calcolate nel sorgente \ref{lst:rctbn-fsstats2} in una variabile chiamata \lstinline$ss$, è possibile apprendere i parametri fornendo tale variabile in input alla funzione \lstinline[language=rstats]{params}.
 
-\vspace*{8pt}\inputsourcecode[caption={[Stima dei parametri di una \acs{CTBN} dal \ds{2}]Apprendimento (\ie{} stima esatta) dei parametri di una \acs{CTBN} dal \ds{2}.},language=rstats,label=lst:rctbn-hparams]{codes/params}
+\cleardoublepage
+\inputsourcecode[caption={[Stima dei parametri di una \acs{CTBN} dal \ds{2}]Apprendimento (\ie{} stima esatta) dei parametri di una \acs{CTBN} dal \ds{2}.},language=rstats,label=lst:rctbn-hparams]{codes/params}
 
 Tale funzione richiede in input una tabella hash contenente le \emph{\stats{}} di uno o più nodi (qualsiasi sia il loro insieme di genitori), cioè un oggetto restituito dalle funzioni \lstinline[language=rstats]{fsstats_graph} o \lstinline[language=rstats]{fsstats}.
 
@@ -156,7 +159,6 @@ Per controllare il modo in cui i parametri vengono computati, cioè se essi veng
 \end{itemize}
 Perciò, l'esempio presentato dal sorgente \ref{lst:rctbn-hparams} effettua la \emph{\keyword{stima bayesiana}} dei parametri, calcolando $\paramhat{q}$ e $\greekhat{\theta}$.
 
-\cleardoublepage
 \subsection{Calcolo delle CIM}
 Riguardo il calcolo delle \im{} \cond{} (\acs{CIM}), il \pacchettor{} offre una funzione, \lstinline[language=rstats]{cims}, che è il naturale proseguimento della funzione \lstinline[language=rstats]{params} illustrata nella sottosezione precedente.
 
@@ -170,11 +172,10 @@ Di seguito viene mostrato un estratto dell'output ottenuto dall'esecuzione del s
 
 \vspace*{8pt}\inputsourcecode[language=pseudo,nolol,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/cimsres}\vspace*{8pt}
 
-\cleardoublepage
 \subsection{Apprendimento di un CTBNC}
 In questa sottosezione si presenta l'utilizzo del \pacchettor{} per l'apprendimento di un classificatore \acs{CTBN} (\acs{CTBNC}).
 
-A tale scopo si presenta una porzione di codice \lstinline$R$ che, generato in modo casuale un classificatore \acs{CTBN} valido (si veda la \autoref{defn:ctbnc} nella \vref{sec:ctbnc-model}) per il \ds{2}, utilizza la funzione \lstinline[language=rstats]{learn_ctbnc} per apprenderne i parametri e la distribuzione a priori delle classi rispetto a un \emph{\keyword{traning set}} di tale dataset.
+A tale scopo si presenta una porzione di codice \lstinline$R$ che, generato in modo casuale un classificatore \acs{CTBN} valido (si veda la \autoref{defn:ctbnc} nella \vref{sec:ctbnc-model}) per il \ds{2}, utilizza la funzione \lstinline[language=rstats]{learn_ctbnc} per apprenderne i parametri e la distribuzione a priori delle classi rispetto a un \emph{\keyword{training set}} di tale dataset.
 
 Prima di illustrare il sorgente necessario all'apprendimento del succitato classificatore \acs{CTBN}, si riporta la sua struttura.
 
@@ -229,7 +230,7 @@ Si osservi che tale struttura è perfettamente riproducibile su qualsiasi macchi
 
 Si presenta ora sinteticamente la firma della la funzione \lstinline[language=rstats]{learn_ctbnc}. Essa richiede in input due parametri principali:
 \begin{itemize}
-	\item il \emph{\keyword{traning set}}
+	\item il \emph{\keyword{training set}}
 	\item una matrice di adiacenza, della stessa entità di quella richiesta dalla funzione \lstinline[language=rstats]{fsstats_graph}, che rappresenti una struttura valida di un classificatore \acs{CTBN}.
 \end{itemize}
 Tuttavia, si noti che essa prevede ulteriori parametri formali che non vengono presentati poiché non ritenuti di primaria importanza.
@@ -239,8 +240,9 @@ In sostanza, la funzione \lstinline[language=rstats]{learn_ctbnc} implementa l'\
 Di seguito si illustra il codice sorgente che, utilizzando tale funzione (si veda la \autoref{lst:learn-ctbnc-func-line}), apprende un \acs{CTBNC} da un \emph{\keyword{training set}} del \ds{2} (\ie{} da una porzione di elementi di tale dataset).
 Si noti che prima d'eseguire tale operazione, da \autoref{lst:gen-valid-ctbnc-start} a \autoref{lst:gen-valid-ctbnc-end}, viene generata una struttura valida e casuale per un classificatore \acs{CTBN}; a \autoref{lst:gen-fake-ts} viene invece generato l'ipotetico \emph{\keyword{training set}}.
 
-\vspace*{8pt}\inputsourcecode[caption={[Apprendimento di un \acs{CTBNC} sul \ds{2}]Apprendimento di un classificatore \acs{CTBN}, la cui struttura viene generata in modo casuale, su un \emph{\keyword{traning set}} facente parte del \ds{2}.},language=rstats,label=lst:rctbn-learc-ctbnc]{codes/learnctbnc}
+\vspace*{8pt}\inputsourcecode[caption={[Apprendimento di un \acs{CTBNC} sul \ds{2}]Apprendimento di un classificatore \acs{CTBN}, la cui struttura viene generata in modo casuale, su un \emph{\keyword{training set}} facente parte del \ds{2}.},language=rstats,label=lst:rctbn-learc-ctbnc]{codes/learnctbnc}
 
+\cleardoublepage
 Affinché l'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-learc-ctbnc} sia leggibile, se ne riporta solamente la sua prima parte.
 
 \vspace*{8pt}\inputsourcecode[nolol,language=pseudo,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/learnctbncres}\vspace*{8pt}
@@ -283,7 +285,26 @@ Si osservi che, questa modalità di output non è l'unica che la funzione \lstin
 \subsection{Apprendimento strutturale}
 Lo scopo di questa sottosezione è presentare brevemente l'esecuzione del processo di \emph{\keyword{apprendimento strutturale}} tramite il \pacchettor{}.
 
+Nello specifico, dato un ipotetico \emph{\keyword{training set}}, si presenta l'utilizzo della funzione \lstinline[language=rstats]{greedy_search} per l'apprendimento del classificatore \acs{CTBN} (\acs{CTBNC}) che meglio rappresenta tali \keyword{dati di addestramento}, fissato il numero massimo di genitori di ogni nodo al valore $2$. Tuttavia si osservi che la funzione in questione può apprendere una qualsiasi struttura \acs{CTBN}. Tale funzione esegue l'\autoref{lst:hc-pseudo}, presentato \vpageref{lst:hc-pseudo}, per ogni nodo delle istanze del \emph{\keyword{training set}}, utilizzando come punteggio la funzione $famscore_{\conceptsym{B}}$ presentata nella \vref{sec:ctbn-structurallearning-score} (si veda l'\autoref{eq:bayesian-score}).
 
+La funzione \lstinline[language=rstats]{greedy_search} richiede che le siano fornite in input le seguenti informazioni, sotto forma di parametri:
+\begin{itemize}
+	\item un \emph{\keyword{training set}}
+	\item \lstinline$method$, l'euristica da utilizzare per la \keyword{ricerca della struttura}
+	\item \lstinline$fun$, la funzione di punteggio (\ie{} \emph{\keyword{score bayesiano}}) da utilizzare come criterio di selezione della struttura
+	\item un punto di partenza, chiamato \lstinline$start$, da cui iniziare la ricerca, inteso come una matrice, eventualmente vuota, che rappresenti la struttura iniziale
+	\item la lista \lstinline$excludelist$, eventualmente vuota, dei nodi da non sottoporre alla ricerca
+	\item la lista \lstinline$whitelist$, eventualmente vuota, dei nodi che devono sempre far parte dell'insieme dei nodi genitori di ogni nodo su cui si effettua la ricerca
+	\item la lista \lstinline$blacklist$, eventualmente vuota, dei nodi che non devono mai far parte dell'insieme dei nodi genitori di ogni nodo su cui si effettua la ricerca
+	\item \lstinline$k$, la cardinalità massima degli insiemi dei nodi genitori.
+\end{itemize}
+Tuttavia, l'unico parametro obbligatorio è il \emph{\keyword{training set}}, sul quale la procedura di \keyword{ricerca euristica} computa lo \emph{\keyword{score bayesiano}} al variare dei nodi e del relativo insieme di genitori. I restanti parametri sono tutti dotati di un parametro di default.
+
+Il sorgente che segue illustra come espletare il compito prefissatoci tramite il \pacchettor{}.
+
+\vspace*{8pt}\inputsourcecode[caption={[Apprendimento della struttura]Apprendimento della struttura di un \acs{CTBN} (\acs{CTBNC}).},label=lst:rctbn-hc,language=rstats]{codes/hc}
+
+L'output che tale funzione restituisce è composto dalla struttura che meglio rappresenta i \keyword{dati di addestramento} e il relativo modello \acs{CTBN} computato in fase di ricerca.
 
 %\subsection{Cross-validazione}%TODO: fare solo se: 1) c'è tempo 2) è stata fatta la sezione sulla cross-validazione e relativo pacchetto
 
@@ -299,14 +320,21 @@ Come primo passo è chiaramente necessario aprire \acs{TShell} e caricare il mod
 \begin{itemize}
 	\item nella barra degli strumenti di \acs{TShell} si clicchi l'icona relativa a \acsfont{Sensors} \acs{DLL}
 	\item si clicchi sul pulsante relativo alle \emph{\virgolette{proprietà d'esecuzione}} $\vcenter{\hbox{\includegraphics[scale=.9]{run-props}}}$ e successivamente sulla scheda \emph{\virgolette{proprietà d'esecuzione multipla}}
-	\item si selezioni il file \acs{RNS} fornito in allegato a questo lavoro di tesi (e illustrato nel sorgente \ref{lst:model2-week-rns} \vpageref{lst:model2-week-rns})\par
-	\begin{minipage}{\linewidth}
-		\centering
-		\includegraphics[width=1\linewidth]{multi-run-properties-tsis-next}\captionof{figure}[Esecuzione multipla guidata da file \acs{RNS}]{Selezione del file \acs{RNS} per l'impostazione dell'esecuzione multipla.}\label{fig:multi-run-properties-tsis-next}
-	\end{minipage}
+	\item si selezioni il file \acs{RNS} fornito in allegato a questo lavoro di tesi (e illustrato nel sorgente \ref{lst:model2-week-rns} \vpageref{lst:model2-week-rns}) come illustrato dalla \vref{fig:multi-run-properties-tsis-next}
+	%\par
+	%\begin{minipage}{\linewidth}
+		%\centering
+		%\includegraphics[width=.8\linewidth]{multi-run-properties-tsis-next}\captionof{figure}[Esecuzione multipla guidata da file \acs{RNS}]{Selezione del file \acs{RNS} per l'impostazione dell'esecuzione multipla.}\label{fig:multi-run-properties-tsis-next}
+	%\end{minipage}
 	\item si esegua la simulazione cliccando sull'apposito pulsante
 	\item conclusa la simulazione, \acsfont{Sensors} \acs{DLL} salva, nella cartella dove il file \acs{TRF} simulato risiede, i file \acs{CSV} di output (riguardo il cui formato si è discusso nella \autoref{subsec:sensors-dll-output}~\vpageref{subsec:sensors-dll-output}).
 \end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\columnwidth]{multi-run-properties-tsis-next}
+	\caption[Esecuzione multipla guidata da file \acs{RNS}]{Selezione del file \acs{RNS} per l'impostazione dell'esecuzione multipla del \ds{2}.}\label{fig:multi-run-properties-tsis-next}
+\end{figure}
 
 Si osservi che per ogni esecuzione della simulazione viene generato il relativo file di output. Il nome di tali file \acs{CSV} è una concatenazione delle seguenti informazioni: nome del file \acs{TRF} (seguito dal numero dell'esecuzione in caso di esecuzione multipla), data e ora dell'esecuzione, suffisso \lstinline[]|sensors|.
 
@@ -317,7 +345,8 @@ Il primo passo necessario consiste nella sostituzione dei \emph{\keyword{time pe
 
 Riguardo al modello in questione è quindi necessario eseguire il succitato programma nel seguente modo, ripetendo tale passo per tutti i $5$ file di output generati (si ricorda che il modello per i giorni lavorativi viene eseguito infatti $5$ volte, una per ogni giorno lavorativo):
 
-\vspace*{8pt}\inputsourcecode[caption={[Sostituzione dei \emph{time period} con le relative classi]Esecuzione del programma \lstinline[]|bash| per la sostituzione dei \emph{\keyword{time period}} con le relative classi nel file \acs{CSV} relativo al \ds{2}.},language=sh,basicstyle=\footnotesize\ttfamily,numbers=none,label=lst:sensors2dataset]{codes/sensors2dataset2}
+\cleardoublepage
+\inputsourcecode[caption={[Sostituzione dei \emph{time period} con le relative classi]Esecuzione del programma \lstinline[]|bash| per la sostituzione dei \emph{\keyword{time period}} con le relative classi nel file \acs{CSV} relativo al \ds{2}.},language=sh,basicstyle=\footnotesize\ttfamily,numbers=none,label=lst:sensors2dataset]{codes/sensors2dataset2}
 Di seguito si spiegano brevemente le opzioni utilizzate:
 \begin{itemize}
 	\item l'opzione \lstinline[]|i| serve a specificare il percorso del file di input, cioè del file \acs{CSV} generato da \acsfont{Sensors} \acs{DLL}

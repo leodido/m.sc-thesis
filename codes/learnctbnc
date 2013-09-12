@@ -1,7 +1,7 @@
 options(width = 190)
 options(ctbn.verbose = FALSE)
 # generazione casuale di un classificatore CTBN
-dt1 = monza100o[[1]]<ls>\label{lst:gen-valid-ctbnc-start}<le>
+dt1 = monza100e[[1]]<ls>\label{lst:gen-valid-ctbnc-start}<le>
 timecol = getOption("ctbn.col.time")
 classcol = getOption("ctbn.col.class")
 cols = setdiff(colnames(dt1), c(timecol, classcol))
@@ -12,6 +12,6 @@ dimnames(amat) = list(cols, cols)
 diag(amat) = 0
 amat = rbind(class = rep(1, ncols), amat)<ls>\label{lst:gen-valid-ctbnc-end}<le>
 # generazione di un training set
-faketrainset = monza100o[seq(1, length(monza100o), 20)]<ls>\label{lst:gen-fake-ts}<le>
+faketrainset = monza100e[seq(1, length(monza100e), 20)]<ls>\label{lst:gen-fake-ts}<le>
 # apprendimento del classificatore CTBN sul training set
 learn_ctbnc(faketrainset, amat)<ls>\label{lst:learn-ctbnc-func-line}<le>

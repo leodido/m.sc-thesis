@@ -104,7 +104,7 @@ score_B(\conceptsym{G}:\conceptsym{D}) &= \sum_{\setel{X}_i} \bigg[ \ln{P(Pa(\se
 \end{align}
 Si è quindi definita la funzione di \keyword{scoring} come una somma di score bayesiani, $famscore_{\conceptsym{B}}(\setel{X}_i\,,Pa_{\conceptsym{G}}(\setel{X}_i):\conceptsym{D})$, relativi ai nodi del \keyword{grafo} $\conceptsym{G}$. Ognuno di tali score bayesiani misura la qualità di $Pa_{\conceptsym{G}}(\setel{X}_i)$ come insieme dei nodi genitori di $\setel{X}_i$, dato l'insieme dei dati di apprendimento $\conceptsym{D}$.
 
-\section{Ricerca della struttura}\label{sec:structurallearning-search}
+\section{Ricerca della struttura}\index{ricerca della struttura}\label{sec:structurallearning-search}
 In questa sezione si affronta il secondo passo del processo di apprendimento strutturale: l'utilizzo di una \emph{procedura di \keyword{ottimizzazione}} finalizzata alla ricerca di una struttura che massimizzi lo \emph{\keyword{score bayesiano}}.
 
 ~\citet{Chickering1994} ha mostrato come il problema di apprendere la \keyword{struttura} ottimale di una \acl{BN}, detto problema \emph{\keyword{k-learn}}, dove $k$ è il numero massimo di genitori per ogni variabile casuale, sia un problema \emph{\keyword{NP-completo}} anche qualora si imponga $k=2$. La ragione di tale complessità è dovuta al vincolo di \keyword{aciclicità} delle \acs{BN} (\ie{} il grafo di una \acs{BN}, come da \autoref{defn:bn}, deve essere un \acs{DAG}): non è perciò possibile determinare l'insieme ottimale dei genitori di ogni nodo di una \acs{BN} individualmente; poiché la scelta di un insieme di genitori per un nodo restringe la possibilità di scelta relativa ai nodi restanti.
@@ -119,10 +119,10 @@ Si definisce perciò il seguente teorema~\citep{Nodelman2002}.
 Il problema \textbf{k-learn} per le \acl{CTBN}, fissato $k$, può essere risolto in tempo \keyword{polinomiale} rispetto al numero di variabili casuali $N$ e alla dimensione dell'insieme di dati $\conceptsym{D}$.
 \end{teorema}
 
-Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. \'E quindi possibile utilizzare un algoritmo di ricerca euristica di tipo \emph{\keyword{greedy}} per esplorare lo spazio di ricerca. Nella~\autoref{subsec:structurallearning-hc} si presenta l'algoritmo scelto per l'\keyword{apprendimento strutturale} della struttura ottimale di un modello \acs{CTBN}.
+Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. \'E quindi possibile utilizzare un algoritmo di \keyword{ricerca euristica} di tipo \emph{\keyword{greedy}} per esplorare lo spazio di ricerca. Nella~\autoref{subsec:structurallearning-hc} si presenta l'algoritmo scelto per l'\keyword{apprendimento strutturale} della struttura ottimale di un modello \acs{CTBN}.
 
 \subsection{Hill Climbing}\label{subsec:structurallearning-hc}
-L'algoritmo \emph{\keyword{\hc{}}} è una tecnica di ricerca euristica finalizzata alla risoluzione di problemi di ottimizzazione i cui stati (\ie{} elementi dello spazio di ricerca) contengono tutte le informazioni necessarie a costituire una soluzione~\citep{Russel2003}.
+L'algoritmo \emph{\keyword{\hc{}}} è una tecnica di \keyword{ricerca euristica} finalizzata alla risoluzione di problemi di ottimizzazione i cui stati (\ie{} elementi dello spazio di ricerca) contengono tutte le informazioni necessarie a costituire una soluzione~\citep{Russel2003}.
 
 L'idea su cui si basa tale algoritmo consiste nell'iniziare la ricerca con una soluzione sub-ottimale e, nei passi successivi, migliorare iterativamente la soluzione, osservando gli stati vicini, finché una qualche condizione di fermata venga raggiunta (\eg{} l'algoritmo non può migliorare ulteriormente la soluzione corrente). Il processo di miglioramento è, come già accennato, basato sulla valutazione dello stato corrente tramite una funzione di \keyword{punteggio}.
 
