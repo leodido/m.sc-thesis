@@ -478,13 +478,73 @@ Si descrivono infine le varianti del \ds{2} sottoposte a sperimentazione.
 	Dataset composto da $288$ elementi ciascuno dei quali rappresenta al più $5$ minuti di traiettorie dei sensori. Come il precedento, anche questo dataset, è stato generato dal modello \acs{TSIS} provvisto dei sensori aggiuntivi.
 \end{description}
 
-\section{Sperimentazione}
+\cleardoublepage
+\section{Risultati}
+In questa sezione si presentano i risultati ottenuti dalla \keyword{sperimentazione} della classe dei classificatori \acs{CTBN} (\acs{CTBNC}) descritta in questo lavoro di tesi.
 
-\subsection{Risultati}
+Prima di presentare tali risultati si introduce la metodologia di \keyword{sperimentazione} utilizzata sui succitati $6$ dataset.
 
-%risultati:
-%apprendimento
-%classificazione (cross-validated)
-%apprendimento strutturale (cross-validated)
-%configurazione fold?
-%configurazione imaginary counts and time?
+Come anticipato, dato un modello di classificatore \acs{CTBN}, si è svolta la stessa $k$-\emph{fold \keyword{cross-validation}} con $k = 10$ per ognuno dei dataset generati. Si è cioè suddiviso ognuno dei succitati dataset in $10$ campioni di uguale numerosità utilizzandone uno come \emph{\keyword{validation set}} (\ie{} \emph{\keyword{test set}}) e i restanti come \emph{\keyword{training set}}. Si è quindi ripetuto tale processo $10$ volte, affinché ognuno dei $10$ campioni fosse stato utilizzato come \emph{\keyword{test set}} esattamente una sola volta.
+
+Il fine della \emph{\keyword{cross-validation}} è quello di validare la capacità di apprendimento (e generalizzazione) di un modello predittivo \citep[si veda][capitolo $7$]{Hastie2001}, qual è il classificatore \acs{CTBN}. A tale scopo, i risultati di ognuno dei $10$ processi di classificazione possono essere mediati (o combinati in modi alternativi) al fine di produrre singoli valori che stimino l'efficacia\footnote{L'efficacia di un classificatore è un termine generico che indica un insieme di misure (\eg{} \emph{\keyword{precision}}, \emph{\keyword{recall}}, \emph{\keyword{$F$-measure}} e \emph{\keyword{accuracy}}) della qualità di un classificatore.} del modello predittivo utilizzato. In questa sperimentazione, avendo affrontato un problema di \emph{\keyword{classificazione multi-classe}}, si sono mediati i risultati relativi a ogni \emph{\keyword{fold}}\footnote{Un fold indica una configurazione, comprensiva di \emph{\keyword{training set}} e \emph{\keyword{test set}}, delle $k$ utilizzate durante una $k$-\emph{fold \keyword{cross-validation}}.} utilizzando i cosiddetti approcci \emph{\keyword{micro-average}} e \emph{\keyword{macro-average}}.
+
+La differenza tra queste due tecniche di sintesi dei risultati consiste nel fatto che mentre l'approccio \emph{\keyword{macro-average}} è una media (non pesata) delle metriche relative ad ogni classe, l'approccio \emph{\keyword{micro-average}}, al contrario, consiste in una media delle metriche attuata sul totale delle istanze sottoposte a classificazione. Da ciò consegue che la tecnica \emph{\keyword{micro-average}} tende a conferire maggiore peso alle classi composte da più istanze e costituisce, in caso di classi popolose nel \emph{\keyword{test set}} una reale misura dell'efficacia del classificatore. Invece, per sintetizzare l'efficacia del classificatore su classi composte da poche istanze è preferibile considerare le indicazioni di efficacia date dall'approccio \emph{\keyword{macro-average}} \citep[si veda][sezione 13.6]{Manning2008}.
+
+Si precisa che i risultati presentati di seguito sono quelli ottenuti dall'approccio \emph{\keyword{micro-average}} poiché le classi dei dataset generati sono tutte composte da numeri di istanze comparabili e nessuna di esse domina le altre in termini quantitativi.
+
+Inoltre, si specifica che le procedure di apprendimento dei parametri di ogni classificatore \acs{CTBN} (\acs{CTBNC}) appreso sono state effettuate utilizzando la \emph{\keyword{stima bayesiana}} (si veda l'intera \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}) con \keyword{conteggi immaginari} $\alpha_{\setel{x}\setel{x}^{\prime}}$ e $\tau_{\setel{x}}$ impostati rispettivamente ai valori $1$ e $0.005$.
+
+La procedura di \keyword{sperimentazione} descritta è stata attuata per i $4$ differenti modelli di classificatori \acs{CTBN} elencati di seguito:
+\begin{itemize}
+	\item classificatore \acs{CTNB} (\acs{CTNBC})
+	\item classificatore \acs{CTBN} appreso dal \emph{\keyword{training set}} (tramite la procedura di apprendimento strutturale presentata nel \vref{cap:structurallearning}) fissando il numero massimo di genitori a $2$
+	\item classificatore \acs{CTBN} appreso dal \emph{\keyword{training set}} fissando il numero massimo di genitori a $3$
+	\item classificatore \acs{CTBN} appreso dal \emph{\keyword{training set}} fissando il numero massimo di genitori a $4$.
+\end{itemize}
+L'obiettivo delle prossime sezioni è quindi quello di comparare l'efficacia di tali classificatori.
+
+\subsection{Accuratezza}
+
+%comparazione accuracy:
+%%def. accuracy
+%%tabella accuracy corrispondente al grafico
+%%6 dataset -> 4 modelli per ognuno
+%%comparazione intra dataset
+%%comparazione inter dataset
+
+\subsection{Curve ROC}
+%comparazione curve ROC per classe
+%%def. ROC
+%%tabella AUC?
+%%citare paper daniele e fawcett
+%... vedi txt
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-01.pdf}
+%\end{figure}
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-02.pdf}
+%\end{figure}
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-03.pdf}
+%\end{figure}
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-04.pdf}
+%\end{figure}
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-05.pdf}
+%\end{figure}
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-06.pdf}
+%\end{figure}

@@ -20,7 +20,7 @@ Le \acl{CTBN} utilizzano concetti e idee provenienti da teorie afferenti l'area 
 \item[\bn{}] \hfill \\
 Le \acl{CTBN} utilizzano una rappresentazione strutturata dello spazio degli stati propria della teoria delle \acl{BN}. Ne ereditano perciò gli aspetti chiave (\eg{} indipendenza \cond*{}) nonché l'insieme delle tecniche algoritmiche per l'apprendimento e l'inferenza.
 \item[Processi di Markov]\label{sec:fondamenti-mp}\hfill \\
-Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un costituito da un insieme di \mprocess{} \cond{}.
+Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un insieme di \mprocess{} \cond{}.
 \end{description}
 
 \subsection{\bn{}}\label{subsec:bn}
@@ -115,7 +115,7 @@ Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma an
 Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\emph{apprendimento strutturale}. Gli algoritmi per l'apprendimento strutturale delle \acl{BN} possono essere divisi in due famiglie.
 \begin{description}
     \item[Algoritmi basati su vincoli] \hfill \\
-    Algoritmi che apprendono la struttura del grafo analizzando le relazioni probabilistiche derivanti dalla proprietà di Markov tramite test di indipendenza condizionale e costruendo un grafo che soddisfi le proprietà di \emph{d-separazione}\footnote{Concetto di separazione direzionale tra insiemi di nodi collegato al concetto di \emph{indipendenza condizionale}. Ad esempio, quando un insieme di nodi $\set{E}$ \emph{d-separa} un insieme di nodi $\set{X}=\{\,\setel{A}\,,\,\setel{B}\,\}$ allora $\setel{A}$ e $\setel{B}$ sono condizionalmente indipendenti dato $\set{E}$.} corrispondenti. I modelli risultanti sono spesso interpretati come \emph{modelli causali}~\citep{Pearl1988}.
+    Algoritmi che apprendono la struttura del grafo analizzando le relazioni probabilistiche derivanti dalla proprietà di Markov tramite test di indipendenza condizionale e costruendo un grafo che soddisfi le proprietà di \emph{d-separazione}\footnote{Un nodo $\set{A}$ e un nodo $\set{B}$ sono \emph{d-separati} se per tutti i possibili percorsi che li congiungono esiste un nodo intermedio $\set{V}$ tale che sussista almeno una delle due seguenti condizioni: $\set{V}$ è istanziato (\ie{} si possiede evidenza su esso) e la connessione è seriale o divergente, oppure nè $\set{V}$ nè alcuno dei suoi nodi discendenti è istanziato e la connessione è convergente \citep{Jensen2007}.} corrispondenti. I modelli risultanti sono spesso interpretati come \emph{modelli causali}~\citep{Pearl1988}.
     \item[Algoritmi basati su punteggio] \hfill \\
     Algoritmi che assegnano un punteggio (tramite una funzione di scoring) a tutte le strutture candidate e utilizzando tecniche di ottimizzazione cercano di raggiungere il punteggio massimo. Gli algoritmi di ricerca \emph{greedy} sono la scelta più comune, tuttavia qualsiasi procedura di ricerca può essere usata.
 \end{description}
@@ -465,7 +465,8 @@ Perciò la likelihood delle quantità di tempo trascorse in ogni stato è:
 \footnotesize
 \begin{equation}\label{eq:like-time-spent-in-each-state}
 L_{\setel{X}}(\param{q}_{\,\setel{X}\,\arrowvert\,Pa(\setel{X})}:\conceptsym{D})=\prod_{pa_i(\setel{x})}\prod_{x}(\param{q}_{x\,\arrowvert\,pa_i(\setel{x})})^{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}e^{-\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}\,\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}}\text{\normalsize .}\vspace{1mm}
-\end{equation}\normalsize
+\end{equation}
+\normalsize
 Combinando l'\autoref{eq:like-time-spent-in-each-state} e l'\autoref{eq:like-transitions} si ottiene la likelihood di un dataset completo $\conceptsym{D}$ rispetto a un singolo \mprocess*{} \cond*{}:
 \footnotesize
 \begin{align}\label{eq:ctbn-var-likelihood}
@@ -516,14 +517,15 @@ Invece, la probabilità di transizione da uno stato $\setel{x}$ verso $\setel{x}
 \]
 
 \begin{teorema}{Parametri \ac{MLE}.}
-I parametri che massimizzano la likelihood (\autoref{eq:ctbn-log-likelihood}) di una \acl{CTBN} sono funzione delle \keyword{\stats{}}:
-\begin{equation}
-\label{eq:ctbn-params}\normalfont
-\begin{split}
-\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}{\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}} \\
-\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat[x]{\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}}{\mstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
-\end{split}
-\end{equation}
+    I parametri che massimizzano la likelihood (\autoref{eq:ctbn-log-likelihood}) di una \acl{CTBN} sono funzione delle \keyword{\stats{}}:
+    \begin{equation}
+        \label{eq:ctbn-params}
+        \normalfont
+        \begin{split}
+        \param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat{x\,\arrowvert\,pa_i(\setel{x})}}{\tstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}} \\
+        \param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}&=\frac{\mstat[x]{\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}}{\mstat{\setel{x}\,\arrowvert\,pa_i(\setel{x})}}\text{.}
+        \end{split}
+        \end{equation}
 \end{teorema}
 \normalfont
 Si noti che, in questo caso (\emph{dataset completo}), $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$ e $\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}$ sono delle \emph{\keyword{stime esatte}}. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.

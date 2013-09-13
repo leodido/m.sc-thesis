@@ -3,10 +3,10 @@
     arxivId       = {http://arxiv.org/abs/1212.2498},
     author        = {Nodelman, Uri D. and Shelton, CR and Koller, Daphne},
     eprint        = {/arxiv.org/abs/1212.2498},
-    journal       = {Proceedings of the Nineteenth \ldots},
+    journal       = {{Proceedings of the Nineteenth Conference on Uncertainty in Artificial Intelligence (UAI)}},
     number        = {X},
     primaryClass  = {http:},
-    title         = {{Learning continuous time Bayesian networks}},
+    title         = {{Learning Continuous Time Bayesian networks}},
     url           = {http://dl.acm.org/citation.cfm?id=2100639},
     year          = {2002}
 }
@@ -24,7 +24,6 @@
     year      = {1973}
 }
 @article{Stella2012,
-    abstract  = {The class of continuous time Bayesian network classifiers is defined; it solves the problem of supervised classification on multivariate trajectories evolving in continuous time. The trajectory consists of the values of discrete attributes that are measured in continuous time, while the predicted class is expected to occur in the future. Two instances from this class, namely the continuous time naive Bayes classifier and the continuous time tree augmented naive Bayes classifier, are introduced and analyzed. They implement a trade-off between computational complexity and classification accuracy. Learning and inference for the class of continuous time Bayesian network classifiers are addressed, in the case where complete data are available. A learning algorithm for the continuous time naive Bayes classifier and an exact inference algorithm for the class of continuous time Bayesian network classifiers are described. The performance of the continuous time naive Bayes classifier is assessed in the case where real-time feedback to neurological patients undergoing motor rehabilitation must be provided.},
     author    = {Stella, F and Amer, Y},
     doi       = {10.1016/j.jbi.2012.07.002},
     issn      = {1532-0480},
@@ -42,13 +41,22 @@
 }
 @article{Chickering2004,
     author   = {Chickering, David Maxwell and Heckerman, David and Meek, Christopher},
-    journal  = {\ldots Journal of Machine Learning \ldots},
+    journal  = {Journal of Machine Learning Research},
     keywords = {large-sample data,learning bayesian networks,np-hard,search complexity},
     pages    = {1287--1330},
     title    = {{Large-sample learning of Bayesian networks is NP-hard}},
     url      = {http://dl.acm.org/citation.cfm?id=1044703},
     volume   = {5},
     year     = {2004}
+}
+@book{Jensen2007,
+  title = {Bayesian Networks and Decision Graphs},
+  author = {Jensen, F.V. and Nielsen, T.D.},
+  isbn = {9780387682815},
+  lccn = {2006938666},
+  series = {Information Science and Statistics},
+  year = {2007},
+  publisher = {Springer}
 }
 @article{Steck2002,
     author  = {{Steck, Harald and Jaakkola}, Tommi S},
@@ -90,7 +98,6 @@
     year      = {1991}
 }
 @article{Chickering2013,
-    abstract = {We present a simple characterization of equivalent Bayesian network structures based on local transformations. The significance of the characterization is twofold. First, we are able to easily prove several new invariant properties of theoretical interest for equivalent structures. Second, we use the characterization to derive an efficient algorithm that identifies all of the compelled edges in a structure. Compelled edge identification is of particular importance for learning Bayesian network structures from data because these edges indicate causal relationships when certain assumptions hold.},
     author   = {Chickering, David Maxwell},
     pages    = {87--98},
     journal  = {CoRR},
@@ -148,7 +155,6 @@
     year    = {1995}
 }
 @article{Heckerman1996,
-    abstract    = {A Bayesian network is a graphical model that encodes probabilistic relationships among variables of interest. When used in conjunction with statistical techniques, the graphical model has several advantages for data analysis. One, because the model encodes dependencies among all variables, it readily handles situations where some data entries are missing. Two, a Bayesian network can be used to learn causal relationships, and hence can be used to gain understanding about a problem domain and to predict the consequences of intervention. Three, because the model has both a causal and probabilistic semantics, it is an ideal representation for combining prior knowledge (which often comes in causal form) and data. Four, Bayesian statistical methods in conjunction with Bayesian networks offer an efficient and principled approach for avoiding the overfitting of data. In this paper, we discuss methods for constructing Bayesian networks from prior knowledge and summarize Bayesian statistical methods for using data to improve these models. With regard to the latter task, we describe methods for learning both the parameters and structure of a Bayesian network, including techniques for learning with incomplete data. In addition, we relate Bayesian-network methods for learning to techniques for supervised and unsupervised learning. We illustrate the graphical-modeling approach using a real-world case study.},
     author      = {Heckerman, David},
     chapter     = {3},
     doi         = {10.1007/978-3-540-85066-3},
@@ -247,42 +253,70 @@
     year      = {2011},
     publisher = {CRC Press}
 }
+@incollection{Codecasa2013,
+    title     = {Conditional Log-Likelihood for Continuous Time Bayesian Network Classifiers},
+    author    = {Codecasa, Daniele and Stella, Fabio},
+    booktitle = {New Frontiers in Mining Complex Patterns},
+    year      = {2013},
+    publisher = {Springer}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Micro/Macro Averaging
+@book{Manning2008,
+    author    = {Manning, Christopher D. and Raghavan, Prabhakar and Sch\"{u}tze, Hinrich},
+    title     = {Introduction to Information Retrieval},
+    year      = {2008},
+    isbn      = {0521865719, 9780521865715},
+    publisher = {Cambridge University Press},
+    address   = {New York, NY, USA}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cross-validation
+@book{Hastie2001,
+  address   = {New York, NY, USA},
+  author    = {Hastie, Trevor and Tibshirani, Robert and Friedman, Jerome},
+  publisher = {Springer New York Inc.},
+  series    = {Springer Series in Statistics},
+  title     = {The Elements of Statistical Learning},
+  year      = {2001}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Markov process based models to ask questions about time distributions
 @article{Duffie1996,
-    author = {Duffie, Darrell and Schroder, Mark and Skiadas, Costis},
-    doi = {10.1214/aoap/1035463324},
+    author  = {Duffie, Darrell and Schroder, Mark and Skiadas, Costis},
+    doi     = {10.1214/aoap/1035463324},
     journal = {The Annals of Applied Probability},
-    month = {nov},
-    number = {4},
-    pages = {1075--1090},
-    title = {{Recursive valuation of defaultable securities and the timing of resolution of uncertainty}},
-    url = {http://projecteuclid.org:80/Dienst/getRecord?id=euclid.aoap/1035463324/},
-    volume = {6},
-    year = {1996}
+    month   = {nov},
+    number  = {4},
+    pages   = {1075--1090},
+    title   = {{Recursive valuation of defaultable securities and the timing of resolution of uncertainty}},
+    url     = {http://projecteuclid.org:80/Dienst/getRecord?id=euclid.aoap/1035463324/},
+    volume  = {6},
+    year    = {1996}
 }
 @article{Lando1998,
-    author = {Lando, David},
+    author   = {Lando, David},
     keywords = {cox process,credit derivatives,credit risk,ratings},
-    pages = {99--120},
-    title = {{On Cox Processes and Credit Risky Securities}},
-    volume = {120},
-    year = {1998}
+    pages    = {99--120},
+    title    = {{On Cox Processes and Credit Risky Securities}},
+    volume   = {120},
+    year     = {1998}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DBNs
 @article{Dean1989,
-    author = {Dean, Thomas and Kanazawa, Keiji},
-    title = {A model for reasoning about persistence and causation},
-    journal = {Computational Intelligence},
-    volume = {5},
-    number = {2},
+    author    = {Dean, Thomas and Kanazawa, Keiji},
+    title     = {A model for reasoning about persistence and causation},
+    journal   = {Computational Intelligence},
+    volume    = {5},
+    number    = {2},
     publisher = {Blackwell Publishing Ltd},
-    issn = {1467-8640},
-    url = {http://dx.doi.org/10.1111/j.1467-8640.1989.tb00324.x},
-    doi = {10.1111/j.1467-8640.1989.tb00324.x},
-    pages = {142--150},
-    year = {1989},
+    issn      = {1467-8640},
+    url       = {http://dx.doi.org/10.1111/j.1467-8640.1989.tb00324.x},
+    doi       = {10.1111/j.1467-8640.1989.tb00324.x},
+    pages     = {142--150},
+    year      = {1989},
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Survey about traffic light control
@@ -394,10 +428,37 @@
     publisher = {Pergamon Press}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-@incollection{Codecasa2013,
-    title = {Conditional Log-Likelihood for Continuous Time Bayesian Network Classifiers},
-    author = {Codecasa, Daniele and Stella, Fabio},
-    booktitle = {New Frontiers in Mining Complex Patterns},
+% Citations about R packages
+@manual{R2013,
+    title = {R: A Language and Environment for Statistical Computing},
+    author = {{R Core Team}},
+    organization = {R Foundation for Statistical Computing},
+    address = {Vienna, Austria},
     year = {2013},
-    publisher = {Springer}
+    url = {http://www.R-project.org/}
+}
+@article{ROCR2005,
+    title   = {ROCR: visualizing classifier performance in R},
+    author  = {T. Sing and O. Sander and N. Beerenwinkel and T. Lengauer},
+    year    = {2005},
+    journal = {Bioinformatics},
+    volume  = {21},
+    number  = {20},
+    pages   = {7881},
+    url     = {http://rocr.bioinf.mpi-sb.mpg.de}
+}
+@book{GGPLOT2009,
+    author = {Hadley Wickham},
+    title = {ggplot2: elegant graphics for data analysis},
+    publisher = {Springer New York},
+    year = {2009},
+    isbn = {978-0-387-98140-6},
+    url = {http://had.co.nz/ggplot2/book}
+}
+@manual{CARET2013,
+    title = {caret: Classification and Regression Training},
+    author = {Max Kuhn. Contributions from Jed Wing and Steve Weston and Andre Williams and Chris Keefer and Allan Engelhardt and Tony Cooper},
+    year = {2013},
+    note = {R package version 5.17-7},
+    url = {http://CRAN.R-project.org/package=caret}
 }
