@@ -85,7 +85,7 @@ Si suppone innanzitutto di voler calcolare le \emph{\stats{}} di una o più vari
 
 Perciò, di seguito si illustra come computare le \emph{\stats{}} su tutto il \ds{2} del nodo \lstinline[language=rstats]{"D241"} impostando come suo insieme dei genitori l'insieme composto dai nodi \lstinline[language=rstats]{"D911"}, \lstinline[language=rstats]{"D191"} e \lstinline[language=rstats]{"D641"}.
 
-\vspace*{8pt}\inputsourcecode[caption={[Calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} sul \ds{2}.},language=rstats,label=lst:rctbn-fsstats]{codes/fsstats}
+\vspace*{8pt}\inputsourcecode[caption={[Calcolo delle \stats{} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} sul \ds{2}.},language=rstats,label=lst:rctbn-fsstats]{codes/fsstats}
 Il risultato di tale esecuzione è una tabella hash contenente un solo elemento: le \emph{\stats{}} del nodo \lstinline[language=rstats]{"D241"} dati i nodi genitori \lstinline[language=rstats]{"D911"}, \lstinline[language=rstats]{"D191"} e \lstinline[language=rstats]{"D641"}. La chiave di tale elemento della tabella hash è una rappresentazione di tale informazione mentre l'elemento è un oggetto tabulare (classe \lstinline$data.table$) rappresentante i valori delle \emph{\stats{}} $T$ e $M$ per ogni combinazione dei valori assunti dai nodi genitori.
 
 Di seguito si riporta l'output fornito dal sorgente \ref{lst:rctbn-fsstats}.
@@ -96,7 +96,7 @@ Si osservi che \lstinline[language=rstats]{fsstats} non permette di computare le
 
 Ipotizziamo perciò di volere utilizzare la funzione \lstinline[language=rstats]{fsstats} per calcolare le \emph{\stats{}} di alcune variabili (ad esempio le variabili \lstinline[language=rstats]{"D241"}, \lstinline[language=rstats]{"D781"} e \lstinline[language=rstats]{"D782"}) data la sola variabile \lstinline[language=rstats]{"class"} (\ie{} nodo classe) come genitore. Il sorgente che segue illustra come espletare tale obiettivo.
 
-\vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di più nodi dato un insieme di genitori comune, il nodo classe (\ds{2}).},label=lst:rctbn-fsstats2]{codes/fsstats2}
+\vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \stats{} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di più nodi dato un insieme di genitori comune, il nodo classe (\ds{2}).},label=lst:rctbn-fsstats2]{codes/fsstats2}
 
 Come visibile dall'output conseguente l'esecuzione del sorgente \ref{lst:rctbn-fsstats2}, in questo caso, la funzione \lstinline[language=rstats]{fsstats} restituisce una tabella hash con più elementi, una per ogni nodo oggetto della computazione delle \emph{\stats{}}.
 
@@ -106,7 +106,7 @@ Si osservi che la funzione \lstinline[language=rstats]{fsstats} permette anche d
 
 Di seguito viene illustrato come effettuare tale operazione.
 
-\vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di un nodo senza condizionare la computazione a un insieme di genitori (\ds{2}).},label=lst:rctbn-fsstats3]{codes/fsstats3}
+\vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \stats{} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di un nodo senza condizionare la computazione a un insieme di genitori (\ds{2}).},label=lst:rctbn-fsstats3]{codes/fsstats3}
 
 Nel caso in cui si desideri computare le \emph{\stats{}} di più nodi rispetto a diversi insiemi di genitori è invece necessario utilizzare la funzione \lstinline[language=rstats]{fsstats_graph}. La differenza tra tale funzione e quella appena illustrata consiste principalmente nella firma. Infatti, essa non richiede in input un parametro relativo ai nodi e uno relativo all'insieme di genitori comune, bensì una matrice binaria avente sulle righe i nodi genitori e sulle colonne i nodi figli, il cui scopo è rappresentare la struttura di una \acs{CTBN}. Un $1$ posto nella posizione $(3,2)$ (\ie{} riga $3$, colonna $2$) indica che il nodo $2$ è figlio del nodo $3$.
 
@@ -132,7 +132,7 @@ Tale insieme di informazioni corrisponde alla matrice mostrata dalla seguente ta
 
 Il sorgente che segue illustra come costruire tale matrice e utilizzarla come parametro di input della funzione \lstinline[language=rstats]{fsstats_graph}.
 
-\vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \emph{\stats{}} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di più nodi aventi diversi insiemi di nodi genitori (\ds{2}).},label=lst:rctbn-ffstatsgraph]{codes/fsstatsgraph}
+\vspace*{8pt}\inputsourcecode[language=rstats,caption={[Calcolo delle \stats{} sul \ds{2}]Esempio di calcolo delle \emph{\stats{}} di più nodi aventi diversi insiemi di nodi genitori (\ds{2}).},label=lst:rctbn-ffstatsgraph]{codes/fsstatsgraph}
 
 L'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-ffstatsgraph} illustra le \emph{\stats{}} dei nodi scelti, dati i loro rispettivi insiemi di nodi genitori, computate sul \ds{2}.
 
@@ -143,7 +143,6 @@ Si illustra ora come effettuare l'apprendimento dei parametri di una \acs{CTBN} 
 
 Supponendo di considerare la \acs{CTBN} con la struttura utilizzata per l'esempio precedente (si veda la \vref{tab:little-example-ctbn}) e di aver salvato le \emph{\stats{}} calcolate nel sorgente \ref{lst:rctbn-fsstats2} in una variabile chiamata \lstinline$ss$, è possibile apprendere i parametri fornendo tale variabile in input alla funzione \lstinline[language=rstats]{params}.
 
-\cleardoublepage
 \inputsourcecode[caption={[Stima dei parametri di una \acs{CTBN} dal \ds{2}]Apprendimento (\ie{} stima esatta) dei parametri di una \acs{CTBN} dal \ds{2}.},language=rstats,label=lst:rctbn-hparams]{codes/params}
 
 Tale funzione richiede in input una tabella hash contenente le \emph{\stats{}} di uno o più nodi (qualsiasi sia il loro insieme di genitori), cioè un oggetto restituito dalle funzioni \lstinline[language=rstats]{fsstats_graph} o \lstinline[language=rstats]{fsstats}.
@@ -177,11 +176,9 @@ In questa sottosezione si presenta l'utilizzo del \pacchettor{} per l'apprendime
 
 A tale scopo si presenta una porzione di codice \lstinline$R$ che, generato in modo casuale un classificatore \acs{CTBN} valido (si veda la \autoref{defn:ctbnc} nella \vref{sec:ctbnc-model}) per il \ds{2}, utilizza la funzione \lstinline[language=rstats]{learn_ctbnc} per apprenderne i parametri e la distribuzione a priori delle classi rispetto a un \emph{\keyword{training set}} di tale dataset.
 
-Prima di illustrare il sorgente necessario all'apprendimento del succitato classificatore \acs{CTBN}, si riporta la sua struttura.
+Prima di illustrare il sorgente necessario all'apprendimento del succitato classificatore \acs{CTBN}, si riporta la sua struttura tramite la \vref{tab:ex-ctbnc-tab}, la quale illustra l`insieme di nodi genitori di ogni nodo.
 
-Si osservi che tale struttura è perfettamente riproducibile su qualsiasi macchina esegua il codice utile a generarla. Ciò è possibile grazie all'utilizzo del comando \lstinline[language=rstats]{set.seed} che fissa il seme del generatore dei numeri casuali di \lstinline$R$. La tabella seguente illustra perciò tale struttura, sotto forma di corrispondenza di ogni nodo al suo insieme di nodi genitori.
-
-\begin{table}[htbp]%
+\begin{table}[H]%
 	\footnotesize
 	\centering%
 	\begin{tabular}{+c^c}
@@ -225,8 +222,10 @@ Si osservi che tale struttura è perfettamente riproducibile su qualsiasi macchi
 	D$981$     	        & class, D$341$, D$982$, D$1110$, D$781$     				\\
 	D$982$				& class, D$5094$									 		\\\bottomrule
 	\end{tabular}
-	\caption[Struttura d'esempio di classificatore \acs{CTBN}]{Struttura d'esempio di un classificatore \acs{CTBN} (\acs{CTBNC}) espressa tramite la corrispondenza fra i nodi e relativi insiemi di genitori.}
-\end{table}\normalsize
+	\caption[Struttura d'esempio di classificatore \acs{CTBN}]{Struttura d'esempio di un classificatore \acs{CTBN} (\acs{CTBNC}) espressa tramite la corrispondenza fra i nodi e relativi insiemi di genitori.}\label{tab:ex-ctbnc-tab}
+\end{table}
+\normalsize
+Si osservi che tale struttura è perfettamente riproducibile su qualsiasi macchina esegua il codice utile a generarla. Ciò è possibile grazie all'utilizzo del comando \lstinline[language=rstats]{set.seed} che fissa il seme del generatore dei numeri casuali di \lstinline$R$.
 
 Si presenta ora sinteticamente la firma della la funzione \lstinline[language=rstats]{learn_ctbnc}. Essa richiede in input due parametri principali:
 \begin{itemize}
@@ -270,7 +269,8 @@ Anche in questo caso si tralascia la discussione dei restanti parametri poiché 
 
 Di seguito si presenta il sorgente che, selezionata un'istanza dal \ds{2} (\ie{} il primo elemento nel dataset), apprende un classificatore \acs{CTNB} sui restanti elementi presenti del dataset (\autoref{lst:learn-ctbnc-infer1}) e utilizza tale modello per classificare la succitata istanza (\autoref{lst:infer-ctbnc-infer1}).
 
-\vspace*{8pt}\inputsourcecode[caption={Apprendimento di un classificatore \acs{CTNB} (\acs{CTNBC}) tramite la procedura generica e classificazione di un'istanza del \ds{2} tramite tale classificatore.},nolol,language=rstats]{codes/inferctnbc}
+\cleardoublepage
+\inputsourcecode[caption={Apprendimento di un classificatore \acs{CTNB} (\acs{CTNBC}) tramite la procedura generica e classificazione di un'istanza del \ds{2} tramite tale classificatore.},nolol,language=rstats]{codes/inferctnbc}
 
 Come detto, utilizzando l'apposita funzione (si veda \autoref{lst:learn-ctbnc-infer2}) di apprendimento dei classificatori \acs{CTNB} (\acs{CTNBC}) è possibile ridurre la quantità di linee di codice e di operazioni necessarie, come mostra il seguente sorgente.
 
@@ -302,7 +302,7 @@ La funzione \lstinline[language=rstats]{greedy_search} richiede che le siano for
 \end{itemize}
 Tuttavia, l'unico parametro obbligatorio è il \emph{\keyword{training set}}, sul quale la procedura di \keyword{ricerca euristica} computa lo \emph{\keyword{score bayesiano}} al variare dei nodi e del relativo insieme di genitori. I restanti parametri sono tutti dotati di un parametro di default.
 
-Il sorgente che segue illustra come espletare il compito prefissatoci tramite il \pacchettor{}.
+Il sorgente che segue illustra come espletare il compito prefissatoci.
 
 \vspace*{8pt}\inputsourcecode[caption={[Apprendimento della struttura]Apprendimento della struttura di un \acs{CTBN} (\acs{CTBNC}).},label=lst:rctbn-hc,language=rstats]{codes/hc}
 
@@ -346,7 +346,7 @@ Il primo passo necessario consiste nella sostituzione dei \emph{\keyword{time pe
 Riguardo al modello in questione è quindi necessario eseguire il succitato programma nel seguente modo, ripetendo tale passo per tutti i $5$ file di output generati (si ricorda che il modello per i giorni lavorativi viene eseguito infatti $5$ volte, una per ogni giorno lavorativo):
 
 \cleardoublepage
-\inputsourcecode[caption={[Sostituzione dei \emph{time period} con le relative classi]Esecuzione del programma \lstinline[]|bash| per la sostituzione dei \emph{\keyword{time period}} con le relative classi nel file \acs{CSV} relativo al \ds{2}.},language=sh,basicstyle=\footnotesize\ttfamily,numbers=none,label=lst:sensors2dataset]{codes/sensors2dataset2}
+\inputsourcecode[caption={[Sostituzione dei time period con le relative classi]Esecuzione del programma \lstinline[]|bash| per la sostituzione dei \emph{\keyword{time period}} con le relative classi nel file \acs{CSV} relativo al \ds{2}.},language=sh,basicstyle=\footnotesize\ttfamily,numbers=none,label=lst:sensors2dataset]{codes/sensors2dataset2}
 Di seguito si spiegano brevemente le opzioni utilizzate:
 \begin{itemize}
 	\item l'opzione \lstinline[]|i| serve a specificare il percorso del file di input, cioè del file \acs{CSV} generato da \acsfont{Sensors} \acs{DLL}

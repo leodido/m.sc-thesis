@@ -484,9 +484,9 @@ In questa sezione si presentano i risultati ottenuti dalla \keyword{sperimentazi
 
 Prima di presentare tali risultati si introduce la metodologia di \keyword{sperimentazione} utilizzata sui succitati $6$ dataset.
 
-Come anticipato, dato un modello di classificatore \acs{CTBN}, si è svolta la stessa $k$-\emph{fold \keyword{cross-validation}} con $k = 10$ per ognuno dei dataset generati. Si è cioè suddiviso ognuno dei succitati dataset in $10$ campioni di uguale numerosità utilizzandone uno come \emph{\keyword{validation set}} (\ie{} \emph{\keyword{test set}}) e i restanti come \emph{\keyword{training set}}. Si è quindi ripetuto tale processo $10$ volte, affinché ognuno dei $10$ campioni fosse stato utilizzato come \emph{\keyword{test set}} esattamente una sola volta.
+Come anticipato, dato un modello di classificatore \acs{CTBN}, si è svolta la stessa $k$-\emph{fold \keyword{cross-validation}} con $k = 10$ per ognuno dei dataset generati. Si è cioè suddiviso ognuno dei succitati dataset in $10$ campioni di uguale numerosità utilizzandone uno come \emph{\keyword{validation set}} (\ie{} \emph{\keyword{test set}}) e i restanti come \emph{\keyword{training set}}. Si è quindi ripetuto tale processo $10$ volte, affinché ognuno dei $10$ campioni venisse utilizzato come \emph{\keyword{test set}} esattamente una sola volta.
 
-Il fine della \emph{\keyword{cross-validation}} è quello di validare la capacità di apprendimento (e generalizzazione) di un modello predittivo \citep[si veda][capitolo $7$]{Hastie2001}, qual è il classificatore \acs{CTBN}. A tale scopo, i risultati di ognuno dei $10$ processi di classificazione possono essere mediati (o combinati in modi alternativi) al fine di produrre singoli valori che stimino l'efficacia\footnote{L'efficacia di un classificatore è un termine generico che indica un insieme di misure (\eg{} \emph{\keyword{precision}}, \emph{\keyword{recall}}, \emph{\keyword{$F$-measure}} e \emph{\keyword{accuracy}}) della qualità di un classificatore.} del modello predittivo utilizzato. In questa sperimentazione, avendo affrontato un problema di \emph{\keyword{classificazione multi-classe}}, si sono mediati i risultati relativi a ogni \emph{\keyword{fold}}\footnote{Un fold indica una configurazione, comprensiva di \emph{\keyword{training set}} e \emph{\keyword{test set}}, delle $k$ utilizzate durante una $k$-\emph{fold \keyword{cross-validation}}.} utilizzando i cosiddetti approcci \emph{\keyword{micro-average}} e \emph{\keyword{macro-average}}.
+Il fine della \emph{\keyword{cross-validation}} è quello di valutare la capacità di apprendimento e generalizzazione di un modello predittivo \citep[si veda][capitolo $7$]{Hastie2001}, qual è il classificatore \acs{CTBN}. La \emph{\keyword{cross-validation}} è considerata una delle tecniche possibili utilizzabili al fine di rilevare e evitare il problema dell'\emph{\keyword{overfitting}}\footnote{Il problema dell'\emph{overfitting} è un problema frequente nei campi di ricerca che utilizzato modelli e tecniche statistiche (\eg{} apprendimento automatico, data mining). Tale problema si verifica quando un modello statistico si adatta eccessivamente al \emph{training set} perdendo così la capacità di riconoscere (\ie{} classificare, nel caso di modelli predittivi) istanze del problema non conosciute; non acquisendo cioè una adeguata capacità di generalizzazione.}. A tale scopo, i risultati di ognuno dei $10$ processi di classificazione possono essere mediati (o combinati in modi alternativi) al fine di produrre singoli valori che stimino l'efficacia\footnote{L'efficacia di un classificatore è un termine generico che indica un insieme di misure (\eg{} \emph{\keyword{precision}}, \emph{\keyword{recall}}, \emph{\keyword{$F$-measure}} e \emph{\keyword{accuracy}}) della qualità di un classificatore.} del modello predittivo utilizzato. In questa sperimentazione, avendo affrontato un problema di \emph{\keyword{classificazione multi-classe}}, si sono mediati i risultati relativi a ogni \emph{\keyword{fold}}\footnote{Un fold indica una configurazione, comprensiva di \emph{\keyword{training set}} e \emph{\keyword{test set}}, delle $k$ utilizzate durante una $k$-\emph{fold \keyword{cross-validation}}.} utilizzando i cosiddetti approcci \emph{\keyword{micro-average}} e \emph{\keyword{macro-average}}.
 
 La differenza tra queste due tecniche di sintesi dei risultati consiste nel fatto che mentre l'approccio \emph{\keyword{macro-average}} è una media (non pesata) delle metriche relative ad ogni classe, l'approccio \emph{\keyword{micro-average}}, al contrario, consiste in una media delle metriche attuata sul totale delle istanze sottoposte a classificazione. Da ciò consegue che la tecnica \emph{\keyword{micro-average}} tende a conferire maggiore peso alle classi composte da più istanze e costituisce, in caso di classi popolose nel \emph{\keyword{test set}} una reale misura dell'efficacia del classificatore. Invece, per sintetizzare l'efficacia del classificatore su classi composte da poche istanze è preferibile considerare le indicazioni di efficacia date dall'approccio \emph{\keyword{macro-average}} \citep[si veda][sezione 13.6]{Manning2008}.
 
@@ -503,12 +503,57 @@ La procedura di \keyword{sperimentazione} descritta è stata attuata per i $4$ d
 \end{itemize}
 L'obiettivo delle prossime sezioni è quindi quello di comparare l'efficacia di tali classificatori.
 
-\subsection{Accuratezza}
+\subsection{Metriche di valutazione}
+Prima di presentare i risultati relativi ai succitati classificatori si illustra la metodologia con cui si sono state calcolate le metriche di valutazione per ognuna delle $6$ sperimentazioni effettuate.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=1.25\textwidth,center]{accuracies-by-ds-by-classifier-green}
-\end{figure}
+Come anticipato, dato uno qualunque dei dataset generati si è configurata per esso una sperimentazione $k$-\emph{fold \keyword{cross-validation}} con $k$ = 10.
+
+Ottenuti i risultati relativi ai processi di classificazione, per ognuno dei $10$ \emph{\keyword{fold}} si è effettuato il processo di \emph{\keyword{cross-tabulazione}}\footnote{Il processo di \keyword{cross-tabulazione} consiste in un processo statistico il cui scopo è riassumere le interrelazioni che intercorrono fra due variabili categoriche dei dati. L'output di questo processo corrisponde solitamente a una \emph{\keyword{matrice di contingenza}}.} tra le classi reali delle istanze e le classi ad esse assegnate dal processo di \emph{\keyword{classificazione supervisionata}}. Calcolate così le \emph{\keyword{matrici di contingenza}}, si è proceduto alla computazione delle metriche di valutazione per ogni \emph{\keyword{fold}} e successivamente all'effettuazione delle medie \emph{\keyword{macro-average}} e \emph{\keyword{micro-average}}.
+
+La \vref{tab:contingency-table} riproduce un esempio di \emph{\keyword{matrice di contingenza}} calcolata per ogni singolo processo di classificazione. Essa rappresenta le classi reali delle istanze sulle colonne e le classi inferite sulle righe. Ogni cella $(i\,,\,j)$ contiene il numero di istanze della classe $j$ classificate come appartenenti alla classe $i$. Ne deriva perciò che una classificazione perfetta (il ché, si noti, non corrisponde a aver appreso un classificatore perfetto) corrisponde ad una matrice diagonale\footnote{Una matrice diagonale è una matrice quadrata in cui solamente i valori della diagonale principale sono diversi da $0$.}.
+
+A partire da essa è possibile calcolare
+\begin{table}
+	\footnotesize
+	\centering%
+	\begin{tabular}{+c^c^c^c^c^c^c}
+	\toprule\rowstyle{\bfseries}%
+		    		& Classe $1$ & Classe $2$ & Classe $3$ & Classe $4$ & Classe $5$ & Classe $6$ \\\otoprule
+    \bfseries{Classe $1$} 	& $(1\,,\,1)$ & $(1\,,\,2)$ & $(1\,,\,3)$ & $(1\,,\,4)$ & $(1\,,\,5)$ & $(1\,,\,6)$ \\
+    \bfseries{Classe $2$} 	& $(2\,,\,1)$ & $(2\,,\,2)$ & $(2\,,\,3)$ & $(2\,,\,4)$ & $(2\,,\,5)$ & $(2\,,\,6)$ \\
+    \bfseries{Classe $3$} 	& $(3\,,\,1)$ & $(3\,,\,2)$ & $(3\,,\,3)$ & $(3\,,\,4)$ & $(3\,,\,5)$ & $(3\,,\,6)$ \\
+    \bfseries{Classe $4$} 	& $(4\,,\,1)$ & $(4\,,\,2)$ & $(4\,,\,3)$ & $(4\,,\,4)$ & $(4\,,\,5)$ & $(4\,,\,6)$ \\
+    \bfseries{Classe $5$} 	& $(5\,,\,1)$ & $(5\,,\,2)$ & $(5\,,\,3)$ & $(5\,,\,4)$ & $(5\,,\,5)$ & $(5\,,\,6)$ \\
+    \bfseries{Classe $6$} 	& $(6\,,\,1)$ & $(6\,,\,2)$ & $(6\,,\,3)$ & $(6\,,\,4)$ & $(6\,,\,5)$ & $(6\,,\,6)$ \\\bottomrule
+    \end{tabular}
+    \caption[Esempio di \keyword{matrice di contingenza}]{Esempio di \emph{\keyword{matrice di contingenza}} specifico del problema di \emph{\keyword{classificazione multi-classe}} affrontato.}\label{tab:contingency-table}
+\end{table}
+\normalsize
+
+
+%proceduto alla creazione delle relative \emph{matrici di contingenza}\footnote{Una \keyword{matrice di contingenza}} e quindi computazione delle seguenti metriche di valutazione:
+%\begin{itemize}
+%	\item
+%\end{itemize}
+
+%Per ognungo dei fold della $k$-\emph{fold \keyword{cross-validation}} si è computata la metrica \emph{\keyword{accuracy}} con intr
+
+A titolo informativo si comunica che l'implementazione di quanto descritto in questa sottosezione è stata attuata con l'ausilio di una libreria \lstinline$R$, il pacchetto \lstinline$caret$ \citep{CARET2013}.
+
+\subsection{Accuratezza}
+In questa sottosezione si presentano i risultati di ogni processo di \emph{\keyword{classificazione supervisionata}} effettuato con ognuno $4$ modelli di classificatori precedentemente descritti. Nello specifico, per ogni dataset sottoposto a sperimentazione, si illustra il valore della metrica \emph{\keyword{accuracy}} relativo ad ognuno dei classificatori utilizzati.
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=1.25\textwidth,center]{accuracies-by-ds-by-classifier-green.pdf}
+%	\caption[zzz]{zzz}
+%\end{figure}
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\columnwidth,height=\textheight,keepaspectratio]{accuracies-by-ds-by-classifier-green-vert.pdf}
+%	\caption[zzz]{zzz}
+%\end{figure}
 
 %comparazione accuracy:
 %%def. accuracy
