@@ -511,9 +511,7 @@ Come anticipato, dato uno qualunque dei dataset generati si è configurata per e
 Ottenuti i risultati relativi ai processi di classificazione, per ognuno dei $10$ \emph{\keyword{fold}} si è effettuato il processo di \emph{\keyword{cross-tabulazione}}\footnote{Il processo di \keyword{cross-tabulazione} consiste in un processo statistico il cui scopo è riassumere le interrelazioni che intercorrono fra due variabili categoriche dei dati. L'output di questo processo corrisponde solitamente a una \emph{\keyword{matrice di contingenza}}.} tra le classi reali delle istanze e le classi ad esse assegnate dal processo di \emph{\keyword{classificazione supervisionata}}. Calcolate così le \emph{\keyword{matrici di contingenza}}, si è proceduto alla computazione delle metriche di valutazione per ogni \emph{\keyword{fold}} e successivamente all'effettuazione delle medie \emph{\keyword{macro-average}} e \emph{\keyword{micro-average}}.
 
 La \vref{tab:contingency-table} riproduce un esempio di \emph{\keyword{matrice di contingenza}} calcolata per ogni singolo processo di classificazione. Essa rappresenta le classi reali delle istanze sulle colonne e le classi inferite sulle righe. Ogni cella $(i\,,\,j)$ contiene il numero di istanze della classe $j$ classificate come appartenenti alla classe $i$. Ne deriva perciò che una classificazione perfetta (il ché, si noti, non corrisponde a aver appreso un classificatore perfetto) corrisponde ad una matrice diagonale\footnote{Una matrice diagonale è una matrice quadrata in cui solamente i valori della diagonale principale sono diversi da $0$.}.
-
-A partire da essa è possibile calcolare
-\begin{table}
+\begin{table}[ht]
 	\footnotesize
 	\centering%
 	\begin{tabular}{+c^c^c^c^c^c^c}
@@ -526,10 +524,58 @@ A partire da essa è possibile calcolare
     \bfseries{Classe $5$} 	& $(5\,,\,1)$ & $(5\,,\,2)$ & $(5\,,\,3)$ & $(5\,,\,4)$ & $(5\,,\,5)$ & $(5\,,\,6)$ \\
     \bfseries{Classe $6$} 	& $(6\,,\,1)$ & $(6\,,\,2)$ & $(6\,,\,3)$ & $(6\,,\,4)$ & $(6\,,\,5)$ & $(6\,,\,6)$ \\\bottomrule
     \end{tabular}
-    \caption[Esempio di \keyword{matrice di contingenza}]{Esempio di \emph{\keyword{matrice di contingenza}} specifico del problema di \emph{\keyword{classificazione multi-classe}} affrontato.}\label{tab:contingency-table}
+    \caption[Matrice di contingenza\index{matrice di contingenza} multi-classe]{Esempio di \emph{\keyword{matrice di contingenza}} specifico del problema di \emph{\keyword{classificazione multi-classe}} affrontato.}\label{tab:contingency-table}
 \end{table}
 \normalsize
 
+A partire dalla \vref{tab:contingency-table}, per ognua delle classi, è possibile calcolare una ulteriore \emph{\keyword{matrice di contingenza}} che riassumi la classificazione di ogni singola classe. La \vref{tab:contingency-table-single-class} di seguito riporta un esempio di tale matrice. Fissata una classe, tale tabella, tramite alcune metriche di base che si descrivono di seguito, mette in relazione le classi reali delle istanze con le classi inferite.
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{+c^c^c^c}
+	\toprule\rowstyle{\bfseries}%
+	Inferite $\downarrow$ / Reali $\rightarrow$	& Positivi & Negativi & 			\\\otoprule
+	\bfseries{Positivi} 						& \acs{TP} & \acs{FP} & \acs{PPV}	\\
+	\bfseries{Negativi} 						& \acs{FN} & \acs{TN} & \acs{NPV} 	\\
+												& \acs{TPR}& \acs{TNR}& 			\\\bottomrule
+	\end{tabular}
+	\caption[Esempio di \keyword{matrice di contingenza}]{Esempio di \keyword{matrice di contingenza} relativa al processo di classificazione di una singola classe.}\label{tab:contingency-table-single-class}
+\end{table}
+
+Si osservi che la computazione di tali matrici di contingenza è un passo necessario al calcolo delle medie \emph{\keyword{macro-average}}, ottenute appunto dalle metriche relative alle singole classi. Invece, come detto, per il calcolo delle medie \emph{\keyword{micro-average}} si procede sul totale delle istanze del \emph{\keyword{test set}}.
+
+Di seguito si elencano e presentano le metriche di valutazione calcolate.
+\begin{description}
+	\item[True Positive] \hfill \\
+	Il valore della metrica \acf{TP} corrisponde al numero di istanze classificate correttamente.
+	\item[True Negative] \hfill \\
+	Il valore della metrica \acf{TN} corrisponde al numero di istanze non appartenenti alla classe corrente classificate correttamente (\eg{} numero di istanze non appartenenti alla classe $1$ che sono state classificate come appartenenti a un'altra classe).
+	\item[False Positive] \hfill \\
+	Il valore della metrica \acf{FP} corrisponde al numero di istanze non classificate correttamente.
+	\item[False Negative] \hfill \\
+	Il valore della metrica \acf{FN} corrisponde al numero di istanze non appartenenti alla classe corrente ma classificate come tali (\eg{} numero di istanze non appartenenti alla classe $1$ ma classificate come tali).
+	\item[True Positive Rate] \hfill \\
+	Il \acf{TPR}, detto anche \emph{\keyword{recall}} o \emph{\keyword{sensitivity}}, esprime l'abilità del modello nel classificare le istanze in modo corretto. \`E così calcolato:\par
+	\[TPR=\frac{TP}{TP + FN} = 1 - FNR\text{.}\]
+	\item[False Negative Rate] \hfill \\
+	Il \acf{FNR} è l'inverso della metrica \acs{TPR}. \`E quindi calcolato nel seguento modo:\par
+	\[FNR=\frac{FN}{TP + FN} = 1 - TPR\text{.}\]
+	\item[True Negative Rate] \hfill \\
+	Il \acf{TNR}, detto anche \emph{\keyword{specificity}}, misura la proporzione di istanze correttamente classificate come non appartenenti a quella reale in esame. \`E così calcolato:\par
+	\[TNR=\frac{TN}{TN + FP} = 1 - FNR\text{.}\]
+	\item[False Negative Rate] \hfill \\
+	Il \acf{FNR} è l'inverso della metrica \acs{TNR}. \`E quindi calcolato nel seguento modo:\par
+	\[FNR = \frac{FP}{TN + FP} = 1 - TNR\text{.}\]
+	\item[Positive Predictive Value] \hfill \\
+	Il \acf{PPV}, detto anche \emph{\keyword{precision}},
+	\item[False Discovery Rate] \hfill \\
+	Il \acf{FDR} ...
+	\item[Negative Predictive Value] \hfill \\
+	Il \acf{NPV}
+	\item[F-Measure] \hfill \\
+	Il punteggio \acf{F1} ...
+	\item[Accuratezza] \hfill \\
+	L'\emph{\keyword{accuracy}}
+\end{description}
 
 %proceduto alla creazione delle relative \emph{matrici di contingenza}\footnote{Una \keyword{matrice di contingenza}} e quindi computazione delle seguenti metriche di valutazione:
 %\begin{itemize}
