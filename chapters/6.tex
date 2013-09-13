@@ -479,7 +479,7 @@ Si descrivono infine le varianti del \ds{2} sottoposte a sperimentazione.
 \end{description}
 
 \cleardoublepage
-\section{Risultati}
+\section{Sperimentazione}
 In questa sezione si presentano i risultati ottenuti dalla \keyword{sperimentazione} della classe dei classificatori \acs{CTBN} (\acs{CTBNC}) descritta in questo lavoro di tesi.
 
 Prima di presentare tali risultati si introduce la metodologia di \keyword{sperimentazione} utilizzata sui succitati $6$ dataset.
@@ -528,7 +528,7 @@ La \vref{tab:contingency-table} riproduce un esempio di \emph{\keyword{matrice d
 \end{table}
 \normalsize
 
-A partire dalla \vref{tab:contingency-table}, per ognua delle classi, è possibile calcolare una ulteriore \emph{\keyword{matrice di contingenza}} che riassumi la classificazione di ogni singola classe. La \vref{tab:contingency-table-single-class} di seguito riporta un esempio di tale matrice. Fissata una classe, tale tabella, tramite alcune metriche di base che si descrivono di seguito, mette in relazione le classi reali delle istanze con le classi inferite.
+A partire dalla \vref{tab:contingency-table}, per ognua delle classi, è possibile calcolare una ulteriore \emph{\keyword{matrice di contingenza}} che riassumi la classificazione delle istanze appartenenti ad una singola classe piuttosto che alle altre (approccio detto \virgolette{\emph{one versus all}}). La \vref{tab:contingency-table-single-class} di seguito riporta un esempio di tale matrice. Fissata una classe, tale tabella, tramite alcune metriche di base che si descrivono di seguito, mette in relazione le classi reali delle istanze con le rispettive classi inferite.
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{+c^c^c^c}
@@ -560,34 +560,29 @@ Di seguito si elencano e presentano le metriche di valutazione calcolate.
 	Il \acf{FNR} è l'inverso della metrica \acs{TPR}. \`E quindi calcolato nel seguento modo:\par
 	\[FNR=\frac{FN}{TP + FN} = 1 - TPR\text{.}\]
 	\item[True Negative Rate] \hfill \\
-	Il \acf{TNR}, detto anche \emph{\keyword{specificity}}, misura la proporzione di istanze correttamente classificate come non appartenenti a quella reale in esame. \`E così calcolato:\par
-	\[TNR=\frac{TN}{TN + FP} = 1 - FNR\text{.}\]
-	\item[False Negative Rate] \hfill \\
-	Il \acf{FNR} è l'inverso della metrica \acs{TNR}. \`E quindi calcolato nel seguento modo:\par
-	\[FNR = \frac{FP}{TN + FP} = 1 - TNR\text{.}\]
+	Il \acf{TNR}, detto anche \emph{\keyword{specificity}}, misura l'abilità del modello nel non sbagliare classificazione, cioè nell'identificare le istanze da non classificare come appartenenti alla classe in esame. \`E così calcolato:\par
+	\[TNR=\frac{TN}{TN + FP} = 1 - FPR\text{.}\]
+	\item[False Positive Rate] \hfill \\
+	Il \acf{FPR}, detto anche \emph{\keyword{false allarm rate}} o \emph{\keyword{fall-out}}, è l'inverso della metrica \acs{TNR}. \`E calcolato nel seguento modo:\par
+	\[FPR = \frac{FP}{TN + FP} = 1 - TNR\text{.}\]
 	\item[Positive Predictive Value] \hfill \\
-	Il \acf{PPV}, detto anche \emph{\keyword{precision}},
-	\item[False Discovery Rate] \hfill \\
-	Il \acf{FDR} ...
+	Il \acf{PPV}, detto anche \emph{\keyword{precision}}, rappresenta la proporzione delle istanze classificate correttamente. Esso è calcolato come segue:
+	\[PPV = \frac{TP}{TP + FP} = 1 - FDR\text{.}\]
 	\item[Negative Predictive Value] \hfill \\
-	Il \acf{NPV}
+	Il \acf{NPV} è una metrica che rappresenta la proporzione delle istanze correttamente classificate come non appartenenti a quella in esame. \`E calcolato nel seguento modo:\par
+	\[NPV = \frac{TN}{TN + FN}\text{.}\]
 	\item[F-Measure] \hfill \\
-	Il punteggio \acf{F1} ...
+	Il punteggio \acf{F1} è una misura dell'accuratezza che un modello possiede. Nello specifico esso consiste nella media armoncia delle metriche \emph{\keyword{precision}} e \emph{\keyword{recall}}:
+	\[F_1 = 2 \cdot \frac{PPV \cdot TPR}{PPV + TPR}\text{.}\]
 	\item[Accuratezza] \hfill \\
-	L'\emph{\keyword{accuracy}}
+	L'accutarezza di un modello (\ie{} \emph{\keyword{accuracy}}), intesa come la sua capacità di classificare correttamente tutte le istanze (che appartengano o meno alla classe in esame), è computata nel seguento modo:
+	\[ACC = \frac{TP + TN}{TP + TN + FP + FN}\text{.}\]
 \end{description}
-
-%proceduto alla creazione delle relative \emph{matrici di contingenza}\footnote{Una \keyword{matrice di contingenza}} e quindi computazione delle seguenti metriche di valutazione:
-%\begin{itemize}
-%	\item
-%\end{itemize}
-
-%Per ognungo dei fold della $k$-\emph{fold \keyword{cross-validation}} si è computata la metrica \emph{\keyword{accuracy}} con intr
 
 A titolo informativo si comunica che l'implementazione di quanto descritto in questa sottosezione è stata attuata con l'ausilio di una libreria \lstinline$R$, il pacchetto \lstinline$caret$ \citep{CARET2013}.
 
 \subsection{Accuratezza}
-In questa sottosezione si presentano i risultati di ogni processo di \emph{\keyword{classificazione supervisionata}} effettuato con ognuno $4$ modelli di classificatori precedentemente descritti. Nello specifico, per ogni dataset sottoposto a sperimentazione, si illustra il valore della metrica \emph{\keyword{accuracy}} relativo ad ognuno dei classificatori utilizzati.
+In questa sottosezione si presentano i risultati di ogni processo di \emph{\keyword{classificazione supervisionata}} effettuato con ognuno $4$ modelli di classificatori. Nello specifico, per ogni dataset sottoposto a sperimentazione, si illustra il valore della metrica \emph{\keyword{accuracy}} relativo ad ognuno dei classificatori utilizzati.
 
 %\begin{figure}
 %	\centering
