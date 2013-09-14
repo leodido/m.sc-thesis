@@ -8,9 +8,29 @@
 %************************************************
 \cleardoublepage
 \phantomsection
-%\pdfbookmark{Conclusioni}{Conclusioni}
 \markboth{\spacedlowsmallcaps{Conclusione}}{\spacedlowsmallcaps{Conclusione}}
 \addcontentsline{toc}{chapter}{\tocEntry{Conclusioni}}
 \chapter*{Conclusioni}\label{cap:concl}
-\omissis{}
+Questo lavoro di tesi è stato incentrato sul framework delle \acf{CTBN}, e sulla descrizione di una classe di modelli di \emph{classificatori} da esso derivanti.
+
+Come ampiamente descritto e motivato, il principale vantaggio apportato dalle \acs{CTBN} consiste nella loro capacità di rappresentare esplicitamente \emph{sistemi dinamici} che evolvono nel \emph{tempo continuo} senza necessitare della scelta a priori di un'arbitraria granularità temporale, a differenza di altri modelli grafico probabilistici con scopi simili (\eg{} \acl{DBN}). Inoltre, tale modello non possiede il vincolo di aciclicità. Ciò permette di modellare in modo naturale le mutue influenze fra le variabili di un dato sistema dinamico, e di facilitare il processo di apprendimento strutturale, permettendo di ricercare l'insieme di nodi genitori di ogni nodo in modo indipendente da quello dei restanti nodi del modello.
+
+Si è quindi descritto il processo di \emph{apprendimento dei parametri} per le \acs{CTBN} e il conseguente algoritmo di \emph{apprendimento dei classificatori} \acs{CTBN} (\acs{CTBNC}), entrambi relativi a dati completi. Come naturale prosecuzione del processo di apprendimento dei classificatori si è descritto l'algoritmo di \emph{inferenza esatta} per i \acs{CTBNC}, il quale implementa un \emph{tradeoff} fra complessità computazionale e efficacia di classificazione.
+
+Come detto, i classificatori \acs{CTBN} (\acs{CTBNC}) sono un modello grafico probabilistico finalizzato alla risoluzione del problema della classificazione supervisionata nel caso in cui:
+\begin{itemize}
+	\item gli attributi del sistema dinamico siano discreti (o discretizzabili)
+	\item il tempo fluisca continuamente
+	\item si disponga di dati completi
+	\item la classe si verifica nel futuro.
+\end{itemize}
+
+Si è infine descritto un processo di \emph{apprendimento strutturale} basato sull'ottimizzazione, attuata tramite una procedura di ricerca euristica (\ie{} \emph{\hc{}}), di una \emph{funzione di punteggio} per le \acs{CTBN}.
+
+Nella seconda parte del presente elaborato, invece, si sono affrontati argomenti di tipo pratico. In primis, si è presentato \rctbn{}, il \emph{pacchetto} \lstinline$R$ sviluppato al fine di implementare il framework delle \acs{CTBN} e gli algoritmi descritti nella parte teorica della tesi. Successivamente si è descritto il software commerciale \acs{TSIS} utilizzato per la \emph{modellazione di profili di traffico su reti stradali urbane} e la sua \acl{RTE} sviluppata al fine di monitorare e tracciare il passaggio dei veicoli sui \emph{sensori} presenti in tali reti stradali.
+
+La progettazione e implementazione di tali applicativi si è resa necessaria allo scopo di generare dei \emph{dataset} che rappresentassero dei sistemi dinamici complessi, qual è il traffico automobilistico, da sottoporre ai classificatori \acs{CTBN} (\acs{CTNBC}). Grazie a tali dataset si è potuto effettuare una \emph{sperimentazione} di $4$ diverse istanze di classificatori \acs{CTBN} allo scopo di valutare la loro applicazione a un problema noto e complesso qual è la \emph{classificazione dei profili di traffico}.
+
+Tale sperimentazione ha permesso inoltre di comparare l'efficacia dei vari modelli di classificatore \acs{CTBN} utilizzati: il classificatore \acl{CTNB} (\acs{CTNBC}) e i classificatori appresi tramite il succitato algoritmo di apprendimento strutturale. Dai risultati ottenuti si è evinto che ...
+
 
