@@ -602,7 +602,7 @@ In questa sottosezione si presentano i risultati dei processi di \emph{\keyword{
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1.25\textwidth,center]{accuracies-by-ds-by-classifier-green.pdf}
+	\includegraphics[width=1.3\textwidth,center]{accuracies-by-ds-by-classifier-green.pdf}
 	\caption[Accuratezza dei classificatori \acs{CTBN} e \acs{CTNB}]{Comparazione del valore di \emph{\keyword{accuracy}} ottenuto dal classificatore \acs{CTNB} e dai classificatori \acs{CTBN} (appresi con numero massimo di genitori variabile da $2$ a $4$) su ognuno dei $6$ dataset generati.}\label{fig:accuracies-fig}
 \end{figure}
 %\begin{figure}
@@ -620,40 +620,46 @@ Riguardo i $2$ dataset appena citati, inoltre, è possibile notare come il livel
 
 Infine, è possibile notare come l'accuratezza dei classificatori tenda a degradare all'aumentare della complessità del sistema dinamico rappresentato dal dataset. Infatti, la differenza tra il livello di accuratezza ottenuto per il \ds{1} e quello ottenuto per il \ds{2} è significativa, tanto quanto è significativa la differenza del livello di complessità delle reti stradali che essi rappresentano.
 
-\cleardoublepage
 \subsection{Curve ROC}
+
 %comparazione curve ROC per classe
 %%def. ROC
 %%tabella AUC?
 %%citare paper daniele per giustificazione, paper fawcett per analisi ROC
 %... vedi txt
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-01.pdf}
-%\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-01.pdf}
+	\caption[Curve \acs{ROC} relative alla classe $1$]{Curve \acs{ROC}, relative alla classe $1$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+\end{figure}
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-02.pdf}
-%\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-02.pdf}
+	\caption[Curve \acs{ROC} relative alla classe $2$]{Curve \acs{ROC}, relative alla classe $2$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+\end{figure}
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-03.pdf}
-%\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-03.pdf}
+	\caption[Curve \acs{ROC} relative alla classe $3$]{Curve \acs{ROC}, relative alla classe $3$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+\end{figure}
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-04.pdf}
-%\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-04.pdf}
+	\caption[Curve \acs{ROC} relative alla classe $4$]{Curve \acs{ROC}, relative alla classe $4$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+\end{figure}
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-05.pdf}
-%\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-05.pdf}
+	\caption[Curve \acs{ROC} relative alla classe $5$]{Curve \acs{ROC}, relative alla classe $5$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+\end{figure}
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=1\columnwidth]{microavg-model-rocs-class-06.pdf}
-%\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=1.05\columnwidth,center]{microavg-model-rocs-class-06.pdf}
+	\caption[Curve \acs{ROC} relative alla classe $6$]{Curve \acs{ROC}, relative alla classe $6$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+\end{figure}
