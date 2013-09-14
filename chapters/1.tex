@@ -87,7 +87,7 @@ Da cui segue che:
 \end{definizione}
 In termini non formali, supponendo di essere nel caso della definizione, cioè di avere una variabile casuale $\setel{A}$ \emph{condizionalmente indipendente} da $\setel{B}$ dato $\setel{C}$, ciò significa che è possibile ignorare $\setel{B}$ poiché essa non ha alcun riflesso sulla distribuzione \cond*{} di $\setel{A}$ quando sia noto l'evento $\setel{C}$.
 
-Si noti che il concetto appena espresso gioca un ruolo importante per i modelli probabilistici, quali sono le \acl{BN}, semplificando i calcoli richiesti per l'inferenza e l'apprendimento. Le \acl{BN} ereditano questi benefici dell'indipendenza \cond*{} come conseguenza della loro definizione (si veda l'\autoref{oss:bn-markov-assumption}). Infatti, la distribuzione \cond*{} di ogni variabile casuale $\setel{X_i}$ dipende solo ed esclusivamente dal valore dei suoi genitori, $Pa(\setel{X_i})$, mentre ignora completamente i valori dei nodi che non discendono da essa, $Nd(\setel{X_i})$.
+Si noti che il concetto appena espresso gioca un ruolo importante per i modelli probabilistici, quali sono le \acl{BN}, semplificando i calcoli richiesti per l'inferenza e l'apprendimento. Le \acl{BN} ereditano questi benefici dell'indipendenza \cond*{} come conseguenza della loro definizione (a tal riguardo si rimanda all'\autoref{oss:bn-markov-assumption}). Infatti, la distribuzione \cond*{} di ogni variabile casuale $\setel{X_i}$ dipende solo ed esclusivamente dal valore dei suoi genitori, $Pa(\setel{X_i})$, mentre ignora completamente i valori dei nodi che non discendono da essa, $Nd(\setel{X_i})$.
 
 Grazie alla \autoref{defn:ic} è possibile esprimere in modo formale il concetto appena espresso per ogni nodo $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$:
 \[
