@@ -58,9 +58,16 @@
 \usepackage[babel,
             italian=guillemets]{csquotes}   % automates some stylistic choices language-dependent: using \mkbibquote command you will get caporali quotes (i.e. « »)
 
-\usepackage[style=philosophy-modern,
-            hyperref,backref,natbib,
-            backend=biber]{biblatex}        % bibliography:
+\usepackage[backend=biber,
+            style=philosophy-modern,
+            sortlocale=it_IT,
+            hyperref,
+            backref,
+            natbib=true,
+            url=false,
+            doi=true,
+            sorting=ydnt
+            ]{biblatex}        % bibliography:
                                             % philosophy-modern for author-year citation style
                                             % add square option after backref option to get square brackets
                                             % numeric-comp for numeric citation style
