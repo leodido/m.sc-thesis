@@ -10,7 +10,17 @@
 \phantomsection
 \pdfbookmark{Abstract}{Abstract}
 \chapter*{Abstract}
+La maggior parte dei domini e dei sistemi reali evolvono. Essi sono perciò accomunati da una caratteristica: il verificarsi di cambiamenti nel tempo continuo.
 
+Al fine di modellare tali sistemi dinamici come insiemi di processi stocastici a tempo continuo e con spazio degli stati discreto, in questo lavoro di tesi, si presenta il framework delle \acf{CTBN}. Tale classe di modelli, sviluppando concetti propri delle \acf{BN} e dei \mprocess{}, permette di rappresentare in modo esplicito l'evoluzione di sistemi dinamici nel tempo continuo senza la necessità di definire a priori una granularità temporale fissa, al contrario di altri modelli già esistenti in letteratura.
+
+Successivamente, si descrive la classe dei \acf{CTBNC} derivante da tale framework. I \acs{CTBNC} sono modelli grafico probabilistici finalizzati alla classificazione supervisionata di traiettorie multi-variate che evolvono nel tempo continuo. Quindi, per tale modello si presentano e analizzano i processi di apprendimento e inferenza esatta nel caso di dati completi.
+
+Si descrive, inoltre, il processo di apprendimento strutturale di un generico modello \acs{CTBN} tramite un approccio basato su punteggio.
+
+L'elaborato prosegue presentando la progettazione e implementazione dell'intero framework delle \acs{CTBN} come pacchetto \lstinline$R$.
+
+Infine, si descrivo i dataset relativi al traffico su rete urbana, generati tramite un apposito software progettato e implementato a tale proposito. Il movente di tale operazione è consistito nell'applicazione di varie istanze di classificatori \acs{CTBN} (\ie{} il \acf{CTNBC} e $3$ classificatori \acs{CTBN} appresi dai dati variando il numero massimo di genitori per ogni nodo) al problema della classificazione dei profili di traffico; problema per cui vengono quindi presentati i risultati della sperimentazione.
 
 \vfill
 
