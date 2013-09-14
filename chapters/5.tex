@@ -271,7 +271,7 @@ Tuttavia, come detto, le funzioni della \acs{RTE} devono essere collegate ai pun
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\columnwidth]{tshell-tool-config-8}
-    \caption[Collegamento delle funzioni della \acs{RTE} a \acs{CORSIM}]{Collegamento delle funzioni della \acs{RTE} ai rispettivi punti di chiamata di \acs{CORSIM}.}
+    \caption[Collegamento delle funzioni della \acs{RTE}]{Collegamento delle funzioni della \acs{RTE} ai rispettivi punti di chiamata di \acs{CORSIM}.}
     \label{fig:tshell-tool-config-8}
 \end{figure}
 
@@ -347,7 +347,7 @@ Configurata la rete stradale, \acsfont{Sensors} \acs{DLL} può monitorare i sens
 
 Completata la simulazione e di conseguenza anche la procedura di monitoraggio dei sensori, \acsfont{Sensors} \acs{DLL}, in corrispondenza del punto di chiamata \lstinline[]|SimulationComplete| di \acs{CORSIM}, genera un file \acs{CSV} in cui memorizza il tempo, il \emph{time period} della rilevazione e la dinamica di stato di ogni sensore. La~\autoref{subsec:sensors-dll-output} \vpageref{subsec:sensors-dll-output} si occupa di presentare in maggior dettaglio l'output di \acsfont{Sensors} \acs{DLL}.
 
-\vspace*{8pt}\inputsourcecode[caption={[Rilevazione del passaggio dei veicoli sui sensori]Metodo della classe \lstinline[]|CLink| per la rilevazione del passaggio dei veicoli sui sensori}, label=lst:process-sensors, language=cpp]{codes/processsensors}
+\vspace*{8pt}\inputsourcecode[caption={[Rilevazione del passaggio dei veicoli]Metodo della classe \lstinline[]|CLink| per la rilevazione del passaggio dei veicoli sui sensori}, label=lst:process-sensors, language=cpp]{codes/processsensors}
 
 \begin{figure}[H]
     \centering

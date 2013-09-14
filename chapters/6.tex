@@ -621,14 +621,26 @@ Riguardo i $2$ dataset appena citati, inoltre, è possibile notare come il livel
 Infine, è possibile notare come l'accuratezza dei classificatori tenda a degradare all'aumentare della complessità del sistema dinamico rappresentato dal dataset. Infatti, la differenza tra il livello di accuratezza ottenuto per il \ds{1} e quello ottenuto per il \ds{2} è significativa, tanto quanto è significativa la differenza del livello di complessità delle reti stradali che essi rappresentano.
 
 \subsection{Curve ROC}
+L'obiettivo che questa sottosezione si prefigge è quello di completare la presentazione dei risultati ottenuti dalla sperimentazione dei classificatori \acs{CTBN} (\acs{CTBNC}). A tale scopo si presentano e comparano le curve \acf{ROC} di ogni classificatore utilizzato per la sperimentazione (\ie{} \acs{CTNBC}, \acs{CTBNC}$2$, \acs{CTBNC}$3$ e \acs{CTBNC}$4$).
+
+Prima di tale discussione, tuttavia, è necessario introdurre la curva \acs{ROC}.
+
+%ROC graphs are a very useful tool for visualizing and evaluating classifiers. They are able to provide a richer measure of classification performance than scalar measures such as accuracy, error rate or error cost. Because they decouple classifier performance from class skew and error costs, they have advantages over other evaluation measures such as precision-recall graphs and lift curves. However, as with any evaluation metric, using them wisely requires knowing their characteristics and limitations.
+
+%A receiver operating characteristics (ROC) graph is a technique for visualizing, organizing and selecting classifiers based on their performance. ROC graphs have long been used in signal detection theory to depict the tradeoff between hit rates and false alarm rates of classifiers
+
+%The point (0, 1) represents perfect classification.
+
+%With more than two classes the situation becomes much more complex if the entire space is to be managed. With n classes the confusion matrix becomes an n · n matrix containing the n correct classifications (the major diagonal entries) and n2 À n possible errors (the off-diagonal entries). Instead of managing trade-offs between TP and FP, we have n benefits and n2 À n errors. With only three classes, the surface becomes a 32 À 3 = 6-dimensional polytope. Lane (2000) has outlined the issues involved and the prospects for addressing them. Srinivasan (1999) has shown .. One method for handling n classes is to produce n different ROC graphs, one for each class. Call this the class reference formulation. Specifically, if C is the set of all classes, ROC graph i plots the classification performance using class ci as the positive class and all other classes as the negative class, i.e.
 
 %comparazione curve ROC per classe
 %%def. ROC
 %%tabella AUC?
 %%citare paper daniele per giustificazione, paper fawcett per analisi ROC
 %... vedi txt
+%\citep{ROCR2005}
 
-\begin{figure}
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-01.pdf}
 	\caption[Curve \acs{ROC} relative alla classe $1$]{Curve \acs{ROC}, relative alla classe $1$, di ogni classificatore utilizzato nel processo di sperimentazione.}
