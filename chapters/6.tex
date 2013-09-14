@@ -447,7 +447,7 @@ Si osservi, inoltre, che al fine di definire il succitato andamento del traffico
 
 Per chiarezza si sottolinea infine che i profili di traffico del sabato e della domenica sono stati descritti con flussi di ingresso e percentuali di svolta di diversa entità rispetto a quelli appena descritti.
 
-\subsection{Configurazioni del dataset}
+\subsection{Configurazioni del dataset}\label{subsec:config-ds-2}
 Eseguendo con \acsfont{Sensors} \acs{DLL} uno qualsiasi dei modelli di simulazione (\ie{} giorni lavorativi, sabato o domenica) relativi alla rete stradale presentata, si ottiene il relativo file di output che, processato tramite gli strumenti di supporto precedentemente introdotti (si veda la \vref{sec:dataset-tools}), compone un dataset utile alla classificazione dei profili di traffico.
 
 Affinché i dataset in questione siano perfettamente riproducibili si sono utilizzati dei file \acs{RNS}\footnote{\acs{CORSIM} supporta l'utilizzo di file \acf{RNS} per la configurazione di alcuni aspetti della simulazione: numero di esecuzioni da effettuare e semi numerici da utilizzare per la generazione stocastica di eventi.}, semplici file di testo, opportunamente formattati, da cui \acs{CORSIM} legge il numero di esecuzioni da effettuare e i semi numerici\footnote{Il \emph{seed} è un numero utilizzato per inizializzare un generatore di numeri pseudo-casuali. Condividendo tale numero e utilizzando lo stesso generatore di numeri pseudo-casuali utilizzato da \acs{CORSIM} è possibile riprodurre la stessa identica simulazione su altri calcolatori.} relativi ad alcuni aspetti stocastici della simulazione (\eg{} incidenti, tipologia di guida dei conducenti).
@@ -582,33 +582,50 @@ Di seguito si elencano e presentano le metriche di valutazione calcolate.
 A titolo informativo si comunica che l'implementazione di quanto descritto in questa sottosezione è stata attuata con l'ausilio di una libreria \lstinline$R$, il pacchetto \lstinline$caret$ \citep{CARET2013}.
 
 \subsection{Accuratezza}
-In questa sottosezione si presentano i risultati di ogni processo di \emph{\keyword{classificazione supervisionata}} effettuato con ognuno $4$ modelli di classificatori. Nello specifico, per ogni dataset sottoposto a sperimentazione, si illustra il valore della metrica \emph{\keyword{accuracy}} relativo ad ognuno dei classificatori utilizzati.
+In questa sottosezione si presentano i risultati dei processi di \emph{\keyword{classificazione supervisionata}} dei $6$ dataset effettuati con ognuno dei $4$ modelli di classificatori presi in considerazione. Nello specifico, per ogni dataset sottoposto a sperimentazione, si illustra e commenta il valore della metrica \emph{\keyword{accuracy}}, mediata tramite approccio \emph{\keyword{micro-average}} su tutti i \emph{\keyword{fold}} di ogni sperimentazione, relativo ad ognuno dei classificatori utilizzati.
+\begin{table}[H]
+	\small
+	\centering
+	\begin{tabular}{+l^c^c^c^c}
+	\toprule\rowstyle{\bfseries}%
+				   				& \acs{CTNBC} 			& \acs{CTBNC}$2$ & \acs{CTBNC}$3$ 	 	& \acs{CTBNC}$4$ 		\\\otoprule
+    \Ds{1\text{.}100} 			& $0.9108$ 	  			& $0.9236$       & \color{red}$0.9259$ 	& \color{red}$0.9259$ 	\\
+    \Ds{1\text{.}300}   		& \color{red}$0.9548$ 	& $0.9513$       & $0.9513$ 			& $0.9513$				\\
+    \Ds{2\text{.}B\text{.}100} 	& \color{red}$0.6254$	& $0.6250$       & $0.6233$       		& $0.6206$          	\\
+    \Ds{2\text{.}B\text{.}300} 	& \color{red}$0.7159$   & $0.7013$       & $0.7013$ 			& $0.7020$ 				\\
+    \Ds{2\text{.}E\text{.}100} 	& \color{red}$0.7502$ 	& $0.7270$       & $0.7307$       		& $0.7231$				\\
+    \Ds{2\text{.}E\text{.}300} 	& \color{red}$0.8208$   & $0.7861$       & $0.7881$       		& $0.7791$				\\\bottomrule
+	\end{tabular}
+	\caption[Accuratezza dei classificatori \acs{CTBN} e \acs{CTNB}]{Comparazione del valore di \emph{\keyword{accuracy}} ottenuto dal classificatore \acs{CTNB} e dai classificatori \acs{CTBN} (appresi con numero massimo di genitori variabile da $2$ a $4$) su ognuno dei $6$ dataset generati. In rosso i valori maggiori per ogni dataset.}\label{tab:accuracies-table}
+\end{table}
+\normalsize
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=1.25\textwidth,center]{accuracies-by-ds-by-classifier-green.pdf}
-%	\caption[zzz]{zzz}
-%\end{figure}
-
+\begin{figure}
+	\centering
+	\includegraphics[width=1.25\textwidth,center]{accuracies-by-ds-by-classifier-green.pdf}
+	\caption[Accuratezza dei classificatori \acs{CTBN} e \acs{CTNB}]{Comparazione del valore di \emph{\keyword{accuracy}} ottenuto dal classificatore \acs{CTNB} e dai classificatori \acs{CTBN} (appresi con numero massimo di genitori variabile da $2$ a $4$) su ognuno dei $6$ dataset generati.}\label{fig:accuracies-fig}
+\end{figure}
 %\begin{figure}
 %	\centering
 %	\includegraphics[width=\columnwidth,height=\textheight,keepaspectratio]{accuracies-by-ds-by-classifier-green-vert.pdf}
 %	\caption[zzz]{zzz}
 %\end{figure}
+Seppur la \vref{tab:accuracies-table} evidenzi come il classificatore \acs{CTNB} (\acs{CTNBC}) risulti essere, per $5$ dataset su $6$, maggiormente accurato rispetto ai classificatori \acs{CTBN} appresi tramite apprendimento strutturale, è necessario osservare come tale vantaggio corrisponda in realtà a un'accuratezza superiore a quella degli altri modelli solo alla seconda o addirittura terza cifra decimale. Tale considerazione vale anche per il \ds{1\text{.}100} laddove sono i classificatori \acs{CTBN} con $k$ (\ie{} massimo numero di genitori) pari a $3$ e $4$ a riportare un leggero incremento della metrica \emph{\keyword{accuracy}}.
 
-%comparazione accuracy:
-%%def. accuracy
-%%tabella accuracy corrispondente al grafico
-%%6 dataset -> 4 modelli per ognuno
-%%comparazione intra dataset
-%%comparazione inter dataset
-%%incremento per traiettorie più lunghe (probabilmente perché perde meno transizioni nel taglio ..)
+Perciò, non essendoci un classificatore che sia apprezzabilmente più accurato degli altri, possiamo asserire che i $4$ classificatori utilizzati ottengono pressappoco gli stessi risultati in termini di accuratezza della classificazione.
 
+Tuttavia, osservando la \vref{fig:accuracies-fig} è possibile dedurre una serie di considerazioni ulteriori. Infatti, da tale figura è possibile notare come, per ogni dataset, all'aumentare dell'intervallo temporale rappresentato dalle istanze (\ie{} $100$ secondi contro $300$), aumenti anche il livello di accuratezza della classificazione per tutti i classificatori. Tale comportamento dei classificatori è giustificabile: la suddivisione di un dataset in istanze che rappresentano un determinato intervallo temporale di dati comporta necessariamente la perdita delle transizioni di stato a cavallo fra le istanze. Ciò è correlato al comportamento descritto: i dataset le cui istanze rappresentano al più $300$ secondi di dati, essendo queste più lunghe, hanno conservato un maggior numero di transizioni di stato a cavallo fra le istanze generate. Se ne deduce perciò che l'incremento di accuratezza del processo di \keyword{classificazione supervisionata} per i dataset da $300$ secondi è correlato a un aspetto quantitativo dell'informazione contenuta da tali dataset. Più semplicemente possiamo affermare che l'accuratezza dei classificatori aumenta all'aumentare dell'intervallo temporale rappresentato dalle istanze dei dataset. L'osservazione appena riportata è facilmente riscontrabile soprattutto comparando le due varianti del \ds{2\text{.}B}: \ds{2\text{.}B\text{.}100} e \ds{2\text{.}B\text{.}300} nella \vref{fig:accuracies-fig}.
+
+Riguardo i $2$ dataset appena citati, inoltre, è possibile notare come il livello generale di accuratezza che tutti i classificatori ottengono per essi sia ben inferiore rispetto a quello ottenuto sugli altri dataset. Anche in questo caso, si ritiene che ciò sia dovuto a un aspetto informativo dei dataset. Infatti, le istanze dei dataset \ds{2\text{.}B\text{.}100} e \ds{2\text{.}B\text{.}300} contengono solamente le traiettorie relative ai $6$ sensori reali del \ds{2} (si veda la \autoref{subsec:config-ds-2} \vpageref{subsec:config-ds-2}).
+
+Infine, è possibile notare come l'accuratezza dei classificatori tenda a degradare all'aumentare della complessità del sistema dinamico rappresentato dal dataset. Infatti, la differenza tra il livello di accuratezza ottenuto per il \ds{1} e quello ottenuto per il \ds{2} è significativa, tanto quanto è significativa la differenza del livello di complessità delle reti stradali che essi rappresentano.
+
+\cleardoublepage
 \subsection{Curve ROC}
 %comparazione curve ROC per classe
 %%def. ROC
 %%tabella AUC?
-%%citare paper daniele e fawcett
+%%citare paper daniele per giustificazione, paper fawcett per analisi ROC
 %... vedi txt
 
 %\begin{figure}
