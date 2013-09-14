@@ -12,7 +12,7 @@ Tuttavia, prima di illustrare e comparare i succitati risultati, si presentano i
 
 Perciò, questo capitolo è così articolato: una sezione per ognuno dei $2$ dataset generati, e una sezione relativa alla succitata sperimentazione. Le sezioni relative ai dataset sono suddivise in due sottosezioni: la prima finalizzata alla descrizione del modello \acs{TSIS} da cui è stato generato il dataset successivamente sottoposto a sperimentazione e la seconda finalizzata alla presentazione delle varie configurazioni del dataset generato.
 
-Al fine di valutare l'accuratezza dei metodi predittivi sviluppati, la sperimentazione è stata eseguita utilizzando la tecnica chiamata \emph{\keyword{cross-validation}}. Tale metodologia di validazione è infatti pensata per accertare la capacità di generalizzazione di un modello statistico di tipo predittivo su un insieme di dati non conosciuto. Nello specifico, le sperimentazioni dei metodi predittivi valutati sono state condotte tramite una \emph{\keyword{$k$-fold}} \emph{\keyword{cross-validation}} con $k=10$.
+Al fine di valutare l'accuratezza dei metodi predittivi sviluppati, la sperimentazione è stata eseguita utilizzando la tecnica chiamata \emph{\keyword{cross-validazione}}. Tale metodologia di validazione è infatti pensata per accertare la capacità di generalizzazione di un modello statistico di tipo predittivo su un insieme di dati non conosciuto. Nello specifico, le sperimentazioni dei metodi predittivi valutati sono state condotte tramite una \emph{\keyword{$k$-fold}} \emph{\keyword{cross-validazione}} con $k=10$.
 
 \section{\Ds{1}}\label{sec:dataset-1}
 Lo scopo di questa sezione è presentare le varie configurazioni del \ds{1} create.
@@ -215,7 +215,7 @@ Di seguito si descrivono le caratteristiche di tale dataset comuni a tutte le su
 
 Per il dataset in questione si sono create due sue differenti varianti operando differenti divisioni temporali del file sorgente:
 \begin{enumerate}
-	\item suddivisione in $864$ elementi, ognungo dei quali include al più $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
+	\item suddivisione in $864$ elementi, ognuno dei quali include al più $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
 	\item suddivisione in $288$ elementi, ognuno dei quali include al più $5$ minuti di traiettorie di ogni sensore della succitata rete stradale.
 \end{enumerate}
 Tali configurazioni sono chiamate, rispettivamente, \ds{1\text{.}100} e \ds{1\text{.}300}.
@@ -287,7 +287,7 @@ Posto nei pressi dell'intersezione $02$ (\ie{} \emph{Battisti - Brianza - Marghe
 \item[$5099$] \hfill \\
 Posto nei pressi dell'intersezione $02$ (\ie{} \emph{Battisti - Brianza - Margherita}), rileva i veicoli su \emph{Viale Battisti} (corsia destra) che svoltano a destra in \emph{Viale Margherita}.
 \end{description}
-I sensori aggiunti alla rete stradale sono identificati secondo uno schema ben preciso. Il loro identificatore è composto in base al senso di marcia. Nello specifico tale numero è una concatenazione dei seguenti valori: identificatore del nodo di partenza, identificatore del nodo d'arrivo, numero indicante la corsia su cui il sensore è posto (\ie{} $0$ se è la strada possiede una sola corsia, $1$ o $2$ se il sensore è posto rispettivamente a destra o a sinitra, $7$ o $8$ nel caso in cui esso sia posto su ulteriori corsie di destra o sinistra). Ad esempio:
+I sensori aggiunti alla rete stradale sono identificati secondo uno schema ben preciso. Il loro identificatore è composto in base al senso di marcia. Nello specifico tale numero è una concatenazione dei seguenti valori: identificatore del nodo di partenza, identificatore del nodo d'arrivo, numero indicante la corsia su cui il sensore è posto (\ie{} $0$ se è la strada possiede una sola corsia, $1$ o $2$ se il sensore è posto rispettivamente a destra o a sinistra, $7$ o $8$ nel caso in cui esso sia posto su ulteriori corsie di destra o sinistra). Ad esempio:
 \begin{itemize}
 \item il sensore identificato da D$912$ è posto sulla corsia di sinistra della strada che collega l'intersezione \virgolette{Volta} (\ie{} nodo $09$) all'intersezione \virgolette{Dante} (\ie{} nodo $01$)
 \item il sensore identificato da D$1480$ è posto sull'unica corsia di \virgolette{Via Tognetti} (\ie{} nodo $14$) nei pressi dell'incrocio con l'intersezione \virgolette{Boito} (\ie{} nodo $08$).
@@ -386,7 +386,7 @@ Come anticipato, per questo caso di studio si sono creati $3$ modelli di simulaz
 
 Il file \acs{TRF} creato per modellare il traffico sulla rete stradale nei giorni lavorativi prevede un tempo di simulazione totale pari a $24$ ore, suddiviso in $12$ \emph{time period}, ognuno dei quali composto da \emph{time interval} della durata di $100$ secondi: la \vref{tab:ds-2-tp-labels} illustra la durata (in ore) di ognuno di essi e introduce la corrispondenza fra essi e la fase della giornata, rappresentata come la variabile classe nel relativo dataset.
 
-Nei modelli di traffico relativi al sabato e alla domenica la corrispondenza tra i \emph{time period}, che rimangono identici a quelli mostrati nella tabella \vref{tab:ds-2-tp-labels}, e la variable classe è differente. Ad esempio, il \emph{time period} $1$ del modello di traffico relativo al sabato è stato associato alla classe $11$ mentre il \emph{time period} $1$ del modello di traffico relativo alla domenica è stato associato alla classe $21$. Ne deriva che gli identificatori della variabile classe per questi due modelli di traffico sono incrementati di una e due decine rispetto agli identificatori usati per il modello di traffico relativo ai giorni lavorativi.
+Nei modelli di traffico relativi al sabato e alla domenica la corrispondenza tra i \emph{time period}, che rimangono identici a quelli mostrati nella tabella \vref{tab:ds-2-tp-labels}, e la variabile classe è differente. Ad esempio, il \emph{time period} $1$ del modello di traffico relativo al sabato è stato associato alla classe $11$ mentre il \emph{time period} $1$ del modello di traffico relativo alla domenica è stato associato alla classe $21$. Ne deriva che gli identificatori della variabile classe per questi due modelli di traffico sono incrementati di una e due decine rispetto agli identificatori usati per il modello di traffico relativo ai giorni lavorativi.
 \begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l^l^l}
@@ -414,7 +414,7 @@ Ogni fase della giornata (\ie{} classe) è caratterizzata da un andamento divers
 	\item al mattino (\ie{} periodi temporali $4$ e $5$) traffico diretto verso il centro di \emph{Monza}, prevalentemente da \emph{Viale Battisti} (\ie{} nodo di ingresso $17$) e, in misura minore, da \emph{Viale Monza} (\ie{} nodo di ingresso $03$)
 	\item durante il giorno (\ie{} periodi temporali $6$, $7$ e $8$) incremento del traffico verso il centro di \emph{Monza}, soprattutto da \emph{Viale Battisti}, e incremento del traffico fra \emph{Viale Boccaccio} e \emph{Viale Margherita} (\ie{} nodi $18$ e $19$)
 	\item durante il pomeriggio (\ie{} periodi temporali $9$ e $10$) il flusso dei veicoli inizia a invertire la sua direzione verso \emph{Viale Battisti}; aumento del numero di veicoli diretti verso le strade laterali (\eg{} \emph{Via Donizzetti}, \emph{Via Alighieri}, \emph{Via Rossini})
-	\item alla sera (\ie{} periodi temporali $11$ e $12$) traffico proveniente dal centro di \emph{Monza} diretto verso \emph{Viale Battisti} e, al contempo, diminuizione dei veicoli provenienti da \emph{Viale Brianza}
+	\item alla sera (\ie{} periodi temporali $11$ e $12$) traffico proveniente dal centro di \emph{Monza} diretto verso \emph{Viale Battisti} e, al contempo, diminuzione dei veicoli provenienti da \emph{Viale Brianza}
 	\item durante la notte (\ie{} periodi temporali $1$ e $2$) riduzione del traffico su tutta la rete
 	\item all'alba (\ie{} periodo temporale $3$) pochi veicoli circolanti sulla rete stradale, prevalentemente su \emph{Viale Battisti} dove si verifica un leggero incremento dei veicoli in ingresso.
 \end{itemize}
@@ -470,12 +470,12 @@ Si descrivono infine le varianti del \ds{2} sottoposte a sperimentazione.
 	\item[\ds{2\text{.}B\text{.}100}] \hfill \\
 	Dataset composto da $864$ elementi (\ie{} file) ognuno dei quali rappresenta al più $100$ secondi di traiettorie dei sensori. Contiene solamente le onde quadre relative ai $6$ sensori reali (\ie{} D$5094$, D$5095$, D$5096$, D$5097$, D$5098$ e D$5099$).
 	\item[\ds{2\text{.}B\text{.}300}] \hfill \\
-	Come il precedente, tale dataset contiene solo le onde quadre relative ai sensori reali. \`E composto da $288$ elementi ognuno dei quali rappresenta al più $5$ minuti di traiettori dei succitati sensori.
+	Come il precedente, tale dataset contiene solo le onde quadre relative ai sensori reali. \`E composto da $288$ elementi ognuno dei quali rappresenta al più $5$ minuti di traiettorie dei succitati sensori.
 	\item[\ds{2\text{.}E\text{.}100}] \hfill \\
 	Dataset composto da $864$ elementi ognuno dei quali rappresenta al più $100$ secondi di traiettorie dei sensori. Poiché esso considera tutti i sensori del modello \acs{TSIS} illustrato in questa sezione, l'intestazione di ognuno dei suoi elementi è la seguente:\par
 	\lstinline[]|time, class, D5096, D341, D5098, D5099, D211, D212, |\\\lstinline[]|D241, D242, D5097, D421, D5095, D541, D5094, D641, |\\\lstinline[]|D891, D892, D981, D982, D911, D912, D191, D192, D1290, |\\\lstinline[]|D1682, D1681, D1687, D1110, D1091, D1092, D1480, D781, |\\\lstinline[]|D782|.
 	\item[\ds{2\text{.}E\text{.}300}] \hfill \\
-	Dataset composto da $288$ elementi ciascuno dei quali rappresenta al più $5$ minuti di traiettorie dei sensori. Come il precedento, anche questo dataset, è stato generato dal modello \acs{TSIS} provvisto dei sensori aggiuntivi.
+	Dataset composto da $288$ elementi ciascuno dei quali rappresenta al più $5$ minuti di traiettorie dei sensori. Come il procedente, anche questo dataset, è stato generato dal modello \acs{TSIS} provvisto dei sensori aggiuntivi.
 \end{description}
 
 \cleardoublepage
@@ -484,9 +484,9 @@ In questa sezione si presentano i risultati ottenuti dalla \keyword{sperimentazi
 
 Prima di presentare tali risultati si introduce la metodologia di \keyword{sperimentazione} utilizzata sui succitati $6$ dataset.
 
-Come anticipato, dato un modello di classificatore \acs{CTBN}, si è svolta la stessa $k$-\emph{fold \keyword{cross-validation}} con $k = 10$ per ognuno dei dataset generati. Si è cioè suddiviso ognuno dei succitati dataset in $10$ campioni di uguale numerosità utilizzandone uno come \emph{\keyword{validation set}} (\ie{} \emph{\keyword{test set}}) e i restanti come \emph{\keyword{training set}}. Si è quindi ripetuto tale processo $10$ volte, affinché ognuno dei $10$ campioni venisse utilizzato come \emph{\keyword{test set}} esattamente una sola volta.
+Come anticipato, dato un modello di classificatore \acs{CTBN}, si è svolta la stessa $k$-\emph{fold \keyword{cross-validazione}} con $k = 10$ per ognuno dei dataset generati. Si è cioè suddiviso ognuno dei succitati dataset in $10$ campioni di uguale numerosità utilizzandone uno come \emph{\keyword{validation set}} (\ie{} \emph{\keyword{test set}}) e i restanti come \emph{\keyword{training set}}. Si è quindi ripetuto tale processo $10$ volte, affinché ognuno dei $10$ campioni venisse utilizzato come \emph{\keyword{test set}} esattamente una sola volta.
 
-Il fine della \emph{\keyword{cross-validation}} è quello di valutare la capacità di apprendimento e generalizzazione di un modello predittivo \citep[si veda][capitolo $7$]{Hastie2001}, qual è il classificatore \acs{CTBN}. La \emph{\keyword{cross-validation}} è considerata una delle tecniche possibili utilizzabili al fine di rilevare e evitare il problema dell'\emph{\keyword{overfitting}}\footnote{Il problema dell'\emph{overfitting} è un problema frequente nei campi di ricerca che utilizzato modelli e tecniche statistiche (\eg{} apprendimento automatico, data mining). Tale problema si verifica quando un modello statistico si adatta eccessivamente al \emph{training set} perdendo così la capacità di riconoscere (\ie{} classificare, nel caso di modelli predittivi) istanze del problema non conosciute; non acquisendo cioè una adeguata capacità di generalizzazione.}. A tale scopo, i risultati di ognuno dei $10$ processi di classificazione possono essere mediati (o combinati in modi alternativi) al fine di produrre singoli valori che stimino l'efficacia\footnote{L'efficacia di un classificatore è un termine generico che indica un insieme di misure (\eg{} \emph{\keyword{precision}}, \emph{\keyword{recall}}, \emph{\keyword{$F$-measure}} e \emph{\keyword{accuracy}}) della qualità di un classificatore.} del modello predittivo utilizzato. In questa sperimentazione, avendo affrontato un problema di \emph{\keyword{classificazione multi-classe}}, si sono mediati i risultati relativi a ogni \emph{\keyword{fold}}\footnote{Un fold indica una configurazione, comprensiva di \emph{\keyword{training set}} e \emph{\keyword{test set}}, delle $k$ utilizzate durante una $k$-\emph{fold \keyword{cross-validation}}.} utilizzando i cosiddetti approcci \emph{\keyword{micro-average}} e \emph{\keyword{macro-average}}.
+Il fine della \emph{\keyword{cross-validazione}} è quello di valutare la capacità di apprendimento e generalizzazione di un modello predittivo \citep[si veda][capitolo $7$]{Hastie2001}, qual è il classificatore \acs{CTBN}. La \emph{\keyword{cross-validazione}} è considerata una delle tecniche possibili utilizzabili al fine di rilevare e evitare il problema dell'\emph{\keyword{overfitting}}\footnote{Il problema dell'\emph{overfitting} è un problema frequente nei campi di ricerca che utilizzato modelli e tecniche statistiche (\eg{} apprendimento automatico, data mining). Tale problema si verifica quando un modello statistico si adatta eccessivamente al \emph{training set} perdendo così la capacità di riconoscere (\ie{} classificare, nel caso di modelli predittivi) istanze del problema non conosciute; non acquisendo cioè una adeguata capacità di generalizzazione.}. A tale scopo, i risultati di ognuno dei $10$ processi di classificazione possono essere mediati (o combinati in modi alternativi) al fine di produrre singoli valori che stimino l'efficacia\footnote{L'efficacia di un classificatore è un termine generico che indica un insieme di misure (\eg{} \emph{\keyword{precision}}, \emph{\keyword{recall}}, \emph{\keyword{$F$-measure}} e \emph{\keyword{accuracy}}) della qualità di un classificatore.} del modello predittivo utilizzato. In questa sperimentazione, avendo affrontato un problema di \emph{\keyword{classificazione multi-classe}}, si sono mediati i risultati relativi a ogni \emph{\keyword{fold}}\footnote{Un fold indica una configurazione, comprensiva di \emph{\keyword{training set}} e \emph{\keyword{test set}}, delle $k$ utilizzate durante una $k$-\emph{fold \keyword{cross-validazione}}.} utilizzando i cosiddetti approcci \emph{\keyword{micro-average}} e \emph{\keyword{macro-average}}.
 
 La differenza tra queste due tecniche di sintesi dei risultati consiste nel fatto che mentre l'approccio \emph{\keyword{macro-average}} è una media (non pesata) delle metriche relative ad ogni classe, l'approccio \emph{\keyword{micro-average}}, al contrario, consiste in una media delle metriche attuata sul totale delle istanze sottoposte a classificazione. Da ciò consegue che la tecnica \emph{\keyword{micro-average}} tende a conferire maggiore peso alle classi composte da più istanze e costituisce, in caso di classi popolose nel \emph{\keyword{test set}} una reale misura dell'efficacia del classificatore. Invece, per sintetizzare l'efficacia del classificatore su classi composte da poche istanze è preferibile considerare le indicazioni di efficacia date dall'approccio \emph{\keyword{macro-average}} \citep[si veda][sezione 13.6]{Manning2008}.
 
@@ -506,11 +506,11 @@ L'obiettivo delle prossime sezioni è quindi quello di comparare l'efficacia di 
 \subsection{Metriche di valutazione}
 Prima di presentare i risultati relativi ai succitati classificatori si illustra la metodologia con cui si sono state calcolate le metriche di valutazione per ognuna delle $6$ sperimentazioni effettuate.
 
-Come anticipato, dato uno qualunque dei dataset generati si è configurata per esso una sperimentazione $k$-\emph{fold \keyword{cross-validation}} con $k$ = 10.
+Come anticipato, dato uno qualunque dei dataset generati si è configurata per esso una sperimentazione $k$-\emph{fold \keyword{cross-validazione}} con $k$ = 10.
 
-Ottenuti i risultati relativi ai processi di classificazione, per ognuno dei $10$ \emph{\keyword{fold}} si è effettuato il processo di \emph{\keyword{cross-tabulazione}}\footnote{Il processo di \keyword{cross-tabulazione} consiste in un processo statistico il cui scopo è riassumere le interrelazioni che intercorrono fra due variabili categoriche dei dati. L'output di questo processo corrisponde solitamente a una \emph{\keyword{matrice di contingenza}}.} tra le classi reali delle istanze e le classi ad esse assegnate dal processo di \emph{\keyword{classificazione supervisionata}}. Calcolate così le \emph{\keyword{matrici di contingenza}}, si è proceduto alla computazione delle metriche di valutazione per ogni \emph{\keyword{fold}} e successivamente all'effettuazione delle medie \emph{\keyword{macro-average}} e \emph{\keyword{micro-average}}.
+Ottenuti i risultati relativi ai processi di classificazione, per ognuno dei $10$ \emph{\keyword{fold}} si è effettuato il processo di \emph{\keyword{cross-tabulazione}}\footnote{Il processo di \keyword{cross-tabulazione} consiste in un processo statistico il cui scopo è riassumere le interrelazioni che intercorrono fra due variabili categoriche dei dati. L'output di questo processo corrisponde solitamente a una \emph{\keyword{matrice di confusione}}.} tra le classi reali delle istanze e le classi ad esse assegnate dal processo di \emph{\keyword{classificazione supervisionata}}. Calcolate così le \emph{\keyword{matrici di confusione}}, si è proceduto alla computazione delle metriche di valutazione per ogni \emph{\keyword{fold}} e successivamente all'effettuazione delle medie \emph{\keyword{macro-average}} e \emph{\keyword{micro-average}}.
 
-La \vref{tab:contingency-table} riproduce un esempio di \emph{\keyword{matrice di contingenza}} calcolata per ogni singolo processo di classificazione. Essa rappresenta le classi reali delle istanze sulle colonne e le classi inferite sulle righe. Ogni cella $(i\,,\,j)$ contiene il numero di istanze della classe $j$ classificate come appartenenti alla classe $i$. Ne deriva perciò che una classificazione perfetta (il ché, si noti, non corrisponde a aver appreso un classificatore perfetto) corrisponde ad una matrice diagonale\footnote{Una matrice diagonale è una matrice quadrata in cui solamente i valori della diagonale principale sono diversi da $0$.}.
+La \vref{tab:contingency-table} riproduce un esempio di \emph{\keyword{matrice di confusione}} calcolata per ogni singolo processo di classificazione. Essa rappresenta le classi reali delle istanze sulle colonne e le classi inferite sulle righe. Ogni cella $(i\,,\,j)$ contiene il numero di istanze della classe $j$ classificate come appartenenti alla classe $i$. Ne deriva perciò che una classificazione perfetta (il ché, si noti, non corrisponde a aver appreso un classificatore perfetto) corrisponde ad una matrice diagonale\footnote{Una matrice diagonale è una matrice quadrata in cui solamente i valori della diagonale principale sono diversi da $0$.}.
 \begin{table}[ht]
 	\footnotesize
 	\centering%
@@ -524,11 +524,11 @@ La \vref{tab:contingency-table} riproduce un esempio di \emph{\keyword{matrice d
     \bfseries{Classe $5$} 	& $(5\,,\,1)$ & $(5\,,\,2)$ & $(5\,,\,3)$ & $(5\,,\,4)$ & $(5\,,\,5)$ & $(5\,,\,6)$ \\
     \bfseries{Classe $6$} 	& $(6\,,\,1)$ & $(6\,,\,2)$ & $(6\,,\,3)$ & $(6\,,\,4)$ & $(6\,,\,5)$ & $(6\,,\,6)$ \\\bottomrule
     \end{tabular}
-    \caption[Matrice di contingenza\index{matrice di contingenza} multi-classe]{Esempio di \emph{\keyword{matrice di contingenza}} specifico del problema di \emph{\keyword{classificazione multi-classe}} affrontato.}\label{tab:contingency-table}
+    \caption[Matrice di confusione\index{matrice di confusione} multi-classe]{Esempio di \emph{\keyword{matrice di confusione}} specifico del problema di \emph{\keyword{classificazione multi-classe}} affrontato.}\label{tab:contingency-table}
 \end{table}
 \normalsize
 
-A partire dalla \vref{tab:contingency-table}, per ognua delle classi, è possibile calcolare una ulteriore \emph{\keyword{matrice di contingenza}} che riassumi la classificazione delle istanze appartenenti ad una singola classe piuttosto che alle altre (approccio detto \virgolette{\emph{one versus all}}). La \vref{tab:contingency-table-single-class} di seguito riporta un esempio di tale matrice. Fissata una classe, tale tabella, tramite alcune metriche di base che si descrivono di seguito, mette in relazione le classi reali delle istanze con le rispettive classi inferite.
+A partire dalla \vref{tab:contingency-table}, per ognuna delle classi, è possibile calcolare una ulteriore \emph{\keyword{matrice di confusione}} che riassumi la classificazione delle istanze appartenenti ad una singola classe piuttosto che alle altre (approccio detto \virgolette{\emph{one versus all}}). La \vref{tab:contingency-table-single-class} di seguito riporta un esempio di tale matrice. Fissata una classe, tale tabella, tramite alcune metriche di base che si descrivono di seguito, mette in relazione le classi reali delle istanze con le rispettive classi inferite.
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{+c^c^c^c}
@@ -538,10 +538,10 @@ A partire dalla \vref{tab:contingency-table}, per ognua delle classi, è possibi
 	\bfseries{Negativi} 						& \acs{FN} & \acs{TN} & \acs{NPV} 	\\
 												& \acs{TPR}& \acs{TNR}& 			\\\bottomrule
 	\end{tabular}
-	\caption[Esempio di \keyword{matrice di contingenza}]{Esempio di \keyword{matrice di contingenza} relativa al processo di classificazione di una singola classe.}\label{tab:contingency-table-single-class}
+	\caption[Esempio di \keyword{matrice di confusione}]{Esempio di \keyword{matrice di confusione} relativa al processo di classificazione di una singola classe.}\label{tab:contingency-table-single-class}
 \end{table}
 
-Si osservi che la computazione di tali matrici di contingenza è un passo necessario al calcolo delle medie \emph{\keyword{macro-average}}, ottenute appunto dalle metriche relative alle singole classi. Invece, come detto, per il calcolo delle medie \emph{\keyword{micro-average}} si procede sul totale delle istanze del \emph{\keyword{test set}}.
+Si osservi che la computazione di tali matrici di confusione è un passo necessario al calcolo delle medie \emph{\keyword{macro-average}}, ottenute appunto dalle metriche relative alle singole classi. Invece, come detto, per il calcolo delle medie \emph{\keyword{micro-average}} si procede sul totale delle istanze del \emph{\keyword{test set}}.
 
 Di seguito si elencano e presentano le metriche di valutazione calcolate.
 \begin{description}
@@ -557,25 +557,25 @@ Di seguito si elencano e presentano le metriche di valutazione calcolate.
 	Il \acf{TPR}, detto anche \emph{\keyword{recall}} o \emph{\keyword{sensitivity}}, esprime l'abilità del modello nel classificare le istanze in modo corretto. \`E così calcolato:\par
 	\[TPR=\frac{TP}{TP + FN} = 1 - FNR\text{.}\]
 	\item[False Negative Rate] \hfill \\
-	Il \acf{FNR} è l'inverso della metrica \acs{TPR}. \`E quindi calcolato nel seguento modo:\par
+	Il \acf{FNR} è l'inverso della metrica \acs{TPR}. \`E quindi calcolato nel seguente modo:\par
 	\[FNR=\frac{FN}{TP + FN} = 1 - TPR\text{.}\]
 	\item[True Negative Rate] \hfill \\
 	Il \acf{TNR}, detto anche \emph{\keyword{specificity}}, misura l'abilità del modello nel non sbagliare classificazione, cioè nell'identificare le istanze da non classificare come appartenenti alla classe in esame. \`E così calcolato:\par
 	\[TNR=\frac{TN}{TN + FP} = 1 - FPR\text{.}\]
 	\item[False Positive Rate] \hfill \\
-	Il \acf{FPR}, detto anche \emph{\keyword{false allarm rate}} o \emph{\keyword{fall-out}}, è l'inverso della metrica \acs{TNR}. \`E calcolato nel seguento modo:\par
+	Il \acf{FPR}, detto anche \emph{\keyword{false alarm rate}} o \emph{\keyword{fall-out}}, è l'inverso della metrica \acs{TNR}. \`E calcolato nel seguente modo:\par
 	\[FPR = \frac{FP}{TN + FP} = 1 - TNR\text{.}\]
 	\item[Positive Predictive Value] \hfill \\
 	Il \acf{PPV}, detto anche \emph{\keyword{precision}}, rappresenta la proporzione delle istanze classificate correttamente. Esso è calcolato come segue:
 	\[PPV = \frac{TP}{TP + FP} = 1 - FDR\text{.}\]
 	\item[Negative Predictive Value] \hfill \\
-	Il \acf{NPV} è una metrica che rappresenta la proporzione delle istanze correttamente classificate come non appartenenti a quella in esame. \`E calcolato nel seguento modo:\par
+	Il \acf{NPV} è una metrica che rappresenta la proporzione delle istanze correttamente classificate come non appartenenti a quella in esame. \`E calcolato nel seguente modo:\par
 	\[NPV = \frac{TN}{TN + FN}\text{.}\]
 	\item[F-Measure] \hfill \\
 	Il punteggio \acf{F1} è una misura dell'accuratezza che un modello possiede. Nello specifico esso consiste nella media armoncia delle metriche \emph{\keyword{precision}} e \emph{\keyword{recall}}:
 	\[F_1 = 2 \cdot \frac{PPV \cdot TPR}{PPV + TPR}\text{.}\]
 	\item[Accuratezza] \hfill \\
-	L'accutarezza di un modello (\ie{} \emph{\keyword{accuracy}}), intesa come la sua capacità di classificare correttamente tutte le istanze (che appartengano o meno alla classe in esame), è computata nel seguento modo:
+	L'accuratezza di un modello (\ie{} \emph{\keyword{accuracy}}), intesa come la sua capacità di classificare correttamente tutte le istanze (che appartengano o meno alla classe in esame), è computata nel seguente modo:
 	\[ACC = \frac{TP + TN}{TP + TN + FP + FN}\text{.}\]
 \end{description}
 
@@ -620,58 +620,79 @@ Riguardo i $2$ dataset appena citati, inoltre, è possibile notare come il livel
 
 Infine, è possibile notare come l'accuratezza dei classificatori tenda a degradare all'aumentare della complessità del sistema dinamico rappresentato dal dataset. Infatti, la differenza tra il livello di accuratezza ottenuto per il \ds{1} e quello ottenuto per il \ds{2} è significativa, tanto quanto è significativa la differenza del livello di complessità delle reti stradali che essi rappresentano.
 
-\subsection{Curve ROC}
+\subsection{Curve ROC\index{ROC}}
 L'obiettivo che questa sottosezione si prefigge è quello di completare la presentazione dei risultati ottenuti dalla sperimentazione dei classificatori \acs{CTBN} (\acs{CTBNC}). A tale scopo si presentano e comparano le curve \acf{ROC} di ogni classificatore utilizzato per la sperimentazione (\ie{} \acs{CTNBC}, \acs{CTBNC}$2$, \acs{CTBNC}$3$ e \acs{CTBNC}$4$).
 
-Prima di tale discussione, tuttavia, è necessario introdurre la curva \acs{ROC}.
+Prima di tale discussione, tuttavia, è necessario introdurre i concetti relativi alla metrica \acs{ROC}. La visualizzazione della metrica \acs{ROC} di uno o più classificatori è una tecnica finalizzata alla valutazione e alla comparazione dell'efficacia dei classificatori. La metrica \acs{ROC} raffigura la correlazione, e spesso il \emph{tradeoff}, tra il valore della metrica \emph{\keyword{recall}} (\ie{} \emph{\keyword{sensitivity}}) e il tasso di falsi positivi (\ie{} \emph{\keyword{false alarm error}}; metrica \acs{FPR}).
 
-%ROC graphs are a very useful tool for visualizing and evaluating classifiers. They are able to provide a richer measure of classification performance than scalar measures such as accuracy, error rate or error cost. Because they decouple classifier performance from class skew and error costs, they have advantages over other evaluation measures such as precision-recall graphs and lift curves. However, as with any evaluation metric, using them wisely requires knowing their characteristics and limitations.
+Questa metrica, inizialmente utilizzata in altri campi di ricerca (\eg{} teoria delle decisioni), è sempre più frequentemente utilizzata anche nel campo dell'apprendimento automatico. Ciò poiché l'utilizzo della sola \emph{\keyword{accuracy}} come metrica per la valutazione dell'efficacia dei classificatori si rivela spesso carente dal punto di vista informativo e perciò inadeguato \citep[per approfondimenti si veda][]{Provost1997,Provost2001}.
 
-%A receiver operating characteristics (ROC) graph is a technique for visualizing, organizing and selecting classifiers based on their performance. ROC graphs have long been used in signal detection theory to depict the tradeoff between hit rates and false alarm rates of classifiers
+Inoltre, la metrica \acs{ROC} gode di una serie di proprietà utili nel caso di situazioni molto comuni nel mondo reale (\eg{} insensibilità all'asimmetria delle classi): essa disaccoppia la valutazione dell'efficacia del classificatore dalla presenza o meno di classi asimmetriche o di funzioni di costo sbilanciate.
 
-%The point (0, 1) represents perfect classification.
+I grafici \acs{ROC} sono grafici bidimensionali sulla cui ordinata sono riportati i valori assunti dalla metrica \acs{TPR} e sulla cui ascissa sono posti i valori assunti dalla metrica \acs{FPR}.
 
-%With more than two classes the situation becomes much more complex if the entire space is to be managed. With n classes the confusion matrix becomes an n · n matrix containing the n correct classifications (the major diagonal entries) and n2 À n possible errors (the off-diagonal entries). Instead of managing trade-offs between TP and FP, we have n benefits and n2 À n errors. With only three classes, the surface becomes a 32 À 3 = 6-dimensional polytope. Lane (2000) has outlined the issues involved and the prospects for addressing them. Srinivasan (1999) has shown .. One method for handling n classes is to produce n different ROC graphs, one for each class. Call this the class reference formulation. Specifically, if C is the set of all classes, ROC graph i plots the classification performance using class ci as the positive class and all other classes as the negative class, i.e.
+Si osservi quindi che un grafico \acs{ROC} è un tipico grafico raffigurante il \emph{tradeoff} tra costi (\ie{} \acs{FPR}) e benefici (\ie{} \acs{TPR}).
 
-%comparazione curve ROC per classe
-%%def. ROC
-%%tabella AUC?
-%%citare paper daniele per giustificazione, paper fawcett per analisi ROC
-%... vedi txt
-%\citep{ROCR2005}
+Si presentano di seguito alcuni punti chiave di ogni grafico \acs{ROC}.
+\begin{itemize}
+	\item il punto con coordinate $(0,0)$ rappresenta il caso in cui il classificatore non commette mai errori di primo tipo (\ie{} \acf{FP}) ma nemmeno classifica positivamente le istanze (\ie{} \acf{TP})
+	\item il punto con coordinate $(1,1)$ rappresenta la situazione opposta alla precedente: il classificatore classifica tutte le istanze in modo positivo, anche quelle che dovrebbe invece rigettare
+	\item il punto $(0,1)$ rappresenta la classificazione perfetta.
+\end{itemize}
+L'interpretazione dei punti nei grafici \acs{ROC} può essere informalmente descritta in base alla loro posizione: un punto più a nord-est rispetto agli altri rappresenta una classificazione migliore. Si osservi che tale considerazione deriva dal fatto che tale punto avrebbe un'ordinata maggiore degli altri, e quindi un più alto valore \acs{TPR}, e al contempo un'ascissa inferiore, cioè un valore \acs{FPR} inferiore.
+
+\`E bene precisare che, nel caso di \emph{classificatori probabilistici}, quali sono i classificatori \acs{CTBN}, è necessario trasformarli in \emph{classificatori discreti} (\ie{} classificatori che non forniscono un valore di probabilità come risultato bensì valori di verità) al fine di ottenere un singolo punto nello spazio del grafico \acs{ROC} (il quale corrisponde ad un unica \emph{\keyword{matrice di confusione}}). Idealmente tale processo è svolto variando un valore di soglia in un intervallo. Per ogni soglia, si seleziona un esito positivo o negativo della classificazione in base alla probabilità restituita dal classificatore probabilistico; cioè qualora essa sia maggiore o minore del corrente valore soglia. Così facendo si ottiene quindi una curva \acs{ROC} per un qualsiasi classificatore probabilistico.
+
+Si noti che la procedura appena descritta non è computazionalmente efficiente. Tuttavia in letteratura sono state presentate procedure efficienti \citep[si veda][sezione $5$]{Fawcett2006}.
+
+Nel caso di un problema di \emph{\keyword{classificazione multi-classe}}, come illustrato precedentemente, la \emph{\keyword{matrice di confusione}} corrisponde a una matrice $n \times n$ (in questo caso $n=6$ per tutti i dataset generati, come mostrato dalla \vref{tab:contingency-table}) contenente le $n$ classificazioni corrette (\ie{} benefici) sulla diagonale e i $n^2 - n$ possibili errori (\ie{} costi) nelle celle non sulla diagonale. Un possibile approccio risolutivo a tale problema consiste nel produrre $n$ differenti grafici \acs{ROC}, uno per classe \citep{Fawcett2006}. Per le sperimentazioni effettuate in questo lavoro di tesi si è appunto attuato tale approccio. Anche se, come già specificato, le classi dei dataset generati non presentano asimmetrie quantitative considerevoli, è tuttavia necessario notare che tale approccio provoca la perdita della proprietà di insensibilità all'asimmetria delle classi delle metriche \acs{ROC}.
+
+Le \vref{fig:roc-curves-class-1,fig:roc-curves-class-2,fig:roc-curves-class-3,fig:roc-curves-class-4,fig:roc-curves-class-5,fig:roc-curves-class-6} riportano i grafici delle curve \acs{ROC} di ognuno dei $4$ classificatori utilizzati per la classificazione del \ds{1\text{.}100}. Ognuna di tali figure, come detto, è relativa alla curva \acs{ROC} di una classe del dataset in questione.
+
+Si osservi che nessuna curva \acs{ROC} dei classificatori differisce dalle altre in modo significativo. Al contempo, si osservi che poiché esse si avvicinano considerevolmente alla coordinata $(0,1)$ ciò indica che tutti i classificatori, in questo caso, raggiungono degli ottimi livelli di classificazione.
+
+Il fatto che i classificatori \acs{CTBN} appresi non ottengano risultati che si discostino considerevolmente (né in positivo, né in negativo) da quelli ottenuti dal classificatore \acs{CTNB} è, con tutta probabilità, da attribuire alla complessità dei sistemi dinamici rappresentati dai dataset relativi al traffico. Con tali dataset, i classificatori appresi con la procedura di apprendimento strutturale descritta in questo lavoro di tesi, ricevono una penalità dovuta alla loro eccessiva aderenza alle interrelazioni presenti nei modelli di traffico rappresentati.
+
+\citet{Codecasa2013} hanno infatti mostrato come l'apprendimento strutturale costituisca una procedura sensata per questa classe di modelli poiché i classificatori \acs{CTBN} appresi tramite una diverso approccio (\ie{} basato sulla log-likelihood condizionale) risultano essere maggiormente efficaci .
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-01.pdf}
 	\caption[Curve \acs{ROC} relative alla classe $1$]{Curve \acs{ROC}, relative alla classe $1$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+	\label{fig:roc-curves-class-1}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-02.pdf}
 	\caption[Curve \acs{ROC} relative alla classe $2$]{Curve \acs{ROC}, relative alla classe $2$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+	\label{fig:roc-curves-class-2}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-03.pdf}
 	\caption[Curve \acs{ROC} relative alla classe $3$]{Curve \acs{ROC}, relative alla classe $3$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+	\label{fig:roc-curves-class-3}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-04.pdf}
 	\caption[Curve \acs{ROC} relative alla classe $4$]{Curve \acs{ROC}, relative alla classe $4$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+	\label{fig:roc-curves-class-4}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=1.05\textwidth,center]{microavg-model-rocs-class-05.pdf}
 	\caption[Curve \acs{ROC} relative alla classe $5$]{Curve \acs{ROC}, relative alla classe $5$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+	\label{fig:roc-curves-class-5}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=1.05\columnwidth,center]{microavg-model-rocs-class-06.pdf}
 	\caption[Curve \acs{ROC} relative alla classe $6$]{Curve \acs{ROC}, relative alla classe $6$, di ogni classificatore utilizzato nel processo di sperimentazione.}
+	\label{fig:roc-curves-class-6}
 \end{figure}
