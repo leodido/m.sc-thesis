@@ -578,13 +578,14 @@ Di seguito si elencano e presentano le metriche di valutazione calcolate.
 	L'accuratezza di un modello (\ie{} \emph{\keyword{accuracy}}), intesa come la sua capacità di classificare correttamente tutte le istanze (che appartengano o meno alla classe in esame), è computata nel seguente modo:
 	\[ACC = \frac{TP + TN}{TP + TN + FP + FN}\text{.}\]
 \end{description}
+Per la computazione delle metriche sono stati usati intervalli di confidenza al $90$\%.
 
 A titolo informativo si comunica che l'implementazione di quanto descritto in questa sottosezione è stata attuata con l'ausilio di una libreria \lstinline$R$, il pacchetto \lstinline$caret$ \citep{CARET2013}.
 
 \subsection{Accuratezza}
-In questa sottosezione si presentano i risultati dei processi di \emph{\keyword{classificazione supervisionata}} dei $6$ dataset effettuati con ognuno dei $4$ modelli di classificatori presi in considerazione. Nello specifico, per ogni dataset sottoposto a sperimentazione, si illustra e commenta il valore della metrica \emph{\keyword{accuracy}}, mediata tramite approccio \emph{\keyword{micro-average}} su tutti i \emph{\keyword{fold}} di ogni sperimentazione, relativo ad ognuno dei classificatori utilizzati.
-\begin{table}[H]
-	\small
+In questa sottosezione si presentano i risultati dei processi di \emph{\keyword{classificazione supervisionata}} dei $6$ dataset effettuati per ognuno dei $4$ modelli di classificatori presi in considerazione. Per ogni dataset sottoposto a sperimentazione si illustra e commenta il valore della metrica \emph{\keyword{accuracy}} relativo ad ognuno dei classificatori utilizzati. Si rimarca che la metrica \emph{\keyword{accuracy}} è stata calcolata tramite approccio \emph{\keyword{micro-average}} su tutti i \emph{\keyword{fold}} di ogni sperimentazione.
+\cleardoublepage
+\begin{table}
 	\centering
 	\begin{tabular}{+l^c^c^c^c}
 	\toprule\rowstyle{\bfseries}%
@@ -598,7 +599,6 @@ In questa sottosezione si presentano i risultati dei processi di \emph{\keyword{
 	\end{tabular}
 	\caption[Accuratezza dei classificatori \acs{CTBN} e \acs{CTNB}]{Comparazione del valore di \emph{\keyword{accuracy}} ottenuto dal classificatore \acs{CTNB} e dai classificatori \acs{CTBN} (appresi con numero massimo di genitori variabile da $2$ a $4$) su ognuno dei $6$ dataset generati. In rosso i valori maggiori per ogni dataset.}\label{tab:accuracies-table}
 \end{table}
-\normalsize
 
 \begin{figure}
 	\centering
@@ -614,9 +614,13 @@ Seppur la \vref{tab:accuracies-table} evidenzi come il classificatore \acs{CTNB}
 
 Perciò, non essendoci un classificatore che sia apprezzabilmente più accurato degli altri, possiamo asserire che i $4$ classificatori utilizzati ottengono pressappoco gli stessi risultati in termini di accuratezza della classificazione.
 
-Tuttavia, osservando la \vref{fig:accuracies-fig} è possibile dedurre una serie di considerazioni ulteriori. Infatti, da tale figura è possibile notare come, per ogni dataset, all'aumentare dell'intervallo temporale rappresentato dalle istanze (\ie{} $100$ secondi contro $300$), aumenti anche il livello di accuratezza della classificazione per tutti i classificatori. Tale comportamento dei classificatori è giustificabile: la suddivisione di un dataset in istanze che rappresentano un determinato intervallo temporale di dati comporta necessariamente la perdita delle transizioni di stato a cavallo fra le istanze. Ciò è correlato al comportamento descritto: i dataset le cui istanze rappresentano al più $300$ secondi di dati, essendo queste più lunghe, hanno conservato un maggior numero di transizioni di stato a cavallo fra le istanze generate. Se ne deduce perciò che l'incremento di accuratezza del processo di \keyword{classificazione supervisionata} per i dataset da $300$ secondi è correlato a un aspetto quantitativo dell'informazione contenuta da tali dataset. Più semplicemente possiamo affermare che l'accuratezza dei classificatori aumenta all'aumentare dell'intervallo temporale rappresentato dalle istanze dei dataset. L'osservazione appena riportata è facilmente riscontrabile soprattutto comparando le due varianti del \ds{2\text{.}B}: \ds{2\text{.}B\text{.}100} e \ds{2\text{.}B\text{.}300} nella \vref{fig:accuracies-fig}.
+Tuttavia, osservando la \vref{fig:accuracies-fig} è possibile dedurre una serie di considerazioni ulteriori.
 
-Riguardo i $2$ dataset appena citati, inoltre, è possibile notare come il livello generale di accuratezza che tutti i classificatori ottengono per essi sia ben inferiore rispetto a quello ottenuto sugli altri dataset. Anche in questo caso, si ritiene che ciò sia dovuto a un aspetto informativo dei dataset. Infatti, le istanze dei dataset \ds{2\text{.}B\text{.}100} e \ds{2\text{.}B\text{.}300} contengono solamente le traiettorie relative ai $6$ sensori reali del \ds{2} (si veda la \autoref{subsec:config-ds-2} \vpageref{subsec:config-ds-2}).
+Infatti, da tale figura è possibile notare come, per ogni dataset, all'aumentare dell'intervallo temporale rappresentato dalle istanze (\ie{} $100$ secondi contro $300$), aumenti anche il livello di accuratezza della classificazione per tutti i classificatori. Tale comportamento dei classificatori è giustificabile: la suddivisione di un dataset in istanze che rappresentano un determinato intervallo temporale di dati comporta necessariamente la perdita delle transizioni di stato a cavallo fra le istanze. Ciò è correlato al comportamento descritto: i dataset le cui istanze rappresentano al più $300$ secondi di dati, essendo queste più lunghe, hanno conservato un maggior numero di transizioni di stato a cavallo fra le istanze generate. Se ne deduce perciò che l'incremento di accuratezza del processo di \keyword{classificazione supervisionata} per i dataset da $300$ secondi è correlato a un aspetto quantitativo dell'informazione contenuta da tali dataset. Più semplicemente possiamo affermare che l'accuratezza dei classificatori aumenta all'aumentare dell'intervallo temporale rappresentato dalle istanze dei dataset.
+
+L'osservazione appena riportata è facilmente riscontrabile soprattutto osservando le due varianti del \ds{2\text{.}B} nella \autoref{fig:accuracies-fig}: il \ds{2\text{.}B\text{.}100} e il \ds{2\text{.}B\text{.}300}.
+
+Riguardo i $2$ dataset appena citati, inoltre, è possibile notare come il livello generale di accuratezza che tutti i classificatori ottengono per essi sia ben inferiore rispetto a quello ottenuto sugli altri dataset. Anche in questo caso, si ritiene che ciò sia dovuto a un aspetto informativo dei dataset. Infatti, le istanze del \ds{2\text{.}B\text{.}100} e del \ds{2\text{.}B\text{.}300} contengono solamente le traiettorie relative ai $6$ sensori reali del \ds{2} (si veda la \autoref{subsec:config-ds-2} \vpageref{subsec:config-ds-2}).
 
 Infine, è possibile notare come l'accuratezza dei classificatori tenda a degradare all'aumentare della complessità del sistema dinamico rappresentato dal dataset. Infatti, la differenza tra il livello di accuratezza ottenuto per il \ds{1} e quello ottenuto per il \ds{2} è significativa, tanto quanto è significativa la differenza del livello di complessità delle reti stradali che essi rappresentano.
 
@@ -646,6 +650,8 @@ L'interpretazione dei punti nei grafici \acs{ROC} può essere informalmente desc
 Si noti che la procedura appena descritta non è computazionalmente efficiente. Tuttavia in letteratura sono state presentate procedure efficienti \citep[si veda][sezione $5$]{Fawcett2006}.
 
 Nel caso di un problema di \emph{\keyword{classificazione multi-classe}}, come illustrato precedentemente, la \emph{\keyword{matrice di confusione}} corrisponde a una matrice $n \times n$ (in questo caso $n=6$ per tutti i dataset generati, come mostrato dalla \vref{tab:contingency-table}) contenente le $n$ classificazioni corrette (\ie{} benefici) sulla diagonale e i $n^2 - n$ possibili errori (\ie{} costi) nelle celle non sulla diagonale. Un possibile approccio risolutivo a tale problema consiste nel produrre $n$ differenti grafici \acs{ROC}, uno per classe \citep{Fawcett2006}. Per le sperimentazioni effettuate in questo lavoro di tesi si è appunto attuato tale approccio. Anche se, come già specificato, le classi dei dataset generati non presentano asimmetrie quantitative considerevoli, è tuttavia necessario notare che tale approccio provoca la perdita della proprietà di insensibilità all'asimmetria delle classi delle metriche \acs{ROC}.
+
+Si rimarca infine che le metriche \acs{ROC} sono state calcolate tramite l'approccio \emph{\keyword{micro-average}}.
 
 Le \vref{fig:roc-curves-class-1,fig:roc-curves-class-2,fig:roc-curves-class-3,fig:roc-curves-class-4,fig:roc-curves-class-5,fig:roc-curves-class-6} riportano i grafici delle curve \acs{ROC} di ognuno dei $4$ classificatori utilizzati per la classificazione del \ds{1\text{.}100}. Ognuna di tali figure, come detto, è relativa alla curva \acs{ROC} di una classe del dataset in questione.
 
