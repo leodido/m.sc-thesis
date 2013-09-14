@@ -17,20 +17,28 @@ Come ampiamente descritto e motivato, il principale vantaggio apportato dalle \a
 
 Si è quindi descritto il processo di \emph{apprendimento dei parametri} per le \acs{CTBN} e il conseguente algoritmo di \emph{apprendimento dei classificatori} \acs{CTBN} (\acs{CTBNC}), entrambi relativi a dati completi. Come naturale prosecuzione del processo di apprendimento dei classificatori si è descritto l'algoritmo di \emph{inferenza esatta} per i \acs{CTBNC}, il quale implementa un \emph{tradeoff} fra complessità computazionale e efficacia di classificazione.
 
-Come detto, i classificatori \acs{CTBN} (\acs{CTBNC}) sono un modello grafico probabilistico finalizzato alla risoluzione del problema della classificazione supervisionata nel caso in cui:
+Come detto, i classificatori \acs{CTBN} (\acs{CTBNC}) sono un modello grafico probabilistico applicabile al problema della \emph{classificazione supervisionata} nel caso in cui le seguenti condizioni sussistano:
 \begin{itemize}
-	\item gli attributi del sistema dinamico siano discreti (o discretizzabili)
-	\item il tempo fluisca continuamente
-	\item si disponga di dati completi
+	\item gli attributi sono discreti (o discretizzabili)
+	\item il tempo fluisce continuamente
+	\item si dispone di dati completi
 	\item la classe si verifica nel futuro.
 \end{itemize}
 
 Si è infine descritto un processo di \emph{apprendimento strutturale} basato sull'ottimizzazione, attuata tramite una procedura di ricerca euristica (\ie{} \emph{\hc{}}), di una \emph{funzione di punteggio} per le \acs{CTBN}.
 
-Nella seconda parte del presente elaborato, invece, si sono affrontati argomenti di tipo pratico. In primis, si è presentato \rctbn{}, il \emph{pacchetto} \lstinline$R$ sviluppato al fine di implementare il framework delle \acs{CTBN} e gli algoritmi descritti nella parte teorica della tesi. Successivamente si è descritto il software commerciale \acs{TSIS} utilizzato per la \emph{modellazione di profili di traffico su reti stradali urbane} e la sua \acl{RTE} sviluppata al fine di monitorare e tracciare il passaggio dei veicoli sui \emph{sensori} presenti in tali reti stradali.
+Nella seconda parte del presente elaborato, invece, si sono affrontati argomenti di tipo pratico.
 
-La progettazione e implementazione di tali applicativi si è resa necessaria allo scopo di generare dei \emph{dataset} che rappresentassero dei sistemi dinamici complessi, qual è il traffico automobilistico, da sottoporre ai classificatori \acs{CTBN} (\acs{CTNBC}). Grazie a tali dataset si è potuto effettuare una \emph{sperimentazione} di $4$ diverse istanze di classificatori \acs{CTBN} allo scopo di valutare la loro applicazione a un problema noto e complesso qual è la \emph{classificazione dei profili di traffico}.
+In primis, si è presentato \rctbn{}, il \emph{pacchetto} \lstinline$R$ sviluppato al fine di implementare il framework delle \acs{CTBN} e gli algoritmi descritti nella parte teorica della tesi.
 
-Tale sperimentazione ha permesso inoltre di comparare l'efficacia dei vari modelli di classificatore \acs{CTBN} utilizzati: il classificatore \acl{CTNB} (\acs{CTNBC}) e i classificatori appresi tramite il succitato algoritmo di apprendimento strutturale. Dai risultati ottenuti si è evinto che ...
+Successivamente si è descritto il software commerciale \acs{TSIS} utilizzato per la \emph{modellazione di profili di traffico su reti stradali urbane} e \acsfont{Sensors} \acs{DLL}, una sua \acl{RTE} sviluppata al fine di monitorare e tracciare il passaggio dei veicoli sui \emph{sensori} presenti in tali reti stradali.
 
+La progettazione e l'implementazione di tali applicativi si è resa necessaria allo scopo di generare dei \emph{dataset} che rappresentassero dei sistemi dinamici complessi, qual è il traffico automobilistico, da sottoporre ai classificatori \acs{CTBN} (\acs{CTNBC}). Grazie a tali dataset si è potuto effettuare una \emph{sperimentazione} di $4$ diverse istanze di classificatori \acs{CTBN} allo scopo di valutare la loro applicazione a un problema noto e complesso qual è la \emph{classificazione dei profili di traffico}.
 
+Tale sperimentazione ha permesso inoltre di comparare l'efficacia dei vari modelli di classificatore \acs{CTBN} utilizzati: il classificatore \acl{CTNB} (\acs{CTNBC}) e i classificatori appresi tramite il succitato algoritmo di apprendimento strutturale. Dai \emph{risultati} ottenuti si è evinto che tali modelli ottengono un buon livello di classificazione. Tuttavia, a causa della natura dei sistemi dinamici descritti dei dataset, non si sono rilevate differenze notabili fra i vari modelli di classificatori utilizzati.
+
+Ciò pone quindi un primo spunto per gli eventuali \emph{sviluppi futuri} del corrente lavoro di tesi: l'elaborazione di una procedura di apprendimento strutturale alternativa che porti all'ottenimento di classificatori \acs{CTBN} maggiormente efficaci.
+
+Riguardo tale argomento, è sicuramente di notevole interesse, per i risvolti che ciò può comportare, affrontare nel futuro gli stessi argomenti presentati in questo lavoro di tesi relativamente però a insiemi di dati non completamente osservati.
+
+Anche dal punto di vista pratico, questo lavoro di tesi può essere esteso in vari modi. Ad esempio, l'applicativo per la generazione di dataset relativi al traffico necessita di conformare completamente i dati che esso genera alla forma che le \acs{CTBN} richiedono. Ci si riferisce, nello specifico, alla rilevazione degli istanti temporali in cui più di un sensore effettua una transizione di stato. \`E importante rimarcare, infatti, che i modelli \acs{CTBN} assumono che due variabili non possano effettuare una transizione contemporaneamente. Tale assunzione può essere vista come una formalizzazione del fatto che le variabili devono rappresentare aspetti distinti del mondo: in generale, non si dovrebbe modellare un dominio in cui due o più variabili cambiano stato contemporaneamente in modo deterministico.
