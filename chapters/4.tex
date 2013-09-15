@@ -104,66 +104,32 @@ Al fine di presentare le funzionalità di tale pacchetto, di seguito, si riporta
 	Il pacchetto deve consentire l'apprendimento della struttura di un modello \acs{CTBN} dato un insieme di dati completo. L'utente deve poter specificare, qualora lo desideri, l'approccio da utilizzare (attualmente si fornisce solo un approccio basato su punteggio, quello descritto nel \vref{cap:structurallearning}).
 		\begin{description}
 			\item[R3.1 -- Ricerca euristica] \hfill \\
-			Il sistema deve fornire un modulo preposto alla \keyword{ricerca euristica} della struttura \acs{CTBN} ottimale. Attualmente esso fornisce la procedura di ricerca \emph{\keyword{\hc{}}} (a tal riguardo si rimanda alla \autoref{subsec:structurallearning-hc} \vpageref{subsec:structurallearning-hc}).
+			Il sistema deve fornire un modulo preposto alla \keyword{ricerca euristica} della struttura \acs{CTBN} ottimale. Attualmente è prevista solamente la procedura di ricerca \emph{\keyword{\hc{}}} con memoizzazione\footnote{La \emph{memoizzazione} è una tecnica di ottimizzazione delle chiamate delle funzioni finalizzata al miglioramento dei tempi d'esecuzione di un sistema software e al risparmio di risorse computazionali. Essa consiste nel salvare in memoria il risultato ottenuto dalla chiamata di una funzione, comprensiva di parametri attuali, in modo da non dover effettuare nuovamente la computazione in caso la funzione in questione venga nuovamente chiamata con gli stessi parametri attuali. Nel contesto dell'apprendimento strutturale di una \acs{CTBN} questa tecnica può essere usata con efficacia evitando di computare nuovamente il punteggio di un modello \acs{CTBN} già processato precedentemente.} (a tal riguardo si rimanda alla \autoref{subsec:structurallearning-hc} \vpageref{subsec:structurallearning-hc}).
 			\item[R3.2 -- Funzione di punteggio] \hfill \\
 			Il sistema deve fornire una funzione di punteggio delle strutture \acs{CTBN} (attualmente è prevista solamente la computazione dello \emph{\keyword{score bayesiano}}, presentata nella \vref{sec:ctbn-structurallearning-score}).
 		\end{description}
 	\item[R4 -- Classificazione tramite modelli CTBNC] \hfill \\
-	c.
+	Il pacchetto deve permettere, tramite l'utilizzo di un classificatore \acs{CTBNC}, la \emph{\keyword{classificazione supervisionata}} di traiettorie multi-variate che evolvono nel tempo continuo. L'utente deve immettere nel sistema l'istanza per cui inferire la classe di appartenenza e selezionare il classificatore da utilizzare per classificarla.
 		\begin{description}
-		\item[R4.1 -- Apprendimento di un classificatore \acs{CTBN}] \hfill \\
-		a.
-		\item[R4.2 -- Inferenza tramite classificatore \acs{CTBN}] \hfill \\
-		h.
+		\item[R4.1 -- Apprendimento di un classificatore CTBN] \hfill \\
+		Tale processo incorpora quello relativo al punto {\bfseries\spacedlowsmallcaps{R2}}. In aggiunta, esso deve computare la probabilità a priori della variabile classe sull'insieme di dati completi di input. Il pacchetto deve fornire sia una versione generale del processo di apprendimento, funzionante per qualsiasi classificatore \acs{CTBN} (\ie{} \autoref{lst:ctbnc-learning} presentato a \vpageref{lst:ctbnc-learning}), sia una versione dedicata esclusivamente ai classificatori \acs{CTNB} (\ie{} \autoref{lst:ctnbc-learning} presentato a \vpageref{lst:ctnbc-learning}).
+		\item[R4.2 -- Inferenza tramite classificatore CTBN] \hfill \\
+		Il sistema deve consentire all'utente, dato un qualsiasi classificatore \acs{CTBN}, di classificare una qualsiasi istanza completa dei dati assegnando ad essa la classe che ottiene il valore maggiore di probabilità secondo l'\autoref{lst:ctbnc-inference} presentato a \vpageref{lst:ctbnc-inference}.
 		\end{description}
 \end{description}
+Si osservi che è stata tralasciata la discussione di una serie di ulteriori requisiti e relative funzionalità, quali ad esempio quelle relative all'esecuzione della \emph{cross-validazione} e al calcolo delle \emph{metriche di valutazione} dei classificatori, poiché esse sono riguardano direttamente l'argomento primario di questo lavoro di tesi e, inoltre, sono state implementate separatamente come pacchetti \lstinline$R$ indipendenti da \rctbn{}.
 
-La principale entità che tale pacchetto rappresenta è il modello \acs{CTBN}. Tale entità è composta dal grafo ad esso sottostante e dall'insieme dei parametri e eventualmente delle \im{} relative ad ogni nodo di tale grafo, secondo la \autoref{defn:ctbn} a pagina \pageref{defn:ctbn}.
+La principale entità che tale pacchetto rappresenta corrisponde al modello \acs{CTBN}. Tale entità è composta dal grafo ad essa sottostante e dall'insieme dei parametri e eventualmente delle \im{} relative ad ogni nodo di tale grafo, secondo la \autoref{defn:ctbn} a pagina \pageref{defn:ctbn}.
 
-Parimenti, \rctbn{} può rappresentare anche i modelli \acs{CTBNC}, che costituiscono, come detto, una specializzazione del modello \acs{CTBN}. Il vincolo che tale specializzazione apporta corrisponde all'esistenza di un nodo radice, il nodo classe.
+Parimenti, \rctbn{} può rappresentare anche i modelli \acs{CTBNC}, che costituiscono, come specificato dalla \autoref{defn:ctbnc} a pagina \pageref{defn:ctbnc}, una specializzazione del modello \acs{CTBN}. Il vincolo che tale specializzazione apporta corrisponde all'esistenza di un particolare nodo radice: il nodo classe.
 
+Si noti infine che ognuna delle succitate macro funzionalità corrisponde a un componente del \pacchettor{} e viene implementata separatamente dalle altre.
 
-
-%requisiti in lingaggio naturale
-%analisi dei requisiti
-
-%Il diagramma dei componenti illustra la struttura del \pacchetor{} in termini dei suoi componenti interni e delle relazioni che intercorrono tra essi.
-\begin{figure}
+Quindi, al fine di chiarire ulteriormente l'architettura del \pacchettor{} e le relazioni che intercorrono tra i componenti da cui esso è costituito, la \vref{fig:rctbncomponents} ne illustra il relativo diagramma dei componenti.
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\columnwidth]{rctbn-arch.png}
+	\includegraphics[width=1.1\columnwidth,center]{rctbn-arch.png}
 	\caption[Diagramma dei componenti di \rctbn{}]{Diagramma dei componenti di \rctbn{}.}
 	\label{fig:rctbncomponents}
 \end{figure}
-
-
-%\omissis{}
-
-
-%\omissis{}
-
-%scopo
-%vincoli: da chi deve essere usato? dove deve essere installato? attori? -> casi d'uso (con precondinzioni)
-%requisiti: il sistema deve permettere ..
-%tabella casi d'uso/requisiti?
-
-%\section{Package CTBN}
-%\omissis{}
-
-%\subsection{Gestione dei dati}\label{subsec:rctbn-ds-management}
-%\omissis{}
-
-%\subsection{Apprendimento}\label{subsec:rctbn-learning}
-%\omissis{}
-
-%\subsection{Inferenza}\label{subsec:rctbn-inference}
-%\omissis{}
-
-%\subsection{Apprendimento strutturale}\label{subsec:rctbn-structurallearning}
-%\omissis{}
-
-%\subsection{Package xvalidation}\label{subsec:rctbn-xvalidation}
-%\omissis{}
-
-% architettura/componenti
-% signature + documentazione funzioni principali? HMM non lo so
-% parlare dei task che supportano la parallelizzazione: no, solo PROGETTAZIONE
+Tale diagramma evidenzia le interfacce di comunicazione fra i vari componenti e la loro corrispondenza rispetto alle funzionalità descritte precedentemente.
