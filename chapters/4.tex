@@ -67,7 +67,63 @@ Di seguito si elencano i sei campi che tale file di testo deve obbligatoriamente
 	\item il campo \lstinline$License$, contenente una abbreviazione standard di una licenza open source.
 \end{itemize}
 
-\section{Analisi}
+\section{Analisi}\label{sec:rctbn-describ}
+In questa sezione si descrive per grandi linee il \pacchettor{}.
+
+Lo scopo di tale pacchetto, come detto, consiste nell'implementazione del framework delle \acs{CTBN}: esso espone perciò una collezione di funzioni (\ie{} \acs{API}) correlate ai modelli \acs{CTBN} e \acs{CTBNC}.
+
+Al fine di presentare le funzionalità di tale pacchetto, di seguito, si riportano i requisiti cui esso aderisce.
+\begin{description}
+	\item[R1 -- Gestione dei dataset] \hfill \\
+	Il pacchetto deve permettere di caricare nel minore tempo possibile insiemi di dati completi (eventualmente di dimensioni considerevoli) presenti sul disco rigido dell'utente. Il sistema deve fornire all'utente un'interfaccia che semplifichi questo processo nascondendo e automatizzando la scelta dei percorsi di ricerca e memorizzazione dei dataset.
+		\begin{description}
+		\item[R1.1 -- Importazione] \hfill \\
+		Il pacchetto deve consentire di importare insiemi di dati completi. Gli insiemi di dati corrispondono a insiemi di file posti nella medesima cartella. Tali file possono essere in qualsiasi formato testuale (\eg{} \acs{CSV}, \acsfont{TSV}, \acsfont{TXT}) purché essi contengano una struttura tabulare, specificabile dall'utente. Il sistema in esame deve controllare che determinati vincoli, propri del modello in questione, siano rispettati cosicché ogni dataset importato possa realmente rispecchiare un modello \acs{CTBN}. Si elencano i controlli necessari:
+		\begin{itemize}
+			\item controllare che ogni file contenga i dati relativi all'evoluzione temporale (\ie{} colonna temporale)
+			\item controllare che ogni file contenga una colonna classe e che il suo valore sia univoco per ogni file, nel caso l'utente lo richieda
+			\item controllare che ogni file contenga delle traiettorie di dati completi.
+		\end{itemize}
+		\item[R1.2 -- Serializzazione] \hfill \\
+		Il sistema deve consentire all'utente di comprimere e serializzare il dataset importato, in modo automatico o manuale, su disco rigido.
+		\item[R1.2 -- Caricamento veloce] \hfill \\
+		Il sistema deve permettere, in qualsiasi momento, il caricamento veloce di un qualsiasi dataset precedentemente importato e serializzato.
+		\end{description}
+		Si osservi che tali processi devono poter essere eseguiti anche in sessioni di lavoro diverse.
+	\item[R2 -- Apprendimento di un modello CTBN] \hfill \\
+	Il pacchetto deve consentire l'apprendimento dei parametri di un modello \acs{CTBN} rispetto a un insieme di dati completi precedentemente importato e processato. La natura del modello (\ie{} la struttura del grafo) che l'utente intende apprendere deve essere specificata ad ogni esecuzione.
+		\begin{description}
+		\item[R2.1 -- Computazione statistiche sufficienti] \hfill \\
+		Il sistema deve permettere il calcolo delle statistiche sufficienti consentendo all'utente di selezionare l'insieme di nodi (e i rispettivi insiemi di genitori) da sottoporre a tale processo, come mostrato nella \autoref{subsec:ctbn-sufficient-stats} \vpageref{subsec:ctbn-sufficient-stats}.
+		\item[R2.2 -- Computazione iper-parametri] \hfill \\
+		Il sistema deve consentire il calcolo degli iper-parametri di un modello \acs{CTBN} a partire da delle \stas{} precedentemente calcolate, come mostrato nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}.
+		\item[R2.3 -- Computazione matrici di intensità condizionali] \hfill \\
+		Il pacchetto deve permettere il calcolo delle \im{} a partire da degli iper-parametri.
+		\end{description}
+	\item[R4 -- Apprendimento strutturale di un CTBN] \hfill \\
+	Il pacchetto deve consentire l'apprendimento della struttura di un modello \acs{CTBN} dato un insieme di dati completo. L'utente deve poter specificare, qualora lo desideri, l'approccio da utilizzare (attualmente si fornisce solo un approccio basato su punteggio, quello descritto nel \vref{cap:structurallearning}).
+		\begin{description}
+			\item[R3.1 -- Ricerca euristica] \hfill \\
+			Il sistema deve fornire un modulo preposto alla ricerca euristica della struttura \acs{CTBN} ottimale. Attualmente esso fornisce la procedura di ricerca \emph{\keyword{\hc{}}} (a tal riguardo si rimanda alla \autoref{subsec:structurallearning-hc} \vpageref{subsec:structurallearning-hc}).
+			\item[R3.2 -- Funzione di punteggio] \hfill \\
+			Il sistema deve fornire una funzione di punteggio delle strutture \acs{CTBN} (attualmente è prevista solamente la computazione dello \emph{\keyword{score bayesiano}}, presentata nella \vref{sec:ctbn-structurallearning-score}).
+		\end{description}
+	\item[R4 -- Classificazione tramite modelli CTBNC] \hfill \\
+	c.
+		\begin{description}
+		\item[R4.1 -- Apprendimento di un classificatore \acs{CTBN}] \hfill \\
+		a.
+		\item[R4.2 -- Inferenza tramite classificatore \acs{CTBN}] \hfill \\
+		h.
+		\end{description}
+\end{description}
+
+La principale entità che tale pacchetto rappresenta è il modello \acs{CTBN}. Tale entità è composta dal grafo ad esso sottostante e dall'insieme dei parametri e eventualmente delle \im{} relative ad ogni nodo di tale grafo, secondo la \autoref{defn:ctbn} a pagina \pageref{defn:ctbn}.
+
+Parimenti, \rctbn{} può rappresentare anche i modelli \acs{CTBNC}, che costituiscono, come detto, una specializzazione del modello \acs{CTBN}. Il vincolo che tale specializzazione apporta corrisponde all'esistenza di un nodo radice, il nodo classe.
+
+
+
 %requisiti in lingaggio naturale
 %analisi dei requisiti
 
