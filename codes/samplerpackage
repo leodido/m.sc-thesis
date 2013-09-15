@@ -1,0 +1,13 @@
+Package: ctbn
+Title: The CTBN framework
+Description:
+Version: 0.1
+Author: Leonardo Di Donato <leodidonato@gmail.com>
+Maintainer: Leonardo Di Donato <leodidonato@gmail.com>
+Depends:
+    R (>= 3.0),
+    ...
+License: GPL (>= 2)
+Collate:
+    ...
+LinkingTo: ...

@@ -4,7 +4,7 @@
 % !TEX spellcheck = it-IT
 
 %************************************************
-\chapter{Package R}
+\chapter{Pacchetto RCTBN}
 \label{cap:ctbnr}
 %************************************************
 Uno degli obiettivi di questo lavoro di tesi è consistito nella creazione di un framework in linguaggio \acsfont{R} per le \acs{CTBN}.
@@ -15,14 +15,57 @@ Tuttavia, prima di presentare e chiarire le funzionalità offerte da tale pacche
 
 La discussione del presente capitolo segue quindi tale logica.
 
-\section{R}\label{sec:roverview}
+\section{Il linguaggio R}\label{sec:roverview}
 \lstinline$R$ è un linguaggio di programmazione \emph{interpretato} (e al contempo un ambiente di sviluppo) pensato per applicazioni di tipo \emph{statistico}. Esso incorpora di default una vastissima gamma di \emph{funzionalità statistiche} (\eg{} modelli di regressione, test statistici, analisi delle serie temporali, classificazione, clustering) e di tecniche inerenti la \emph{manipolazione dei dati} (\eg{} lazy loading\footnote{Il lazy loading è un design pattern comunemente utilizzato al fine di deferire l'inizializzazione, o il caricamento, di un qualsiasi oggetto finché ciò non sia strettamente necessario.}, strutture dati di tipo tabulare, procedure di calcolo matriciale efficaci) utili allo sviluppo di applicazioni e modelli per l'\emph{analisi dei dati} \citep{R2013}.
 
 \lstinline$R$ supporta principalmente il paradigma di \emph{programmazione funzionale} con \emph{scoping lessicale}\footnote{Con il termine \emph{scoping lessicale}, o \emph{scoping statico}, ci si riferisce a una determinata modalità di valutazione delle variabili in un dato linguaggio di programmazione. Nello specifico, in un linguaggio con scoping lessicale, il riferimento a un nome di variabile viene risolto basandosi ricorsivamente sulla struttura sintattica che incorpora la definizione di tale nome di variabile. Ne consegue che l'associazione di un valore a una variabile non avviene al momento dell'applicazione e dell'esecuzione bensì durante l'analisi sintattica del sorgente.}. Tuttavia esso può essere esteso al fine di utilizzare il paradigma di \emph{programmazione orientata agli oggetti}.
 
 Lo scoping lessicale, insieme ad altre peculiarità di \lstinline$R$, quali ad esempio il supporto per le \emph{closure} o le funzioni di prima classe\footnote{Una funzione di prima classe è una funzione che restituisce un'altra funzione. Essa costituisce la più diffusa modalità d'applicazione delle \emph{closure}.}, fanno sì che esso costituisca un ottimo strumento per la creazione di \emph{software scientifico}, così come di applicazioni che richiedono tempi d'esecuzione elevati. In tali casi, infatti, è spesso auspicabile che sia possibile verificare a priori l'eseguibilità o meno del codice sorgente almeno dal punto di vista sintattico \citep{Oliveira2006}.
 
-Una ulteriore caratteristica di \lstinline$R$ è costituita dalla sua natura altamente modulare. Esso è infatti pensato per invogliare l'utilizzatore alla creazione di pacchetti di software riutilizzabili. A tale scopo \lstinline$R$ fornisce una serie di funzionalità finalizzate alla creazione, pubblicazione e condivisione con la comunità di pacchetti \lstinline$R$. Infatti, tali moduli, una volta sviluppati, possono essere distribuiti in un apposito archivio online di pacchetti \lstinline$R$, chiamato \acs{CRAN}\footnote{Il \acf{CRAN} costituisce la principale fonte di moduli aggiuntivi (\ie{} pacchetti) per \lstinline$R$. Esso è raggiungibile all'indirizzo: \\ \url{http://cran.r-project.org}.}. Questa caratteristica, parallelamente alle precedenti, costituisce una delle principali cause dell'ampia adozione di tale linguaggio di programmazione per l'implementazione di software scientifico.
+Una ulteriore caratteristica di \lstinline$R$ è costituita dalla sua natura altamente modulare. Esso è infatti pensato per invogliare l'utilizzatore alla creazione di pacchetti, cioè di porzioni di codice \lstinline$R$ riutilizzabili. A tale scopo \lstinline$R$ fornisce una serie di funzionalità finalizzate alla creazione, pubblicazione e condivisione con la comunità di pacchetti \lstinline$R$. Infatti, tali moduli, una volta sviluppati, possono essere distribuiti in un apposito archivio online di pacchetti \lstinline$R$, chiamato \acs{CRAN}\footnote{Il \acf{CRAN} costituisce la principale fonte di moduli aggiuntivi (\ie{} pacchetti) per \lstinline$R$. Esso è raggiungibile all'indirizzo: \\ \url{http://cran.r-project.org}.}. Questa caratteristica, parallelamente alle precedenti, costituisce una delle principali cause dell'ampia adozione di tale linguaggio di programmazione per l'implementazione di software scientifico.
+
+\subsection{Estendere R}
+Poiché lo scopo di questo capitolo è presentare il succitato \pacchettor{}, in questa sottosezione si descrive brevemente il processo di estensione di \lstinline$R$, attuabile, come detto, tramite la creazione di moduli chiamati pacchetti.
+
+Un pacchetto \lstinline$R$ consiste in un insieme di cartelle e file che rispettano determinate convenzioni. Nello specifico, data una cartella radice che si intende utilizzare come contenitore del sorgente di un qualsiasi pacchetto \lstinline$R$, è necessario che essa contenga almeno i seguenti elementi:
+\begin{itemize}
+	\item una sotto cartella \lstinline$R/$, in cui è necessario inserire i sorgenti in linguaggio \lstinline$R$ del pacchetto
+	\item un file \lstinline$DESCRIPTION$, che descriva il pacchetto, il suo scopo, le sue dipendenze da altri pacchetti, la licenza con cui viene distribuito e l'autore.
+\end{itemize}
+La struttura di un pacchetto \lstinline$R$ prevede ulteriori elementi opzionali:
+\begin{itemize}
+	\item una sotto cartella \lstinline$man/$, preposta alla documentazione del pacchetto
+	\item un file \lstinline$NEWS$ per la descrizione dei cambiamenti in ogni versione del pacchetto tramite il formato standard che \lstinline$R$ fornisce a tale scopo
+	\item un file \lstinline$README$ che contenga una panoramica generale del pacchetto
+	\item un file \lstinline$inst/CITATION$ finalizzato alla descrizione delle modalità con cui citare il corrente pacchetto in lavori scientifici
+	\item una sotto cartella \lstinline$demo/$ contenente delle applicazioni d'esempio che utilizzano il pacchetto stesso
+	\item una sotto cartella \lstinline$inst/doc$ contenente la documentazione approfondita e eventuali manuali d'utilizzo
+	\item un file \lstinline$NAMESPACE$, che descriva quali funzioni devono far parte della \acs{API} del pacchetto cosicché esse siano utilizzabili dagli utenti
+	\item le sotto cartelle \lstinline$test/$ e \lstinline$inst/test/$, contenenti i test per il pacchetto, allo scopo di assicurarsi che esso operi come progettato
+	\item una sotto cartella \lstinline$data/$, preposta all'incorporazione nel pacchetto di eventuali dataset d'esempio
+	\item una sotto cartella \lstinline$src/$ per il codice sorgente non in linguaggio \lstinline$R$ (\eg{} \CC{}, \lstinline$C$ o \lstinline$FORTRAN$)
+	\item una sotto cartella \lstinline$exec/$ preposta alla distribuzione di ulteriori script eseguibili
+	\item una sotto cartella \lstinline$po/$ che contenga i file di traduzione per il pacchetto.
+\end{itemize}
+\`E possibile creare la struttura di un pacchetto \lstinline$R$ manualmente o usufruendo della funzione base \lstinline[language=rstats]{package.skeleton}. Inoltre, a titolo informativo, si evidenza l'esistenza di un pacchetto esterno finalizzato alla facilitazione di tale processo, il pacchetto \lstinline[]|devtools| \citep{DEVTOOLS2013} (si veda l'\vref{cap:guide} per maggiori dettagli a riguardo).
+
+Infine, si fornisce una panoramica delle pratiche consigliate (o necessarie) riguardanti gli elementi obbligatori per la creazione di un pacchetto \lstinline$R$.
+
+La sotto cartella \lstinline$R/$ non impone alcun vincolo sull'organizzazione del codice sorgente che essa deve contenere, aldilà del fatto che esso deve essere codice in linguaggio \lstinline$R$. Tuttavia, quando si intende sviluppare utilizzando l'approccio funzionale, venendo meno, almeno esplicitamente, il concetto di classe, è pratica consolidata e consigliata organizzare il codice sorgente in diversi file in base all'area tematica cui appartengono le funzioni che essi contengono.
+
+Invece, il file \lstinline$DESCRIPTION$, al fine di definire i metadati del pacchetto \lstinline$R$, deve contenere determinati campi.
+
+Il sorgente \ref{lst:rpackex} illustra, tramite un esempio di file \lstinline$DESCRIPTION$ per \rctbn{}, tale pratica.
+\vspace*{8pt}\inputsourcecode[numbers=none,caption={[File di descrizione di un pacchetto \lstinline$R$]Esempio di possibile file di descrizione del \pacchettor{}.},language=pseudo,label=lst:rpackex]{codes/samplerpackage}\vspace*{8pt}
+Di seguito si elencano i sei campi che tale file di testo deve obbligatoriamente contenere:
+\begin{itemize}
+	\item il campo \lstinline$Package$, nel quale si definisce il nome del pacchetto (e dovrebbe, in teoria, corrispondere al nome della cartella radice)
+	\item il campo \lstinline$Title$, contenente a una descrizione sintetica del pacchetto (massimo una linea di testo)
+	\item il campo \lstinline$Description$, preposto a una descrizione maggiormente dettagliata del pacchetto e delle sue funzionalità
+	\item il campo \lstinline$Version$, contenente il numero di versione, auspicabilmente nel formato \lstinline$major.minor.patchlevel$
+	\item il campo \lstinline$Mantainer$, contenente un singolo nome e indirizzo e-mail per la persona responsabile della manutenzione del pacchetto
+	\item il campo \lstinline$License$, contenente una abbreviazione standard di una licenza open source.
+\end{itemize}
 
 \section{Analisi}
 %requisiti in lingaggio naturale
@@ -65,10 +108,6 @@ Una ulteriore caratteristica di \lstinline$R$ è costituita dalla sua natura alt
 %\subsection{Package xvalidation}\label{subsec:rctbn-xvalidation}
 %\omissis{}
 
-% introdurre R? Rcpp?
-% introdurre paradigma funzionale?
 % architettura/componenti
-% signature + documentazione funzioni principali?
-% parlare dei task che supportano la parallelizzazione
-% struttura package R
-% componente cross-validation: spiegare metriche di valutazione utilizzate? si! ma in capitolo 4!
+% signature + documentazione funzioni principali? HMM non lo so
+% parlare dei task che supportano la parallelizzazione: no, solo PROGETTAZIONE
