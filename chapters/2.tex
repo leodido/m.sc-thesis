@@ -7,7 +7,7 @@
 \chapter{Classificazione}
 \label{cap:ctbnc}
 %************************************************
-La classificazione è un argomento centrale nei campi di ricerca relativi all'apprendimento automatico (anche detto \emph{machine learning}) e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione \keyword{supervisionata}} quando è necessario indurre un classificatore a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati. Nel caso in cui, invece, si voglia individuare dei raggruppamenti intrinseci (\ie{} \emph{cluster}) a un insieme di dati composto da istanze non etichettate, e creare in corrispondenza di tali raggruppamenti le classi (incognite), si parla invece di \emph{classificazione \keyword{non supervisionata}}.
+La classificazione è un argomento centrale nei campi di ricerca relativi all'apprendimento automatico (anche detto \emph{machine learning}) e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione \keyword{supervisionata}} quando è necessario indurre un classificatore a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati. Nel caso in cui, invece, si vogliano individuare dei raggruppamenti intrinseci (\ie{} \emph{cluster}) a un insieme di dati composto da istanze non etichettate, e creare in corrispondenza di tali raggruppamenti le classi (incognite), si parla invece di \emph{classificazione non supervisionata}.
 
 In questo capitolo viene quindi introdotta una classe di modelli, che prende il nome di \acf{CTBNC}, il cui scopo è la \emph{classificazione supervisionata} di traiettorie multi-variate di variabili discrete a \emph{tempo continuo}. Si descrivono due istanze di tale classe: i classificatori \acf{CTNB} e i classificatori \acf{CTTANB}.
 
@@ -26,7 +26,7 @@ Un \acl{CTBNC} estende una \acs{CTBN} tramite l'aggiunta di un nodo associato al
 
 Di seguito si dà la definizione di questa nuova classe di modelli di \emph{classificazione supervisionata}.
 \begin{definizione}[\acl{CTBNC}]\label{defn:ctbnc}
-Un \acf{CTBNC} è composto da una coppia $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$ dove:
+Un \acf{CTBNC}\index{definizione!\acsfont{CTBNC}} è composto da una coppia $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$ dove:
 \begin{itemize}
     \item $\conceptsym{N}$ è una \acs{CTBN} con nodi attributo $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$
     \item $\setel{Y}$ è il nodo classe con valori $val(\setel{Y})=\{\,\vectel{y_1}\,,\,\dotsc\,,\,\vectel{y_K}\,\}$ e probabilità marginale $\set{P}(\setel{Y})$.
@@ -52,7 +52,7 @@ A supporto della \autoref{defn:ctbnc}, la ~\vref{fig:ctbnc-example} fornisce un'
 Parallelamente a quanto fatto in~\citet{Langley1992}, si presentano ora due istanze particolari di \acl{CTBNC}.
 
 \begin{definizione}[\acl{CTNBC}]\label{defn:ctnbc}
-Un \acf{CTNBC} è un \acl{CTBNC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$ caratterizzato dal fatto che ogni nodo attributo ha un solo genitore, il nodo classe $\setel{Y}$. Risulta quindi che:
+Un \acf{CTNBC}\index{definizione!\acsfont{CTNBC}} è un \acl{CTBNC} $\conceptsym{C}=(\conceptsym{N}\,,\,\set{P}(\setel{Y}))$ caratterizzato dal fatto che ogni nodo attributo ha un solo genitore, il nodo classe $\setel{Y}$. Risulta quindi che:
 \[
 Pa(\setel{X}_i)=\{\,\setel{Y}\,\} \quad \forall \; \setel{X}_i \in \conceptsym{G}\text{.}
 \]
@@ -94,7 +94,7 @@ Di conseguenza, per l'apprendimento di un \acs{CTNBC} è richiesto uno sforzo co
 
 Per l'apprendimento di un \acs{CTTANBC}, poiché questo modello prevede archi anche fra i nodi attributo, è invece richiesto uno sforzo computazionale leggermente maggiore~\citep{Stella2012}.
 
-Si presenta di seguito l'\autoref{lst:ctnbc-learning}~\citep{Stella2012} relativo all'apprendimento di un classificatore \acs{CTNB} (\autoref{defn:ctnbc}).
+Si presenta di seguito l'\autoref{lst:ctnbc-learning}~\citep{Stella2012} relativo all'apprendimento\index{apprendimento!\acsfont{CTNBC}} di un classificatore \acs{CTNB} (\autoref{defn:ctnbc}).
 
 Esso richiede in input un \emph{dataset completo} $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$, il corrispettivo insieme delle classi $\{\setel{y}_1\,,\,\setel{y}_2\,,\,\dotsc\,,\,\setel{y}_h\}$, con $\setel{y}_i \in val(\setel{Y})$, e il grafo $\conceptsym{G}$ di una \acs{CTBN} $\conceptsym{N}$ (rispettivamente chiamati \lstinline[]|data|, \lstinline[]|classes| e \lstinline[]|graph| nella firma della funzione \lstinline[]|ctnbclearn|).
 
@@ -152,7 +152,7 @@ Nello specifico:
     \item il calcolo delle \stats{} di ogni nodo attributo $\setel{X}_i$ va condizionato all'istanziazione attuale (\ie{} al tempo $j$) del suo insieme di nodi genitori $Pa(\setel{X}_i)$; di conseguenza, a \autoref{lst:general-ss-computation} dell'\autoref{lst:ctbnc-learning}, si prende in considerazione tale valore (\ie{} variabile \lstinline[]|p|)
     \item la stima dei parametri \acl{MLE} (\acs{MLE}) di ogni noto attributo $\setel{X}_i$ va eseguita in base a ogni istanziazione del suo insieme di nodi genitori $Pa(\setel{X}_i)$; perciò a \autoref{lst:general-params-computation} si itera in base a ogni valore (\ie{} variabile \lstinline[]|p|) assunto da $Pa(\setel{X}_i)$ (\ie{} $val(Pa(\setel{X}_i))$) mentre l'iterazione per classe non è più coerente e di conseguenza rimossa.
 \end{enumerate}
-Si riporta di seguito l'\autoref{lst:ctbnc-learning}, il quale include le succitate modifiche finalizzate alla creazione di un algoritmo di apprendimento generale per i \acs{CTBNC}.
+Si riporta di seguito l'\autoref{lst:ctbnc-learning}, il quale include le succitate modifiche finalizzate alla creazione di un algoritmo di apprendimento\index{apprendimento!\acsfont{CTBNC}} generale per i \acs{CTBNC}.
 \vspace*{8pt}\begin{lstlisting}[caption={[Apprendimento di un classificatore \acs{CTBN}]Apprendimento di un classificatore \acs{CTBN} (\acs{CTBNC}).}, label=lst:ctbnc-learning, language=pseudo]
 function learn(data, classes, graph) {
     var h = len(data)
@@ -192,11 +192,11 @@ function learn(data, classes, graph) {
 
 \cleardoublepage
 \section{Inferenza}\label{sec:inference-ctbnc}
-In questa sezione si affronta il problema della \emph{classificazione} di un \emph{flusso di evidenze completamente osservato}, indicato con $\evidencestream{J}$ (si veda la \autoref{defn:j-evidence-stream}), rispetto a un classificatore \acs{CTBN} (\acs{CTBNC}). Si osservi che, in tale situazione (\ie{} \emph{\keyword{dati completi}}), l'unica variabile casuale non osservata è la variabile classe, perciò è possibile sfruttare le relazioni di indipendenza fra variabili casuali così come si fa per le \acl{BN}. L'argomento di questa sezione è quindi il processo di \emph{\keyword{classificazione supervisionata}}, di cui si presentano in primis le basi teoriche e successivamente l'implementazione algoritmica che ne consegue.
+In questa sezione si affronta il problema della \emph{classificazione} di un \emph{flusso di evidenze completamente osservato}, indicato con $\evidencestream{J}$ (si veda la \autoref{defn:j-evidence-stream}), rispetto a un classificatore \acs{CTBN} (\acs{CTBNC}). Si osservi che, in tale situazione (\ie{} \emph{\keyword{dati completi}}), l'unica variabile casuale non osservata è la variabile classe, perciò è possibile sfruttare le relazioni di indipendenza fra variabili casuali così come si fa per le \acl{BN}. L'argomento di questa sezione è quindi il processo di \emph{classificazione supervisionata\index{classificazione!supervisionata}}, di cui si presentano in primis le basi teoriche e successivamente l'implementazione algoritmica che ne consegue.
 
-Il processo di classificazione di un flusso di evidenze è effettuato in base alla regola \emph{\acl{MAP}}\index{maximum a posteriori}\footnote{La stima della probabilità \acf{MAP} è una moda della distribuzione a posteriori che può essere usata per ottenere una stima puntuale di una quantità inosservata sulla base di dati empirici. Può essere vista come una regolarizzazione della stima \acf{MLE} poiché è strettamente correlata ad essa; vi differisce perché impiega un obiettivo di massimizzazione incrementato che incorpora una distribuzione a priori sopra la quantità che si vuole stimare.} (\acs{MAP})~\citep[si veda][]{Stella2012}: un flusso di evidenze completamente osservato viene classificato assegnandogli la classe la cui probabilità a posteriori (rispetto al flusso di evidenze stesso) è massima. A tale scopo è necessario calcolare la probabilità a posteriori della variabile classe $\setel{Y}$ del \acs{CTBNC}, rispetto al flusso di evidenze in input, per tutti i suoi possibili stati (\ie{} classi, o etichette).
+Il processo di classificazione\index{classificazione!\acsfont{CTBNC}} di un flusso di evidenze è effettuato in base alla regola \emph{\acl{MAP}}\index{maximum a posteriori}\footnote{La stima della probabilità \acf{MAP} è una moda della distribuzione a posteriori che può essere usata per ottenere una stima puntuale di una quantità inosservata sulla base di dati empirici. Può essere vista come una regolarizzazione della stima \acf{MLE} poiché è strettamente correlata ad essa; vi differisce perché impiega un obiettivo di massimizzazione incrementato che incorpora una distribuzione a priori sopra la quantità che si vuole stimare.} (\acs{MAP})~\citep[si veda][]{Stella2012}: un flusso di evidenze completamente osservato viene classificato assegnandogli la classe la cui probabilità a posteriori (rispetto al flusso di evidenze stesso) è massima. A tale scopo è necessario calcolare la probabilità a posteriori della variabile classe $\setel{Y}$ del \acs{CTBNC}, rispetto al flusso di evidenze in input, per tutti i suoi possibili stati (\ie{} classi, o etichette).
 
-Il classificatore \acs{CTBN} classifica quindi il flusso di evidenze massimizzando la seguente probabilità a posteriori, ricavata applicando la \emph{\keyword{regola di Bayes}}:
+Il classificatore \acs{CTBN} classifica\index{classificazione!\acsfont{CTBNC}} quindi il flusso di evidenze massimizzando la seguente probabilità a posteriori, ricavata applicando la \emph{\keyword{regola di Bayes}}:
 \begin{equation}\label{eq:ctbnc-inference-1}
 P(\setel{Y}\,\arrowvert\,\evidencestream{J})=\frac{P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})}{P(\evidencestream{J})}\text{.}
 \end{equation}
