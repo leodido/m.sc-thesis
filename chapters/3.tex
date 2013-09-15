@@ -9,7 +9,7 @@
 %************************************************
 Uno dei casi principali che costituisce il problema dell'\emph{apprendimento} di modelli grafico probabilistici è l'apprendimento della struttura incognita sottostante un modello, cioè la selezione di un modello probabilistico che rappresenti un dato \emph{\keyword{\trs{}}}. %Anche se questo processo è spesso di elevata complessità, esso è considerato di elevata importanza in quanto la costruzione manuale di una struttura può essere difficile o addirittura impossibile se le variabili che la compongono sono sconosciute o di difficile caratterizzazione.
 
-Il problema dell'\emph{apprendimento \keyword{strutturale}} da \emph{\keyword{dati completi}} di una \acl{CTBN} (\acs{CTBN}) è l'argomento trattato in questo capitolo.
+Il problema dell'\emph{apprendimento strutturale\index{apprendimento!strutturale}} da \emph{\keyword{dati completi}} di una \acl{CTBN} (\acs{CTBN}) è l'argomento trattato in questo capitolo.
 
 Questo problema può essere informalmente descritto nel seguente modo: dato un \emph{\keyword{\trs{}}} composto da istanze di un insieme di variabili casuali si trovi un \keyword{grafo} che rappresenti le relazioni fra le variabili casuali evidenziate nei dati. %Si noti come tale problema possa essere catalogato come una forma di \keyword{apprendimento non supervisionato}; nel senso che il processo di apprendimento non distingue la variabile classe dalle variabili attributo nei dati.
 
@@ -119,7 +119,7 @@ Si definisce perciò il seguente teorema~\citep{Nodelman2002}.
 Il problema \textbf{k-learn} per le \acl{CTBN}, fissato $k$, può essere risolto in tempo \keyword{polinomiale} rispetto al numero di variabili casuali $N$ e alla dimensione dell'insieme di dati $\conceptsym{D}$.
 \end{teorema}
 
-Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. \'E quindi possibile utilizzare un algoritmo di \keyword{ricerca euristica} di tipo \emph{\keyword{greedy}} per esplorare lo spazio di ricerca. Nella~\autoref{subsec:structurallearning-hc} si presenta l'algoritmo scelto per l'\keyword{apprendimento strutturale} della struttura ottimale di un modello \acs{CTBN}.
+Si osservi che, fissando $k$ a priori, non è necessario enumerare esaustivamente tutti i possibili insiemi di nodi genitori di ogni nodo di una \acs{CTBN}. \'E quindi possibile utilizzare un algoritmo di \keyword{ricerca euristica} di tipo \emph{\keyword{greedy}} per esplorare lo spazio di ricerca. Nella~\autoref{subsec:structurallearning-hc} si presenta l'algoritmo scelto per l'apprendimento strutturale\index{apprendimento!strutturale} della struttura ottimale di un modello \acs{CTBN}.
 
 \subsection{Hill Climbing}\label{subsec:structurallearning-hc}
 L'algoritmo \emph{\keyword{\hc{}}} è una tecnica di \keyword{ricerca euristica} finalizzata alla risoluzione di problemi di ottimizzazione i cui stati (\ie{} elementi dello spazio di ricerca) contengono tutte le informazioni necessarie a costituire una soluzione~\citep{Russel2003}.
@@ -128,7 +128,7 @@ L'idea su cui si basa tale algoritmo consiste nell'iniziare la ricerca con una s
 
 A differenza di altri algoritmi di ricerca basati sul miglioramento iterativo della soluzione (\eg{} \emph{\keyword{simulated annealing}}, \emph{\keyword{tabu search}}), l'algoritmo \emph{\keyword{\hc{}}} si sposta sempre in uno stato che fornisce una soluzione con maggior punteggio~\citep{Russel2003}. L'utilizzo di tale algoritmo garantisce il raggiungimento di soluzioni localmente ottime (\ie{} soluzioni che non possono essere migliorate considerando solamente la configurazione degli stati vicini) in una quantità di tempo relativamente bassa. Tuttavia esso non garantisce il raggiungimento di una soluzione che costituisca l'ottimo globale, a meno che la funzione rappresentante lo spazio di ricerca non sia convessa. Ciò avviene poiché l'algoritmo smette di effettuare progressi verso la soluzione globalmente ottima nel momento in cui il vicinato della soluzione corrente non permette alcun miglioramento immediato.
 
-Per sorpassare tale limitazione è possibile attuare varie strategie~\citep[si veda][]{Russel2003}, quali, ad esempio: l'esplorazione iterativa, a partire da diverse configurazioni iniziali, dello stesso spazio di ricerca (\ie{} \emph{random restart} \emph{\keyword{\hc{}}}); la selezione stocastica del vicinato da esaminare ad ogni passo della ricerca locale, sulla base della probabilità che un dato vicinato porti a un progresso maggiore rispetto ad altri vicinati; oppure la scelta di soluzioni non migliorative finalizzata ad una maggiore esplorazione dello spazio di ricerca (\ie{} \emph{\keyword{simulated annealing}}).
+Per sorpassare tale limitazione è possibile attuare varie strategie~\citep[si veda][]{Russel2003}, quali, ad esempio: l'esplorazione iterativa, a partire da diverse configurazioni iniziali, dello stesso spazio di ricerca (\ie{} \emph{random restart} \emph{\keyword{\hc{}}}); la selezione stocastica del vicinato da esaminare ad ogni passo della ricerca locale, sulla base della probabilità che un dato vicinato porti a un progresso maggiore rispetto ad altri vicinati; oppure la scelta di soluzioni non migliorative finalizzata ad una maggiore esplorazione dello spazio di ricerca (\ie{} \emph{simulated annealing}).
 
 \begin{notas}
 Questo algoritmo opera una gestione efficiente della memoria poiché non necessita il mantenimento di alcun albero di ricerca: esso conserva solamente l'informazione (\ie{} punteggio della soluzione) sullo stato corrente e quello successivo.
@@ -158,9 +158,9 @@ function hillclimbing(problem) {
 }
 \end{lstlisting}
 
-Di seguito si discute l'applicazione di tale algoritmo all'\keyword{apprendimento strutturale} delle \acs{CTBN}.
+Di seguito si discute l'applicazione di tale algoritmo all'apprendimento strutturale\index{apprendimento!strutturale} delle \acs{CTBN}.
 
-Come detto, a causa della mancanza del vincolo di aciclicità, è possibile eseguire la succitata procedura di ottimizzazione in modo indipendente per ogni singolo nodo del modello \acs{CTBN} in esame. Ciò permette di scomporre il problema dell'\keyword{apprendimento strutturale} in un insieme di problemi della stessa entità, di minore complessità e completamente indipendenti fra di essi; contesto ottimo per un approccio parallelizzato alla risoluzione del problema padre.
+Come detto, a causa della mancanza del vincolo di aciclicità, è possibile eseguire la succitata procedura di ottimizzazione in modo indipendente per ogni singolo nodo del modello \acs{CTBN} in esame. Ciò permette di scomporre il problema dell'apprendimento strutturale\index{apprendimento!strutturale} in un insieme di problemi della stessa entità, di minore complessità e completamente indipendenti fra di essi; contesto ottimo per un approccio parallelizzato alla risoluzione del problema padre.
 
 Dato uno qualsiasi dei succitati sotto-problemi, lo spazio degli stati che l'algoritmo \emph{\keyword{\hc{}}} può esplorare è composto da tutti i possibili insiemi di genitori con cardinalità minore o uguale a $k$, il numero massimo di genitori di ogni singolo nodo della \acs{CTBN}. L'algoritmo \emph{\keyword{\hc{}}} individua l'insieme di genitori ottimale per il nodo in esame, valutando, iterativamente, i possibili insiemi di nodi genitori con cardinalità minore e maggiore di $1$ rispetto alla cardinalità dell'insieme di genitori corrente. Si osservi che tale configurazione prevede che l'insieme dei genitori con cardinalità pari a $0$ (\ie{} insieme vuoto $\emptyset$) venga anch'esso valutato.
 

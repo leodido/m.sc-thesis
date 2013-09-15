@@ -139,7 +139,7 @@ L'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-ffstatsgraph} illu
 \vspace*{8pt}\inputsourcecode[numbers=none,language=pseudo,nolol,basicstyle=\footnotesize\ttfamily]{codes/fsstatsgraphres}
 
 \subsection{Apprendimento dei parametri}
-Si illustra ora come effettuare l'apprendimento dei parametri di una \acs{CTBN} da un insieme di \emph{\keyword{dati completi}}, nello specifico dal \ds{2}, tramite la relativa funzionalità offerta dal \pacchettor{}. Si ricorda, come discusso nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}, che è possibile effettuare la \keyword{stima dei parametri} tramite due approcci: la \keyword{stima \acl{MLE}} o la \keyword{stima bayesiana}.
+Si illustra ora come effettuare l'apprendimento dei parametri di una \acs{CTBN} da un insieme di \emph{dati completi}, nello specifico dal \ds{2}, tramite la relativa funzionalità offerta dal \pacchettor{}. Si ricorda, come discusso nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}, che è possibile effettuare la \keyword{stima dei parametri} tramite due approcci: la \keyword{stima \acl{MLE}} o la \keyword{stima bayesiana}.
 
 Supponendo di considerare la \acs{CTBN} con la struttura utilizzata per l'esempio precedente (si veda la \vref{tab:little-example-ctbn}) e di aver salvato le \emph{\stats{}} calcolate nel sorgente \ref{lst:rctbn-fsstats2} in una variabile chiamata \lstinline$ss$, è possibile apprendere i parametri fornendo tale variabile in input alla funzione \lstinline[language=rstats]{params}.
 
@@ -258,7 +258,7 @@ Lo scopo di questa sottosezione è illustrare il processo di classificazione\ind
 
 In questo lavoro di tesi, \vpageref{lst:ctbnc-inference}, si è presentato un algoritmo di inferenza (\autoref{lst:ctbnc-inference}) dedito alla classificazione tramite classificatori \acl{CTBN} (\acs{CTBNC}), classe di modelli di \emph{\keyword{classificazione supervisionata}} cui appartengono i modelli di classificatori \acs{CTNB}. Il \pacchettor{} fornisce tale procedura di inferenza esponendo la funzione \lstinline[language=rstats]{infer_ctbnc}.
 
-Prima di presentare la succitata funzione, si fa notare che \rctbn{} fornisce una funzione apposita per l'apprendimento dei classificatori \acs{CTNB} (\acs{CTNBC}): \lstinline[language=rstats]{learn_ctnbc}. Una chiamata a tale funzione è equivalente a una chiamata alla funzione \lstinline[language=rstats]{learn_ctbnc} con parametro \lstinline$amat$ posto al valore \lstinline$NULL$. Tuttavia, essa è ben più performante di \lstinline[language=rstats]{learn_ctbnc} poiché attua delle ottimizzazioni di calcolo dovute a delle assunzioni che la struttura dei classificatori \acs{CTNB} permettono di fare.
+Prima di presentare la succitata funzione, si fa notare che \rctbn{} fornisce una funzione apposita per l'apprendimento\index{apprendimento!classificatore} dei classificatori \acs{CTNB} (\acs{CTNBC}): \lstinline[language=rstats]{learn_ctnbc}. Una chiamata a tale funzione è equivalente a una chiamata alla funzione \lstinline[language=rstats]{learn_ctbnc} con parametro \lstinline$amat$ posto al valore \lstinline$NULL$. Tuttavia, essa è ben più performante di \lstinline[language=rstats]{learn_ctbnc} poiché attua delle ottimizzazioni di calcolo dovute a delle assunzioni che la struttura dei classificatori \acs{CTNB} permettono di fare.
 
 I parametri principali per cui la funzione \lstinline[language=rstats]{infer_ctbnc} richiede un input sono:
 \begin{itemize}
@@ -285,7 +285,7 @@ Si osservi che, questa modalità di output non è l'unica che la funzione \lstin
 \lstinline[language=rstats]{max(results[["prob"]])}.
 
 \subsection{Apprendimento strutturale}
-Lo scopo di questa sottosezione è presentare brevemente l'esecuzione del processo di \emph{\keyword{apprendimento strutturale}} tramite il \pacchettor{}.
+Lo scopo di questa sottosezione è presentare brevemente l'esecuzione del processo di \emph{\index{apprendimento!strutturale}} tramite il \pacchettor{}.
 
 Nello specifico, dato un ipotetico \emph{\keyword{training set}}, si presenta l'utilizzo della funzione \lstinline[language=rstats]{greedy_search} per l'apprendimento del classificatore \acs{CTBN} (\acs{CTBNC}) che meglio rappresenta tali \keyword{dati di addestramento}, fissato il numero massimo di genitori di ogni nodo al valore $2$. Tuttavia si osservi che la funzione in questione può apprendere una qualsiasi struttura \acs{CTBN}. Tale funzione esegue l'\autoref{lst:hc-pseudo}, presentato \vpageref{lst:hc-pseudo}, per ogni nodo delle istanze del \emph{\keyword{training set}}, utilizzando come punteggio la funzione $famscore_{\conceptsym{B}}$ presentata nella \vref{sec:ctbn-structurallearning-score} (si veda l'\autoref{eq:bayesian-score}).
 

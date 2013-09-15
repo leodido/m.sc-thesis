@@ -26,7 +26,7 @@ Le \acl{CTBN} descrivono la dinamica evolutiva di variabili casuali tramite un i
 \subsection{\bn{}}\label{subsec:bn}
 Una \acl{BN} è un modello grafico probabilistico costituito da un \acf{DAG}\footnote{\label{note:DAG}Un grafo aciclico orientato (anche detto grafo aciclico diretto o digrafo aciclico) è un tipo di grafo che non ammette cicli ed i cui archi sono orientati: comunque si scelga un vertice non è possibile tornare ad esso percorrendo gli archi del grafo.}. I nodi di tale grafo rappresentano un insieme di variabili casuali mentre gli archi evidenziano le dipendenze (e le indipendenze) condizionali fra esse~\citep{Korb2011}.
 Una \acs{BN} rappresenta la distribuzione di probabilità congiunta del suo insieme di variabili casuali tramite la distribuzione di probabilità \cond*{} di ognuna di essa (si veda l'\autoref{eq:bn-chain-rule}).
-Le \acs{BN} sono quindi modelli grafico probabilistici con cui è possibile modellare in modo probabilistico le relazioni causali tra variabili. Esse risultano molto utili nella rappresentazione e analisi di domini caratterizzati da incertezza. Sono infatti usate in svariate applicazioni di supporto alle decisioni, bioinformatica, biologia computazionale, data mining, information retrieval e \keyword{classificazione}.
+Le \acs{BN} sono quindi modelli grafico probabilistici con cui è possibile modellare in modo probabilistico le relazioni causali tra variabili. Esse risultano molto utili nella rappresentazione e analisi di domini caratterizzati da incertezza. Sono infatti usate in svariate applicazioni di supporto alle decisioni, bioinformatica, biologia computazionale, data mining, information retrieval e classificazione.
 
 \subsubsection{Rappresentazione}\label{subsec:bn-representation}
 Di seguito si fornisce la definizione formale delle \acl{BN} e si introducono i loro aspetti basilari.
@@ -394,7 +394,7 @@ Si affronta infine il processo di apprendimento dei parametri delle \acl{CTBN} d
 
 \begin{definizione}[Insieme di dati completo]
 \label{defn:dataset-completo}
-Dato un insieme di variabili casuali, un insieme di dati $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ si dice \emph{completo} se ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un insieme di traiettorie completamente osservate delle variabili casuali (\ie{} l'istanziazione di tutte le variabili casuali è osservabile per ogni istante temporale di ogni traiettoria).
+Dato un insieme di variabili casuali, un insieme di dati $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ si dice \emph{completo}\index{dati completi} se ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un insieme di traiettorie completamente osservate delle variabili casuali (\ie{} l'istanziazione di tutte le variabili casuali è osservabile per ogni istante temporale di ogni traiettoria).
 \end{definizione}
 
 \subsection{Statistiche sufficienti}
@@ -491,7 +491,7 @@ In questa sezione si è presentato come computare la likelihood di un modello di
 Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è necessario stimarli. Nella prossima sezione viene affrontato esattamente questo argomento.
 
 \subsection{Stima dei parametri}\label{subsec:ctbn-params}
-Si affronta ora il problema dell'\keyword{apprendimento} dei parametri di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
+Si affronta ora il problema dell'apprendimento dei parametri\index{apprendimento!parametri|see{stima}} di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
 
 \`E possibile affrontare tale problema principalmente in due modi. La scelta più semplice consiste nell'effettuare una \keyword{stima dei parametri} del modello tramite un approccio \emph{\acl{MLE}\index{stima \acl{MLE}}}. Tuttavia, è noto che tale approccio può portare a problemi con l'inferenza quando si possiedono pochi dati di input. Per evitare tale limitazione solitamente si ricorre al secondo approccio, la \emph{\keyword{regolarizzazione bayesiana}} dei parametri: si sceglie una distribuzione a priori per i parametri e li si aggiorna in accordo ai dati di input.
 %Quando si tratta con \keyword{dati multinomiali} ci sono principalmente due scelte che è possibile fare. La scelta più semplice consiste nell'effettuare una stima dei parametri del modello tramite un approccio \emph{\acl{MLE}}. Tuttavia, è noto che tale approccio può portare a problemi con l'inferenza quando i dati di input sono sparsi. Per evitare tale limitazione solitamente si effettua una \emph{\keyword{regolarizzazione bayesiana}} dei parametri: si sceglie una distribuzione a priori per i parametri e li si aggiorna in accordo ai dati di input.
