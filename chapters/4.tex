@@ -96,9 +96,9 @@ Al fine di presentare le funzionalità di tale pacchetto, di seguito, si riporta
 		\item[R2.1 -- Computazione statistiche sufficienti] \hfill \\
 		Il sistema deve permettere il calcolo delle \emph{\keyword{statistiche sufficienti}} consentendo all'utente di selezionare l'insieme di nodi (e i rispettivi insiemi di genitori) da sottoporre a tale processo, come mostrato nella \autoref{subsec:ctbn-sufficient-stats} \vpageref{subsec:ctbn-sufficient-stats}.
 		\item[R2.2 -- Computazione iper-parametri] \hfill \\
-		Il sistema deve consentire il calcolo degli \emph{iper-\keyword{parametri}} di un modello \acs{CTBN} a partire da delle statistiche sufficienti precedentemente calcolate, come mostrato nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}.
+		Il sistema deve consentire il calcolo degli \emph{iper-parametri\index{parametri|see{stima}}} di un modello \acs{CTBN} a partire da delle statistiche sufficienti precedentemente calcolate, come mostrato nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}.
 		\item[R2.3 -- Computazione matrici di intensità condizionali] \hfill \\
-		Il pacchetto deve permettere il calcolo delle \emph{\im{}\index{matrice di intensità}} a partire da degli iper-parametri.
+		Il pacchetto deve permettere il calcolo delle \emph{\im{}} a partire dagli iper-parametri.
 		\end{description}
 	\item[R3 -- Apprendimento strutturale di un CTBN] \hfill \\
 	Il pacchetto deve consentire l'apprendimento della struttura di un modello \acs{CTBN} dato un insieme di dati completo. L'utente deve poter specificare, qualora lo desideri, l'approccio da utilizzare (attualmente si fornisce solo un approccio basato su punteggio, quello descritto nel \vref{cap:structurallearning}).
@@ -117,7 +117,7 @@ Al fine di presentare le funzionalità di tale pacchetto, di seguito, si riporta
 		Il sistema deve consentire all'utente, dato un qualsiasi classificatore \acs{CTBN}, di classificare\index{classificazione!\acsfont{CTBNC}} una qualsiasi istanza completa dei dati assegnando ad essa la classe che ottiene il valore maggiore di probabilità secondo l'\autoref{lst:ctbnc-inference} presentato a \vpageref{lst:ctbnc-inference}.
 		\end{description}
 \end{description}
-Si osservi che è stata tralasciata la discussione di una serie di ulteriori requisiti e relative funzionalità, quali ad esempio quelle relative all'esecuzione della \emph{cross-validazione} e al calcolo delle \emph{metriche di valutazione} dei classificatori, poiché esse sono riguardano direttamente l'argomento primario di questo lavoro di tesi e, inoltre, sono state implementate separatamente come pacchetti \lstinline$R$ indipendenti da \rctbn{}.
+Si osservi che è stata tralasciata la discussione di una serie di ulteriori requisiti e relative funzionalità, quali ad esempio quelle relative all'esecuzione della \emph{cross-validazione} e al calcolo delle \emph{metriche di valutazione} dei classificatori, poiché esse riguardano direttamente l'argomento primario di questo lavoro di tesi e, inoltre, sono state implementate separatamente come pacchetti \lstinline$R$ indipendenti da \rctbn{}.
 
 La principale entità che tale pacchetto rappresenta corrisponde al modello \acs{CTBN}. Tale entità è composta dal grafo ad essa sottostante e dall'insieme dei parametri e eventualmente delle \im{} relative ad ogni nodo di tale grafo, secondo la \autoref{defn:ctbn} a pagina \pageref{defn:ctbn}.
 

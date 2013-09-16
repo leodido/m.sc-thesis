@@ -7,7 +7,7 @@
 \chapter{Classificazione}
 \label{cap:ctbnc}
 %************************************************
-La classificazione è un argomento centrale nei campi di ricerca relativi all'apprendimento automatico (anche detto \emph{machine learning}) e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione \keyword{supervisionata}} quando è necessario indurre un classificatore a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati. Nel caso in cui, invece, si vogliano individuare dei raggruppamenti intrinseci (\ie{} \emph{cluster}) a un insieme di dati composto da istanze non etichettate, e creare in corrispondenza di tali raggruppamenti le classi (incognite), si parla invece di \emph{classificazione non supervisionata}.
+La classificazione è un argomento centrale nei campi di ricerca relativi all'apprendimento automatico (anche detto \emph{machine learning}) e l'analisi dei dati. In generale, essa consiste nel processo di assegnare una \emph{classe} (\ie{} un'etichetta) a delle istanze descritte da un insieme di attributi. Si parla di \emph{classificazione supervisionata} quando è necessario indurre un classificatore a partire da un insieme di dati composto da istanze già etichettate e utilizzare tale classificatore per classificare nuove istanze di dati. Nel caso in cui, invece, si vogliano individuare dei raggruppamenti intrinseci (\ie{} \emph{cluster}) a un insieme di dati composto da istanze non etichettate, e creare in corrispondenza di tali raggruppamenti le classi (incognite), si parla invece di \emph{classificazione non supervisionata}.
 
 In questo capitolo viene quindi introdotta una classe di modelli, che prende il nome di \acf{CTBNC}, il cui scopo è la \emph{classificazione supervisionata} di traiettorie multi-variate di variabili discrete a \emph{tempo continuo}. Si descrivono due istanze di tale classe: i classificatori \acf{CTNB} e i classificatori \acf{CTTANB}.
 
@@ -204,13 +204,13 @@ Si specifica di seguito la semantica dei componenti dell'\autoref{eq:ctbnc-infer
 \begin{itemize}
 \item la probabilità marginale associata alla variabile classe $\setel{Y}$ \[P(\setel{Y})\]
 \item la probabilità del flusso di evidenze \[P(\evidencestream{J})\]
-\item la likelihood del flusso di evidenze dato il valore della variabile classe, a cui ci si riferisce nel prosieguo usando l'espressione \emph{\virgolette{\keyword{likelihood temporale}}} \[P(\evidencestream{J}\,\arrowvert\,\setel{Y})\text{.}\]
+\item la likelihood del flusso di evidenze dato il valore della variabile classe, a cui ci si riferisce nel prosieguo usando l'espressione \emph{\virgolette{likelihood temporale\index{likelihood!temporale}}} \[P(\evidencestream{J}\,\arrowvert\,\setel{Y})\text{.}\]
 \end{itemize}
 La probabilità del flusso di evidenze (\ie{} denominatore dell'~\autoref{eq:ctbnc-inference-1}), similmente a quanto accade per i \acs{BNC}~\citep{Friedman1997}, può essere omessa poiché sussiste la relazione di proporzionalità tra il numeratore e la probabilità che si intende calcolare:%non è richiesta per l'implementazione della regola \acs{MAP}, perciò è possibile ometterla e riscrivere la precedente equazione sotto forma di relazione proporzionale:
 \begin{equation}\label{eq:ctbnc-inference-2}
 P(\setel{Y}\,\arrowvert\,\evidencestream{J}) \propto P(\evidencestream{J}\,\arrowvert\,\setel{Y})\:P(\setel{Y})\text{.}
 \end{equation}
-Il primo termine dell'\autoref{eq:ctbnc-inference-2}, cioè la \emph{\keyword{likelihood temporale}}, è invece fondamentale per la classificazione tramite regola \acs{MAP} ed è possibile riformularlo nel seguente modo:
+Il primo termine dell'\autoref{eq:ctbnc-inference-2}, cioè la \emph{likelihood temporale\index{likelihood!temporale}}, è invece fondamentale per la classificazione tramite regola \acs{MAP} ed è possibile riformularlo nel seguente modo:
 \begin{equation}\label{eq:ctbnc-inference-3}
 P(\evidencestream{J}\,\arrowvert\,\setel{Y})=\prod_{j=1}^{J} P(\set{x}^j\,\arrowvert\,\setel{Y})\:P(\set{x}^{j+1}\,\arrowvert\,\set{x}^j,\setel{Y})\text{,}
 \end{equation}
@@ -300,10 +300,10 @@ L'\autoref{lst:ctbnc-inference} di inferenza esatta appena presentato è compost
 
 Il passo finale dell'algoritmo, corrispondente alla linea~\autoref{lst:inference-end}, consiste nella restituzione della classe la cui \emph{log-probabilità} è maggiore di quella delle restanti classi. Tale passo completa perciò l'implementazione dell'\autoref{eq:ctbnc-inference-10}.
 
-L'algoritmo di inferenza esatta presentato in questa sezione è polinomiale.
+L'algoritmo di inferenza esatta presentato in questa sezione è polinomiale\index{complessità!polinomiale}.
 
 \begin{nota}
-Si osservi che è possibile implementare l'algoritmo di inferenza anche utilizzando la \emph{\keyword{parametrizzazione mista}} (si veda la \autoref{defn:mixed-parametrization}). In tal caso si evita la computazione delle \cim{} (\acs{CIM}) ma, in contrasto, ogni qual volta una variabile casuale del flusso di evidenze di input effettua una transizione è necessario calcolare il termine $\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$ (a tal proposito si veda l'\autoref{eq:ctbn-params-rel}).% Tale approccio può risultare conveniente o meno. Nello specifico, la limitazione di questo approccio si presenta quando le variabili casuali del flusso di evidenza di input effettuano transizioni molto spesso, per giunta tra gli stessi stati: ciò implica che si calcolerà più volte del necessario la stessa intensità di transizione. Tuttavia, prevedendo un meccanismo di memorizzazione delle transizioni per cui si è già computata la rispettiva intensità, questo approccio può rivelarsi più efficiente.
+Si osservi che è possibile implementare l'algoritmo di inferenza anche utilizzando la \emph{parametrizzazione mista} (si veda la \autoref{defn:mixed-parametrization}). In tal caso si evita la computazione delle \cim{} (\acs{CIM}) ma, in contrasto, ogni qual volta una variabile casuale del flusso di evidenze di input effettua una transizione è necessario calcolare il termine $\param{q}_{\setel{x}_n^j\setel{x}_n^{j+1}}^{pa_j(\setel{x})}$ (a tal proposito si veda l'\autoref{eq:ctbn-params-rel}).% Tale approccio può risultare conveniente o meno. Nello specifico, la limitazione di questo approccio si presenta quando le variabili casuali del flusso di evidenza di input effettuano transizioni molto spesso, per giunta tra gli stessi stati: ciò implica che si calcolerà più volte del necessario la stessa intensità di transizione. Tuttavia, prevedendo un meccanismo di memorizzazione delle transizioni per cui si è già computata la rispettiva intensità, questo approccio può rivelarsi più efficiente.
 \end{nota}
 
 %\begin{nota}
