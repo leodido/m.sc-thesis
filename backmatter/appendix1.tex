@@ -139,7 +139,7 @@ L'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-ffstatsgraph} illu
 \vspace*{8pt}\inputsourcecode[numbers=none,language=pseudo,nolol,basicstyle=\footnotesize\ttfamily]{codes/fsstatsgraphres}
 
 \subsection{Apprendimento dei parametri}
-Si illustra ora come effettuare l'apprendimento dei parametri di una \acs{CTBN} da un insieme di \emph{dati completi}, nello specifico dal \ds{2}, tramite la relativa funzionalità offerta dal \pacchettor{}. Si ricorda, come discusso nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}, che è possibile effettuare la \keyword{stima dei parametri} tramite due approcci: la \keyword{stima \acl{MLE}} o la \keyword{stima bayesiana}.
+Si illustra ora come effettuare l'apprendimento dei parametri di una \acs{CTBN} da un insieme di \emph{dati completi}, nello specifico dal \ds{2}, tramite la relativa funzionalità offerta dal \pacchettor{}. Si ricorda, come discusso nella \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}, che è possibile effettuare la stima dei parametri\index{stima!parametri} tramite due approcci: la stima \acl{MLE}\index{stima!\acl{MLE}} o la stima bayesiana\index{stima!bayesiana}.
 
 Supponendo di considerare la \acs{CTBN} con la struttura utilizzata per l'esempio precedente (si veda la \vref{tab:little-example-ctbn}) e di aver salvato le \emph{\stats{}} calcolate nel sorgente \ref{lst:rctbn-fsstats2} in una variabile chiamata \lstinline$ss$, è possibile apprendere i parametri fornendo tale variabile in input alla funzione \lstinline[language=rstats]{params}.
 
@@ -151,12 +151,12 @@ L'output restituito è il seguente, dove le colonne \lstinline$T_PARAM$ e \lstin
 
 \vspace*{8pt}\inputsourcecode[language=pseudo,nolol,basicstyle=\footnotesize\ttfamily,numbers=none]{codes/paramsres}\vspace*{8pt}
 
-Per controllare il modo in cui i parametri vengono computati, cioè se essi vengono appresi tramite stima \acl{MLE} o tramite \keyword{stima bayesiana}, il \pacchettor{} fornisce $3$ opzioni, presentate di seguito.
+Per controllare il modo in cui i parametri vengono computati, cioè se essi vengono appresi tramite stima \acl{MLE} o tramite stima bayesiana, il \pacchettor{} fornisce $3$ opzioni, presentate di seguito.
 \begin{itemize}
 	\item L'opzione \lstinline$ctbn.smoothing$, impostata al valore \lstinline[language=rstats]{TRUE} all'avvio di \rctbn{}. Ciò indica che, qualora non si modifichi tale opzione, \rctbn{} effettua la \emph{\keyword{regolarizzazione bayesiana}} dei parametri (corrispondente all'implementazione dell'\autoref{eq:ctbn-imaginary-params} \vpageref{eq:ctbn-imaginary-params})
 	\item Le opzioni \lstinline$ctbn.imaginary.count$  e \lstinline$ctbn.imaginary.time$ utili a specificare i valori dei \emph{\keyword{conteggi immaginari}}. Esse sono impostate di dafault rispettivamente ai valori $1$ e $0.005$.
 \end{itemize}
-Perciò, l'esempio presentato dal sorgente \ref{lst:rctbn-hparams} effettua la \emph{\keyword{stima bayesiana}} dei parametri, calcolando $\paramhat{q}$ e $\greekhat{\theta}$.
+Perciò, l'esempio presentato dal sorgente \ref{lst:rctbn-hparams} effettua la \emph{stima bayesiana\index{stima!bayesiana}} dei parametri, calcolando $\paramhat{q}$ e $\greekhat{\theta}$.
 
 \subsection{Calcolo delle CIM}
 Riguardo il calcolo delle \im{} \cond{} (\acs{CIM}), il \pacchettor{} offre una funzione, \lstinline[language=rstats]{cims}, che è il naturale proseguimento della funzione \lstinline[language=rstats]{params} illustrata nella sottosezione precedente.
@@ -174,7 +174,7 @@ Di seguito viene mostrato un estratto dell'output ottenuto dall'esecuzione del s
 \subsection{Apprendimento di un CTBNC}
 In questa sottosezione si presenta l'utilizzo del \pacchettor{} per l'apprendimento\index{apprendimento!\acsfont{CTBNC}} di un classificatore\index{apprendimento!classificatore} \acs{CTBN} (\acs{CTBNC}).
 
-A tale scopo si presenta una porzione di codice \lstinline$R$ che, generato in modo casuale un classificatore \acs{CTBN} valido (si veda la \autoref{defn:ctbnc} nella \vref{sec:ctbnc-model}) per il \ds{2}, utilizza la funzione \lstinline[language=rstats]{learn_ctbnc} per apprenderne i parametri e la distribuzione a priori delle classi rispetto a un \emph{\keyword{training set}} di tale dataset.
+A tale scopo si presenta una porzione di codice \lstinline$R$ che, generato in modo casuale un classificatore \acs{CTBN} valido (si veda la \autoref{defn:ctbnc} nella \vref{sec:ctbnc-model}) per il \ds{2}, utilizza la funzione \lstinline[language=rstats]{learn_ctbnc} per apprenderne i parametri e la distribuzione a priori delle classi rispetto a un \emph{training set} di tale dataset.
 
 Prima di illustrare il sorgente necessario all'apprendimento del succitato classificatore \acs{CTBN}, si riporta la sua struttura tramite la \vref{tab:ex-ctbnc-tab}, la quale illustra l`insieme di nodi genitori di ogni nodo.
 
@@ -236,10 +236,10 @@ Tuttavia, si noti che essa prevede ulteriori parametri formali che non vengono p
 
 In sostanza, la funzione \lstinline[language=rstats]{learn_ctbnc} implementa l'\autoref{lst:ctbnc-learning} presentato \vpageref{lst:ctbnc-learning}.
 
-Di seguito si illustra il codice sorgente che, utilizzando tale funzione (si veda la \autoref{lst:learn-ctbnc-func-line}), apprende\index{apprendimento!\acsfont{CTNBC}} un \acs{CTBNC} da un \emph{\keyword{training set}} del \ds{2} (\ie{} da una porzione di elementi di tale dataset).
-Si noti che prima d'eseguire tale operazione, da \autoref{lst:gen-valid-ctbnc-start} a \autoref{lst:gen-valid-ctbnc-end}, viene generata una struttura valida e casuale per un classificatore \acs{CTBN}; a \autoref{lst:gen-fake-ts} viene invece generato l'ipotetico \emph{\keyword{training set}}.
+Di seguito si illustra il codice sorgente che, utilizzando tale funzione (si veda la \autoref{lst:learn-ctbnc-func-line}), apprende\index{apprendimento!\acsfont{CTNBC}} un \acs{CTBNC} da un \emph{training set} del \ds{2} (\ie{} da una porzione di elementi di tale dataset).
+Si noti che prima d'eseguire tale operazione, da \autoref{lst:gen-valid-ctbnc-start} a \autoref{lst:gen-valid-ctbnc-end}, viene generata una struttura valida e casuale per un classificatore \acs{CTBN}; a \autoref{lst:gen-fake-ts} viene invece generato l'ipotetico \emph{training set}.
 
-\vspace*{8pt}\inputsourcecode[caption={[Apprendimento di un \acs{CTBNC} (\ds{2})]Apprendimento di un classificatore \acs{CTBN}, la cui struttura viene generata in modo casuale, su un \emph{\keyword{training set}} facente parte del \ds{2}.},language=rstats,label=lst:rctbn-learc-ctbnc]{codes/learnctbnc}
+\vspace*{8pt}\inputsourcecode[caption={[Apprendimento di un \acs{CTBNC} (\ds{2})]Apprendimento di un classificatore \acs{CTBN}, la cui struttura viene generata in modo casuale, su un \emph{training set} facente parte del \ds{2}.},language=rstats,label=lst:rctbn-learc-ctbnc]{codes/learnctbnc}
 
 \cleardoublepage
 Affinché l'output ottenuto dall'esecuzione del sorgente \ref{lst:rctbn-learc-ctbnc} sia leggibile, se ne riporta solamente la sua prima parte.
@@ -287,7 +287,7 @@ Si osservi che, questa modalità di output non è l'unica che la funzione \lstin
 \subsection{Apprendimento strutturale}
 Lo scopo di questa sottosezione è presentare brevemente l'esecuzione del processo di \emph{\index{apprendimento!strutturale}} tramite il \pacchettor{}.
 
-Nello specifico, dato un ipotetico \emph{\keyword{training set}}, si presenta l'utilizzo della funzione \lstinline[language=rstats]{greedy_search} per l'apprendimento del classificatore \acs{CTBN} (\acs{CTBNC}) che meglio rappresenta tali dati di addestramento\index{dati!addestramento, di|see{\trs{}}}, fissato il numero massimo di genitori di ogni nodo al valore $2$. Tuttavia si osservi che la funzione in questione può apprendere una qualsiasi struttura \acs{CTBN}. Tale funzione esegue l'\autoref{lst:hc-pseudo}, presentato \vpageref{lst:hc-pseudo}, per ogni nodo delle istanze del \emph{\keyword{training set}}, utilizzando come punteggio la funzione $famscore_{\conceptsym{B}}$ presentata nella \vref{sec:ctbn-structurallearning-score} (si veda l'\autoref{eq:bayesian-score}).
+Nello specifico, dato un ipotetico \emph{training set}, si presenta l'utilizzo della funzione \lstinline[language=rstats]{greedy_search} per l'apprendimento del classificatore \acs{CTBN} (\acs{CTBNC}) che meglio rappresenta tali dati di addestramento\index{dati!addestramento, di|see{\trs{}}}, fissato il numero massimo di genitori di ogni nodo al valore $2$. Tuttavia si osservi che la funzione in questione può apprendere una qualsiasi struttura \acs{CTBN}. Tale funzione esegue l'\autoref{lst:hc-pseudo}, presentato \vpageref{lst:hc-pseudo}, per ogni nodo delle istanze del \emph{training set}, utilizzando come punteggio la funzione $famscore_{\conceptsym{B}}$ presentata nella \vref{sec:ctbn-structurallearning-score} (si veda l'\autoref{eq:bayesian-score}).
 
 La funzione \lstinline[language=rstats]{greedy_search} richiede che le siano fornite in input le seguenti informazioni, sotto forma di parametri:
 \begin{itemize}
@@ -300,7 +300,7 @@ La funzione \lstinline[language=rstats]{greedy_search} richiede che le siano for
 	\item la lista \lstinline$blacklist$, eventualmente vuota, dei nodi che non devono mai far parte dell'insieme dei nodi genitori di ogni nodo su cui si effettua la ricerca
 	\item \lstinline$k$, la cardinalità massima degli insiemi dei nodi genitori.
 \end{itemize}
-Tuttavia, l'unico parametro obbligatorio è il \emph{\keyword{training set}}, sul quale la procedura di \keyword{ricerca euristica} computa lo \emph{\keyword{score bayesiano}} al variare dei nodi e del relativo insieme di genitori. I restanti parametri sono tutti dotati di un parametro di default.
+Tuttavia, l'unico parametro obbligatorio è il \emph{training set}, sul quale la procedura di \keyword{ricerca euristica} computa lo \emph{\keyword{score bayesiano}} al variare dei nodi e del relativo insieme di genitori. I restanti parametri sono tutti dotati di un parametro di default.
 
 Il sorgente che segue illustra come espletare il compito prefissatoci.
 
@@ -312,7 +312,7 @@ L'output che tale funzione restituisce è composto dalla struttura che meglio ra
 In questa sezione si illustra il processo di generazione di un dataset per le \acs{CTBN} a partire da un modello di traffico \acs{TSIS}, utilizzando l'\acl{RTE} sviluppata in questo lavoro di tesi, \acsfont{Sensors} \acs{DLL}.
 
 \subsection{Sensors DLL}
-Al fine di generare un dataset\index{generazione!dataset} per le \acs{CTBN} che rappresenti l'\keyword{onda quadra} dei sensori a spira magnetica posti su una rete stradale \acs{TSIS} è necessario installare \acsfont{Sensors} \acs{DLL} in \acs{TShell}. Il processo di installazione, come già ampiamente specificato, consiste nel collegamento delle funzioni della succitata \acs{RTE} ai punti di chiamata predefiniti del modulo \acs{CORSIM}. L'intero processo di installazione, propedeutico alla generazione dei dataset, è stato illustrato nella \autoref{subsec:rte-corsim-linking} \vpageref{subsec:rte-corsim-linking}.
+Al fine di generare un dataset\index{dataset!generazione} per le \acs{CTBN} che rappresenti l'\keyword{onda quadra} dei sensori a spira magnetica posti su una rete stradale \acs{TSIS} è necessario installare \acsfont{Sensors} \acs{DLL} in \acs{TShell}. Il processo di installazione, come già ampiamente specificato, consiste nel collegamento delle funzioni della succitata \acs{RTE} ai punti di chiamata predefiniti del modulo \acs{CORSIM}. L'intero processo di installazione, propedeutico alla generazione dei dataset, è stato illustrato nella \autoref{subsec:rte-corsim-linking} \vpageref{subsec:rte-corsim-linking}.
 
 Si mostra il processo di generazione del \ds{2} (\vref{sec:dataset-2}).
 
@@ -339,19 +339,19 @@ Come primo passo è chiaramente necessario aprire \acs{TShell} e caricare il mod
 Si osservi che per ogni esecuzione della simulazione viene generato il relativo file di output. Il nome di tali file \acs{CSV} è una concatenazione delle seguenti informazioni: nome del file \acs{TRF} (seguito dal numero dell'esecuzione in caso di esecuzione multipla), data e ora dell'esecuzione, suffisso \lstinline[]|sensors|.
 
 \subsection{Applicativi di supporto}
-Ottenuti i file di output di \acsfont{Sensors} \acs{DLL} è necessario trasformarli in un dataset\index{generazione!dataset} utile al framework delle \acs{CTBN}. A tale scopo sono stati sviluppati degli applicativi, brevemente discussi nella \vref{sec:dataset-tools}.
+Ottenuti i file di output di \acsfont{Sensors} \acs{DLL} è necessario trasformarli in un dataset\index{dataset!generazione} utile al framework delle \acs{CTBN}. A tale scopo sono stati sviluppati degli applicativi, brevemente discussi nella \vref{sec:dataset-tools}.
 
-Il primo passo necessario consiste nella sostituzione dei \emph{\keyword{time period}} con le rispettive classi (si veda a tal riguardo la \vref{tab:ds-2-tp-labels}). A tale scopo è stato sviluppato un programma in linguaggio \lstinline[]|R| con interfaccia \lstinline[]|bash| chiamato \lstinline[]|sensors2dataset|.
+Il primo passo necessario consiste nella sostituzione dei \emph{time period\index{dataset!time period}} con le rispettive classi (si veda a tal riguardo la \vref{tab:ds-2-tp-labels}). A tale scopo è stato sviluppato un programma in linguaggio \lstinline[]|R| con interfaccia \lstinline[]|bash| chiamato \lstinline[]|sensors2dataset|.
 
 Riguardo al modello in questione è quindi necessario eseguire il succitato programma nel seguente modo, ripetendo tale passo per tutti i $5$ file di output generati (si ricorda che il modello per i giorni lavorativi viene eseguito infatti $5$ volte, una per ogni giorno lavorativo):
 
-\vspace*{8pt}\inputsourcecode[caption={[Sostituzione delle classi ai time period]Esecuzione del programma \lstinline[]|bash| per la sostituzione dei \emph{\keyword{time period}} con le relative classi nel file \acs{CSV} relativo al \ds{2}.},language=sh,basicstyle=\footnotesize\ttfamily,numbers=none,label=lst:sensors2dataset]{codes/sensors2dataset2}
+\vspace*{8pt}\inputsourcecode[caption={[Sostituzione delle classi ai time period]Esecuzione del programma \lstinline[]|bash| per la sostituzione dei \emph{time period} con le relative classi nel file \acs{CSV} relativo al \ds{2}.},language=sh,basicstyle=\footnotesize\ttfamily,numbers=none,label=lst:sensors2dataset]{codes/sensors2dataset2}
 Di seguito si spiegano brevemente le opzioni utilizzate:
 \begin{itemize}
 	\item l'opzione \lstinline[]|i| serve a specificare il percorso del file di input, cioè del file \acs{CSV} generato da \acsfont{Sensors} \acs{DLL}
 	\item l'opzione \lstinline[]|t| comunica al programma che il file di input è dotato di intestazione
-	\item l'opzione \lstinline[]|r| comunica al programma di rimuovere la colonna relativa ai \emph{\keyword{time period}}
-	\item l'opzione \lstinline[]|b| serve a definire i \emph{\keyword{time period}} a partire dai quali una nuova classe deve essere creata e associata
+	\item l'opzione \lstinline[]|r| comunica al programma di rimuovere la colonna relativa ai \emph{time period}
+	\item l'opzione \lstinline[]|b| serve a definire i \emph{time period\index{dataset!time period}} a partire dai quali una nuova classe deve essere creata e associata
 	\item l'opzione \lstinline[]|v| serve per eseguire il programma in modo verboso.
 \end{itemize}
 Si osservi tuttavia che \lstinline[]|sensors2dataset| implementa molte altre opzioni la cui descrizione è stata tuttavia tralasciata.

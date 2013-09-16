@@ -127,7 +127,7 @@ Gli \emph{algoritmi basati su vincoli} sono basati sull'algoritmo \acf{IC} di~\c
     \item Impostare la direzione degli archi fra i nodi rimanenti affinché il vincolo di aciclicità sia rispettato.
 \end{itemize}
 
-Gli \emph{algoritmi basati su punteggio} sono invece delle applicazioni dei vari algoritmi di ricerca euristica (\eg{} \emph{hill climbing}, \emph{tabu search}, \emph{best first search}, \emph{simulated annealing}) che utilizzano una funzione di \emph{scoring}. Solitamente la funzione di \emph{scoring} è basata sulla \emph{likelihood}, ovvero sulla la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{} \emph{\keyword{\trs{}}}), data la struttura in esame e i parametri del modello. Tale funzione è spesso \emph{score-equivalent}, affinché reti che definiscono la stessa distribuzione di probabilità abbiano lo stesso score~\citep{Chickering2013}. Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è probabile che l'algoritmo restituisca come risultato un minimo locale. Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili~\citep[][]{Heckerman1995}.
+Gli \emph{algoritmi basati su punteggio} sono invece delle applicazioni dei vari algoritmi di ricerca euristica (\eg{} \emph{hill climbing}, \emph{tabu search}, \emph{best first search}, \emph{simulated annealing}) che utilizzano una funzione di \emph{scoring}. Solitamente la funzione di \emph{scoring} è basata sulla \emph{likelihood}, ovvero sulla la probabilità a posteriori dell'insieme dei dati di apprendimento (\ie{} \emph{\trs{}}), data la struttura in esame e i parametri del modello. Tale funzione è spesso \emph{score-equivalent}, affinché reti che definiscono la stessa distribuzione di probabilità abbiano lo stesso score~\citep{Chickering2013}. Tuttavia, per quanto questi algoritmi siano utilizzati molto frequentemente, essi sono esponenziali rispetto al numero di nodi della struttura del grafo. Inoltre, qualora si utilizzi una strategia di ricerca locale, è probabile che l'algoritmo restituisca come risultato un minimo locale. Si fa notare che è possibile ridurre il tempo necessario richiesto per l'apprendimento strutturale fissando un numero massimo di genitori candidati e cercando esaustivamente in insiemi di tale cardinalità una struttura che massimizzi l'informazione mutua fra variabili~\citep[][]{Heckerman1995}.
 
 \subsection{Processi di Markov}
 \label{subsec:mps}
@@ -394,7 +394,7 @@ Si affronta infine il processo di apprendimento dei parametri delle \acl{CTBN} d
 
 \begin{definizione}[Insieme di dati completo]
 \label{defn:dataset-completo}
-Dato un insieme di variabili casuali, un insieme di dati $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ si dice \emph{completo}\index{dati!completi} se ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un insieme di traiettorie completamente osservate delle variabili casuali (\ie{} l'istanziazione di tutte le variabili casuali è osservabile per ogni istante temporale di ogni traiettoria).
+Dato un insieme di variabili casuali, un insieme di dati $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ si dice \emph{completo}\index{dati!completi} se ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un insieme di traiettorie\index{traiettoria} completamente osservate delle variabili casuali (\ie{} l'istanziazione di tutte le variabili casuali è osservabile per ogni istante temporale di ogni traiettoria).
 \end{definizione}
 
 \subsection{Statistiche sufficienti}
@@ -493,7 +493,7 @@ Tuttavia, nel caso in cui non si conoscano i parametri di una \acs{CTBN} è nece
 \subsection{Stima dei parametri}\label{subsec:ctbn-params}
 Si affronta ora il problema dell'apprendimento dei parametri\index{apprendimento!parametri|see{stima}} di una \acl{CTBN} (con struttura nota $\conceptsym{G}$) da un insieme di dati completi~\citep[si veda][sezione 5.1]{Nodelman2007}.
 
-\`E possibile affrontare tale problema principalmente in due modi. La scelta più semplice consiste nell'effettuare una stima dei parametri\index{stima!parametri} del modello tramite un approccio \emph{\acl{MLE}\index{stima \acl{MLE}}}. Tuttavia, è noto che tale approccio può portare a problemi con l'inferenza quando si possiedono pochi dati di input. Per evitare tale limitazione solitamente si ricorre al secondo approccio, la \emph{\keyword{regolarizzazione bayesiana}} dei parametri: si sceglie una distribuzione a priori per i parametri e li si aggiorna in accordo ai dati di input.
+\`E possibile affrontare tale problema principalmente in due modi. La scelta più semplice consiste nell'effettuare una stima dei parametri\index{stima!parametri} del modello tramite un approccio \emph{\acl{MLE}\index{stima!\acl{MLE}}}. Tuttavia, è noto che tale approccio può portare a problemi con l'inferenza quando si possiedono pochi dati di input. Per evitare tale limitazione solitamente si ricorre al secondo approccio, la \emph{\keyword{regolarizzazione bayesiana}} dei parametri: si sceglie una distribuzione a priori per i parametri e li si aggiorna in accordo ai dati di input.
 %Quando si tratta con \keyword{dati multinomiali} ci sono principalmente due scelte che è possibile fare. La scelta più semplice consiste nell'effettuare una stima dei parametri del modello tramite un approccio \emph{\acl{MLE}}. Tuttavia, è noto che tale approccio può portare a problemi con l'inferenza quando i dati di input sono sparsi. Per evitare tale limitazione solitamente si effettua una \emph{\keyword{regolarizzazione bayesiana}} dei parametri: si sceglie una distribuzione a priori per i parametri e li si aggiorna in accordo ai dati di input.
 
 La stima dei parametri\index{stima!parametri} non è un processo fine a se stesso, in quanto, \graffito{Come costruire una \acs{CIM} dai parametri.} da essi è possibile costruire le \cim{}\index{matrice!intensità, di} (\acs{CIM}) di ogni nodo della \acs{CTBN}. Come si ricorderà, una \acs{CIM} è un insieme di \im{}, una per ogni istanziazione $pa_i(\setel{x})$ dei nodi genitori (si veda la \autoref{defn:cim}). Perciò, fissato $pa_i(\setel{x})$, si può computare la rispettiva \im*{} per un nodo qualsiasi ponendo sulla diagonale il rispettivo vettore dei parametri $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$ e ricavando i valori non sulla diagonale dalla relazione (si veda il \autoref{th:rel-params}) fra i parametri $\param{q}$ e $\param{$\theta$}$:
@@ -517,7 +517,7 @@ Invece, la probabilità di transizione da uno stato $\setel{x}$ verso $\setel{x}
 \]
 
 \begin{teorema}{Parametri \ac{MLE}.}
-    I parametri che massimizzano la likelihood (\autoref{eq:ctbn-log-likelihood}) di una \acl{CTBN} sono funzione delle \keyword{\stats{}}:
+    I parametri che massimizzano\index{stima!\acl{MLE}} la likelihood (\autoref{eq:ctbn-log-likelihood}) di una \acl{CTBN} sono funzione delle \keyword{\stats{}}:
     \begin{equation}
         \label{eq:ctbn-params}
         \normalfont
@@ -528,11 +528,11 @@ Invece, la probabilità di transizione da uno stato $\setel{x}$ verso $\setel{x}
         \end{equation}
 \end{teorema}
 \normalfont
-Si noti che, in questo caso (\emph{dataset completo}), $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$ e $\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}$ sono delle \emph{\keyword{stime esatte}}. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
+Si noti che, in questo caso (\emph{dataset completo}), $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$ e $\param{$\theta$}_{\setel{x}\setel{x}^\prime\,\arrowvert\,pa_i(\setel{x})}$ sono delle \emph{stime esatte\index{stima!parametri}}. Essi massimizzano la probabilità a posteriori di un dataset, dato un modello \acs{CTBN}.
 
 \subsubsection{Stima bayesiana}
 \label{subsec:ctbn-bayesian-estimate}
-Un approccio alternativo alla stima dei parametri\index{stima!parametri} è la \keyword{stima bayesiana}~\citep[si veda][sottosezione 5.1.1]{Nodelman2007}.
+Un approccio alternativo alla stima dei parametri\index{stima!parametri} è la stima bayesiana\index{stima!bayesiana} \citep[si veda][sottosezione 5.1.1]{Nodelman2007}.
 
 A tal fine è necessario definire una distribuzione a priori sui parametri di una \acs{CTBN}. Come si è soliti fare in situazioni di questo tipo, per tale distribuzione si sceglie di usare una \emph{distribuzione a \keyword{priori coniugata}}\footnote{\label{note:conjugate-prior}Nella teoria della probabilità bayesiana, se le distribuzioni a posteriori $P(\param{$\theta$}|\setel{x})$ sono nella stessa famiglia della distribuzione a priori $P(\param{$\theta$})$, le due distribuzioni sono definite coniugate, e la distribuzione a priori è chiamata \emph{distribuzione a \keyword{priori coniugata}} per la verosimiglianza (\emph{likelihood}). Una distribuzione a priori coniugata è conveniente dal punto di vista algebrico in quanto fornisce una espressione in forma chiusa per la distribuzione a posteriori e perché può fornire delle intuizioni circa il modo con cui la funzione di verosimiglianza aggiorna la distribuzione.} poiché ciò risulta conveniente dal punto di vista algebrico (e quindi computazionale). Infatti, una distribuzione a priori coniugata fornisce un'espressione in forma chiusa per la distribuzione a posteriori (alternativamente potrebbe risultare necessario il calcolo di un integrale numerico).
 
@@ -547,7 +547,7 @@ Invece, avendo assunto la \emph{parameter independence\index{parameter!independe
 P(\param{$\theta$})=\frac{ \Gamma(\alpha_{\setel{x}}) }{ \Gamma(\alpha_{\setel{x}\setel{x}_1}) \cdot \,\dotsc\, \cdot \Gamma(\alpha_{\setel{x}\setel{x}_K}) } \param{$\theta$}_{\setel{x}\setel{x}_k}^{\alpha_{\setel{x}\setel{x}_1}-1} \cdot \,\dotsc\, \cdot \param{$\theta$}_{\setel{x}\setel{x}_1}^{\alpha_{\setel{x}\setel{x}_K}-1} \text{.}
 \end{equation}
 \begin{notas}
-Si noti che l'iper-parametro $\alpha_{\setel{x}}$, detto \emph{dimensione equivalente del campione}, è costituito dalla somma dei \emph{\keyword{conteggi immaginari}} $\alpha_{\setel{x}\setel{x}_1} + \, \dotsc \, + \alpha_{\setel{x}\setel{x}_K}$, chiamati anche \emph{pseudo-conteggi\index{pseudo-conteggi|see{conteggi immaginari}}}~\citep{Steck2002}. Esso può essere pensato come un fattore che esprime la \emph{\virgolette{forza}} della distribuzione a priori, in quanto, più esso aumenta, più le stime dei parametri sono regolarizzate, cioè meno estreme. Chiaramente, quando $\alpha_{\setel{x}}$ tende a $0$ le stime dei parametri tendono alle stime \acl{MLE}. In letteratura~\citep[si veda][]{Steck2002} questo processo è anche chiamato \emph{\virgolette{smoothin\index{smoothing|see{regolarizzazione bayesiana}}}}.
+Si noti che l'iper-parametro $\alpha_{\setel{x}}$, detto \emph{dimensione equivalente del campione}, è costituito dalla somma dei \emph{\keyword{conteggi immaginari}} $\alpha_{\setel{x}\setel{x}_1} + \, \dotsc \, + \alpha_{\setel{x}\setel{x}_K}$, chiamati anche \emph{pseudo-conteggi\index{pseudo-conteggi|see{conteggi immaginari}}}~\citep{Steck2002}. Esso può essere pensato come un fattore che esprime la \emph{\virgolette{forza}} della distribuzione a priori, in quanto, più esso aumenta, più le stime dei parametri sono regolarizzate, cioè meno estreme. Chiaramente, quando $\alpha_{\setel{x}}$ tende a $0$ le stime dei parametri tendono alle stime \acl{MLE}. In letteratura~\citep[si veda][]{Steck2002} questo processo è anche chiamato \emph{\virgolette{smoothing\index{smoothing|see{regolarizzazione bayesiana}}}}.
 \end{notas}
 \begin{notas}
 L'iper-parametro $\tau_{\setel{x}}$, invece, rappresenta una \emph{quantità di tempo immaginaria} che incorpora la credenza della distribuzione a priori sul parametro della distribuzione esponenziale.
@@ -574,7 +574,7 @@ Se tale distribuzione a priori soddisfa le assunzioni di indipendenza allora anc
 \item $\mstat[x]{\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $\param{$\theta$}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$
 \item $\mstat{x\,\arrowvert\,pa_i(\setel{x})}$ e $\tstat{x\,\arrowvert\,pa_i(\setel{x})}$ per il parametro $\param{q}_{\setel{x}\,\arrowvert\,pa_i(\setel{x})}$.
 \end{itemize}
-Data una distribuzione sui parametri è possibile usarla per predire il prossimo evento, mediando la sua probabilità sull'insieme dei possibili valori dei parametri. Questo tipo di previsione è equivalente all'utilizzo dei \emph{\keyword{valori attesi}} dei parametri, i quali hanno la stessa forma dei parametri \acl{MLE} ma considerano i \emph{\keyword{conteggi immaginari}} degli iper-parametri:
+Data una distribuzione sui parametri è possibile usarla per predire il prossimo evento, mediando la sua probabilità sull'insieme dei possibili valori dei parametri. Questo tipo di previsione è equivalente all'utilizzo dei \emph{valori attesi} dei parametri, i quali hanno la stessa forma dei parametri \acl{MLE} ma considerano i \emph{\keyword{conteggi immaginari}} degli iper-parametri:
 \begin{equation}
 \label{eq:ctbn-imaginary-params}
 \begin{split}
@@ -582,4 +582,4 @@ Data una distribuzione sui parametri è possibile usarla per predire il prossimo
 \greekhat{\theta}_{xx^\prime\,\arrowvert\,pa_i(\setel{x})}&=\frac{\alpha_{\setel{x}\setel{x}^{\prime}\,\arrowvert\,pa_i(\setel{x})}+\mstat[x]{x^\prime\,\arrowvert\,pa_i(\setel{x})}}{\alpha_{\setel{x}\,\arrowvert\,pa_i(\setel{x})} + \mstat{x\,\arrowvert\,pa_i(\setel{x})}}\text{.}
 \end{split}
 \end{equation}
-Si osservi che questi parametri sono, teoricamente, validi solo per predire una singola transizione, dopo la quale la distribuzione dei parametri andrebbe aggiornata di conseguenza. Tuttavia, è prassi comune non aggiornare la distribuzione dei parametri utilizzando i succitati \emph{\keyword{valori attesi}} anche per la previsione delle transizioni successive.
+Si osservi che questi parametri sono, teoricamente, validi solo per predire una singola transizione, dopo la quale la distribuzione dei parametri andrebbe aggiornata di conseguenza. Tuttavia, è prassi comune non aggiornare la distribuzione dei parametri utilizzando i succitati \emph{valori attesi} anche per la previsione delle transizioni successive.

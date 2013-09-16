@@ -324,7 +324,7 @@ Tale costrutto viene poi utilizzato per l'effettiva importazione di dati e funzi
 
 \cleardoublepage
 \section{Estensione}\label{sec:sensors-rte}
-Avendo presentato l'ambiente di sviluppo \acs{TSIS} e le \acs{API} che esso fornisce per la sua estensione, è ora possibile descrivere l'\acl{RTE} sviluppata al fine di generare i succitati dataset\index{generazione!dataset}.
+Avendo presentato l'ambiente di sviluppo \acs{TSIS} e le \acs{API} che esso fornisce per la sua estensione, è ora possibile descrivere l'\acl{RTE} sviluppata al fine di generare i succitati dataset\index{dataset!generazione}.
 
 Come detto nella~\autoref{subsec:tsis-features} \vpageref{subsec:tsis-features}, una delle principali limitazioni di \acs{CORSIM} consiste nell'impossibilità di ottenere dei dati non aggregati dal processo di simulazione. Questo perché il minimo intervallo temporale che \acs{CORSIM} permette di utilizzare è pari a $1$ secondo per le reti stradali urbane e al più $0.1$ secondi per le reti stradali extraurbane. Perciò, è emerso il problema di sorpassare tale limitazione. La \acs{RTE} sviluppata, \acsfont{Sensors} \acs{DLL}, risponde a tale necessità monitorando determinati elementi (\ie{} i \keyword{sensori}) di un qualsiasi tipo di rete stradale e tracciando gli eventi ad essi correlati (\ie{} passaggio di un veicolo) su un file di output esterno a \acs{TSIS}. Lo scopo di questa sezione consiste nel presentare il funzionamento di \acsfont{Sensors} \acs{DLL}.
 

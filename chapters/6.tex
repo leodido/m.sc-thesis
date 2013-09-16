@@ -6,7 +6,7 @@
 %************************************************
 \chapter{Esperimenti numerici}\label{cap:esperimenti}
 %************************************************
-Lo scopo finale di questo capitolo è presentare i risultati ottenuti dalla sperimentazione del processo di \emph{classificazione supervisionata} utilizzando diversi modelli di classificatore \acs{CTBN} (\acs{CTBNC}) (riguardo tali argomenti si rimanda ai~\vref{cap:ctbnc,cap:structurallearning}).
+Lo scopo finale di questo capitolo è presentare i risultati ottenuti dalla sperimentazione del processo di \emph{classificazione supervisionata\index{classificazione!profili di traffico}} utilizzando diversi modelli di classificatore \acs{CTBN} (\acs{CTBNC}) (riguardo tali argomenti si rimanda ai~\vref{cap:ctbnc,cap:structurallearning}).
 
 Tuttavia, prima di illustrare e comparare i succitati risultati, si presentano i modelli \acs{TSIS} da cui sono stati generati i dataset oggetto della sperimentazione. La generazione di dataset inerenti il traffico automobilistico è stata effettuata, come detto, tramite un software commerciale apposito, \acs{TSIS}, e una \acl{RTE}, \acsfont{Sensors} \acs{DLL}, sviluppata a tale fine. Per maggiori dettagli riguardanti questi strumenti si rimanda al \vref{cap:tsis-sensors}.
 
@@ -18,7 +18,7 @@ Al fine di valutare l'accuratezza dei metodi predittivi sviluppati, la speriment
 Lo scopo di questa sezione è presentare le varie configurazioni del \ds{1} create.
 
 \subsection{Modello TSIS}\label{subsec:tsis-simple-model}
-Al fine di introdurre il \ds{1} è necessario presentare la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui esso è stato generato.
+Al fine di introdurre il \ds{1}\index{dataset} è necessario presentare la rete stradale \acs{TSIS} e il relativo modello di simulazione\index{\acsfont{CORSIM}!modello di simulazione} \acs{CORSIM} da cui esso è stato generato.
 
 La~\vref{fig:tsis-model-simple} mostra la rete stradale che compone il modello \acs{TSIS} oggetto di questa sottosezione.
 \begin{figure}[H]
@@ -115,7 +115,7 @@ Come anticipato, ogni strada che compone la rete stradale contiene, nei pressi d
 	\label{tab:ds-1-sensors-indices}
 \end{table}
 
-Il modello di simulazione \acs{CORSIM} creato per questa rete stradale prevede un tempo di simulazione totale pari a $24$ ore, suddiviso in $16$ \emph{\keyword{time period}}, ognuno dei quali composto da \emph{\keyword{time interval}} della durata di $1$ secondo: la~\vref{tab:ds-1-tp-labels} illustra la durata (in ore) di ognuno di essi e introduce la corrispondenza fra essi e la fase della giornata, rappresentata come la variabile classe nel relativo dataset.
+Il modello di simulazione \acs{CORSIM} creato per questa rete stradale prevede un tempo di simulazione totale pari a $24$ ore, suddiviso in $16$ \emph{time period\index{dataset!time period}}, ognuno dei quali composto da \emph{time interval\index{dataset!time interval}} della durata di $1$ secondo: la~\vref{tab:ds-1-tp-labels} illustra la durata (in ore) di ognuno di essi e introduce la corrispondenza fra essi e la fase della giornata, rappresentata come la variabile classe nel relativo dataset.
 \begin{table}[htbp]%
 	\centering%
 	\begin{tabular}{+l^l^l^l}
@@ -138,7 +138,7 @@ Il modello di simulazione \acs{CORSIM} creato per questa rete stradale prevede u
 	$04$:$00$ - $05$:$00$  & $11$           & notte         & $5$     \\
 	$05$:$00$ - $07$:$00$  & $16$           & alba          & $6$     \\\bottomrule
 	\end{tabular}
-	\caption[Periodi temporali relativi al \ds{1}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{1}.}
+	\caption[Periodi temporali relativi al \ds{1}]{Caratterizzazione dei periodi temporali (\ie{} \emph{time period\index{dataset!time period}}) del modello \acs{TSIS} relativo al \ds{1}.}
 	\label{tab:ds-1-tp-labels}
 \end{table}
 
@@ -203,7 +203,7 @@ Si consideri, ad esempio, la prima cella della~\autoref{tab:ds-1-turning-movs}: 
 
 \newpage
 \subsection{Configurazioni del dataset}
-Come detto nella~\autoref{subsec:sensors-dll}~\vpageref{subsec:sensors-dll}, eseguendo il modello di simulazione \acs{CORSIM} descritto in questa sezione con \acsfont{Sensors} \acs{DLL} si ottiene un file di output (si veda il listato d'esempio \ref{lst:sensors-out-format} \vpageref{lst:sensors-out-format}) che, adeguatamente processato, compone un dataset sottoponibile agli algoritmi di apprendimento e classificazione presentati nei capitoli~\ref{cap:ctbnc} e \ref{cap:structurallearning}.
+Come detto nella~\autoref{subsec:sensors-dll}~\vpageref{subsec:sensors-dll}, eseguendo il modello di simulazione \acs{CORSIM} descritto in questa sezione con \acsfont{Sensors} \acs{DLL} si ottiene un file di output (si veda il listato d'esempio \ref{lst:sensors-out-format} \vpageref{lst:sensors-out-format}) che, adeguatamente processato, compone un \keyword{dataset} sottoponibile agli algoritmi di apprendimento e classificazione\index{classificazione!profili di traffico} presentati nei capitoli~\ref{cap:ctbnc} e \ref{cap:structurallearning}.
 
 Di seguito si descrivono le caratteristiche di tale dataset comuni a tutte le sue varianti generate:
 \begin{itemize}
@@ -215,17 +215,17 @@ Di seguito si descrivono le caratteristiche di tale dataset comuni a tutte le su
 
 Per il dataset in questione si sono create due sue differenti varianti operando differenti divisioni temporali del file sorgente:
 \begin{enumerate}
-	\item suddivisione in $864$ elementi, ognuno dei quali include al più $100$ secondi di traiettorie di ogni sensore della succitata rete stradale
+	\item suddivisione in $864$ elementi, ognuno dei quali include al più $100$ secondi di traiettoria\index{traiettoria} di ogni sensore della succitata rete stradale
 	\item suddivisione in $288$ elementi, ognuno dei quali include al più $5$ minuti di traiettorie di ogni sensore della succitata rete stradale.
 \end{enumerate}
 Tali configurazioni sono chiamate, rispettivamente, \ds{1\text{.}100} e \ds{1\text{.}300}.
 
 \cleardoublepage
 \section{\Ds{2}}\label{sec:dataset-2}
-Questa sezione presenta il \ds{2}. A tale scopo, nella sottosezione che segue, si descrive la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui tale dataset è stato generato.
+Questa sezione presenta il \ds{2}. A tale scopo, nella sottosezione che segue, si descrive la rete stradale \acs{TSIS} e il relativo modello di simulazione \acs{CORSIM} da cui tale \keyword{dataset} è stato generato.
 
 \subsection{Modello TSIS}\label{subsec:tsis-monza-model}
-Il modello \acs{TSIS} in questione, a differenza di quello presentato nella \autoref{subsec:tsis-simple-model}, riproduce una rete stradale reale. Nello specifico esso riproduce la rete stradale circostante \emph{Viale Cesare Battisti} ($20900$ \emph{Monza, MB - Italia}). Disponendo di una serie di informazioni reali, tra cui i dati dei sensori posti su tale rete stradale, si sono potute inferire le caratteristiche della circolazione dei veicoli (\eg{} flusso di veicoli in ingresso) e quindi riprodurre fedelmente l'andamento del traffico durante tutti i giorni della settimana tramite degli adeguati modelli di simulazione \acs{CORSIM}. Nello specifico si sono realizzati $3$ modelli \acs{CORSIM}: essi rappresentano la stessa rete stradale ma diversi modelli di traffico, uno per i giorni lavorativi (dal lunedì al venerdì), uno per il sabato e uno per la domenica.
+Il modello \acs{TSIS}\index{\acsfont{CORSIM}!modello di simulazione} in questione, a differenza di quello presentato nella \autoref{subsec:tsis-simple-model}, riproduce una rete stradale reale. Nello specifico esso riproduce la rete stradale circostante \emph{Viale Cesare Battisti} ($20900$ \emph{Monza, MB - Italia}). Disponendo di una serie di informazioni reali, tra cui i dati dei sensori posti su tale rete stradale, si sono potute inferire le caratteristiche della circolazione dei veicoli (\eg{} flusso di veicoli in ingresso) e quindi riprodurre fedelmente l'andamento del traffico durante tutti i giorni della settimana tramite degli adeguati modelli di simulazione \acs{CORSIM}. Nello specifico si sono realizzati $3$ modelli \acs{CORSIM}: essi rappresentano la stessa rete stradale ma diversi modelli di traffico, uno per i giorni lavorativi (dal lunedì al venerdì), uno per il sabato e uno per la domenica.
 
 La~\vref{fig:tsis-model-monza-nodes} illustra la rete stradale oggetto di studio, evidenziando e identificando i nodi e i collegamenti stradali utilizzati per la sua riproduzione in \acs{TSIS}.
 \begin{figure}
@@ -384,7 +384,7 @@ Di seguito si riportano le ulteriori caratteristiche della rete stradale oggetto
 
 Come anticipato, per questo caso di studio si sono creati $3$ modelli di simulazione differenti (corrispondenti quindi a $3$ differenti sorgenti \acs{TRF}), al fine di rappresentare i diversi flussi di traffico durante la settimana.
 
-Il file \acs{TRF} creato per modellare il traffico sulla rete stradale nei giorni lavorativi prevede un tempo di simulazione totale pari a $24$ ore, suddiviso in $12$ \emph{time period}, ognuno dei quali composto da \emph{time interval} della durata di $100$ secondi: la \vref{tab:ds-2-tp-labels} illustra la durata (in ore) di ognuno di essi e introduce la corrispondenza fra essi e la fase della giornata, rappresentata come la variabile classe nel relativo dataset.
+Il file \acs{TRF} creato per modellare il traffico sulla rete stradale nei giorni lavorativi prevede un tempo di simulazione totale pari a $24$ ore, suddiviso in $12$ \emph{time period}, ognuno dei quali composto da \emph{time interval\index{dataset!time interval}} della durata di $100$ secondi: la \vref{tab:ds-2-tp-labels} illustra la durata (in ore) di ognuno di essi e introduce la corrispondenza fra essi e la fase della giornata, rappresentata come la variabile classe nel relativo dataset.
 
 Nei modelli di traffico relativi al sabato e alla domenica la corrispondenza tra i \emph{time period}, che rimangono identici a quelli mostrati nella tabella \vref{tab:ds-2-tp-labels}, e la variabile classe è differente. Ad esempio, il \emph{time period} $1$ del modello di traffico relativo al sabato è stato associato alla classe $11$ mentre il \emph{time period} $1$ del modello di traffico relativo alla domenica è stato associato alla classe $21$. Ne deriva che gli identificatori della variabile classe per questi due modelli di traffico sono incrementati di una e due decine rispetto agli identificatori usati per il modello di traffico relativo ai giorni lavorativi.
 \begin{table}[htbp]%
@@ -405,7 +405,7 @@ Nei modelli di traffico relativi al sabato e alla domenica la corrispondenza tra
 	$20$:$50$ - $22$:$55$  & $11$           & sera          & $6$     \\
 	$22$:$55$ - $24$:$00$  & $12$           & sera          & $6$     \\\bottomrule
 	\end{tabular}
-	\caption[Periodi temporali del \ds{2}]{Caratterizzazione dei periodi temporali (\ie{} \emph{\keyword{time period}}) del modello \acs{TSIS} relativo al \ds{2} (giorni lavorativi).}
+	\caption[Periodi temporali del \ds{2}]{Caratterizzazione dei periodi temporali (\ie{} \emph{time period\index{dataset!time period}}) del modello \acs{TSIS} relativo al \ds{2} (giorni lavorativi).}
 	\label{tab:ds-2-tp-labels}
 \end{table}
 
@@ -448,9 +448,9 @@ Si osservi, inoltre, che al fine di definire il succitato andamento del traffico
 Per chiarezza si sottolinea infine che i profili di traffico del sabato e della domenica sono stati descritti con flussi di ingresso e percentuali di svolta di diversa entità rispetto a quelli appena descritti.
 
 \subsection{Configurazioni del dataset}\label{subsec:config-ds-2}
-Eseguendo con \acsfont{Sensors} \acs{DLL} uno qualsiasi dei modelli di simulazione (\ie{} giorni lavorativi, sabato o domenica) relativi alla rete stradale presentata, si ottiene il relativo file di output che, processato tramite gli strumenti di supporto precedentemente introdotti (si veda la \vref{sec:dataset-tools}), compone un dataset utile alla classificazione dei profili di traffico.
+Eseguendo con \acsfont{Sensors} \acs{DLL} uno qualsiasi dei modelli di simulazione (\ie{} giorni lavorativi, sabato o domenica) relativi alla rete stradale presentata, si ottiene il relativo file di output che, processato tramite gli strumenti di supporto precedentemente introdotti (si veda la \vref{sec:dataset-tools}), compone un dataset utile alla classificazione dei profili di traffico\index{classificazione!profili di traffico}.
 
-Affinché i dataset in questione siano perfettamente riproducibili si sono utilizzati dei file \acs{RNS}\footnote{\acs{CORSIM} supporta l'utilizzo di file \acf{RNS} per la configurazione di alcuni aspetti della simulazione: numero di esecuzioni da effettuare e semi numerici da utilizzare per la generazione stocastica di eventi.}, semplici file di testo, opportunamente formattati, da cui \acs{CORSIM} legge il numero di esecuzioni da effettuare e i semi numerici\footnote{Il \emph{seed} è un numero utilizzato per inizializzare un generatore di numeri pseudo-casuali. Condividendo tale numero e utilizzando lo stesso generatore di numeri pseudo-casuali utilizzato da \acs{CORSIM} è possibile riprodurre la stessa identica simulazione su altri calcolatori.} relativi ad alcuni aspetti stocastici della simulazione (\eg{} incidenti, tipologia di guida dei conducenti).
+Affinché i \keyword{dataset} in questione siano perfettamente riproducibili si sono utilizzati dei file \acs{RNS}\footnote{\acs{CORSIM} supporta l'utilizzo di file \acf{RNS} per la configurazione di alcuni aspetti della simulazione: numero di esecuzioni da effettuare e semi numerici da utilizzare per la generazione stocastica di eventi.}, semplici file di testo, opportunamente formattati, da cui \acs{CORSIM} legge il numero di esecuzioni da effettuare e i semi numerici\footnote{Il \emph{seed} è un numero utilizzato per inizializzare un generatore di numeri pseudo-casuali. Condividendo tale numero e utilizzando lo stesso generatore di numeri pseudo-casuali utilizzato da \acs{CORSIM} è possibile riprodurre la stessa identica simulazione su altri calcolatori.} relativi ad alcuni aspetti stocastici della simulazione (\eg{} incidenti, tipologia di guida dei conducenti).
 
 Di seguito si riporta il file \acs{RNS} relativo al modello di traffico per i giorni lavorativi della rete stradale illustrata nella precedente sezione.
 \inputsourcecode[language=pseudo, numbers=none, caption={[Configurazione \acs{RNS} del \ds{2}]File \acs{RNS} che configura il numero di esecuzioni (\ie{} 5) e i semi numerici del modello di simulazione \acs{CORSIM} relativo alla rete stradale del \ds{2}.}, label=lst:model2-week-rns]{codes/monza-week-exte.rns}
@@ -468,7 +468,7 @@ Si osservi come tali caratteristiche siano comunque indipendenti dal profilo di 
 Si descrivono infine le varianti del \ds{2} sottoposte a sperimentazione.
 \begin{description}
 	\item[\ds{2\text{.}B\text{.}100}] \hfill \\
-	Dataset composto da $864$ elementi (\ie{} file) ognuno dei quali rappresenta al più $100$ secondi di traiettorie dei sensori. Contiene solamente le onde quadre relative ai $6$ sensori reali (\ie{} D$5094$, D$5095$, D$5096$, D$5097$, D$5098$ e D$5099$).
+	Dataset composto da $864$ elementi (\ie{} file) ognuno dei quali rappresenta al più $100$ secondi di traiettoria\index{traiettoria} dei sensori. Contiene solamente le onde quadre relative ai $6$ sensori reali (\ie{} D$5094$, D$5095$, D$5096$, D$5097$, D$5098$ e D$5099$).
 	\item[\ds{2\text{.}B\text{.}300}] \hfill \\
 	Come il precedente, tale dataset contiene solo le onde quadre relative ai sensori reali. \`E composto da $288$ elementi ognuno dei quali rappresenta al più $5$ minuti di traiettorie dei succitati sensori.
 	\item[\ds{2\text{.}E\text{.}100}] \hfill \\
@@ -484,7 +484,7 @@ In questa sezione si presentano i risultati ottenuti dalla \keyword{sperimentazi
 
 Prima di presentare tali risultati si introduce la metodologia di \keyword{sperimentazione} utilizzata sui succitati $6$ dataset.
 
-Come anticipato, dato un modello di classificatore \acs{CTBN}, si è svolta la stessa $k$-\emph{fold\index{fold|see{cross-validazione}} \keyword{cross-validazione}} con $k = 10$ per ognuno dei dataset generati. Si è cioè suddiviso ognuno dei succitati dataset in $10$ campioni di uguale numerosità utilizzandone uno come \emph{validation set\index{validation set|see{test set}}} (\ie{} \emph{\keyword{test set}}) e i restanti come \emph{\keyword{training set}}. Quindi tale processo è stato ripetuto $10$ volte, affinché ognuno dei $10$ campioni venisse utilizzato come \emph{\keyword{test set}} esattamente una sola volta.
+Come anticipato, dato un modello di classificatore \acs{CTBN}, si è svolta la stessa $k$-\emph{fold\index{fold|see{cross-validazione}} \keyword{cross-validazione}} con $k = 10$ per ognuno dei \keyword{dataset} generati\index{classificazione!profili di traffico}. Si è cioè suddiviso ognuno dei succitati dataset in $10$ campioni di uguale numerosità utilizzandone uno come \emph{validation set\index{validation set|see{test set}}} (\ie{} \emph{\keyword{test set}}) e i restanti come \emph{\keyword{training set}}. Quindi tale processo è stato ripetuto $10$ volte, affinché ognuno dei $10$ campioni venisse utilizzato come \emph{\keyword{test set}} esattamente una sola volta.
 
 Il fine della \emph{\keyword{cross-validazione}} è quello di valutare la capacità di apprendimento e generalizzazione di un modello predittivo \citep[si veda][capitolo $7$]{Hastie2001}, qual è il classificatore \acs{CTBN}. La \emph{\keyword{cross-validazione}} è considerata una delle tecniche possibili utilizzabili al fine di rilevare e evitare il problema dell'\emph{\keyword{overfitting}}\footnote{Il problema dell'\emph{overfitting} è un problema frequente nei campi di ricerca che utilizzato modelli e tecniche statistiche (\eg{} apprendimento automatico, data mining). Tale problema si verifica quando un modello statistico si adatta eccessivamente al \emph{training set} perdendo così la capacità di riconoscere (\ie{} classificare, nel caso di modelli predittivi) istanze del problema non conosciute; non acquisendo cioè una adeguata capacità di generalizzazione.}. A tale scopo, i risultati di ognuno dei $10$ processi di classificazione possono essere mediati (o combinati in modi alternativi) al fine di produrre singoli valori che stimino l'efficacia\footnote{L'efficacia di un classificatore è un termine generico che indica un insieme di misure (\eg{} \emph{precision\index{precision|see{metrica}}}, \emph{recall\index{recall|see{metrica}}}, \emph{$F$-measure\index{$F$-measure|see{metrica}}} e \emph{accuracy\index{accuracy|see{metrica}}}) della qualità di un classificatore.} del modello predittivo utilizzato. In questa sperimentazione, avendo affrontato un problema di \emph{classificazione multi-classe\index{classificazione!multi-classe}}, si sono mediati i risultati relativi a ogni \emph{fold\index{cross-validazione!fold}}\footnote{Un fold\index{fold|see{cross-validazione}} indica una configurazione, comprensiva di \emph{\keyword{training set}} e \emph{\keyword{test set}}, delle $k$ utilizzate durante una $k$-\emph{fold \keyword{cross-validazione}}.} utilizzando i cosiddetti approcci \emph{\keyword{micro-average}} e \emph{\keyword{macro-average}}.
 
@@ -492,7 +492,7 @@ La differenza tra queste due tecniche di sintesi dei risultati consiste nel fatt
 
 Si precisa che i risultati presentati di seguito sono quelli ottenuti dall'approccio \emph{\keyword{micro-average}} poiché le classi dei dataset generati sono tutte composte da numeri di istanze comparabili e nessuna di esse domina le altre in termini quantitativi.
 
-Inoltre, si specifica che le procedure di apprendimento dei parametri di ogni classificatore \acs{CTBN} (\acs{CTBNC}) appreso sono state effettuate utilizzando la \emph{\keyword{stima bayesiana}} (si veda l'intera \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}) con \keyword{conteggi immaginari} $\alpha_{\setel{x}\setel{x}^{\prime}}$ e $\tau_{\setel{x}}$ impostati rispettivamente ai valori $1$ e $0.005$.
+Inoltre, si specifica che le procedure di apprendimento dei parametri di ogni classificatore \acs{CTBN} (\acs{CTBNC}) appreso sono state effettuate utilizzando la \emph{stima bayesiana} (si veda l'intera \autoref{subsec:ctbn-params} \vpageref{subsec:ctbn-params}) con \keyword{conteggi immaginari} $\alpha_{\setel{x}\setel{x}^{\prime}}$ e $\tau_{\setel{x}}$ impostati rispettivamente ai valori $1$ e $0.005$.
 
 La procedura di \keyword{sperimentazione} descritta è stata attuata per i $4$ differenti modelli di classificatori \acs{CTBN} elencati di seguito:
 \begin{itemize}
