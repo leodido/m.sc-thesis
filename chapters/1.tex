@@ -44,7 +44,7 @@ Una \acl{BN}\index{bayesian network|see{rete bayesiana}} $\conceptsym{B}$ è una
 \end{itemize}
 \end{definizione}
 \begin{osservazione}\label{oss:bn-markov-assumption}
-Ogni nodo di una \acs{BN} è condizionalmente indipendente (si veda \autoref{defn:ic}) dai suoi non--discendenti dati i suoi nodi genitori.
+Ogni nodo di una \acs{BN} è condizionalmente indipendente (si veda la \autoref{defn:ic}) dai suoi non--discendenti dati i suoi nodi genitori.
 \end{osservazione}
 
 La \acs{CPD} di ogni variabile casuale $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$ esprime i suoi valori di probabilità in funzione dei valori assunti da $Pa(\setel{X_i})$, notazione con cui si denota l'\emph{insieme dei nodi genitori} per ogni nodo o variabile casuale.
@@ -54,7 +54,7 @@ Un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta
 Prima di procedere con la discussione si introduce la Chain Rule, proprietà fondamentale delle \acs{BN}.
 
 \begin{teorema}[Chain Rule\index{chain rule}]
-Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità \cond*{} delle variabili casuali.
+Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse, è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità \cond*{} delle variabili casuali.
 \end{teorema}
 
 Perciò, dato un insieme di variabili casuali $\setel{A_1},\dotsc,\setel{A_n}$ è possibile calcolare il valore di tale membro della distribuzione di probabilità congiunta applicando la definizione di probabilità \cond*{}:
@@ -97,12 +97,12 @@ dove $Nd(\setel{X_i})$ è l'insieme dei nodi non--discendenti (ed $\setel{E}$ è
 In base a ciò si dice quindi che le \acl{BN} rispettano l'\emph{assunzione locale di Markov}.
 
 \subsubsection{Apprendimento e Inferenza}
-In questa sezione si descrivono brevemente e a scopo introduttivo i processi di apprendimento e inferenza sulle \acl{BN}.
+In questa sezione si descrivono brevemente e a scopo introduttivo i processi di apprendimento e inferenza relativi alle \acl{BN}.
 
 Il problema dell'apprendimento per le \acl{BN}\index{rete bayesiana} si divide principalmente in due casi:
 \begin{itemize}
     \item apprendere le \acs{CPD}, nota la struttura
-    \item apprendere sia le \acs{CPD}, sia la struttura (incognita).
+    \item apprendere sia le \acs{CPD} sia la struttura (incognita).
 \end{itemize}
 In entrambi i casi è di grande aiuto la rappresentazione efficiente delle \acl{BN} che, tramite la \emph{fattorizzazione} della distribuzione di probabilità congiunta, permette di rappresentarla in modo compatto (tramite l'\autoref{eq:bn-chain-rule}) riducendo notevolmente il numero di parametri da calcolare.
 
@@ -110,7 +110,7 @@ Come detto, per specificare completamente una \acl{BN} è necessario rappresenta
 
 Per l'\emph{apprendimento dei parametri} esistono comunque una varietà di altri approcci possibili~\citep[si veda][]{Heckerman1996} (\eg{} trattare i parametri come variabili casuali sconosciute addizionali) che tuttavia non sono argomento di questo lavoro di tesi.
 
-Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura~\citep[si veda][]{Heckerman1996} sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo \emph{clique tree propagation}. Questi metodi, come gli altri presenti in letteratura, sono sempre esponenziali rispetto al \emph{tree-width}\footnote{In teoria dei grafi, il \emph{tree-width} è un numero associato ad un grafo. Esso corrisponde alla lunghezza minima di tutti i possibili alberi di decomposizione del grafo in esame. La lunghezza di un albero di decomposizione corrisponde alla dimensione massima dei suoi nodi, cioè sottoinsiemi dell'insieme dei vertici del grafo, sottratto $1$.} del grafo. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'\emph{importance sampling}~\citep{Shachter1990} e i metodi \acf{MCMC} (\emph{Gibbs sampling}, \emph{Metropolis sampling}, e \emph{Hybrid Monte Carlo sampling}), basati sul campionamento stocastico~\citep[si veda][]{Geman1984,Gilks1996,MacKay1998}.
+Si noti che le \acl{BN} non sono solamente un \emph{modello discriminativo ma anche generativo} poiché possono essere utilizzate per soddisfare query arbitrarie, cioè per effettuare \emph{inferenza probabilistica}: calcolare la distribuzione a posteriori di un insieme di variabili casuali data l'osservazione (evidenza) di altre (sfruttando il \emph{teorema di Bayes}). In letteratura~\citep[si veda][]{Heckerman1996} sono stati esplorati molti metodi di \emph{inferenza esatta}, quali ad esempio l'eliminazione tramite integrazione o somma delle variabili non osservate che non fanno parte della query probabilistica o il metodo \emph{clique tree propagation}. Questi metodi, come gli altri presenti in letteratura, sono sempre esponenziali rispetto al \emph{tree-width}\footnote{In teoria dei grafi, il \emph{tree-width} è un numero associato ad un grafo. Esso corrisponde alla lunghezza minima di tutti i possibili alberi di decomposizione del grafo in esame. La lunghezza di un albero di decomposizione corrisponde alla dimensione massima dei suoi nodi, ognuno dei quali è un sottoinsieme dell'insieme dei vertici del grafo, sottratto $1$.} del grafo. Per quanto riguarda invece gli algoritmi di \emph{inferenza approssimata} si citano due tra i più comuni: l'\emph{importance sampling}~\citep{Shachter1990} e i metodi \acf{MCMC} (\emph{Gibbs sampling}, \emph{Metropolis sampling}, e \emph{Hybrid Monte Carlo sampling}), basati sul campionamento stocastico~\citep[si veda][]{Geman1984,Gilks1996,MacKay1998}.
 
 Nel caso in cui non si disponga della struttura di una \acs{BN} è richiesto l'\emph{apprendimento strutturale}. Gli algoritmi per l'apprendimento strutturale delle \acl{BN} possono essere divisi in due famiglie.
 \begin{description}
@@ -136,7 +136,7 @@ Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presenta
 
 \begin{definizione}[Proprietà di Markov]
 \label{defn:markov-assumption}
-Secondo la proprietà di Markov gli stati futuri di un processo stocastico sono indipendenti dagli stati passati, avendo evidenza sullo stato presente di tale processo.
+Secondo la \keyword{proprietà di Markov} gli stati futuri di un processo stocastico sono indipendenti dagli stati passati, avendo evidenza sullo stato presente di tale processo.
 
 Formalmente, un processo stocastico $\setel{X}$ gode di tale proprietà, se e solo se vale la seguente equazione~\citep{Loeve1978}:
 \begin{equation}
@@ -180,7 +180,7 @@ Data quindi una variabile casuale $\setel{X}$ e l'insieme delle sue istanziazion
 
 \begin{definizione}[\upcase\im*{}]
 \label{defn:im}
-Una \acf{IM}\index{matrice!intensità, di}, rappresenta un \emph{modello di transizione Markoviano}:
+Una \acf{IM}\index{matrice!intensità, di}, rappresenta un \emph{modello di transizione\index{transizione!modello di} Markoviano}:
 \[
 \imsign{\setel{X}}=
 \begin{bmatrix}
@@ -212,9 +212,9 @@ F(t) &= 1-e^{-\param{q}_{\setel{x}_i}t}\,,\quad t\geq0\text{.}
 \end{split}
 \end{equation}
 
-Quando un modello di transizione è definito esclusivamente tramite una \im*{} $\imsign{\setel{X}}$ si dice che esso usa una \emph{parametrizzazione pura\index{parametrizzazione!pura}} delle intensità. In tal caso i parametri per un \mprocess*{} \omog*{} con $K$ stati sono $\{\,\param{q}_{\setel{x}_i}\,,\param{q}_{\setel{x}_i\setel{x}_j} : 1 \leq i\,,j \leq K\,,i \neq j\,\}$.
+Quando un modello di transizione\index{transizione!modello di} è definito esclusivamente tramite una \im*{} $\imsign{\setel{X}}$ si dice che esso usa una \emph{parametrizzazione pura\index{parametrizzazione!pura}} delle intensità. In tal caso i parametri per un \mprocess*{} \omog*{} con $K$ stati sono $\{\,\param{q}_{\setel{x}_i}\,,\param{q}_{\setel{x}_i\setel{x}_j} : 1 \leq i\,,j \leq K\,,i \neq j\,\}$.
 
-Mentre gli elementi sulla diagonale di una \im*{}, $\param{q}_{\setel{x}_i}$, codificano una quantità che può essere interpretata come la \emph{\virgolette{probabilità istantanea}} che $\setel{X}$ abbandoni lo stato $\setel{x}_i$, gli elementi non sulla diagonale, $\param{q}_{\setel{x}_i\setel{x}_j}$, esprimono l'\emph{intensità di transizione} dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$.
+Mentre gli elementi sulla diagonale di una \im*{}, $\param{q}_{\setel{x}_i}$, codificano una quantità che può essere interpretata come la \emph{\virgolette{probabilità istantanea}} che $\setel{X}$ abbandoni lo stato $\setel{x}_i$, gli elementi non sulla diagonale, $\param{q}_{\setel{x}_i\setel{x}_j}$, esprimono l'\emph{intensità di transizione\index{transizione!intensità di}} dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$.
 
 Tuttavia, questa non è l'unica parametrizzazione possibile per un \mprocess*{} \omog*{}. Si noti infatti che la distribuzione di probabilità locale sulle transizioni di $\setel{X}$ è fattorizzata in due parti.
 \begin{definizione}[Parametrizzazione mista delle intensità]\label{defn:mixed-parametrization}
@@ -237,14 +237,14 @@ La semantica di tali insiemi di parametri è la seguente:
 %     \item $\param{$\theta$}_{\setel{x}_{ij}}$, che esprime la \emph{distribuzione di probabilità \keyword{multinomiale}} tra coppie di stati $i \neq j$.
 % \end{itemize}
 \begin{osservazione}
-Si osservi che, aldilà del tipo di parametrizzazione con cui si sceglie di definire un modello di transizione, il numero di parametri necessari è pari a $K^2$ sebbene il numero di parametri liberi sia solo $K^2-K$~\citep{Nodelman2007}.
+Si osservi che, aldilà del tipo di parametrizzazione con cui si sceglie di definire un modello di transizione\index{transizione!modello di}, il numero di parametri necessari è pari a $K^2$ sebbene il numero di parametri liberi sia solo $K^2-K$~\citep{Nodelman2007}.
 \end{osservazione}
 \begin{osservazione}
 Si noti, inoltre, che una parametrizzazione può essere più chiara dell'altra a seconda del processo in cui si è coinvolti, di conseguenza nel prosieguo le si utilizzerà entrambe in modo intercambiabile.
 \end{osservazione}
-Al fine di correlare questi due tipi di parametrizzazione dei modelli di transizione si riporta il seguente teorema~\citep{Nodelman2007}.
+Al fine di correlare questi due tipi di parametrizzazione\index{parametrizzazione!pura} dei modelli di transizione si riporta il seguente teorema~\citep{Nodelman2007}.
 \begin{teorema}\label{th:rel-params}
-Dati $\setel{X}$ e $\setel{Y}$, due \mprocess{} \omog{} con lo stesso spazio degli stati e la stessa distribuzione di probabilità iniziale, se il modello di transizione di $\setel{X}$ è definito tramite la \im*{} $\imsign{\setel{X}}$ e quello di $\setel{Y}$ è definito tramite la parametrizzazione mista\index{parametrizzazione!mista} $\param{q}_{\setel{Y}}$, $\param{$\theta$}_{\setel{Y}}$, allora $\setel{X}$ e $\setel{Y}$ sono stocasticamente equivalenti\footnote{Due \mprocess{} sono detti \emph{stocasticamente equivalenti} se posseggono lo stesso spazio degli stati e le stesse probabilità di transizione~\citep{Gihman1973}.} solo se:
+Dati $\setel{X}$ e $\setel{Y}$, due \mprocess{} \omog{} con lo stesso spazio degli stati e la stessa distribuzione di probabilità iniziale, se il modello di transizione\index{transizione!modello di} di $\setel{X}$ è definito tramite la \im*{} $\imsign{\setel{X}}$ e quello di $\setel{Y}$ è definito tramite la parametrizzazione mista\index{parametrizzazione!mista} $\param{q}_{\setel{Y}}$, $\param{$\theta$}_{\setel{Y}}$, allora $\setel{X}$ e $\setel{Y}$ sono stocasticamente equivalenti\footnote{Due \mprocess{} sono detti \emph{stocasticamente equivalenti} se posseggono lo stesso spazio degli stati e le stesse probabilità di transizione~\citep{Gihman1973}.} solo se:
 \[
 \param{q}_{\setel{y}_i} = \param{q}_{\setel{x}_i}
 \]
@@ -256,7 +256,7 @@ e
 \begin{osservazione}
 Si osservi che il \autoref{th:rel-params} formalizza la relazione che sussiste fra i parametri $\param{q}$ e $\param{$\theta$}$.
 \end{osservazione}
-Quindi, qualsiasi sia la parametrizzazione utilizzata per rappresentare il modello di transizione di un \mprocess*{} \omog*{} $\setel{X}$, è possibile calcolare:
+Quindi, qualsiasi sia la parametrizzazione\index{parametrizzazione!mista} utilizzata per rappresentare il modello di transizione\index{transizione!modello di} di un \mprocess*{} \omog*{} $\setel{X}$, è possibile calcolare:
 \begin{itemize}
     \item il \emph{tempo atteso} di una transizione uscente dallo stato $\setel{x}_i$ \[1/\param{q}_{\setel{x}_i}\]
     \item la \emph{\virgolette{probabilità istantanea}} di transizione dallo stato $\setel{x}_i$ allo stato $\setel{x}_j$ sapendo che avverrà un salto ad un determinato istante di tempo \[\param{$\theta$}_{\setel{x}_i\setel{x}_j}=\param{q}_{\setel{x}_i\setel{x}_j}/\param{q}_{\setel{x}_i}\text{.}\]
@@ -265,7 +265,7 @@ Infine, si noti che la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ s
 
 \begin{definizione}[\upcase\mprocess*{} \cond*{}]
 \label{defn:conditional-markov-process}
-Un \mprocess*{}\index{processo di Markov!condizionale} le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess*{} \cond*{} (o \mprocess*{} non \omog*{}).
+Un \mprocess*{}\index{processo di Markov!condizionale} le cui intensità di transizione\index{transizione!intensità di} variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess*{} \cond*{} (o \mprocess*{} non \omog*{}).
 
 Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $Pa(\setel{X})$, anch'esse dei processi di Markov, è possibile definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{Pa(\setel{X})}$.
 
@@ -370,7 +370,7 @@ Più formalmente si definisce:
 Data una \pv{} $\set{X}$, insieme di processi di Markov $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$ a tempo continuo e con spazio degli stati finito $val(\setel{X_n})=\{\,\vectel{\setel{x}_1}\,,\,\dotsc\,,\,\vectel{\setel{x}_J}\,\}$ (dove $n=1\,,\,\dotsc\,,\,N$), una \acs{CTBN} $\conceptsym{N}$ su $\set{X}$ consiste di:
 \begin{itemize}
     \item una distribuzione di probabilità iniziale $\priorsign{\set{X}}$ specificata come una \bn{} $\conceptsym{B}$ su $\set{X}$
-    \item un modello di transizione a tempo continuo, specificato da:
+    \item un modello di transizione\index{transizione!modello di} a tempo continuo, specificato da:
     \begin{itemize}
         \item un grafo $\conceptsym{G}$, orientato e non necessariamente aciclico, composto dai nodi $\setel{X_1}\,,\,\setel{X_2}\,,\,\dotsc\,,\,\setel{X_N}$, ognuno dei quali possiede un insieme di genitori denotato da $Pa(\setel{X_n})$
         \item una \im*{} \cond*{} $\cimsign{\setel{X_n}}{Pa(\setel{X_n})}$ per ogni nodo $\setel{X_n} \in \set{X}$.
@@ -382,7 +382,7 @@ Per ogni variabile causale $\setel{X_n} \in \set{X}$ di $\conceptsym{N}$ si ha q
 
 Si riscontra, quindi, quanto già affermato in precedenza (si veda la \vref{sec:fondamenti-mp}), cioè che una \acs{CTBN} esprime la sua dinamica evolutiva globale tramite un unico \mprocess*{} \omog*{}, costituito da un insieme di \mprocess{} \cond{} (un insieme di \acs{CIM} e relative distribuzioni di probabilità iniziali).
 
-Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le dipendenze nel tempo. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati.
+Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi rappresentano le dipendenze nel tempo. Per tale motivo è possibile che la componente $\conceptsym{G}$ del modello di transizione\index{transizione!modello di} continuo contenga dei cicli. Tra l'altro, come vedremo nel prosieguo, la mancanza di tale vincolo di aciclicità porta a notevoli vantaggi computazionali relativamente all'apprendimento della struttura di una \acs{CTBN} dai dati.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Apprendimento}
