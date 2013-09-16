@@ -13,7 +13,9 @@ Perciò, in questo capitolo si descrivono i principali aspetti del \pacchettor{}
 
 Tuttavia, prima di presentare e chiarire le funzionalità offerte da tale pacchetto, è necessario introdurre il contesto per cui esso è stato pensato, progettato e implementato: il linguaggio \lstinline$R$.
 
-La discussione del presente capitolo segue quindi tale logica.
+La discussione del presente capitolo segue quindi la logica appena espressa.
+
+Si osservi tuttavia che il corrente capitolo tralascia gli aspetti implementativi del \pacchettor{}, poiché alla loro trattazione e discussione è dedicata l'\vref{cap:guide}.
 
 \section{Il linguaggio R}\label{sec:roverview}
 \lstinline$R$\index{\acsfont{R} (linguaggio)} è un linguaggio di programmazione \emph{interpretato} (e al contempo un ambiente di sviluppo) pensato per applicazioni di tipo \emph{statistico}. Esso incorpora di default una vastissima gamma di \emph{funzionalità statistiche} (\eg{} modelli di regressione, test statistici, analisi delle serie temporali, classificazione, clustering) e di tecniche inerenti la \emph{manipolazione dei dati} (\eg{} lazy loading\footnote{Il lazy loading è un design pattern comunemente utilizzato al fine di deferire l'inizializzazione, o il caricamento, di un qualsiasi oggetto finché ciò non sia strettamente necessario.}, strutture dati di tipo tabulare, procedure di calcolo matriciale efficaci) utili allo sviluppo di applicazioni e modelli per l'\emph{analisi dei dati} \citep{R2013}.
@@ -34,15 +36,15 @@ Un pacchetto \lstinline$R$ consiste in un insieme di cartelle e file che rispett
 \end{itemize}
 La struttura di un pacchetto \lstinline$R$ prevede ulteriori elementi opzionali:
 \begin{itemize}
-	\item una sotto cartella \lstinline$man/$, preposta alla documentazione del pacchetto
+	\item una sotto cartella \lstinline$man/$ preposta alla documentazione del pacchetto
 	\item un file \lstinline$NEWS$ per la descrizione dei cambiamenti in ogni versione del pacchetto tramite il formato standard che \lstinline$R$ fornisce a tale scopo
 	\item un file \lstinline$README$ che contenga una panoramica generale del pacchetto
 	\item un file \lstinline$inst/CITATION$ finalizzato alla descrizione delle modalità con cui citare il corrente pacchetto in lavori scientifici
 	\item una sotto cartella \lstinline$demo/$ contenente delle applicazioni d'esempio che utilizzano il pacchetto stesso
 	\item una sotto cartella \lstinline$inst/doc$ contenente la documentazione approfondita e eventuali manuali d'utilizzo
-	\item un file \lstinline$NAMESPACE$, che descriva quali funzioni devono far parte della \acs{API} del pacchetto cosicché esse siano utilizzabili dagli utenti
-	\item le sotto cartelle \lstinline$test/$ e \lstinline$inst/test/$, contenenti i test per il pacchetto, allo scopo di assicurarsi che esso operi come progettato
-	\item una sotto cartella \lstinline$data/$, preposta all'incorporazione nel pacchetto di eventuali dataset d'esempio
+	\item un file \lstinline$NAMESPACE$ che descriva quali funzioni devono far parte della \acs{API} del pacchetto cosicché esse siano utilizzabili dagli utenti
+	\item le sotto cartelle \lstinline$test/$ e \lstinline$inst/test/$ contenenti i test per il pacchetto, allo scopo di assicurarsi che esso operi come progettato
+	\item una sotto cartella \lstinline$data/$ preposta all'incorporazione nel pacchetto di eventuali dataset d'esempio
 	\item una sotto cartella \lstinline$src/$ per il codice sorgente non in linguaggio \lstinline$R$ (\eg{} \CC{}, \lstinline$C$ o \lstinline$FORTRAN$)
 	\item una sotto cartella \lstinline$exec/$ preposta alla distribuzione di ulteriori script eseguibili
 	\item una sotto cartella \lstinline$po/$ che contenga i file di traduzione per il pacchetto.
@@ -59,12 +61,12 @@ Il sorgente \ref{lst:rpackex} illustra, tramite un esempio di file \lstinline$DE
 \vspace*{8pt}\inputsourcecode[numbers=none,caption={[File di descrizione di un pacchetto \lstinline$R$]Esempio di possibile file di descrizione del \pacchettor{}.},language=pseudo,label=lst:rpackex]{codes/samplerpackage}\vspace*{8pt}
 Di seguito si elencano i sei campi che tale file di testo deve obbligatoriamente contenere:
 \begin{itemize}
-	\item il campo \lstinline$Package$, nel quale si definisce il nome del pacchetto (e dovrebbe, in teoria, corrispondere al nome della cartella radice)
-	\item il campo \lstinline$Title$, contenente a una descrizione sintetica del pacchetto (massimo una linea di testo)
-	\item il campo \lstinline$Description$, preposto a una descrizione maggiormente dettagliata del pacchetto e delle sue funzionalità
-	\item il campo \lstinline$Version$, contenente il numero di versione, auspicabilmente nel formato \lstinline$major.minor.patchlevel$
-	\item il campo \lstinline$Mantainer$, contenente un singolo nome e indirizzo e-mail per la persona responsabile della manutenzione del pacchetto
-	\item il campo \lstinline$License$, contenente una abbreviazione standard di una licenza open source.
+	\item il campo \lstinline$Package$ che definisce il nome del pacchetto (e dovrebbe, in teoria, corrispondere al nome della cartella radice)
+	\item il campo \lstinline$Title$ contenente una descrizione sintetica del pacchetto (massimo una linea di testo)
+	\item il campo \lstinline$Description$ preposto a una descrizione maggiormente dettagliata del pacchetto e delle sue funzionalità
+	\item il campo \lstinline$Version$ contenente il numero di versione, auspicabilmente nel formato \lstinline$major.minor.patchlevel$
+	\item il campo \lstinline$Mantainer$ contenente un singolo nome e indirizzo e-mail per la persona responsabile della manutenzione del pacchetto
+	\item il campo \lstinline$License$ contenente una abbreviazione standard di una licenza open source.
 \end{itemize}
 
 \section{Analisi}\label{sec:rctbn-describ}
