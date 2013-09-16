@@ -77,7 +77,7 @@ Si osservi infine che l'intero processo di gestione dei dataset contempla la pos
 \vspace*{8pt}\inputsourcecode[language=pseudo,nolol,numbers=none,basicstyle=\footnotesize\ttfamily]{codes/loadctbndsoutput}
 
 \subsection{Calcolo delle \stats{}}
-In questa sottosezione si illustrano le funzionalità che \rctbn{} fornisce affinché l'utente possa computare le \emph{\stats{}}.
+In questa sottosezione si illustrano le funzionalità che \rctbn{} fornisce affinché l'utente possa computare le \emph{\stats{}}\index{statistiche sufficienti}.
 
 I sorgenti mostrati assumono che il \pacchettor{} sia stato caricato e che il \ds{2} sia stato importato e caricato.
 
@@ -92,7 +92,7 @@ Di seguito si riporta l'output fornito dal sorgente \ref{lst:rctbn-fsstats}.
 
 \vspace*{8pt}\inputsourcecode[language=pseudo,nolol,numbers=none,basicstyle=\footnotesize\ttfamily]{codes/fsstatsres}\vspace*{8pt}
 
-Si osservi che \lstinline[language=rstats]{fsstats} non permette di computare le \emph{\stats{}} di più variabili specificando per ognuna di esse un insieme di genitori diverso. Tale funzione è quindi utilizzabile con profitto nel caso in cui si intenda calcolare le \emph{\stats{}} di più variabili (eventualmente anche tutte) rispetto a un unico insieme di genitori: si pensi ad esempio a ciò che è necessario fare quando si intende apprendere un classificatore \acs{CTNB} (\acs{CTNBC}) (mostrato in \vref{fig:ctnbc}), caratterizzato proprio dal fatto che ogni sua variabile ha un solo nodo genitore, il nodo classe.
+Si osservi che \lstinline[language=rstats]{fsstats} non permette di computare le \emph{\stats{}}\index{statistiche sufficienti} di più variabili specificando per ognuna di esse un insieme di genitori diverso. Tale funzione è quindi utilizzabile con profitto nel caso in cui si intenda calcolare le \emph{\stats{}} di più variabili (eventualmente anche tutte) rispetto a un unico insieme di genitori: si pensi ad esempio a ciò che è necessario fare quando si intende apprendere un classificatore \acs{CTNB} (\acs{CTNBC}) (mostrato in \vref{fig:ctnbc}), caratterizzato proprio dal fatto che ogni sua variabile ha un solo nodo genitore, il nodo classe.
 
 Ipotizziamo perciò di volere utilizzare la funzione \lstinline[language=rstats]{fsstats} per calcolare le \emph{\stats{}} di alcune variabili (ad esempio le variabili \lstinline[language=rstats]{"D241"}, \lstinline[language=rstats]{"D781"} e \lstinline[language=rstats]{"D782"}) data la sola variabile \lstinline[language=rstats]{"class"} (\ie{} nodo classe) come genitore. Il sorgente che segue illustra come espletare tale obiettivo.
 
@@ -102,7 +102,7 @@ Come visibile dall'output conseguente l'esecuzione del sorgente \ref{lst:rctbn-f
 
 \vspace*{8pt}\inputsourcecode[nolol,language=pseudo,numbers=none, basicstyle=\footnotesize\ttfamily]{codes/fsstats2res}\vspace*{8pt}
 
-Si osservi che la funzione \lstinline[language=rstats]{fsstats} permette anche di calcolare le \emph{\stats{}} di uno o più nodi senza condizionare la loro computazione ad alcun genitore.
+Si osservi che la funzione \lstinline[language=rstats]{fsstats} permette anche di calcolare le \emph{\stats{}}\index{statistiche sufficienti} di uno o più nodi senza condizionare la loro computazione ad alcun genitore.
 
 Di seguito viene illustrato come effettuare tale operazione.
 
@@ -287,7 +287,7 @@ Si osservi che, questa modalità di output non è l'unica che la funzione \lstin
 \subsection{Apprendimento strutturale}
 Lo scopo di questa sottosezione è presentare brevemente l'esecuzione del processo di \emph{\index{apprendimento!strutturale}} tramite il \pacchettor{}.
 
-Nello specifico, dato un ipotetico \emph{\keyword{training set}}, si presenta l'utilizzo della funzione \lstinline[language=rstats]{greedy_search} per l'apprendimento del classificatore \acs{CTBN} (\acs{CTBNC}) che meglio rappresenta tali \keyword{dati di addestramento}, fissato il numero massimo di genitori di ogni nodo al valore $2$. Tuttavia si osservi che la funzione in questione può apprendere una qualsiasi struttura \acs{CTBN}. Tale funzione esegue l'\autoref{lst:hc-pseudo}, presentato \vpageref{lst:hc-pseudo}, per ogni nodo delle istanze del \emph{\keyword{training set}}, utilizzando come punteggio la funzione $famscore_{\conceptsym{B}}$ presentata nella \vref{sec:ctbn-structurallearning-score} (si veda l'\autoref{eq:bayesian-score}).
+Nello specifico, dato un ipotetico \emph{\keyword{training set}}, si presenta l'utilizzo della funzione \lstinline[language=rstats]{greedy_search} per l'apprendimento del classificatore \acs{CTBN} (\acs{CTBNC}) che meglio rappresenta tali dati di addestramento\index{dati!addestramento, di|see{\trs{}}}, fissato il numero massimo di genitori di ogni nodo al valore $2$. Tuttavia si osservi che la funzione in questione può apprendere una qualsiasi struttura \acs{CTBN}. Tale funzione esegue l'\autoref{lst:hc-pseudo}, presentato \vpageref{lst:hc-pseudo}, per ogni nodo delle istanze del \emph{\keyword{training set}}, utilizzando come punteggio la funzione $famscore_{\conceptsym{B}}$ presentata nella \vref{sec:ctbn-structurallearning-score} (si veda l'\autoref{eq:bayesian-score}).
 
 La funzione \lstinline[language=rstats]{greedy_search} richiede che le siano fornite in input le seguenti informazioni, sotto forma di parametri:
 \begin{itemize}
@@ -306,7 +306,7 @@ Il sorgente che segue illustra come espletare il compito prefissatoci.
 
 \vspace*{8pt}\inputsourcecode[caption={[Apprendimento della struttura (\ds{2})]Apprendimento della struttura di un \acs{CTBN} (\acs{CTBNC}) da una porzione del \ds{2}.},label=lst:rctbn-hc,language=rstats]{codes/hc}
 
-L'output che tale funzione restituisce è composto dalla struttura che meglio rappresenta i \keyword{dati di addestramento} e il relativo modello \acs{CTBN} computato in fase di ricerca.
+L'output che tale funzione restituisce è composto dalla struttura che meglio rappresenta i dati di addestramento\index{dati!addestramento, di|see{\trs{}}} e il relativo modello \acs{CTBN} computato in fase di ricerca.
 
 \section{Generazione di dataset}\label{sec:create-dataset-howto}
 In questa sezione si illustra il processo di generazione di un dataset per le \acs{CTBN} a partire da un modello di traffico \acs{TSIS}, utilizzando l'\acl{RTE} sviluppata in questo lavoro di tesi, \acsfont{Sensors} \acs{DLL}.

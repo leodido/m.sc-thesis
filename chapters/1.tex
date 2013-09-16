@@ -31,9 +31,9 @@ Le \acs{BN} sono quindi modelli grafico probabilistici con cui è possibile mode
 \subsubsection{Rappresentazione}\label{subsec:bn-representation}
 Di seguito si fornisce la definizione formale delle \acl{BN} e si introducono i loro aspetti basilari.
 
-\begin{definizione}[\acl{BN}]
+\begin{definizione}[\acl{BN}\index{rete bayesiana}]
 \label{defn:bn}
-Una \acl{BN} $\conceptsym{B}$ è una coppia $\conceptsym{B}=(\conceptsym{G},\param{$\theta$}_{\conceptsym{G}})$ costituita da:
+Una \acl{BN}\index{bayesian network|see{rete bayesiana}} $\conceptsym{B}$ è una coppia $\conceptsym{B}=(\conceptsym{G},\param{$\theta$}_{\conceptsym{G}})$ costituita da:
 \begin{itemize}
     \item $\conceptsym{G}=(\set{V}(\conceptsym{G}),\set{A}(\conceptsym{G}))$, un \acl{DAG} dove:
     \begin{itemize}
@@ -53,7 +53,7 @@ Un arco da un nodo genitore verso un nodo figlio di $\conceptsym{G}$ rappresenta
 
 Prima di procedere con la discussione si introduce la Chain Rule, proprietà fondamentale delle \acs{BN}.
 
-\begin{teorema}[Chain Rule]
+\begin{teorema}[Chain Rule\index{chain rule}]
 Dato un insieme di variabili casuali e una distribuzione di probabilità congiunta definita su di esse è possibile calcolare qualsiasi elemento di tale distribuzione tramite le distribuzioni di probabilità \cond*{} delle variabili casuali.
 \end{teorema}
 
@@ -75,7 +75,7 @@ L'\autoref{eq:bn-chain-rule} esprime quindi la \emph{proprietà di fattorizzazio
 
 Poiché, come detto, una \acl{BN} stabilisce che ogni nodo, dati i suoi genitori, è \emph{condizionalmente indipendente} da ogni altro nodo che non sia un suo discendente, di seguito si introduce tale concetto formalmente.
 \begin{definizione}[Indipendenza \cond*{}]\label{defn:ic}
-Un evento $\setel{A}$ è \emph{condizionalmente indipendente} da un evento $\setel{B}$, data l'evidenza su un evento $\setel{C}$, qualora la conoscenza di $\setel{B}$ non apporta alcuna variazione alla probabilità di $\setel{A}$ rispetto a quella conseguente alla conoscenza di $\setel{C}$.
+Un evento $\setel{A}$ è \emph{condizionalmente indipendente}\index{indipendenza condizionale} da un evento $\setel{B}$, data l'evidenza su un evento $\setel{C}$, qualora la conoscenza di $\setel{B}$ non apporta alcuna variazione alla probabilità di $\setel{A}$ rispetto a quella conseguente alla conoscenza di $\setel{C}$.
 Formalmente, ciò significa che:
 \[
 \set{P}(\setel{A},\setel{B}\,\arrowvert\,\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{B},\setel{C})\cdot\set{P}(\setel{B}\,\arrowvert\,\setel{C})=\set{P}(\setel{A}\,\arrowvert\,\setel{C})\cdot\set{P}(\setel{B}\,\arrowvert\,\setel{C})\text{.}
@@ -87,7 +87,7 @@ Da cui segue che:
 \end{definizione}
 In termini non formali, supponendo di essere nel caso della definizione, cioè di avere una variabile casuale $\setel{A}$ \emph{condizionalmente indipendente} da $\setel{B}$ dato $\setel{C}$, ciò significa che è possibile ignorare $\setel{B}$ poiché essa non ha alcun riflesso sulla distribuzione \cond*{} di $\setel{A}$ quando sia noto l'evento $\setel{C}$.
 
-Si noti che il concetto appena espresso gioca un ruolo importante per i modelli probabilistici, quali sono le \acl{BN}, semplificando i calcoli richiesti per l'inferenza e l'apprendimento. Le \acl{BN} ereditano questi benefici dell'indipendenza \cond*{} come conseguenza della loro definizione (a tal riguardo si rimanda all'\autoref{oss:bn-markov-assumption}). Infatti, la distribuzione \cond*{} di ogni variabile casuale $\setel{X_i}$ dipende solo ed esclusivamente dal valore dei suoi genitori, $Pa(\setel{X_i})$, mentre ignora completamente i valori dei nodi che non discendono da essa, $Nd(\setel{X_i})$.
+Si noti che il concetto appena espresso gioca un ruolo importante per i modelli probabilistici, quali sono le \acl{BN}, semplificando i calcoli richiesti per l'inferenza e l'apprendimento. Le \acl{BN} ereditano questi benefici dell'indipendenza \cond*{}\index{indipendenza condizionale} come conseguenza della loro definizione (a tal riguardo si rimanda all'\autoref{oss:bn-markov-assumption}). Infatti, la distribuzione \cond*{} di ogni variabile casuale $\setel{X_i}$ dipende solo ed esclusivamente dal valore dei suoi genitori, $Pa(\setel{X_i})$, mentre ignora completamente i valori dei nodi che non discendono da essa, $Nd(\setel{X_i})$.
 
 Grazie alla \autoref{defn:ic} è possibile esprimere in modo formale il concetto appena espresso per ogni nodo $\setel{X_i}\in\set{X}_{\set{V}(\conceptsym{G})}$:
 \[
@@ -99,7 +99,7 @@ In base a ciò si dice quindi che le \acl{BN} rispettano l'\emph{assunzione loca
 \subsubsection{Apprendimento e Inferenza}
 In questa sezione si descrivono brevemente e a scopo introduttivo i processi di apprendimento e inferenza sulle \acl{BN}.
 
-Il problema dell'apprendimento per le \acl{BN} si divide principalmente in due casi:
+Il problema dell'apprendimento per le \acl{BN}\index{rete bayesiana} si divide principalmente in due casi:
 \begin{itemize}
     \item apprendere le \acs{CPD}, nota la struttura
     \item apprendere sia le \acs{CPD}, sia la struttura (incognita).
@@ -132,7 +132,7 @@ Gli \emph{algoritmi basati su punteggio} sono invece delle applicazioni dei vari
 \subsection{Processi di Markov}
 \label{subsec:mps}
 
-Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presentando alcuni concetti propedeutici relativi ai \mprocess{}, una categoria di processi stocastici con assenza di memoria~\citep{Loeve1978}.
+Sempre al fine di preparare la discussione delle \acl{CTBN} si prosegue presentando alcuni concetti propedeutici relativi ai \mprocess{}\index{processo di Markov}, una categoria di processi stocastici con assenza di memoria~\citep{Loeve1978}.
 
 \begin{definizione}[Proprietà di Markov]
 \label{defn:markov-assumption}
@@ -155,7 +155,7 @@ In altri termini ciò indica che lo stato futuro di una variabile casuale è \em
 Dalla proprietà di Markov deriva la definizione dei \mprocess{}.
 
 \begin{definizione}[\upcase\mprocess*{}]
-Si definisce~\citep{Loeve1978} come \mprocess*{} un processo stocastico che gode della proprietà di Markov.
+Si definisce~\citep{Loeve1978} come \mprocess*{}\index{processo di Markov} un processo stocastico che gode della proprietà di Markov.
 \end{definizione}
 
 \begin{definizione}[Catena di Markov]
@@ -166,7 +166,7 @@ Esistono due tipi di processi di Markov: omogenei e non. Si procede quindi forne
 
 \begin{definizione}[\upcase\mprocess*{} \omog*{}]
 \label{defn:homogeneus-markov-process}
-Un \mprocess*{} è detto \emph{\omog*{}} qualora $\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))$ non dipenda dal tempo $t$. Affinché ciò sia vero deve risultare che:
+Un \mprocess*{}\index{processo di Markov!omogeneo} è detto \emph{\omog*{}} qualora $\set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))$ non dipenda dal tempo $t$. Affinché ciò sia vero deve risultare che:
 \begin{equation}
 \label{eq:homogeneus-markov-process}
 \set{P}(\setel{X}(t + \Delta t)\,\arrowvert\,\setel{X}(t))=\set{P}(\setel{X}(\Delta t)\,\arrowvert\,\setel{X}(0))\text{.}
@@ -265,7 +265,7 @@ Infine, si noti che la matrice $\imsign{\setel{X}}$ fa in modo che $\setel{X}$ s
 
 \begin{definizione}[\upcase\mprocess*{} \cond*{}]
 \label{defn:conditional-markov-process}
-Un \mprocess*{} le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess*{} \cond*{} (o \mprocess*{} non \omog*{}).
+Un \mprocess*{}\index{processo di Markov!condizionale} le cui intensità di transizione variano nel tempo non in funzione del tempo ma in funzione dei valori assunti ad ogni determinato istante $t$ da un insieme di altre variabili, che evolvono anch'esse come dei processi di Markov, è detto essere un \mprocess*{} \cond*{} (o \mprocess*{} non \omog*{}).
 
 Assumendo quindi che una variabile casuale $\setel{X}$ evolva come un \mprocess*{} $\setel{X}(t)$ e che la sua dinamica sia condizionata da un insieme di altre variabili casuali $Pa(\setel{X})$, anch'esse dei processi di Markov, è possibile definire per tale variabile casuale una \acf{CIM} $\cimsign{\setel{X}}{Pa(\setel{X})}$.
 
@@ -320,7 +320,7 @@ Ipotizzando che l'unità temporale corrisponda a un'ora:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nelle precedenti sezioni sono stati illustrati i concetti che si pongono a fondamento delle \acl{CTBN}:
 \begin{itemize}
-    \item le \acl{BN}: utili a comprendere la rappresentazione strutturata dello spazio degli stati delle \acs{CTBN}, l'utilizzo della nozione di indipendenza \cond*{} e le conseguenti tecniche di apprendimento e inferenza
+    \item le \acl{BN}\index{rete bayesiana}: utili a comprendere la rappresentazione strutturata dello spazio degli stati delle \acs{CTBN}, l'utilizzo della nozione di indipendenza \cond*{} e le conseguenti tecniche di apprendimento e inferenza
     \item i \mprocess{}, \omog{} e non, al fine di introdurre le modalità di rappresentazione (qualitativa e quantitativa) delle \acs{CTBN}.
 \end{itemize}
 
@@ -331,7 +331,7 @@ Prima di presentare le \acl{CTBN} come una collezione di \ctmp{} non \omog{} e c
 \end{definizione}
 
 \begin{definizione}[Traiettoria]\label{defn:traiettoria}
-    Istanziazione di un insieme di valori per $\setel{X}(t)$ al variare di $t$.
+    Istanziazione\index{traiettoria} di un insieme di valori per $\setel{X}(t)$ al variare di $t$.
 \end{definizione}
 
 \begin{definizione}[$J$-time-segment]\label{defn:j-time-segment}
@@ -350,7 +350,7 @@ Data una \pv{} $\set{X}$ composta da $N$ variabili casuali e un insieme di segme
 \`E possibile riferirsi a tale concetto anche tramite l'espressione \emph{\virgolette{flusso di evidenze}}.
 \end{notabene}
 \begin{notabene}
-Un flusso di evidenze $\evidencestream{J}$. è detto essere \emph{completamente osservato} se lo stato di tutte le variabili $\setel{X_n}\in\set{X}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un flusso di evidenze è detto \emph{parzialmente osservato}.
+Un flusso di evidenze\index{flusso di evidenze} $\evidencestream{J}$. è detto essere \emph{completamente osservato} se lo stato di tutte le variabili $\setel{X_n}\in\set{X}$ è conosciuto in tutto l'intervallo $[\,0,\,T)$. Viceversa, un flusso di evidenze è detto \emph{parzialmente osservato}.
 \end{notabene}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -388,13 +388,13 @@ Si noti che, diversamente dalle \acl{BN}, nelle \acl{CTBN} gli archi fra i nodi 
 \section{Apprendimento}
 \label{sec:ctbn-apprendimento}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In questa sezione si argomenta sulla probabilità di un \emph{insieme di dati completo} rispetto a una \acl{CTBN}. A tal fine si mostra come una \acs{CTBN} possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e espressa in termini di \emph{\keyword{\stats{}}} aggregate.
+In questa sezione si argomenta sulla probabilità di un \emph{insieme di dati completo\index{dati!completi}} rispetto a una \acl{CTBN}. A tal fine si mostra come una \acs{CTBN} possa essere decomposta in un aggregato di modelli di probabilità locali relativi alle singole variabili casuali e espressa in termini di \emph{\keyword{\stats{}}} aggregate.
 
 Si affronta infine il processo di apprendimento dei parametri delle \acl{CTBN} da \emph{dati completi}. I processi di apprendimento relativi a dati non completi sono tralasciati poiché non facenti parte degli argomenti di questo lavoro di tesi.
 
 \begin{definizione}[Insieme di dati completo]
 \label{defn:dataset-completo}
-Dato un insieme di variabili casuali, un insieme di dati $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ si dice \emph{completo}\index{dati completi} se ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un insieme di traiettorie completamente osservate delle variabili casuali (\ie{} l'istanziazione di tutte le variabili casuali è osservabile per ogni istante temporale di ogni traiettoria).
+Dato un insieme di variabili casuali, un insieme di dati $\conceptsym{D}=\{\,\delta_1\,,\,\dotsc\,,\,\delta_h\,\}$ si dice \emph{completo}\index{dati!completi} se ogni $\delta_i$ (con $i=1\,,\,\dotsc\,,\,h$) è un insieme di traiettorie completamente osservate delle variabili casuali (\ie{} l'istanziazione di tutte le variabili casuali è osservabile per ogni istante temporale di ogni traiettoria).
 \end{definizione}
 
 \subsection{Statistiche sufficienti}

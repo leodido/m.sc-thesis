@@ -85,22 +85,22 @@ Una \ACF{RTE}, \acl{RTE}, è un'applicazione in grado di comunicare a tempo d'es
 In questa sezione si elencano gli strumenti che costituiscono l'ambiente di sviluppo \acs{TSIS}.
 
 \begin{description}
-\item[CORSIM] \hfill \\
-\acs{CORSIM}\footnote{\acf{CORSIM}.} costituisce il componente principale dell'insieme di strumenti denominato \acs{TSIS}. È un simulatore il cui obiettivo è permettere la creazione e l'esecuzione di modelli di simulazione \acs{TSIS}. È composto da due simulatori integrati che rappresentano l'intero sistema di traffico come funzione del tempo: \acs{NETSIM}\footnote{\acf{NETSIM}.} e \acs{FREESIM}\footnote{\acf{FREESIM}.}. Tali simulatori integrati rappresentano, rispettivamente, il traffico sulle strade urbane e non. La simulazione effettuata da tali strumenti è di tipo microscopico: essi modellano individualmente il comportamento di ogni singolo veicolo, prendendo in considerazione per ognuno di essi una serie di variabili, anche di tipo stocastico (\eg{} tipologia di guidatore). Per tale motivo \acs{CORSIM} è dotato di molte possibili opzioni di configurazione e permette lo studio di modelli molto complessi e dettagliati.
-\item[TRAFED] \hfill \\
-\acs{TRAFED}\footnote{\acf{TRAFED}.} è una \acs{GUI} il cui scopo è permettere la creazione e la modifica di reti stradali e di modelli di simulazione per \acs{CORSIM}.
-\item[TShell] \hfill \\
-\acs{TShell}\footnote{\acf{TShell}.} è la \acs{GUI} di \acs{TSIS}. Funge da contenitore degli strumenti (preconfigurati, o creati dall'utente) di questo ambiente di sviluppo integrato e permette la gestione dei progetti \acs{TSIS}.
-\item[TRAFVU] \hfill \\
-\acs{TRAFVU}\footnote{\acf{TRAFVU}.} è una \acs{GUI} finalizzata alla visualizzazione dei modelli di simulazione simulati con \acs{CORSIM}. Essa permette sia di visualizzare in modo animato l'evoluzione del traffico nella rete stradale con una qualsiasi granularità temporale, sia di visualizzare una serie di misure di interesse relative alla simulazione.
-\item[TSIS Text Editor] \hfill \\
-\acs{TSIS} \acsfont{Text Editor} è uno strumento il cui scopo è facilitare la modifica manuale dei file \acs{TRF}. A tale scopo esso visualizza per ogni \acs{RT} che si intende modificare sia la sua descrizione sia l'insieme dei campi supportati.
-\item[TSIS Script Tool] \hfill \\
-\acs{TSIS} \acsfont{Script Tool} è uno strumento per la creazione, la modifica e l'esecuzione di codice \acs{VBScript}\footnote{\acf{VBScript} è un linguaggio interpretato, sottoinsieme del linguaggio \emph{Visual Basic}, utilizzato come sostituto o integrazione della linea di comando o per il controllo di applicazioni esterne in ambiente \emph{Microsoft Windows}.}. Questo strumento fornisce un meccanismo utile ad automatizzare le funzionalità di simulazione di \acs{TSIS} (\eg{} esecuzioni multiple dello stesso modello di simulazione variando il seme dei numeri casuali che governa la distribuzione di ingresso dei veicoli nella rete stradale).
-\item[TSIS Translator] \hfill \\
-\acs{TSIS} \acsfont{Translator} è uno strumento utile alla conversione dei file dal formato \acs{TRF} al formato \acs{TNO} e viceversa. Tale operazione risulta utile al fine di rendere i file \acs{TRF} utilizzabili tramite lo strumento \acs{TRAFED} così come per rendere i file \acs{TNO} utilizzabili con \acs{CORSIM}.
-\item[TSIS Output Processor] \hfill \\
-\acs{TSIS} \acsfont{Output Processor} è uno strumento finalizzato alla raccolta e l'aggregazione dei dati da \acs{CORSIM} durante l'esecuzione multipla di modelli di simulazione. La sua caratteristica principale consiste nella computazione automatica di un insieme di statistiche predefinite. Esso permette di scegliere sia le statistiche di interesse sia la granularità temporale della loro computazione.
+    \item[CORSIM] \hfill \\
+    \acs{CORSIM}\footnote{\acf{CORSIM}.} costituisce il componente principale dell'insieme di strumenti denominato \acs{TSIS}. È un simulatore il cui obiettivo è permettere la creazione e l'esecuzione di modelli di simulazione \acs{TSIS}. È composto da due simulatori integrati che rappresentano l'intero sistema di traffico come funzione del tempo: \acs{NETSIM}\footnote{\acf{NETSIM}.} e \acs{FREESIM}\footnote{\acf{FREESIM}.}. Tali simulatori integrati rappresentano, rispettivamente, il traffico sulle strade urbane e non. La simulazione effettuata da tali strumenti è di tipo microscopico: essi modellano individualmente il comportamento di ogni singolo veicolo, prendendo in considerazione per ognuno di essi una serie di variabili, anche di tipo stocastico (\eg{} tipologia di guidatore). Per tale motivo \acs{CORSIM} è dotato di molte possibili opzioni di configurazione e permette lo studio di modelli molto complessi e dettagliati.
+    \item[TRAFED] \hfill \\
+    \acs{TRAFED}\footnote{\acf{TRAFED}.} è una \acs{GUI} il cui scopo è permettere la creazione e la modifica di reti stradali e di modelli di simulazione per \acs{CORSIM}.
+    \item[TShell] \hfill \\
+    \acs{TShell}\footnote{\acf{TShell}.} è la \acs{GUI} di \acs{TSIS}. Funge da contenitore degli strumenti (preconfigurati, o creati dall'utente) di questo ambiente di sviluppo integrato e permette la gestione dei progetti \acs{TSIS}.
+    \item[TRAFVU] \hfill \\
+    \acs{TRAFVU}\footnote{\acf{TRAFVU}.} è una \acs{GUI} finalizzata alla visualizzazione dei modelli di simulazione simulati con \acs{CORSIM}. Essa permette sia di visualizzare in modo animato l'evoluzione del traffico nella rete stradale con una qualsiasi granularità temporale, sia di visualizzare una serie di misure di interesse relative alla simulazione.
+    \item[TSIS Text Editor] \hfill \\
+    \acs{TSIS} \acsfont{Text Editor} è uno strumento il cui scopo è facilitare la modifica manuale dei file \acs{TRF}. A tale scopo esso visualizza per ogni \acs{RT} che si intende modificare sia la sua descrizione sia l'insieme dei campi supportati.
+    \item[TSIS Script Tool] \hfill \\
+    \acs{TSIS} \acsfont{Script Tool} è uno strumento per la creazione, la modifica e l'esecuzione di codice \acs{VBScript}\footnote{\acf{VBScript} è un linguaggio interpretato, sottoinsieme del linguaggio \emph{Visual Basic}, utilizzato come sostituto o integrazione della linea di comando o per il controllo di applicazioni esterne in ambiente \emph{Microsoft Windows}.}. Questo strumento fornisce un meccanismo utile ad automatizzare le funzionalità di simulazione di \acs{TSIS} (\eg{} esecuzioni multiple dello stesso modello di simulazione variando il seme dei numeri casuali che governa la distribuzione di ingresso dei veicoli nella rete stradale).
+    \item[TSIS Translator] \hfill \\
+    \acs{TSIS} \acsfont{Translator} è uno strumento utile alla conversione dei file dal formato \acs{TRF} al formato \acs{TNO} e viceversa. Tale operazione risulta utile al fine di rendere i file \acs{TRF} utilizzabili tramite lo strumento \acs{TRAFED} così come per rendere i file \acs{TNO} utilizzabili con \acs{CORSIM}.
+    \item[TSIS Output Processor] \hfill \\
+    \acs{TSIS} \acsfont{Output Processor} è uno strumento finalizzato alla raccolta e l'aggregazione dei dati da \acs{CORSIM} durante l'esecuzione multipla di modelli di simulazione. La sua caratteristica principale consiste nella computazione automatica di un insieme di statistiche predefinite. Esso permette di scegliere sia le statistiche di interesse sia la granularità temporale della loro computazione.
 \end{description}
 
 \subsection{Caratteristiche}\label{subsec:tsis-features}
