@@ -1,4 +1,5 @@
-# CTBN
+CTBN [![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/m.sc-thesis)](https://github.com/igrigorik/ga-beacon)
+=====
 
 This repository contains the `tex` source of my M.Sc. thesis on Continuous time Bayesian Networks (CTBNs).
 
